@@ -19,9 +19,9 @@ $(function() {
 
         var cell_size = 128 * zoom_ratio;
         var $result_area = $("#result-area");
-        $result_area.html();
-        for (var y = 0; y < h; y++) {
-            for (var x = 0; x < v; x++) {
+        $result_area.html("");
+        for (var y = 0; y < v; y++) {
+            for (var x = 0; x < h; x++) {
                 var $canvas = $("<canvas width=128 height=128>").appendTo($result_area);
                 var ctx = $canvas[0].getContext('2d');
                 ctx.drawImage(
