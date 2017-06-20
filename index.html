@@ -17,7 +17,7 @@
 
       <div class="col-md-9">
         <div class="panel panel-default">
-          <div class="panel-heading">画像</div>
+          <div class="panel-heading">結果</div>
           <div class="panel-body">
             <p id="result-area">
             </p>
@@ -30,19 +30,34 @@
           <div class="panel-heading">設定</div>
           <div class="panel-body">
             <div class="form-group">
+              <label>分割数 横</label>
+              <input type="text" value="1" id="h" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>分割数 縦</label>
+              <input type="text" value="1" id="v" class="form-control">
+            </div>
+            <div class="form-group">
               <label>画像</label>
               <input type="file" id="file" class="form-control">
             </div>
-            <img id="preview" style="max-width: 100%;" />
-            <div class="form-group">
-              <label>分割数（横）</label>
-              <input type="text" value="2" id="h" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>分割数（縦）</label>
-              <input type="text" value="2" id="v" class="form-control">
+            <p><img id="preview" style="max-width: 100%;" /></p>
+            <div id="details" style="display: none;">
+              <div class="form-group">
+                <label>トリミング 左 (px)</label>
+                <input type="text" value="0" id="left" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>トリミング 上 (px)</label>
+                <input type="text" value="0" id="top" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>縮小率 (分の１)</label>
+                <input type="text" value="1.0" id="zoom" class="form-control">
+              </div>
             </div>
             <input type="button" id="render" class="btn btn-primary" value="Render">
+            <input type="button" id="toggle_details" class="btn btn-default" value="Advanced">
           </div>
         </div>
       </div>
