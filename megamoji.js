@@ -40,8 +40,8 @@ function render_cell (image, trimLeft, trimRight, width, height, kira) {
 
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, 128, 128);
-        for (var i = 0; i < 30; i++) {
-            ctx.filter = "saturate(1000%) hue-rotate(" + (i * 12) + "deg)";
+        for (var i = 0; i < 8; i++) {
+            ctx.filter = "saturate(1000%) hue-rotate(" + (i * 45) + "deg)";
             ctx.drawImage(image, trimLeft, trimRight, width, height, 0, 0, 128, 128);
             encoder.addFrame(ctx);
         }
