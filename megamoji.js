@@ -35,7 +35,7 @@ function render_cell (image, trimLeft, trimRight, width, height, kira) {
     } else {
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
-        encoder.setDelay(1000 / 30); /* 30 = FPS */
+        encoder.setFrameRate(30);
         encoder.start();
         for (var i = 0; i < 30; i++) {
             ctx.filter = "saturate(1000%) hue-rotate(" + (i * 12) + "deg)";
