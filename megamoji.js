@@ -1,13 +1,13 @@
-function update_preview () {
+function load_file () {
     var reader = new FileReader();
-    reader.onload = function(e) { $("#preview").attr('src', e.target.result); };
-    reader.readAsDataURL($("#file")[0].files[0]);
+    reader.onload = function(e) { $("#JS_base-image").attr('src', e.target.result); };
+    reader.readAsDataURL($("#JS_file")[0].files[0]);
 }
 
-function update_default_configuration () {
-    var image = $("#preview")[0];
-    var v     = parseInt($("#v").val());
-    var h     = parseInt($("#h").val());
+function compute_recomended_configuration () {
+    var image = $("#JS_base-image")[0];
+    var v     = parseInt($("#JS_v").val());
+    var h     = parseInt($("#JS_h").val());
 
     var zoom_ratio = Math.min(
         image.naturalHeight / (128.0 * v),
@@ -16,13 +16,13 @@ function update_default_configuration () {
 
     var cell_size = 128 * zoom_ratio;
 
-    $("#zoom").val(zoom_ratio + "");
-    $("#left").val((image.naturalWidth - cell_size * h) / 2 + "");
-    $("#top").val(0);
-    $("#top").removeProp("checked");
+    $("#JS_zoom").val(zoom_ratio + "");
+    $("#JS_left").val((image.naturalWidth - cell_size * h) / 2 + "");
+    $("#JS_top").val(0);
+    $("#JS_top").removeProp("checked");
 }
 
-function render_cell (image, trimLeft, trimRight, width, height, kira) {
+function render_result_cell (image, trimLeft, trimRight, width, height, kira) {
     var canvas = document.createElement("canvas");
     canvas.width = 128;
     canvas.height = 128;
@@ -51,36 +51,37 @@ function render_cell (image, trimLeft, trimRight, width, height, kira) {
     }
 }
 
-function render_result () {
-    var image      = $("#preview")[0];
-    var v          = parseInt($("#v").val());
-    var h          = parseInt($("#h").val());
-    var zoom_ratio = parseFloat($("#zoom").val());
-    var left       = parseInt($("#left").val());
-    var top        = parseInt($("#top").val());
-    var kirality   = $("#kira").prop("checked");
+function render_results () {
+    var image      = $("#JS_base-image")[0];
+    var v          = parseInt($("#JS_v").val());
+    var h          = parseInt($("#JS_h").val());
+    var zoom_ratio = parseFloat($("#JS_zoom").val());
+    var left       = parseInt($("#JS_left").val());
+    var top        = parseInt($("#JS_top").val());
+    var kirality   = $("#JS_kira").prop("checked");
 
     var cell_size = 128 * zoom_ratio;
-    var $result_area = $("#result-area");
-    $result_area.html("");
+    var $results = $("#JS_results");
+    $results.html("");
     for (var y = 0; y < v; y++) {
         for (var x = 0; x < h; x++) {
-            var url = render_cell(
+            var url = render_result_cell(
                 image, left + x * cell_size, top + y * cell_size, cell_size, cell_size, kirality
             );
-            $result_area.append("<img src='" + url +"'>&nbsp;");
+            $results.append("<img src='" + url +"'>");
         }
-        $result_area.append("<br>");
+        $results.append("<br>");
     }
 }
 
 $(function() {
-    $("#file").change(update_preview);
-    $("#preview").bind('load', update_default_configuration);
-    $("#h,#v").change(update_default_configuration);
-    $("#render").click(render_result);
-    $("#toggle_details").click(function() {
+    $("#JS_file").change(load_file);
+    $("#JS_base-image").bind('load', compute_recomended_configuration);
+    $("#JS_h,#JS_v").change(compute_recomended_configuration);
+    $("#JS_render").click(render_results);
+    $("#JS_render").click(render_results);
+    $("#JS_toggle_details").click(function () {
         $(this).remove();
-        $("#details").show();
+        $("#JS_details").show();
     });
 });
