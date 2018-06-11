@@ -37,11 +37,15 @@ function render_cell (image, trimLeft, trimRight, width, height, kira) {
         encoder.setRepeat(0);
         encoder.setFrameRate(30);
         encoder.start();
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 128, 128);
         for (var i = 0; i < 30; i++) {
             ctx.filter = "saturate(1000%) hue-rotate(" + (i * 12) + "deg)";
             ctx.drawImage(image, trimLeft, trimRight, width, height, 0, 0, 128, 128);
             encoder.addFrame(ctx);
         }
+
         encoder.finish();
         return "data:image/gif;base64," + encode64(encoder.stream().getData());
     }
