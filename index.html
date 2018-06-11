@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="jsgif/b64.js"></script>
+    <script src="jsgif/NeuQuant.js"></script>
+    <script src="jsgif/LZWEncoder.js"></script>
+    <script src="jsgif/GIFEncoder.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="megamoji.js"></script>
     <title>MEGAMOJI</title>
@@ -53,6 +57,12 @@
               <div class="form-group">
                 <label>縮小率 (分の１)</label>
                 <input type="text" value="1.0" id="zoom" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>
+                  キラ
+                  <input type="checkbox" id="kira">
+                </label>
               </div>
             </div>
             <p><img id="preview" style="max-width: 100%;" /></p>
