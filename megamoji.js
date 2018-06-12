@@ -24,8 +24,8 @@ function compute_recomended_configuration () {
 
 function render_result_cell (image, trimLeft, trimRight, width, height, kira) {
     var canvas = document.createElement("canvas");
-    canvas.width = 128;
-    canvas.height = 128;
+    canvas.width = 64;
+    canvas.height = 64;
 
     var ctx = canvas.getContext('2d');
 
@@ -39,10 +39,10 @@ function render_result_cell (image, trimLeft, trimRight, width, height, kira) {
         encoder.start();
 
         ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, 128, 128);
+        ctx.fillRect(0, 0, 64, 64);
         for (var i = 0; i < 7; i++) {
             ctx.filter = "saturate(1000%) hue-rotate(" + (i * 102) + "deg)";
-            ctx.drawImage(image, trimLeft, trimRight, width, height, 0, 0, 128, 128);
+            ctx.drawImage(image, trimLeft, trimRight, width, height, 0, 0, 64, 64);
             encoder.addFrame(ctx);
         }
 
@@ -68,7 +68,7 @@ function render_results () {
             var url = render_result_cell(
                 image, left + x * cell_size, top + y * cell_size, cell_size, cell_size, kirality
             );
-            $results.append("<img src='" + url +"'>");
+            $results.append("<img width='128px' src='" + url +"'>");
         }
         $results.append("<br>");
     }
