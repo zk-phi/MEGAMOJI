@@ -35,13 +35,13 @@ function render_result_cell (image, trimLeft, trimRight, width, height, kira) {
     } else {
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
-        encoder.setFrameRate(14);
+        encoder.setFrameRate(30);
         encoder.start();
 
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, 64, 64);
-        for (var i = 0; i < 7; i++) {
-            ctx.filter = "saturate(1000%) hue-rotate(" + (i * 102) + "deg)";
+        for (var i = 0; i < 15; i++) {
+            ctx.filter = "saturate(1000%) hue-rotate(" + (i * 24) + "deg)";
             ctx.drawImage(image, trimLeft, trimRight, width, height, 0, 0, 64, 64);
             encoder.addFrame(ctx);
         }
