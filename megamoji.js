@@ -13,15 +13,21 @@ function compute_recomended_configuration () {
     var width_ratio  = (128.0 * h) / image.naturalWidth;
     var height_ratio = (128.0 * v) / image.naturalHeight;
 
-    if ($("#JS_trimming").val()) {
-        var zoom_ratio = Math.max(width_ratio, height_ratio);
-        width_ratio = height_ratio = zoom_ratio;
+    switch ($("#JS_trimming").val()) {
+        case "cover":
+            var zoom_ratio = Math.max(width_ratio, height_ratio);
+            width_ratio = height_ratio = zoom_ratio;
+            break;
+        case "contain":
+            var zoom_ratio = Math.min(width_ratio, height_ratio);
+            width_ratio = height_ratio = zoom_ratio;
+            break;
     }
 
     $("#JS_zoom_h").val(width_ratio + "");
     $("#JS_zoom_v").val(height_ratio + "");
     $("#JS_left").val((image.naturalWidth - 128 / width_ratio * h) / 2 + "");
-    $("#JS_top").val(0);
+    $("#JS_top").val(Math.min(0, (image.naturalHeight - 128 / height_ratio * v) / 2) + "");
     $("#JS_top").removeProp("checked");
 }
 
