@@ -25,39 +25,39 @@ function compute_recomended_configuration () {
     $("#JS_top").removeProp("checked");
 }
 
-function animation_kira (keyframe, ctx, image, trimLeft, trimTop, width, height, cellWidth, cellHeight) {
+function animation_kira (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
-    ctx.drawImage(image, trimLeft, trimTop, width, height, 0, 0, cellWidth, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
 }
 
-function animation_scroll (keyframe, ctx, image, trimLeft, trimTop, width, height, cellWidth, cellHeight) {
-    trimLeft = (trimLeft + image.naturalWidth * keyframe) % image.naturalWidth;
-    ctx.drawImage(image, trimLeft, trimTop, width, height, 0, 0, cellWidth, cellHeight);
-    if (trimLeft + width > image.naturalWidth) {
-        var endPos = (image.naturalWidth - trimLeft) * (cellWidth / width);
-        ctx.drawImage(image, 0, trimTop, width, height, endPos, 0, cellWidth, cellHeight);
+function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    if (offsetH + width > image.naturalWidth) {
+        var endPos = (image.naturalWidth - offsetH) * (cellWidth / width);
+        ctx.drawImage(image, 0, offsetV, width, height, endPos, 0, cellWidth, cellHeight);
     }
 }
 
-function animation_rotate (keyframe, ctx, image, trimLeft, trimTop, width, height, cellWidth, cellHeight) {
+function animation_rotate (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     ctx.save();
     ctx.translate(cellWidth / 2, cellHeight / 2);
     ctx.rotate(Math.PI * 2 * keyframe);
-    ctx.drawImage(image, trimLeft, trimTop, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
     ctx.restore();
 }
 
 var last_gata = false;
-function animation_gatagata (keyframe, ctx, image, trimLeft, trimTop, width, height, cellWidth, cellHeight) {
+function animation_gatagata (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     last_gata = !last_gata;
     ctx.save();
     ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 2, cellHeight / 2 + (Math.random() - 0.5) * 2);
     ctx.rotate(last_gata ? -0.05 : 0.05);
-    ctx.drawImage(image, trimLeft, trimTop, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
     ctx.restore();
 }
 
-function render_result_cell (image, trimLeft, trimTop, width, height, animation) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -65,7 +65,7 @@ function render_result_cell (image, trimLeft, trimTop, width, height, animation)
         canvas.width = 128;
         canvas.height = 128;
 
-        ctx.drawImage(image, trimLeft, trimTop, width, height, 0, 0, 128, 128);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 128, 128);
 
         return canvas.toDataURL();
     } else {
@@ -79,7 +79,7 @@ function render_result_cell (image, trimLeft, trimTop, width, height, animation)
         for (var i = 0; i < 12; i++) {
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, 64, 64);
-            animation(i / 12.0, ctx, image, trimLeft, trimTop, width, height, 64, 64);
+            animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
             encoder.addFrame(ctx);
         }
         encoder.finish();
