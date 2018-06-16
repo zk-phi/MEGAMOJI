@@ -48,6 +48,13 @@
           <div class="panel-heading">効果</div>
           <div class="panel-body">
             <div class="form-group">
+              <label>トリミング</label>
+              <select id="JS_trimming" class="form-control">
+                <option value="yes">する</option>
+                <option value="">しない</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label>連結 横</label>
               <input type="text" value="1" id="JS_h" class="form-control">
             </div>
@@ -56,23 +63,31 @@
               <input type="text" value="1" id="JS_v" class="form-control">
             </div>
             <div class="form-group">
-              <label>
-                キラ
-                <input type="checkbox" id="JS_kira">
-              </label>
+              <label>アニメ</label>
+              <select id="JS_animation" class="form-control">
+                <option value="" selected>なし</option>
+                <option value="animation_kira">キラ</option>
+                <option value="animation_scroll">スクロール</option>
+                <option value="animation_rotate">ぐるぐる</option>
+                <option value="animation_gatagata">ガタガタ</option>
+              </select>
             </div>
             <div id="JS_details" style="display: none">
               <div class="form-group">
-                <label>トリミング 左 (px)</label>
+                <label>トリミング位置 左 (px)</label>
                 <input type="text" value="0" id="JS_left" class="form-control">
               </div>
               <div class="form-group">
-                <label>トリミング 上 (px)</label>
+                <label>トリミング位置 上 (px)</label>
                 <input type="text" value="0" id="JS_top" class="form-control">
               </div>
               <div class="form-group">
-                <label>縮小率 (分の１)</label>
-                <input type="text" value="1.0" id="JS_zoom" class="form-control">
+                <label>拡大率 (横)</label>
+                <input type="text" value="1.0" id="JS_zoom_h" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>拡大率 (縦)</label>
+                <input type="text" value="1.0" id="JS_zoom_v" class="form-control">
               </div>
             </div>
             <input type="button" id="JS_render" class="btn btn-primary" value="Render">
