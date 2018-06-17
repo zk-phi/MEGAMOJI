@@ -122,7 +122,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation) 
 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
-        encoder.setFrameRate(24);
+        encoder.setFrameRate(20);
         encoder.start();
         for (var i = 0; i < 12; i++) {
             ctx.fillStyle = "white";
