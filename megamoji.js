@@ -4,6 +4,15 @@ function load_file () {
     reader.readAsDataURL($("#JS_file")[0].files[0]);
 }
 
+function reload_file () {
+    var url = $("#JS_url").val();
+    if (url) {
+        $("#JS_base-image").attr('src', url);
+    } else {
+        load_file();
+    }
+}
+
 function crop_canvas (source_canvas, w, h) {
     var canvas    = document.createElement("canvas");
     var ctx       = canvas.getContext('2d');
@@ -168,6 +177,7 @@ function render_results () {
 
 $(function() {
     $("#JS_file").change(load_file);
+    $("#JS_reload").click(reload_file);
     $("#JS_generate").click(generate_text_image);
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
