@@ -12,16 +12,21 @@
     <script src="jquery-3.3.1.min.js"></script>
     <script src="megamoji.js"></script>
     <title>MEGAMOJI</title>
+    <style>.result_area img { border: 1px solid #eee }</style>
   </head>
 
   <body class="container">
-    <h1 class="page-header">MEGAMOJI</h1>
+    <h1 class="page-header">MEGAMOJI <small>by zk_phi</small></h1>
+
+    Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
+
+    <h2>元画像</h2>
 
     <div class="row">
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="panel panel-default">
-          <div class="panel-heading">画像 emoji</div>
+          <div class="panel-heading">ファイルから</div>
           <div class="panel-body">
             <div class="form-group">
               <label>画像</label>
@@ -30,7 +35,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">テキスト emoji</div>
+          <div class="panel-heading">テキストから</div>
           <div class="panel-body">
             <div class="form-group">
               <label>テキスト</label>
@@ -55,15 +60,24 @@
             <input type="button" id="JS_generate" class="btn btn-primary" value="Generate">
           </div>
         </div>
+      </div>
+
+      <div class="col-md-8">
         <div class="panel panel-default">
-          <div class="panel-heading">元画像</div>
+          <div class="panel-heading">プレビュー</div>
           <div class="panel-body">
             <p><img id="JS_base-image" style="max-width: 100%;" /></p>
           </div>
         </div>
       </div>
 
-      <div class="col-md-3">
+    </div>
+
+    <h2>Emoji</h2>
+
+    <div class="row">
+
+      <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">効果</div>
           <div class="panel-body">
@@ -117,17 +131,18 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="panel panel-default">
           <div class="panel-heading">結果</div>
           <div class="panel-body">
-            <p id="JS_results">
+            <p id="JS_results" class="result_area">
             </p>
           </div>
         </div>
       </div>
 
     </div>
+
   </body>
 
 </html>
