@@ -126,7 +126,6 @@ $(function() {
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
     $("#JS_render").click(render_results);
-    $("#JS_render").click(render_results);
     $("#JS_toggle_details").click(function () {
         $(this).remove();
         $("#JS_details").show();
