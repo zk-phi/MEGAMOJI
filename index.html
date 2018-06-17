@@ -19,31 +19,51 @@
 
     <div class="row">
 
-      <div class="col-md-9">
-
-        <div class="panel panel-default">
-          <div class="panel-heading">結果</div>
-          <div class="panel-body">
-            <p id="JS_results">
-            </p>
-          </div>
-        </div>
-
-      </div> <!-- /col-md-9 -->
-
       <div class="col-md-3">
-
         <div class="panel panel-default">
-          <div class="panel-heading">画像</div>
+          <div class="panel-heading">画像 emoji</div>
           <div class="panel-body">
             <div class="form-group">
               <label>画像</label>
               <input type="file" id="JS_file" class="form-control">
             </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">テキスト emoji</div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label>テキスト</label>
+              <textarea id="JS_text" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <label>揃え</label>
+              <select id="JS_text_align" class="form-control">
+                <option value="left" selected>左</option>
+                <option value="center">中央</option>
+                <option value="right">右</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>色</label>
+              <input type="color" id="JS_text_color" class="form-control" value="#ff0000">
+            </div>
+            <div class="form-group">
+              <label>フォント</label>
+              <input type="text" id="JS_text_font" class="form-control" value="bold 64px sans-serif">
+            </div>
+            <input type="button" id="JS_generate" class="btn btn-primary" value="Generate">
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">元画像</div>
+          <div class="panel-body">
             <p><img id="JS_base-image" style="max-width: 100%;" /></p>
           </div>
         </div>
+      </div>
 
+      <div class="col-md-3">
         <div class="panel panel-default">
           <div class="panel-heading">効果</div>
           <div class="panel-body">
@@ -56,11 +76,11 @@
               </select>
             </div>
             <div class="form-group">
-              <label>連結 横</label>
+              <label>分割 横</label>
               <input type="text" value="1" id="JS_h" class="form-control">
             </div>
             <div class="form-group">
-              <label>連結 縦</label>
+              <label>分割 縦</label>
               <input type="text" value="1" id="JS_v" class="form-control">
             </div>
             <div class="form-group">
@@ -95,8 +115,17 @@
             <input type="button" id="JS_toggle_details" class="btn btn-default" value="Advanced">
           </div>
         </div>
+      </div>
 
-      </div> <!-- col-md-3 -->
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">結果</div>
+          <div class="panel-body">
+            <p id="JS_results">
+            </p>
+          </div>
+        </div>
+      </div>
 
     </div>
   </body>

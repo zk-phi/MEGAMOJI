@@ -4,6 +4,48 @@ function load_file () {
     reader.readAsDataURL($("#JS_file")[0].files[0]);
 }
 
+function crop_canvas (source_canvas, w, h) {
+    var canvas    = document.createElement("canvas");
+    var ctx       = canvas.getContext('2d');
+    canvas.width  = w;
+    canvas.height = h;
+
+    ctx.drawImage(source_canvas, 0, 0, w, h, 0, 0, w, h);
+
+    return canvas;
+}
+
+function generate_text_image () {
+    var canvas = document.createElement("canvas");
+    var ctx    = canvas.getContext('2d');
+    var align  = $("#JS_text_align").val();
+
+    ctx.fillStyle    = $("#JS_text_color").val();
+    ctx.font         = $("#JS_text_font").val();
+    ctx.textBaseline = "top";
+
+    var lines       = $("#JS_text").val().split("\n");
+    var line_widths = lines.map(function (line) { return ctx.measureText(line).width; });
+    var line_height = ctx.measureText("あ").width; /* taken from tmlib.js */
+
+    var img_width   = Math.ceil(Math.max.apply(null, line_widths));
+    var img_height  = line_height * lines.length;
+
+    var align_fn = align == "left" ? (
+        function (width) { return 0; }
+    ) : align == "right" ? (
+        function (width) { return img_width - width; }
+    ) : (
+        function (width) { return (img_width - width) / 2; }
+    );
+
+    lines.forEach(function (line, ix) {
+        ctx.fillText(line, align_fn(line_widths[ix]), ix * line_height);
+    });
+
+    $("#JS_base-image").attr('src', crop_canvas(canvas, img_width, img_height).toDataURL());
+}
+
 function compute_recomended_configuration () {
     var image    = $("#JS_base-image")[0];
     var v        = parseInt($("#JS_v").val());
@@ -123,6 +165,7 @@ function render_results () {
 
 $(function() {
     $("#JS_file").change(load_file);
+    $("#JS_generate").click(generate_text_image);
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
     $("#JS_render").click(render_results);
