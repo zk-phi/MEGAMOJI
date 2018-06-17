@@ -17,6 +17,9 @@ function crop_canvas (source_canvas, w, h) {
 
 function generate_text_image () {
     var canvas = document.createElement("canvas");
+    canvas.width = 1000;
+    canvas.height = 1000;
+
     var ctx    = canvas.getContext('2d');
     var align  = $("#JS_text_align").val();
 
