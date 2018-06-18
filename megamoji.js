@@ -90,6 +90,12 @@ function animation_kira (keyframe, ctx, image, offsetH, offsetV, width, height, 
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
 }
 
+function animation_blink (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    if (keyframe <= 0.5) {
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    }
+}
+
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
