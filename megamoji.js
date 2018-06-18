@@ -96,6 +96,13 @@ function animation_blink (keyframe, ctx, image, offsetH, offsetV, width, height,
     }
 }
 
+function animation_patapata (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    ctx.save();
+    ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    ctx.restore();
+}
+
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
