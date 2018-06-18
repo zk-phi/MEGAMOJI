@@ -117,7 +117,7 @@ function animation_gatagata (keyframe, ctx, image, offsetH, offsetV, width, heig
     ctx.restore();
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, framerate) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -134,7 +134,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation) 
 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
-        encoder.setFrameRate(20);
+        encoder.setFrameRate(framerate);
         encoder.start();
         for (var i = 0; i < 12; i++) {
             ctx.fillStyle = "white";
@@ -157,6 +157,7 @@ function render_results () {
     var left         = parseInt($("#JS_left").val());
     var top          = parseInt($("#JS_top").val());
     var animation    = $("#JS_animation").val();
+    var framerate    = parseInt($("#JS_framerate").val());
 
     animation = window[animation];
 
@@ -167,7 +168,7 @@ function render_results () {
     for (var y = 0; y < v; y++) {
         for (var x = 0; x < h; x++) {
             var url = render_result_cell(
-                image, left + x * cell_width, top + y * cell_height, cell_width, cell_height, animation
+                image, left + x * cell_width, top + y * cell_height, cell_width, cell_height, animation, framerate
             );
             $results.append("<img width='128px' src='" + url +"'>");
         }
