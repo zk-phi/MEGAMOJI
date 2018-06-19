@@ -85,22 +85,31 @@ function compute_recomended_configuration () {
     $("#JS_top").removeProp("checked");
 }
 
-function animation_kira (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+function effect_kira (keyframe, ctx, cellWidth, cellHeight) {
     ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
 }
 
-function animation_blink (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    if (keyframe <= 0.5) {
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
+    if (keyframe >= 0.5) {
+        ctx.translate(- cellWidth, 0);
     }
 }
 
-function animation_patapata (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    ctx.save();
+function effect_patapata (keyframe, ctx, cellWidth, cellHeight) {
     ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    ctx.restore();
+}
+
+function effect_rotate (keyframe, ctx, cellWidth, cellHeight) {
+    ctx.translate(cellWidth / 2, cellHeight / 2);
+    ctx.rotate(Math.PI * 2 * keyframe);
+    ctx.translate(- cellWidth / 2, - cellHeight / 2);
+}
+
+var last_gata = false;
+function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
+    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 2, cellHeight / 2 + (Math.random() - 0.5) * 2);
+    ctx.rotate(last_gata ? -0.05 : 0.05);
+    ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
@@ -112,29 +121,11 @@ function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height
     }
 }
 
-function animation_rotate (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    ctx.save();
-    ctx.translate(cellWidth / 2, cellHeight / 2);
-    ctx.rotate(Math.PI * 2 * keyframe);
-    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
-    ctx.restore();
-}
-
-var last_gata = false;
-function animation_gatagata (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    last_gata = !last_gata;
-    ctx.save();
-    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 2, cellHeight / 2 + (Math.random() - 0.5) * 2);
-    ctx.rotate(last_gata ? -0.05 : 0.05);
-    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2, - cellHeight / 2, cellWidth, cellHeight);
-    ctx.restore();
-}
-
-function render_result_cell (image, offsetH, offsetV, width, height, animation, framerate) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
-    if (!animation) {
+    if (!animation && !effects.length) {
         canvas.width = 128;
         canvas.height = 128;
 
@@ -150,9 +141,12 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.setFrameRate(framerate);
         encoder.start();
         for (var i = 0; i < 12; i++) {
+            ctx.save();
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, 64, 64);
+            effects.forEach(function (effect) { effect(i / 12.0, ctx, 64, 64); });
             animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
+            ctx.restore();
             encoder.addFrame(ctx);
         }
         encoder.finish();
@@ -170,9 +164,11 @@ function render_results () {
     var left         = parseInt($("#JS_left").val());
     var top          = parseInt($("#JS_top").val());
     var animation    = $("#JS_animation").val();
+    var effect       = $("#JS_effect").val();
     var framerate    = parseInt($("#JS_framerate").val());
 
     animation = window[animation];
+    effect    = window[effect];
 
     var cell_width = 128 / width_ratio;
     var cell_height = 128 / height_ratio;
@@ -181,7 +177,10 @@ function render_results () {
     for (var y = 0; y < v; y++) {
         for (var x = 0; x < h; x++) {
             var url = render_result_cell(
-                image, left + x * cell_width, top + y * cell_height, cell_width, cell_height, animation, framerate
+                image,
+                left + x * cell_width, top + y * cell_height,
+                cell_width, cell_height,
+                animation, (effect ? [effect] : []), framerate
             );
             $results.append("<img width='128px' src='" + url +"'>");
         }

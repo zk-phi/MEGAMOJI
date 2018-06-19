@@ -103,15 +103,21 @@
               <input type="text" value="1" id="JS_v" class="form-control">
             </div>
             <div class="form-group">
-              <label>アニメ</label>
+              <label>アニメ (全体)</label>
               <select id="JS_animation" class="form-control">
                 <option value="" selected>なし</option>
-                <option value="animation_kira">キラ (Chrome)</option>
-                <option value="animation_blink">BLINK</option>
                 <option value="animation_scroll">スクロール</option>
-                <option value="animation_patapata">ぱたぱた</option>
-                <option value="animation_rotate">ぐるぐる</option>
-                <option value="animation_gatagata">ガタガタ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>アニメ (セルごと)</label>
+              <select id="JS_effect" class="form-control">
+                <option value="" selected>なし</option>
+                <option value="effect_kira">キラ (Chrome)</option>
+                <option value="effect_blink">BLINK</option>
+                <option value="effect_patapata">ぱたぱた</option>
+                <option value="effect_rotate">ぐるぐる</option>
+                <option value="effect_gatagata">ガタガタ</option>
               </select>
             </div>
             <div id="JS_details" style="display: none">
