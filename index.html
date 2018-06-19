@@ -111,14 +111,28 @@
             </div>
             <div class="form-group">
               <label>アニメ (セルごと)</label>
-              <select id="JS_effect" class="form-control">
-                <option value="" selected>なし</option>
-                <option value="effect_kira">キラ (Chrome)</option>
-                <option value="effect_blink">BLINK</option>
-                <option value="effect_patapata">ぱたぱた</option>
-                <option value="effect_rotate">ぐるぐる</option>
-                <option value="effect_gatagata">ガタガタ</option>
-              </select>
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_kira">
+                  キラ (Chrome のみ)
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_blink">
+                  BLINK
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_patapata">
+                  ぱたぱた
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_rotate">
+                  ぐるぐる
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_gatagata">
+                  ガタガタ
+                </label>
+              </p>
             </div>
             <div id="JS_details" style="display: none">
               <div class="form-group">

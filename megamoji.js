@@ -91,7 +91,7 @@ function effect_kira (keyframe, ctx, cellWidth, cellHeight) {
 
 function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
     if (keyframe >= 0.5) {
-        ctx.translate(- cellWidth, 0);
+        ctx.translate(- cellWidth * 2, 0);
     }
 }
 
@@ -145,7 +145,11 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, 64, 64);
             effects.forEach(function (effect) { effect(i / 12.0, ctx, 64, 64); });
-            animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
+            if (animation) {
+                animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
+            } else {
+                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 64, 64);
+            }
             ctx.restore();
             encoder.addFrame(ctx);
         }
@@ -163,12 +167,9 @@ function render_results () {
     var height_ratio = parseFloat($("#JS_zoom_v").val());
     var left         = parseInt($("#JS_left").val());
     var top          = parseInt($("#JS_top").val());
-    var animation    = $("#JS_animation").val();
-    var effect       = $("#JS_effect").val();
     var framerate    = parseInt($("#JS_framerate").val());
-
-    animation = window[animation];
-    effect    = window[effect];
+    var animation    = window[$("#JS_animation").val()];
+    var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
 
     var cell_width = 128 / width_ratio;
     var cell_height = 128 / height_ratio;
@@ -180,7 +181,7 @@ function render_results () {
                 image,
                 left + x * cell_width, top + y * cell_height,
                 cell_width, cell_height,
-                animation, (effect ? [effect] : []), framerate
+                animation, effects, framerate
             );
             $results.append("<img width='128px' src='" + url +"'>");
         }
