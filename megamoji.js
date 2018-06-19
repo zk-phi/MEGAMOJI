@@ -128,7 +128,7 @@ function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height
     }
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -149,7 +149,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.start();
         for (var i = 0; i < 12; i++) {
             ctx.save();
-            ctx.fillStyle = "white";
+            ctx.fillStyle = background;
             ctx.fillRect(0, 0, 64, 64);
             effects.forEach(function (effect) { effect(i / 12.0, ctx, 64, 64); });
             if (animation) {
@@ -177,6 +177,7 @@ function render_results () {
     var framerate    = parseInt($("#JS_framerate").val());
     var animation    = window[$("#JS_animation").val()];
     var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
+    var background   = $("#JS_animation_background_color").val();
 
     var cell_width = 128 / width_ratio;
     var cell_height = 128 / height_ratio;
@@ -188,7 +189,7 @@ function render_results () {
                 image,
                 left + x * cell_width, top + y * cell_height,
                 cell_width, cell_height,
-                animation, effects, framerate
+                animation, effects, framerate, background
             );
             $results.append("<img width='128px' src='" + url +"'>");
         }
