@@ -28,15 +28,15 @@
         <div class="panel panel-default">
           <div class="panel-heading">画像から</div>
           <div class="panel-body">
-             <div class="form-group">
+            <div class="form-group">
               <label>ファイル</label>
               <input type="file" id="JS_file" class="form-control">
-             </div>
-             <div class="form-group">
-               <label>URL (要 CORS)</label>
-               <input type="text" id="JS_url" class="form-control">
-             </div>
-             <input type="button" id="JS_reload" class="btn btn-primary" value="(Re)Load">
+            </div>
+            <div class="form-group">
+              <label>URL (要 CORS)</label>
+              <input type="text" id="JS_url" class="form-control">
+            </div>
+            <input type="button" id="JS_reload" class="btn btn-primary" value="(Re)Load">
           </div>
         </div>
         <div class="panel panel-default">
@@ -103,16 +103,36 @@
               <input type="text" value="1" id="JS_v" class="form-control">
             </div>
             <div class="form-group">
-              <label>アニメ</label>
+              <label>アニメ (全体)</label>
               <select id="JS_animation" class="form-control">
                 <option value="" selected>なし</option>
-                <option value="animation_kira">キラ (Chrome)</option>
-                <option value="animation_blink">BLINK</option>
                 <option value="animation_scroll">スクロール</option>
-                <option value="animation_patapata">ぱたぱた</option>
-                <option value="animation_rotate">ぐるぐる</option>
-                <option value="animation_gatagata">ガタガタ</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label>アニメ (セルごと)</label>
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_kira">
+                  キラ (Chrome のみ)
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_blink">
+                  BLINK
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_patapata">
+                  ぱたぱた
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_rotate">
+                  ぐるぐる
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" class="JS_effect" value="effect_gatagata">
+                  ガタガタ
+                </label>
+              </p>
             </div>
             <div id="JS_details" style="display: none">
               <div class="form-group">
