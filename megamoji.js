@@ -91,7 +91,7 @@ function effect_kira (keyframe, ctx, cellWidth, cellHeight) {
 
 function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
     if (keyframe >= 0.5) {
-        ctx.translate(- cellWidth * 2, 0);
+        ctx.translate(- cellWidth * 2, 0); /* hide */
     }
 }
 
@@ -112,6 +112,11 @@ function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
+function effect_zoom (keyframe, ctx, cellWidth, cellHeight) {
+    var zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
+    ctx.transform(1 + zoom, 0, 0, 1 + zoom, - cellWidth / 2 * zoom, - cellHeight / 2 * zoom);
+}
+
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
@@ -119,6 +124,11 @@ function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height
         var endPos = (image.naturalWidth - offsetH) * (cellWidth / width);
         ctx.drawImage(image, 0, offsetV, width, height, endPos, 0, cellWidth, cellHeight);
     }
+}
+
+function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
 function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate) {
