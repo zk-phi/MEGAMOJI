@@ -30,12 +30,9 @@ function crop_canvas (source_canvas, w, h) {
 }
 
 function generate_text_image () {
-    var canvas_width = CANVAS_SIZE;
-    var canvas_height = CANVAS_SIZE;
-
     var canvas = document.createElement("canvas");
-    canvas.width = canvas_width;
-    canvas.height = canvas_height;
+    canvas.width = CANVAS_SIZE;
+    canvas.height = CANVAS_SIZE;
 
     var ctx    = canvas.getContext('2d');
     var align  = $("#JS_text_align").val();
