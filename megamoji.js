@@ -142,21 +142,16 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
     var ctx = canvas.getContext('2d');
 
     if (!animation && !effects.length) {
-        var canvas_width = EMOJI_SIZE;
-        var canvas_height = EMOJI_SIZE;
-
-        canvas.width = canvas_width;
-        canvas.height = canvas_height;
+        canvas.width = EMOJI_SIZE;
+        canvas.height = EMOJI_SIZE;
         ctx.fillStyle = background;
-        ctx.fillRect(0, 0, canvas_width, canvas_height);
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, canvas_width, canvas_height);
+        ctx.fillRect(0, 0, EMOJI_SIZE, EMOJI_SIZE);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, EMOJI_SIZE, EMOJI_SIZE);
 
         return canvas.toDataURL();
     } else {
-        var canvas_width = ANIMATED_EMOJI_SIZE;
-        var canvas_height = ANIMATED_EMOJI_SIZE;
-        canvas.width = canvas_width;
-        canvas.height = canvas_height;
+        canvas.width = ANIMATED_EMOJI_SIZE;
+        canvas.height = ANIMATED_EMOJI_SIZE;
 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
@@ -165,12 +160,12 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         for (var i = 0; i < ANIMATION_FRAMES; i++) {
             ctx.save();
             ctx.fillStyle = background;
-            ctx.fillRect(0, 0, canvas_width, canvas_height);
-            effects.forEach(function (effect) { effect(i / ANIMATION_FRAMES, ctx, canvas_width, canvas_height); });
+            ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+            effects.forEach(function (effect) { effect(i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE); });
             if (animation) {
-                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, canvas_width, canvas_height);
+                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
-                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, canvas_width, canvas_height);
+                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
             ctx.restore();
             encoder.addFrame(ctx);
