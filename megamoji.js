@@ -94,7 +94,7 @@ function effect_kira (keyframe, ctx, cellWidth, cellHeight) {
 
 function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
     if (keyframe >= 0.5) {
-        ctx.translate(- cellWidth * 2, 0);
+        ctx.translate(- cellWidth * 2, 0); /* hide */
     }
 }
 
@@ -110,9 +110,15 @@ function effect_rotate (keyframe, ctx, cellWidth, cellHeight) {
 
 var last_gata = false;
 function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
-    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 2, cellHeight / 2 + (Math.random() - 0.5) * 2);
+    last_gata = !last_gata;
+    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 4, cellHeight / 2 + (Math.random() - 0.5) * 4);
     ctx.rotate(last_gata ? -0.05 : 0.05);
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
+}
+
+function effect_zoom (keyframe, ctx, cellWidth, cellHeight) {
+    var zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
+    ctx.transform(1 + zoom, 0, 0, 1 + zoom, - cellWidth / 2 * zoom, - cellHeight / 2 * zoom);
 }
 
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
@@ -122,6 +128,11 @@ function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height
         var endPos = (image.naturalWidth - offsetH) * (cellWidth / width);
         ctx.drawImage(image, 0, offsetV, width, height, endPos, 0, cellWidth, cellHeight);
     }
+}
+
+function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
 function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
