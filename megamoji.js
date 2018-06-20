@@ -1,3 +1,5 @@
+var CANVAS_SIZE = 1000;
+
 function load_file () {
     var reader = new FileReader();
     reader.onload = function(e) { $("#JS_base-image").attr('src', e.target.result); };
@@ -25,8 +27,8 @@ function crop_canvas (source_canvas, w, h) {
 }
 
 function generate_text_image () {
-    var canvas_width = 1000;
-    var canvas_height = 1000;
+    var canvas_width = CANVAS_SIZE;
+    var canvas_height = CANVAS_SIZE;
 
     var canvas = document.createElement("canvas");
     canvas.width = canvas_width;
