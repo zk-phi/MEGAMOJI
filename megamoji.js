@@ -140,10 +140,14 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
     var ctx = canvas.getContext('2d');
 
     if (!animation && !effects.length) {
-        canvas.width = 128;
-        canvas.height = 128;
+        var canvas_width = 128;
+        var canvas_height = 128;
 
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 128, 128);
+        canvas.width = canvas_width;
+        canvas.height = canvas_height;
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, canvas_width, canvas_height);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, canvas_width, canvas_height);
 
         return canvas.toDataURL();
     } else {
