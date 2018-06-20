@@ -1,5 +1,6 @@
 var CANVAS_SIZE = 1000;
 var EMOJI_SIZE = 128;
+var ANIMATED_EMOJI_SIZE = 64;
 
 function load_file () {
     var reader = new FileReader();
@@ -154,8 +155,8 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
 
         return canvas.toDataURL();
     } else {
-        var canvas_width = 64;
-        var canvas_height = 64;
+        var canvas_width = ANIMATED_EMOJI_SIZE;
+        var canvas_height = ANIMATED_EMOJI_SIZE;
         canvas.width = canvas_width;
         canvas.height = canvas_height;
 
