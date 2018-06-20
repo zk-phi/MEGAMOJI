@@ -188,7 +188,7 @@ function render_results () {
     var framerate    = parseInt($("#JS_framerate").val());
     var animation    = window[$("#JS_animation").val()];
     var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
-    var background   = $("#JS_animation_background_color").val();
+    var background   = $("#JS_background_color").val();
 
     var cell_width = 128 / width_ratio;
     var cell_height = 128 / height_ratio;
