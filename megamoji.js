@@ -1,3 +1,8 @@
+var CANVAS_SIZE = 1000;
+var EMOJI_SIZE = 128;
+var ANIMATED_EMOJI_SIZE = 64;
+var ANIMATION_FRAMES = 12;
+
 function load_file () {
     var reader = new FileReader();
     reader.onload = function(e) { $("#JS_base-image").attr('src', e.target.result); };
@@ -26,8 +31,8 @@ function crop_canvas (source_canvas, w, h) {
 
 function generate_text_image () {
     var canvas = document.createElement("canvas");
-    canvas.width = 1000;
-    canvas.height = 1000;
+    canvas.width = CANVAS_SIZE;
+    canvas.height = CANVAS_SIZE;
 
     var ctx    = canvas.getContext('2d');
     var align  = $("#JS_text_align").val();
@@ -64,8 +69,8 @@ function compute_recomended_configuration () {
     var h        = parseInt($("#JS_h").val());
     var trimming = $("#JS_trimming").val();
 
-    var width_ratio  = (128.0 * h) / image.naturalWidth;
-    var height_ratio = (128.0 * v) / image.naturalHeight;
+    var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
+    var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
 
     switch ($("#JS_trimming").val()) {
         case "cover":
@@ -80,8 +85,8 @@ function compute_recomended_configuration () {
 
     $("#JS_zoom_h").val(width_ratio + "");
     $("#JS_zoom_v").val(height_ratio + "");
-    $("#JS_left").val((image.naturalWidth - 128 / width_ratio * h) / 2 + "");
-    $("#JS_top").val(Math.min(0, (image.naturalHeight - 128 / height_ratio * v) / 2) + "");
+    $("#JS_left").val((image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "");
+    $("#JS_top").val(Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "");
     $("#JS_top").removeProp("checked");
 }
 
@@ -143,34 +148,35 @@ function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, 
     animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
     if (!animation && !effects.length) {
-        canvas.width = 128;
-        canvas.height = 128;
-
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 128, 128);
+        canvas.width = EMOJI_SIZE;
+        canvas.height = EMOJI_SIZE;
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, EMOJI_SIZE, EMOJI_SIZE);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, EMOJI_SIZE, EMOJI_SIZE);
 
         return canvas.toDataURL();
     } else {
-        canvas.width = 64;
-        canvas.height = 64;
+        canvas.width = ANIMATED_EMOJI_SIZE;
+        canvas.height = ANIMATED_EMOJI_SIZE;
 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
         encoder.start();
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < ANIMATION_FRAMES; i++) {
             ctx.save();
-            ctx.fillStyle = "white";
-            ctx.fillRect(0, 0, 64, 64);
-            effects.forEach(function (effect) { effect(i / 12.0, ctx, 64, 64); });
+            ctx.fillStyle = background;
+            ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+            effects.forEach(function (effect) { effect(i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE); });
             if (animation) {
-                animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
+                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
-                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 64, 64);
+                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
             ctx.restore();
             encoder.addFrame(ctx);
@@ -192,9 +198,10 @@ function render_results () {
     var framerate    = parseInt($("#JS_framerate").val());
     var animation    = window[$("#JS_animation").val()];
     var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
+    var background   = $("#JS_background_color").val();
 
-    var cell_width = 128 / width_ratio;
-    var cell_height = 128 / height_ratio;
+    var cell_width = EMOJI_SIZE / width_ratio;
+    var cell_height = EMOJI_SIZE / height_ratio;
     var $results = $("#JS_results");
     $results.html("");
     for (var y = 0; y < v; y++) {
@@ -203,9 +210,9 @@ function render_results () {
                 image,
                 left + x * cell_width, top + y * cell_height,
                 cell_width, cell_height,
-                animation, effects, framerate
+                animation, effects, framerate, background
             );
-            $results.append("<img width='128px' src='" + url +"'>");
+            $results.append("<img width='" + EMOJI_SIZE + "px' src='" + url +"'>");
         }
         $results.append("<br>");
     }
