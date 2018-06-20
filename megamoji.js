@@ -1,4 +1,5 @@
 var CANVAS_SIZE = 1000;
+var EMOJI_SIZE = 128;
 
 function load_file () {
     var reader = new FileReader();
@@ -69,8 +70,8 @@ function compute_recomended_configuration () {
     var h        = parseInt($("#JS_h").val());
     var trimming = $("#JS_trimming").val();
 
-    var width_ratio  = (128.0 * h) / image.naturalWidth;
-    var height_ratio = (128.0 * v) / image.naturalHeight;
+    var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
+    var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
 
     switch ($("#JS_trimming").val()) {
         case "cover":
@@ -85,8 +86,8 @@ function compute_recomended_configuration () {
 
     $("#JS_zoom_h").val(width_ratio + "");
     $("#JS_zoom_v").val(height_ratio + "");
-    $("#JS_left").val((image.naturalWidth - 128 / width_ratio * h) / 2 + "");
-    $("#JS_top").val(Math.min(0, (image.naturalHeight - 128 / height_ratio * v) / 2) + "");
+    $("#JS_left").val((image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "");
+    $("#JS_top").val(Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "");
     $("#JS_top").removeProp("checked");
 }
 
@@ -142,8 +143,8 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
     var ctx = canvas.getContext('2d');
 
     if (!animation && !effects.length) {
-        var canvas_width = 128;
-        var canvas_height = 128;
+        var canvas_width = EMOJI_SIZE;
+        var canvas_height = EMOJI_SIZE;
 
         canvas.width = canvas_width;
         canvas.height = canvas_height;
@@ -194,8 +195,8 @@ function render_results () {
     var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
     var background   = $("#JS_background_color").val();
 
-    var cell_width = 128 / width_ratio;
-    var cell_height = 128 / height_ratio;
+    var cell_width = EMOJI_SIZE / width_ratio;
+    var cell_height = EMOJI_SIZE / height_ratio;
     var $results = $("#JS_results");
     $results.html("");
     for (var y = 0; y < v; y++) {
@@ -206,7 +207,7 @@ function render_results () {
                 cell_width, cell_height,
                 animation, effects, framerate, background
             );
-            $results.append("<img width='128px' src='" + url +"'>");
+            $results.append("<img width='" + EMOJI_SIZE + "px' src='" + url +"'>");
         }
         $results.append("<br>");
     }
