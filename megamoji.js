@@ -107,7 +107,8 @@ function effect_rotate (keyframe, ctx, cellWidth, cellHeight) {
 
 var last_gata = false;
 function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
-    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 2, cellHeight / 2 + (Math.random() - 0.5) * 2);
+    last_gata = !last_gata;
+    ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 4, cellHeight / 2 + (Math.random() - 0.5) * 4);
     ctx.rotate(last_gata ? -0.05 : 0.05);
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
