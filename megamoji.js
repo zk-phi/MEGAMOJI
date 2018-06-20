@@ -35,10 +35,6 @@ function generate_text_image () {
     var ctx    = canvas.getContext('2d');
     var align  = $("#JS_text_align").val();
 
-    var background   = $("#JS_text_background_color").val();
-    ctx.fillStyle = background;
-    ctx.fillRect(0, 0, canvas_width, canvas_height);
-
     ctx.fillStyle    = $("#JS_text_color").val();
     ctx.font         = $("#JS_text_font").val();
     ctx.textBaseline = "top";
