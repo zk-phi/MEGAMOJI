@@ -151,8 +151,10 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
 
         return canvas.toDataURL();
     } else {
-        canvas.width = 64;
-        canvas.height = 64;
+        var canvas_width = 64;
+        var canvas_height = 64;
+        canvas.width = canvas_width;
+        canvas.height = canvas_height;
 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
@@ -161,12 +163,12 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         for (var i = 0; i < 12; i++) {
             ctx.save();
             ctx.fillStyle = background;
-            ctx.fillRect(0, 0, 64, 64);
-            effects.forEach(function (effect) { effect(i / 12.0, ctx, 64, 64); });
+            ctx.fillRect(0, 0, canvas_width, canvas_height);
+            effects.forEach(function (effect) { effect(i / 12.0, ctx, canvas_width, canvas_height); });
             if (animation) {
-                animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, 64, 64);
+                animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, canvas_width, canvas_height);
             } else {
-                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, 64, 64);
+                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, canvas_width, canvas_height);
             }
             ctx.restore();
             encoder.addFrame(ctx);
