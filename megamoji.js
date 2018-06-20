@@ -1,6 +1,7 @@
 var CANVAS_SIZE = 1000;
 var EMOJI_SIZE = 128;
 var ANIMATED_EMOJI_SIZE = 64;
+var ANIMATION_FRAMES = 12;
 
 function load_file () {
     var reader = new FileReader();
@@ -164,13 +165,13 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
         encoder.start();
-        for (var i = 0; i < 12; i++) {
+        for (var i = 0; i < ANIMATION_FRAMES; i++) {
             ctx.save();
             ctx.fillStyle = background;
             ctx.fillRect(0, 0, canvas_width, canvas_height);
-            effects.forEach(function (effect) { effect(i / 12.0, ctx, canvas_width, canvas_height); });
+            effects.forEach(function (effect) { effect(i / ANIMATION_FRAMES, ctx, canvas_width, canvas_height); });
             if (animation) {
-                animation(i / 12.0, ctx, image, offsetH, offsetV, width, height, canvas_width, canvas_height);
+                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, canvas_width, canvas_height);
             } else {
                 ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, canvas_width, canvas_height);
             }
