@@ -129,6 +129,22 @@ function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
+function effect_yatta (keyframe, ctx, cellWidth, cellHeight) {
+    if (keyframe >= 0.5) {
+        ctx.transform(-1, 0, 0, 1, cellWidth, 0);
+    }
+    ctx.translate(0, cellHeight / 8 * Math.sin(4 * Math.PI * keyframe));
+}
+
+function effect_poyon (keyframe, ctx, cellWidth, cellHeight) {
+    if (keyframe < 0.6) {
+        ctx.translate(0, - cellHeight / 3 * Math.sin(Math.PI * keyframe / 0.6));
+    } else {
+        var ratio = Math.sin(Math.PI * (keyframe - 0.6) / 0.4) / 2;
+        ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight);
+    }
+}
+
 function effect_zoom (keyframe, ctx, cellWidth, cellHeight) {
     var zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
     ctx.transform(1 + zoom, 0, 0, 1 + zoom, - cellWidth / 2 * zoom, - cellHeight / 2 * zoom);
