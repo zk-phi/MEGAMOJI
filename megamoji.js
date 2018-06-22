@@ -133,7 +133,10 @@ function effect_yatta (keyframe, ctx, cellWidth, cellHeight) {
     if (keyframe >= 0.5) {
         ctx.transform(-1, 0, 0, 1, cellWidth, 0);
     }
-    ctx.translate(0, cellHeight / 8 * Math.sin(4 * Math.PI * keyframe));
+    ctx.translate(cellWidth / 2, cellHeight / 2);
+    ctx.rotate(0.1);
+    ctx.translate(- cellWidth / 2, - cellHeight / 2);
+    ctx.translate(0, cellHeight / 8 * Math.sin(8 * Math.PI * keyframe));
 }
 
 function effect_poyon (keyframe, ctx, cellWidth, cellHeight) {
