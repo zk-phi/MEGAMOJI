@@ -101,14 +101,14 @@ function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_pyon (keyframe, ctx, cellWidth, cellHeight) {
-    var resistance=1.7; // バウンド時の強さ
+    var resistance = 1.7; // バウンド時の強さ
     var y
-    if(keyframe > 0.7 ) { 
-        y = -Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3)
+    if(keyframe > 0.7) {
+        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3)
     } else {
-        y = -Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3) * Math.exp(-keyframe * resistance)
+        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3) * Math.exp(-keyframe * resistance)
     }
-    ctx.transform(1, 0, 0, 1, 0, y);
+    ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 15);
 }
 
 function effect_patapata (keyframe, ctx, cellWidth, cellHeight) {
