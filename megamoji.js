@@ -45,17 +45,17 @@ function generate_text_image () {
     var line_widths = lines.map(function (line) { return ctx.measureText(line).width; });
     var total_width = Math.ceil(Math.max.apply(null, line_widths));
 
-    var align_fn = align == "left" ? (
-        function (width) { return 0; }
-    ) : align == "right" ? (
-        function (width) { return total_width - width; }
-    ) : (
-        function (width) { return (total_width - width) / 2; }
-    );
-
     var current_total_height = 0;
     lines.forEach(function (line, ix) {
-        ctx.fillText(line, align_fn(line_widths[ix]), current_total_height);
+        if (align == "right") {
+            ctx.translate(total_width - line_widths[ix], 0)
+        } else if (align == "center") {
+            ctx.translate((total_width - line_widths[ix]) / 2, 0);
+        } else if (align == "both") {
+            ctx.transform(total_width / line_widths[ix], 0, 0, 1, 0, 0);
+        }
+
+        ctx.fillText(line, 0, current_total_height);
 
         /* measure total height */
         var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
