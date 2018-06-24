@@ -43,24 +43,33 @@ function generate_text_image () {
 
     var lines       = $("#JS_text").val().split("\n");
     var line_widths = lines.map(function (line) { return ctx.measureText(line).width; });
-    var line_height = ctx.measureText("あ").width; /* taken from tmlib.js */
-
-    var img_width   = Math.ceil(Math.max.apply(null, line_widths));
-    var img_height  = line_height * lines.length;
+    var total_width = Math.ceil(Math.max.apply(null, line_widths));
 
     var align_fn = align == "left" ? (
         function (width) { return 0; }
     ) : align == "right" ? (
-        function (width) { return img_width - width; }
+        function (width) { return total_width - width; }
     ) : (
-        function (width) { return (img_width - width) / 2; }
+        function (width) { return (total_width - width) / 2; }
     );
 
+    var current_total_height = 0;
     lines.forEach(function (line, ix) {
-        ctx.fillText(line, align_fn(line_widths[ix]), ix * line_height);
+        ctx.fillText(line, align_fn(line_widths[ix]), current_total_height);
+
+        /* measure total height */
+        var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        for (var row = current_total_height; row < canvas.height; row++) {
+            for (var column = 0; column < canvas.width; column++) {
+                if (data[(row * canvas.width + column) * 4]) {
+                    current_total_height = row;
+                    break;
+                }
+            }
+        }
     });
 
-    $("#JS_base-image").attr('src', crop_canvas(canvas, img_width, img_height).toDataURL());
+    $("#JS_base-image").attr('src', crop_canvas(canvas, total_width, current_total_height).toDataURL());
 }
 
 function compute_recomended_configuration () {
