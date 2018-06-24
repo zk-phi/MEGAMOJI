@@ -1,4 +1,4 @@
-var CANVAS_SIZE = 1000;
+var TEXT_CANVAS_SIZE = 1000; /* a sufficiently large number */
 var EMOJI_SIZE = 128;
 var ANIMATED_EMOJI_SIZE = 64;
 var ANIMATION_FRAMES = 12;
@@ -31,8 +31,8 @@ function crop_canvas (source_canvas, w, h) {
 
 function generate_text_image () {
     var canvas = document.createElement("canvas");
-    canvas.width = CANVAS_SIZE;
-    canvas.height = CANVAS_SIZE;
+    canvas.width  = TEXT_CANVAS_SIZE;
+    canvas.height = TEXT_CANVAS_SIZE;
 
     var ctx    = canvas.getContext('2d');
     var align  = $("#JS_text_align").val();
