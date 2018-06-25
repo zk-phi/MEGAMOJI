@@ -120,6 +120,30 @@ function effect_pyon (keyframe, ctx, cellWidth, cellHeight) {
     ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 15);
 }
 
+function effect_shadow (keyframe, ctx, cellWidth, cellHeight) {
+    ctx.shadowColor = 'black';
+    ctx.shadowOffsetY = 7;
+    ctx.shadowOffsetX = 7;
+}
+function effect_natural_blur (keyframe, ctx, cellWidth, cellHeight) {
+    var r = parseInt(150*keyframe)+100;
+    var g = parseInt(150*keyframe)+100;
+    var b = parseInt(150*keyframe)+100;
+    ctx.shadowColor = '#'+Number(r).toString(16)+Number(g).toString(16)+Number(b).toString(16);
+    ctx.shadowBlur = 50*keyframe;
+}
+function effect_aurora_blur(keyframe, ctx, cellWidth, cellHeight) {
+    var r = parseInt(400*keyframe)+100;
+    var g = parseInt(800*keyframe)+100;
+    var b = parseInt(200*keyframe)+100;
+    ctx.shadowColor = '#'+Number(r).toString(16)+Number(g).toString(16)+Number(b).toString(16);
+    ctx.shadowBlur = 50*keyframe;
+}
+function effect_shadow_rotate (keyframe, ctx, cellWidth, cellHeight) {
+    ctx.shadowColor = 'black';
+    ctx.shadowOffsetY = Math.cos(2 * Math.PI * keyframe)*5;
+    ctx.shadowOffsetX = Math.sin(2 * Math.PI * keyframe)*5;
+}
 function effect_patapata (keyframe, ctx, cellWidth, cellHeight) {
     ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
 }
