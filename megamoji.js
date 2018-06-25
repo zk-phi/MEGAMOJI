@@ -31,19 +31,17 @@ function crop_canvas (source_canvas, w, h) {
     return canvas;
 }
 
-function generate_text_image () {
+function generate_text_image (text, color, font, align) {
     var canvas = document.createElement("canvas");
     canvas.width  = TEXT_CANVAS_SIZE;
     canvas.height = TEXT_CANVAS_SIZE;
 
-    var ctx    = canvas.getContext('2d');
-    var align  = $("#JS_text_align").val();
-
-    ctx.fillStyle    = $("#JS_text_color").val();
-    ctx.font         = $("#JS_text_font").val();
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle    = color;
+    ctx.font         = font;
     ctx.textBaseline = "top";
 
-    var lines       = $("#JS_text").val().split("\n");
+    var lines       = text.split("\n");
     var line_widths = lines.map(function (line) { return ctx.measureText(line).width; });
     var total_width = Math.ceil(Math.max.apply(null, line_widths));
 
@@ -71,7 +69,7 @@ function generate_text_image () {
         }
     });
 
-    $("#JS_base-image").attr('src', crop_canvas(canvas, total_width, current_total_height).toDataURL());
+    return crop_canvas(canvas, total_width, current_total_height).toDataURL();
 }
 
 function compute_recomended_configuration () {
@@ -250,11 +248,24 @@ function render_results () {
 
 $(function() {
     $("#JS_file").change(load_file);
+
     $("#JS_reload").click(reload_file);
-    $("#JS_generate").click(generate_text_image);
+
+    $("#JS_generate").click(function () {
+        $("#JS_base-image").attr('src', generate_text_image(
+            $("#JS_text").val(),
+            $("#JS_text_color").val(),
+            $("#JS_text_font").val(),
+            $("#JS_text_align").val()
+        ));
+    });
+
     $("#JS_base-image").bind('load', compute_recomended_configuration);
+
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
+
     $("#JS_render").click(render_results);
+
     $("#JS_toggle_details").click(function () {
         $(this).remove();
         $("#JS_details").show();
