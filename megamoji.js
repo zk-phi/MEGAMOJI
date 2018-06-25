@@ -1,7 +1,7 @@
-var TEXT_CANVAS_SIZE = 1000; /* a sufficiently large number */
-var EMOJI_SIZE = 128;
+var TEXT_CANVAS_SIZE    = 1000; /* a sufficiently large number */
+var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
-var ANIMATION_FRAMES = 12;
+var ANIMATION_FRAMES    = 12;
 
 function load_file () {
     var reader = new FileReader();
@@ -10,7 +10,9 @@ function load_file () {
 }
 
 function reload_file () {
-    var url = $("#JS_url").val();
+    var url    = $("#JS_url").val();
+    var filter = $("#JS_filter").val();
+
     if (url) {
         $("#JS_base-image").attr('src', url);
     } else {
