@@ -53,7 +53,7 @@ function generate_text_image () {
             ctx.translate(total_width - line_widths[ix], 0)
         } else if (align == "center") {
             ctx.translate((total_width - line_widths[ix]) / 2, 0);
-        } else if (align == "both") {
+        } else if (align == "stretch") {
             ctx.transform(total_width / line_widths[ix], 0, 0, 1, 0, 0);
         }
 
