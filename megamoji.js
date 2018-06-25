@@ -61,7 +61,7 @@ function generate_text_image () {
         var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
         for (var row = current_total_height; row < canvas.height; row++) {
             for (var column = 0; column < canvas.width; column++) {
-                if (data[(row * canvas.width + column) * 4]) {
+                if (data[(row * canvas.width + column) * 4 + 3]) {
                     current_total_height = row;
                     break;
                 }
