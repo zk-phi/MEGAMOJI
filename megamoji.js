@@ -208,7 +208,7 @@ function effect_patapata (keyframe, ctx, cellWidth, cellHeight) {
     ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
 }
 function effect_sidetoside (keyframe, ctx, cellWidth, cellHeight) {
-    ctx.transform(1, 0, 0, 1, cellWidth * Math.cos(2 * Math.PI * keyframe), 0);
+    ctx.transform(1, 0, 0, 1, cellWidth * Math.sin(2 * Math.PI * keyframe), 0);
 }
 function effect_rotate (keyframe, ctx, cellWidth, cellHeight) {
     ctx.translate(cellWidth / 2, cellHeight / 2);
