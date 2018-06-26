@@ -36,7 +36,17 @@
               <label>URL (要 CORS)</label>
               <input type="text" id="JS_url" class="form-control">
             </div>
+            <div id="JS_image_details" style="display: none">
+              <div class="form-group">
+                <label>前処理</label>
+                <select id="JS_filter" class="form-control">
+                  <option value="" selected>なし</option>
+                  <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
+                </select>
+              </div>
+            </div>
             <input type="button" id="JS_reload" class="btn btn-primary" value="(Re)Load">
+            <input type="button" id="JS_toggle_image_details" class="btn btn-default" value="Advanced">
           </div>
         </div>
         <div class="panel panel-default">

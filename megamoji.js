@@ -11,13 +11,72 @@ function load_file () {
 
 function reload_file () {
     var url    = $("#JS_url").val();
-    var filter = $("#JS_filter").val();
+    var filter = window[$("#JS_filter").val()];
 
     if (url) {
         $("#JS_base-image").attr('src', url);
+        if (filter) filter();
     } else {
-        load_file();
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#JS_base-image").attr('src', e.target.result);
+            if (filter) filter();
+        };
+        reader.readAsDataURL($("#JS_file")[0].files[0]);
     }
+}
+
+function filter_chromakey () {
+    var image  = $("#JS_base-image")[0];
+    var canvas = document.createElement("canvas");
+    var ctx    = canvas.getContext('2d');
+    canvas.width  = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+
+    ctx.drawImage(image, 0, 0);
+
+    var image_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = image_data.data;
+    var base_color = [data[0], data[1], data[2]];
+
+    var queue = [
+        [0, 0],
+        [canvas.width - 1, 0],
+        [0, canvas.height - 1],
+        [canvas.width - 1, canvas.height - 1]
+    ];
+
+    while (queue.length) {
+        var item = queue.shift();
+        if (item[0] >= canvas.width || item[1] >= canvas.height || item[0] < 0 || item[1] < 0) {
+            continue;
+        }
+
+        var ix = (item[1] * canvas.width + item[0]) * 4;
+        if (!data[ix + 3]) continue;
+
+        var norm = Math.hypot(
+            data[ix] - base_color[0],
+            data[ix + 1] - base_color[1],
+            data[ix + 2] - base_color[2]
+        );
+        if (norm < 90) {
+            data[ix + 3] = 0;
+            queue.push(
+                [item[0] - 1, item[1] - 1],
+                [item[0],     item[1] - 1],
+                [item[0] + 1, item[1] - 1],
+                [item[0] - 1, item[1]],
+                [item[0] + 1, item[1]],
+                [item[0] - 1, item[1] + 1],
+                [item[0],     item[1] + 1],
+                [item[0] + 1, item[1] + 1]
+            );
+        }
+    }
+
+    ctx.putImageData(image_data, 0, 0);
+    $("#JS_base-image").attr('src', canvas.toDataURL("image/png"));
 }
 
 function crop_canvas (source_canvas, w, h) {
@@ -250,13 +309,12 @@ function render_results () {
 
 $(function() {
     $("#JS_file").change(load_file);
+    $("#JS_file,#JS_url").change(function () { $("#JS_filter").val(""); });
     $("#JS_reload").click(reload_file);
     $("#JS_generate").click(generate_text_image);
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
     $("#JS_render").click(render_results);
-    $("#JS_toggle_details").click(function () {
-        $(this).remove();
-        $("#JS_details").show();
-    });
+    $("#JS_toggle_details").click(function () { $(this).remove(); $("#JS_details").show(); });
+    $("#JS_toggle_image_details").click(function () { $(this).remove(); $("#JS_image_details").show(); });
 });
