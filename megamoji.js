@@ -106,6 +106,7 @@ function generate_text_image (text, color, font, align) {
 
     var current_total_height = 0;
     lines.forEach(function (line, ix) {
+        ctx.save();
         if (align == "right") {
             ctx.translate(total_width - line_widths[ix], 0)
         } else if (align == "center") {
@@ -115,6 +116,7 @@ function generate_text_image (text, color, font, align) {
         }
 
         ctx.fillText(line, 0, current_total_height);
+        ctx.restore();
 
         /* measure total height */
         var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
