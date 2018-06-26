@@ -126,17 +126,18 @@ function effect_shadow (keyframe, ctx, cellWidth, cellHeight) {
     ctx.shadowOffsetX = 7;
 }
 function effect_natural_blur (keyframe, ctx, cellWidth, cellHeight) {
-    var r = parseInt(150*keyframe)+100;
-    var g = parseInt(150*keyframe)+100;
-    var b = parseInt(150*keyframe)+100;
-    ctx.shadowColor = '#'+Number(r).toString(16)+Number(g).toString(16)+Number(b).toString(16);
+    var hsv_color = hsvToRgb(0, 0, keyframe)
+    ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
+function effect_neon(keyframe, ctx, cellWidth, cellHeight) {
+    var hsv_color = hsvToRgb(keyframe*360*4%360, 1, 1)
+    ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
+    ctx.shadowBlur = 10;
+}
 function effect_aurora_blur(keyframe, ctx, cellWidth, cellHeight) {
-    var r = parseInt(400*keyframe)+100;
-    var g = parseInt(800*keyframe)+100;
-    var b = parseInt(200*keyframe)+100;
-    ctx.shadowColor = '#'+Number(r).toString(16)+Number(g).toString(16)+Number(b).toString(16);
+    var hsv_color = hsvToRgb(keyframe*360, 1, 1)
+    ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
 function effect_shadow_rotate (keyframe, ctx, cellWidth, cellHeight) {
@@ -239,6 +240,31 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
     }
 }
 
+//from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
+function hsvToRgb(H,S,V) {
+    //https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
+
+    var C = V * S;
+    var Hp = H / 60;
+    var X = C * (1 - Math.abs(Hp % 2 - 1));
+
+    var R, G, B;
+    if (0 <= Hp && Hp < 1) {[R,G,B]=[C,X,0]};
+    if (1 <= Hp && Hp < 2) {[R,G,B]=[X,C,0]};
+    if (2 <= Hp && Hp < 3) {[R,G,B]=[0,C,X]};
+    if (3 <= Hp && Hp < 4) {[R,G,B]=[0,X,C]};
+    if (4 <= Hp && Hp < 5) {[R,G,B]=[X,0,C]};
+    if (5 <= Hp && Hp < 6) {[R,G,B]=[C,0,X]};
+
+    var m = V - C;
+    [R, G, B] = [R+m, G+m, B+m];
+
+    R = Math.floor(R * 255);
+    G = Math.floor(G * 255);
+    B = Math.floor(B * 255);
+
+    return [R ,G, B];
+}
 function render_results () {
     var image        = $("#JS_base-image")[0];
     var v            = parseInt($("#JS_v").val());
