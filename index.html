@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap-3.3.6.min.css">
+    <link rel="stylesheet" href="spectre-0.5.3.min.css">
     <script src="jsgif/b64.js"></script>
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
@@ -15,51 +15,63 @@
     <style>.result_area img { border: 1px solid #eee }</style>
   </head>
 
-  <body class="container">
-    <h1 class="page-header">MEGAMOJI <small>by zk_phi</small></h1>
+  <body class="container grid-xl">
+    <h1>MEGAMOJI</h1>
 
-    Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
+    <p>
+      Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
+    </p>
 
-    <h2>元画像</h2>
+    <h2>1. 元画像</h2>
 
-    <div class="row">
+    <div class="columns m-2">
 
-      <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">画像から</div>
-          <div class="panel-body">
-            <div class="form-group">
-              <label>ファイル</label>
-              <input type="file" id="JS_file" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>URL (要 CORS)</label>
-              <input type="text" id="JS_url" class="form-control">
-            </div>
-            <input type="button" id="JS_reload" class="btn btn-block btn-primary" value="(Re)Load">
-            <input type="button" id="JS_open_image_details" class="btn btn-block btn-default" value="Advanced">
+      <div class="column col-4 col-md-12">
+        <div class="card m-2">
+          <div class="card-header">
+            <div class="card-title h5">画像から</div>
           </div>
-          <div id="JS_image_details" class="panel-footer" style="display: none">
+          <div class="card-body">
             <div class="form-group">
-              <label>前処理</label>
-              <select id="JS_filter" class="form-control">
-                <option value="" selected>なし</option>
-                <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
-              </select>
+              <label class="form-label">ファイル</label>
+              <input type="file" id="JS_file" class="form-input">
             </div>
-            <input type="button" id="JS_close_image_details" class="btn btn-block btn-default" value="Collapse">
+            <div class="form-group">
+              <label class="form-label">URL (要 CORS)</label>
+              <input type="text" id="JS_url" class="form-input">
+            </div>
+            <div id="JS_image_details" class="card" style="display: none">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="form-label">前処理</label>
+                  <select id="JS_filter" class="form-select">
+                    <option value="" selected>なし</option>
+                    <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="card-footer">
+                <input type="button" id="JS_close_image_details" class="btn btn-block btn-default" value="- Collapse">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="button" id="JS_open_image_details" class="btn btn-block btn-default mb-2" value="+ Advanced">
+            <input type="button" id="JS_reload" class="btn btn-block btn-primary" value="(Re)Load">
           </div>
         </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">テキストから</div>
-          <div class="panel-body">
+        <div class="card m-2">
+          <div class="card-header">
+            <div class="card-title h5">テキストから</div>
+          </div>
+          <div class="card-body">
             <div class="form-group">
-              <label>テキスト</label>
-              <textarea id="JS_text" class="form-control"></textarea>
+              <label class="form-label">テキスト</label>
+              <textarea id="JS_text" class="form-input"></textarea>
             </div>
             <div class="form-group">
-              <label>揃え</label>
-              <select id="JS_text_align" class="form-control">
+              <label class="form-label">揃え</label>
+              <select id="JS_text_align" class="form-select">
                 <option value="left" selected>左</option>
                 <option value="center">中央</option>
                 <option value="right">右</option>
@@ -67,22 +79,26 @@
               </select>
             </div>
             <div class="form-group">
-              <label>色</label>
-              <input type="color" id="JS_text_color" class="form-control" value="#ff0000">
+              <label class="form-label">色</label>
+              <input type="color" id="JS_text_color" class="form-input" value="#ff0000">
             </div>
             <div class="form-group">
-              <label>フォント</label>
-              <input type="text" id="JS_text_font" class="form-control" value="bold 128px sans-serif">
+              <label class="form-label">フォント</label>
+              <input type="text" id="JS_text_font" class="form-input" value="bold 128px sans-serif">
             </div>
-            <input type="button" id="JS_generate" class="btn btn-primary" value="Generate">
+          </div>
+          <div class="card-footer">
+            <input type="button" id="JS_generate" class="btn btn-block btn-primary" value="Generate">
           </div>
         </div>
       </div>
 
-      <div class="col-md-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">プレビュー</div>
-          <div class="panel-body">
+      <div class="column col-8 col-md-12">
+        <div class="card m-2">
+          <div class="card-header">
+            <div class="card-title h5">プレビュー</div>
+          </div>
+          <div class="card-body">
             <p><img id="JS_base-image" crossorigin="anonymous" style="max-width: 100%;" /></p>
           </div>
         </div>
@@ -90,140 +106,163 @@
 
     </div>
 
-    <h2>Emoji</h2>
+    <h2>2. Emoji</h2>
 
-    <div class="row">
+    <div class="columns m-2">
 
-      <div class="col-md-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">効果</div>
-          <div class="panel-body">
+      <div class="column col-4 col-md-12">
+        <div class="card m-2">
+          <div class="card-header">
+            <div class="card-title h5">効果</div>
+          </div>
+          <div class="card-body">
             <div class="form-group">
-              <label>アス比維持</label>
-              <select id="JS_trimming" class="form-control">
+              <label class="form-label">アス比維持</label>
+              <select id="JS_trimming" class="form-select">
                 <option value="">なし</option>
                 <option value="cover" selected>はみだす</option>
                 <option value="contain">おさめる</option>
               </select>
             </div>
             <div class="form-group">
-              <label>分割 横</label>
-              <input type="text" value="1" id="JS_h" class="form-control">
+              <label class="form-label">分割 横</label>
+              <input type="number" value="1" min="1" id="JS_h" class="form-input">
             </div>
             <div class="form-group">
-              <label>分割 縦</label>
-              <input type="text" value="1" id="JS_v" class="form-control">
+              <label class="form-label">分割 縦</label>
+              <input type="number" value="1" min="1" id="JS_v" class="form-input">
             </div>
             <div class="form-group">
-              <label>アニメ (全体)</label>
-              <select id="JS_animation" class="form-control">
+              <label class="form-label">アニメ (全体)</label>
+              <select id="JS_animation" class="form-select">
                 <option value="" selected>なし</option>
                 <option value="animation_scroll">スクロール</option>
                 <option value="animation_push">押し出し</option>
               </select>
             </div>
             <div class="form-group">
-              <label>アニメ (セルごと)</label>
-              <p>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_kira">
-                  キラ (Chrome のみ)
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_gatagata">
-                  ガタガタ
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_zoom">
-                  びょいんびょいん
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_blink">
-                  BLINK
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_rotate">
-                  ぐるぐる
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_patapata">
-                  ぱたぱた
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_yatta">
-                  ヤッタ
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_poyon">
-                  ぽよーん
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_sidetoside">
-                  すいっすいっ
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_pyon">
-                  ピチピチ
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_shadow">
-                  影
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_shadow_rotate">
-                  影ぐるぐる
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_natural_blur">
-                  ブラー
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_aurora_blur">
-                  オーロラ
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" class="JS_effect" value="effect_neon">
-                  ネオン
-                </label>
-              </p>
+              <label class="form-label">アニメ (セルごと)</label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_kira">
+                <i class="form-icon"></i>
+                キラ (Chrome のみ)
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_gatagata">
+                <i class="form-icon"></i>
+                ガタガタ
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_zoom">
+                <i class="form-icon"></i>
+                びょいんびょいん
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_blink">
+                <i class="form-icon"></i>
+                BLINK
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_rotate">
+                <i class="form-icon"></i>
+                ぐるぐる
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_patapata">
+                <i class="form-icon"></i>
+                ぱたぱた
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_yatta">
+                <i class="form-icon"></i>
+                ヤッタ
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_poyon">
+                <i class="form-icon"></i>
+                ぽよーん
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_sidetoside">
+                <i class="form-icon"></i>
+                すいっすいっ
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_pyon">
+                <i class="form-icon"></i>
+                ピチピチ
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_shadow">
+                <i class="form-icon"></i>
+                影
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_shadow_rotate">
+                <i class="form-icon"></i>
+                影ぐるぐる
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_natural_blur">
+                <i class="form-icon"></i>
+                ブラー
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_aurora_blur">
+                <i class="form-icon"></i>
+                オーロラ
+              </label>
+              <label class="form-checkbox form-inline">
+                <input type="checkbox" class="JS_effect" value="effect_neon">
+                <i class="form-icon"></i>
+                ネオン
+              </label>
             </div>
-            <input type="button" id="JS_render" class="btn btn-block btn-primary" value="Render">
-            <input type="button" id="JS_open_details" class="btn btn-block btn-default" value="Advanced">
+            <div id="JS_details" class="card" style="display: none">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="form-label">背景色</label>
+                  <input type="color" id="JS_background_color" class="form-input" value="#ffffff">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">オフセット左 (px)</label>
+                  <input type="text" value="0" id="JS_left" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">オフセット上 (px)</label>
+                  <input type="text" value="0" id="JS_top" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">拡大率 (横)</label>
+                  <input type="text" value="1.0" id="JS_zoom_h" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">拡大率 (縦)</label>
+                  <input type="text" value="1.0" id="JS_zoom_v" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">スピード</label>
+                  <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-input">
+                </div>
+              </div>
+              <div class="card-footer">
+                <input type="button" id="JS_close_details" class="btn btn-block btn-default" value="- Collapse">
+              </div>
+            </div>
           </div>
-          <div id="JS_details" class="panel-footer" style="display: none">
-            <div class="form-group">
-              <label>背景色</label>
-              <input type="color" id="JS_background_color" class="form-control" value="#ffffff">
-            </div>
-            <div class="form-group">
-              <label>オフセット左 (px)</label>
-              <input type="text" value="0" id="JS_left" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>オフセット上 (px)</label>
-              <input type="text" value="0" id="JS_top" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>拡大率 (横)</label>
-              <input type="text" value="1.0" id="JS_zoom_h" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>拡大率 (縦)</label>
-              <input type="text" value="1.0" id="JS_zoom_v" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>スピード</label>
-              <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-control">
-            </div>
-            <input type="button" id="JS_close_details" class="btn btn-block btn-default" value="Collapse">
+          <div class="card-footer">
+            <input type="button" id="JS_open_details" class="btn btn-block btn-default mb-2" value="+ Advanced">
+            <input type="button" id="JS_render" class="btn btn-block btn-primary" value="Render">
           </div>
         </div>
       </div>
 
-      <div class="col-md-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">結果 (右クリックで保存)</div>
-          <div class="panel-body">
+      <div class="column col-8 col-md-12">
+        <div class="card m-2">
+          <div class="card-header">
+            <div class="card-title h5">結果 (右クリックで保存)</div>
+          </div>
+          <div class="card-body">
             <p id="JS_results" class="result_area">
             </p>
           </div>
