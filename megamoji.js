@@ -160,17 +160,17 @@ function compute_recomended_configuration () {
     $("#JS_top").removeProp("checked");
 }
 
-function effect_kira (keyframe, ctx, cellWidth, cellHeight) {
+function effect_kira (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
 }
 
-function effect_blink (keyframe, ctx, cellWidth, cellHeight) {
+function effect_blink (keyframe, ctx, cellWidth, cellHeight, background) {
     if (keyframe >= 0.5) {
         ctx.translate(- cellWidth * 2, 0); /* hide */
     }
 }
 
-function effect_pyon (keyframe, ctx, cellWidth, cellHeight) {
+function effect_pyon (keyframe, ctx, cellWidth, cellHeight, background) {
     var resistance = 1.7; // バウンド時の強さ
     var y
     if(keyframe > 0.7) {
@@ -181,59 +181,59 @@ function effect_pyon (keyframe, ctx, cellWidth, cellHeight) {
     ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 15);
 }
 
-function effect_shadow (keyframe, ctx, cellWidth, cellHeight) {
+function effect_shadow (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.shadowColor = 'black';
     ctx.shadowOffsetY = 7;
     ctx.shadowOffsetX = 7;
 }
 
-function effect_natural_blur (keyframe, ctx, cellWidth, cellHeight) {
+function effect_natural_blur (keyframe, ctx, cellWidth, cellHeight, background) {
     var hsv_color = hsvToRgb(0, 0, keyframe)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
 
-function effect_neon(keyframe, ctx, cellWidth, cellHeight) {
+function effect_neon(keyframe, ctx, cellWidth, cellHeight, background) {
     var hsv_color = hsvToRgb(keyframe*360*4%360, 1, 1)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 10;
 }
 
-function effect_aurora_blur(keyframe, ctx, cellWidth, cellHeight) {
+function effect_aurora_blur(keyframe, ctx, cellWidth, cellHeight, background) {
     var hsv_color = hsvToRgb(keyframe*360, 1, 1)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
 
-function effect_shadow_rotate (keyframe, ctx, cellWidth, cellHeight) {
+function effect_shadow_rotate (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.shadowColor = 'black';
     ctx.shadowOffsetY = Math.cos(2 * Math.PI * keyframe)*5;
     ctx.shadowOffsetX = Math.sin(2 * Math.PI * keyframe)*5;
 }
 
-function effect_patapata (keyframe, ctx, cellWidth, cellHeight) {
+function effect_patapata (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
 }
 
-function effect_sidetoside (keyframe, ctx, cellWidth, cellHeight) {
+function effect_sidetoside (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.transform(1, 0, 0, 1, cellWidth * Math.sin(2 * Math.PI * keyframe), 0);
 }
 
-function effect_rotate (keyframe, ctx, cellWidth, cellHeight) {
+function effect_rotate (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.translate(cellWidth / 2, cellHeight / 2);
     ctx.rotate(Math.PI * 2 * keyframe);
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
 var last_gata = false;
-function effect_gatagata (keyframe, ctx, cellWidth, cellHeight) {
+function effect_gatagata (keyframe, ctx, cellWidth, cellHeight, background) {
     last_gata = !last_gata;
     ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 4, cellHeight / 2 + (Math.random() - 0.5) * 4);
     ctx.rotate(last_gata ? -0.05 : 0.05);
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
-function effect_yatta (keyframe, ctx, cellWidth, cellHeight) {
+function effect_yatta (keyframe, ctx, cellWidth, cellHeight, background) {
     if (keyframe >= 0.5) {
         ctx.transform(-1, 0, 0, 1, cellWidth, 0);
     }
@@ -243,7 +243,7 @@ function effect_yatta (keyframe, ctx, cellWidth, cellHeight) {
     ctx.translate(0, cellHeight / 8 * Math.sin(8 * Math.PI * keyframe));
 }
 
-function effect_poyon (keyframe, ctx, cellWidth, cellHeight) {
+function effect_poyon (keyframe, ctx, cellWidth, cellHeight, background) {
     if (keyframe < 0.6) {
         ctx.translate(0, - cellHeight / 3 * Math.sin(Math.PI * keyframe / 0.6));
     } else {
@@ -252,12 +252,12 @@ function effect_poyon (keyframe, ctx, cellWidth, cellHeight) {
     }
 }
 
-function effect_zoom (keyframe, ctx, cellWidth, cellHeight) {
+function effect_zoom (keyframe, ctx, cellWidth, cellHeight, background) {
     var zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
     ctx.transform(1 + zoom, 0, 0, 1 + zoom, - cellWidth / 2 * zoom, - cellHeight / 2 * zoom);
 }
 
-function effect_tiritiri (keyframe, ctx, cellWidth, cellHeight) {
+function effect_tiritiri (keyframe, ctx, cellWidth, cellHeight, background) {
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -268,7 +268,7 @@ function effect_tiritiri (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_stripe (keyframe, ctx, cellWidth, cellHeight) {
+function effect_stripe (keyframe, ctx, cellWidth, cellHeight, background) {
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -281,8 +281,8 @@ function effect_stripe (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_river (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = hexToHsv(ctx.fillStyle);
+function effect_river (keyframe, ctx, cellWidth, cellHeight, background) {
+    var bgColorHSV = hexToHsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
@@ -296,8 +296,8 @@ function effect_river (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_signedBall (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = hexToHsv(ctx.fillStyle);
+function effect_signedBall (keyframe, ctx, cellWidth, cellHeight, background) {
+    var bgColorHSV = hexToHsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -313,8 +313,8 @@ function effect_signedBall (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_psych (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = hexToHsv(ctx.fillStyle);
+function effect_psych (keyframe, ctx, cellWidth, cellHeight, background) {
+    var bgColorHSV = hexToHsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -343,8 +343,8 @@ function effect_psych (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_check (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = hexToHsv(ctx.fillStyle);
+function effect_check (keyframe, ctx, cellWidth, cellHeight, background) {
+    var bgColorHSV = hexToHsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -373,7 +373,7 @@ function effect_check (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_timeMachine (keyframe, ctx, cellWidth, cellHeight) {
+function effect_timeMachine (keyframe, ctx, cellWidth, cellHeight, background) {
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
@@ -388,7 +388,7 @@ function effect_timeMachine (keyframe, ctx, cellWidth, cellHeight) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_dizzy (keyframe, ctx, cellWidth, cellHeight) {
+function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
@@ -441,7 +441,9 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
             ctx.save();
             ctx.fillStyle = background;
             ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
-            effects.forEach(function (effect) { effect(i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE); });
+            effects.forEach(function (effect) { effect(
+                i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background
+            ); });
             if (animation) {
                 animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
