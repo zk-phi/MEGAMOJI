@@ -252,68 +252,165 @@ function effect_zoom (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_tiritiri (keyframe, ctx, cellWidth, cellHeight) {
-    bgColorRGB = [
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    ]
-    const parentLayerRGBA = getImageDataFourDimension(ctx, cellWidth, cellHeight)
-    secondLayerImageData = restoreUint8ClampedArray(
-        parentLayerRGBA.map(function(element, index, array) {
-            return bgColorRGB.concat(parseInt(255 * Math.random()));
-        })
-    )
-    secondLayer = new ImageData(secondLayerImageData, cellWidth, cellHeight)
-    ctx.putImageData(secondLayer, 0, 0)
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < cellHeight; row++) {
+        for (var col = 0; col < cellWidth; col++) {
+            data[(row * cellWidth + col) * 4 + 3] = parseInt(255 * Math.random());
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
 }
 
 function effect_stripe (keyframe, ctx, cellWidth, cellHeight) {
-    const parentLayerRGBA = getImageDataFourDimension(ctx, cellWidth, cellHeight)
-    secondLayerImageData = restoreUint8ClampedArray(
-        parentLayerRGBA.map(function(element, index, array) {
-            return (index % cellHeight) % 3 == 1 ? [0, 0, 0, 0] : element;
-        })
-    )
-    secondLayer = new ImageData(secondLayerImageData, cellWidth, cellHeight)
-    ctx.putImageData(secondLayer, 0, 0)
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < cellHeight; row++) {
+        for (var col = 0; col < cellWidth; col++) {
+            if (col % 3 === 1)  {
+                data[(row * cellWidth + col) * 4 + 3] = 0;
+            }
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
 }
 
 function effect_river (keyframe, ctx, cellWidth, cellHeight) {
-    bgColorHSV = rgb2hsv(
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    )
-    const parentLayerRGBA = getImageDataFourDimension(ctx, cellWidth, cellHeight)
-    secondLayerImageData = restoreUint8ClampedArray(
-        parentLayerRGBA.map(function(element, index, array) {
-            return (index+(keyframe*40)) % 40 < 40 && (index+(keyframe*40)) % 40 > 20 ? hsvToRgb(bgColorHSV["h"]+180, 1, 1).concat(255) : element;
-        })
-    )
-    secondLayer = new ImageData(secondLayerImageData, cellWidth, cellHeight)
-    ctx.putImageData(secondLayer, 0, 0)
+    var bgColorHSV = rgb2hsv(
+            parseInt(ctx.fillStyle.substring(1, 3), 16),
+            parseInt(ctx.fillStyle.substring(3, 5), 16),
+            parseInt(ctx.fillStyle.substring(5, 7), 16)
+        )
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
+        if ((row / 4 + (keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe*40)) % 40 > 20) {
+            var color = hsvToRgb(bgColorHSV["h"] + 180, 1, 1);
+            data[row] = color[0];
+            data[row + 1] = color[1];
+            data[row + 2] = color[2];
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
+}
+
+function effect_signedBall (keyframe, ctx, cellWidth, cellHeight) {
+    var bgColorHSV = rgb2hsv(
+            parseInt(ctx.fillStyle.substring(1, 3), 16),
+            parseInt(ctx.fillStyle.substring(3, 5), 16),
+            parseInt(ctx.fillStyle.substring(5, 7), 16)
+        )
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < cellHeight; row++) {
+        for (var col = 0; col < cellWidth; col++) {
+            if ((row + col + (keyframe * 40)) % 40 < 40 && (row + col + (keyframe*40)) % 40 > 20) {
+                var color = hsvToRgb(bgColorHSV["h"] + 180, 1, 1);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+            }
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
+}
+
+function effect_psych (keyframe, ctx, cellWidth, cellHeight) {
+    var bgColorHSV = rgb2hsv(
+            parseInt(ctx.fillStyle.substring(1, 3), 16),
+            parseInt(ctx.fillStyle.substring(3, 5), 16),
+            parseInt(ctx.fillStyle.substring(5, 7), 16)
+        )
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < cellHeight; row++) {
+        for (var col = 0; col < cellWidth; col++) {
+            if (row % 10 <= 5 && col % 10 >= 5) {
+                var color = hsvToRgb((keyframe * 360 * 4 + 180)%360, 1, 1);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+                data[(row * cellWidth + col) * 4 + 3] = 255;
+            } else if (row % 10 < 5 ^ col % 10 < 5) {
+                var color = hsvToRgb((keyframe * 360 * 4 + 90)%360, 1, 1);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+                data[(row * cellWidth + col) * 4 + 3] = 255;
+            } else {
+                var color = hsvToRgb((keyframe * 360 * 4)%360, 1, 1);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+                data[(row * cellWidth + col) * 4 + 3] = 255;
+            }
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
+}
+
+function effect_check (keyframe, ctx, cellWidth, cellHeight) {
+    var bgColorHSV = rgb2hsv(
+            parseInt(ctx.fillStyle.substring(1, 3), 16),
+            parseInt(ctx.fillStyle.substring(3, 5), 16),
+            parseInt(ctx.fillStyle.substring(5, 7), 16)
+        )
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < cellHeight; row++) {
+        for (var col = 0; col < cellWidth; col++) {
+            if (row % 16 <= 8 && col % 16 >= 8) {
+                var color = hsvToRgb(bgColorHSV['h'], 1, 0.8);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+                data[(row * cellWidth + col) * 4 + 3] = 255;
+            } else if (row % 16 < 8 ^ col % 16 < 8) {
+                var color = hsvToRgb(bgColorHSV['h'], 1, 1);
+                data[(row * cellWidth + col) * 4] = color[0];
+                data[(row * cellWidth + col) * 4 + 1] = color[1];
+                data[(row * cellWidth + col) * 4 + 2] = color[2];
+                data[(row * cellWidth + col) * 4 + 3] = 255;
+            } else {
+               var color = hsvToRgb(bgColorHSV['h'], 1, 0.5);
+               data[(row * cellWidth + col) * 4] = color[0];
+               data[(row * cellWidth + col) * 4 + 1] = color[1];
+               data[(row * cellWidth + col) * 4 + 2] = color[2];
+               data[(row * cellWidth + col) * 4 + 3] = 255;
+           }
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
 }
 
 function effect_timeMachine (keyframe, ctx, cellWidth, cellHeight) {
-    const parentLayerRGBA = getImageDataFourDimension(ctx, cellWidth, cellHeight)
-    secondLayerImageData = restoreUint8ClampedArray(
-        parentLayerRGBA.map(function(element, index, array) {
-            return index % 40 < 40 * keyframe ? hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1).concat(255) : element;
-        })
-    )
-    secondLayer = new ImageData(secondLayerImageData, cellWidth, cellHeight)
-    ctx.putImageData(secondLayer, 0, 0)
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
+        if ((row / 4) % 40 < 40 * keyframe) {
+            var color = hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
+            data[row] = color[0];
+            data[row + 1] = color[1];
+            data[row + 2] = color[2];
+            data[row + 3] = 255;
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
 }
 
 function effect_dizzy (keyframe, ctx, cellWidth, cellHeight) {
-    const parentLayerRGBA = getImageDataFourDimension(ctx, cellWidth, cellHeight)
-    secondLayerImageData = restoreUint8ClampedArray(
-      parentLayerRGBA.map(function(element, index, array) {
-          return (index+(keyframe*40)) % 40 < 40 && (index+(keyframe*40)) % 40 > 20 ? hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1).concat(255) : element;
-      })
-    )
-    secondLayer = new ImageData(secondLayerImageData, cellWidth, cellHeight)
-    ctx.putImageData(secondLayer, 0, 0)
+    var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
+    var data = image_data.data;
+    for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
+        if ((row / 4+(keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
+            var color = hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
+            data[row] = color[0];
+            data[row + 1] = color[1];
+            data[row + 2] = color[2];
+            data[row + 3] = 255;
+        }
+    }
+    ctx.putImageData(image_data, 0, 0);
 }
 
 function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
