@@ -282,11 +282,7 @@ function effect_stripe (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_river (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = rgb2hsv(
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    );
+    var bgColorHSV = hexToHsv(ctx.fillStyle);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
@@ -301,11 +297,7 @@ function effect_river (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_signedBall (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = rgb2hsv(
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    );
+    var bgColorHSV = hexToHsv(ctx.fillStyle);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -322,11 +314,7 @@ function effect_signedBall (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_psych (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = rgb2hsv(
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    );
+    var bgColorHSV = hexToHsv(ctx.fillStyle);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -356,11 +344,7 @@ function effect_psych (keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effect_check (keyframe, ctx, cellWidth, cellHeight) {
-    var bgColorHSV = rgb2hsv(
-        parseInt(ctx.fillStyle.substring(1, 3), 16),
-        parseInt(ctx.fillStyle.substring(3, 5), 16),
-        parseInt(ctx.fillStyle.substring(5, 7), 16)
-    );
+    var bgColorHSV = hexToHsv(ctx.fillStyle);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
@@ -498,40 +482,40 @@ function hsvToRgb(H,S,V) {
     return [R ,G, B];
 }
 
-//from https://stackoverflow.com/questions/8022885/rgb-to-hsv-color-in-javascript
-function rgb2hsv () {
-    var rr, gg, bb,
-        r = arguments[0] / 255,
-        g = arguments[1] / 255,
-        b = arguments[2] / 255,
-        h, s,
-        v = Math.max(r, g, b),
-        diff = v - Math.min(r, g, b),
-        diffc = function(c){
-            return (v - c) / 6 / diff + 1 / 2;
-        };
+// from https://stackoverflow.com/questions/8022885/rgb-to-hsv-color-in-javascript
+function hexToHsv (hex) {
+    var r = parseInt(hex.substring(1, 3), 16) / 255;
+    var g = parseInt(hex.substring(3, 5), 16) / 255;
+    var b = parseInt(hex.substring(5, 7), 16) / 255;
 
-    if (diff == 0) {
+    var v     = Math.max(r, g, b);
+    var vDiff = v - Math.min(r, g, b);
+
+    var h, s;
+    if (vDiff == 0) {
         h = s = 0;
     } else {
-        s = diff / v;
-        rr = diffc(r);
-        gg = diffc(g);
-        bb = diffc(b);
+        s = vDiff / v;
+
+        var rr = (v - r) / 6 / vDiff + 1 / 2;
+        var gg = (v - g) / 6 / vDiff + 1 / 2;
+        var bb = (v - b) / 6 / vDiff + 1 / 2;
 
         if (r === v) {
             h = bb - gg;
-        }else if (g === v) {
+        } else if (g === v) {
             h = (1 / 3) + rr - bb;
-        }else if (b === v) {
+        } else if (b === v) {
             h = (2 / 3) + gg - rr;
         }
+
         if (h < 0) {
             h += 1;
-        }else if (h > 1) {
+        } else if (h > 1) {
             h -= 1;
         }
     }
+
     return {
         h: Math.round(h * 360),
         s: Math.round(s * 100),
