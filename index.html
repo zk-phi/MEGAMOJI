@@ -36,17 +36,18 @@
               <label>URL (要 CORS)</label>
               <input type="text" id="JS_url" class="form-control">
             </div>
-            <div id="JS_image_details" style="display: none">
-              <div class="form-group">
-                <label>前処理</label>
-                <select id="JS_filter" class="form-control">
-                  <option value="" selected>なし</option>
-                  <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
-                </select>
-              </div>
+            <input type="button" id="JS_reload" class="btn btn-block btn-primary" value="(Re)Load">
+            <input type="button" id="JS_open_image_details" class="btn btn-block btn-default" value="Advanced">
+          </div>
+          <div id="JS_image_details" class="panel-footer" style="display: none">
+            <div class="form-group">
+              <label>前処理</label>
+              <select id="JS_filter" class="form-control">
+                <option value="" selected>なし</option>
+                <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
+              </select>
             </div>
-            <input type="button" id="JS_reload" class="btn btn-primary" value="(Re)Load">
-            <input type="button" id="JS_toggle_image_details" class="btn btn-default" value="Advanced">
+            <input type="button" id="JS_close_image_details" class="btn btn-block btn-default" value="Collapse">
           </div>
         </div>
         <div class="panel panel-default">
@@ -182,34 +183,35 @@
                 </label>
               </p>
             </div>
-            <div id="JS_details" style="display: none">
-              <div class="form-group">
-                <label>背景色</label>
-                <input type="color" id="JS_background_color" class="form-control" value="#ffffff">
-              </div>
-              <div class="form-group">
-                <label>オフセット左 (px)</label>
-                <input type="text" value="0" id="JS_left" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>オフセット上 (px)</label>
-                <input type="text" value="0" id="JS_top" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>拡大率 (横)</label>
-                <input type="text" value="1.0" id="JS_zoom_h" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>拡大率 (縦)</label>
-                <input type="text" value="1.0" id="JS_zoom_v" class="form-control">
-              </div>
-              <div class="form-group">
-                <label>スピード</label>
-                <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-control">
-              </div>
+            <input type="button" id="JS_render" class="btn btn-block btn-primary" value="Render">
+            <input type="button" id="JS_open_details" class="btn btn-block btn-default" value="Advanced">
+          </div>
+          <div id="JS_details" class="panel-footer" style="display: none">
+            <div class="form-group">
+              <label>背景色</label>
+              <input type="color" id="JS_background_color" class="form-control" value="#ffffff">
             </div>
-            <input type="button" id="JS_render" class="btn btn-primary" value="Render">
-            <input type="button" id="JS_toggle_details" class="btn btn-default" value="Advanced">
+            <div class="form-group">
+              <label>オフセット左 (px)</label>
+              <input type="text" value="0" id="JS_left" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>オフセット上 (px)</label>
+              <input type="text" value="0" id="JS_top" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>拡大率 (横)</label>
+              <input type="text" value="1.0" id="JS_zoom_h" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>拡大率 (縦)</label>
+              <input type="text" value="1.0" id="JS_zoom_v" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>スピード</label>
+              <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-control">
+            </div>
+            <input type="button" id="JS_close_details" class="btn btn-block btn-default" value="Collapse">
           </div>
         </div>
       </div>

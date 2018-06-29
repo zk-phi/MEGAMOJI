@@ -372,6 +372,8 @@ $(function() {
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
     $("#JS_render").click(render_results);
-    $("#JS_toggle_details").click(function () { $(this).remove(); $("#JS_details").show(); });
-    $("#JS_toggle_image_details").click(function () { $(this).remove(); $("#JS_image_details").show(); });
+    $("#JS_open_details").click(function () { $(this).hide(); $("#JS_details").show(); });
+    $("#JS_close_details").click(function () { $("#JS_open_details").show(); $("#JS_details").hide(); });
+    $("#JS_open_image_details").click(function () { $(this).hide(); $("#JS_image_details").show(); });
+    $("#JS_close_image_details").click(function () { $("#JS_open_image_details").show(); $("#JS_image_details").hide(); });
 });
