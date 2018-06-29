@@ -466,32 +466,6 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
     }
 }
 
-//親レイヤーからピクセル情報を取得し、４次元を持つ配列として返す([R,G,B,Alpha])
-function getImageDataFourDimension(ctx, cellWidth, cellHeight) {
-    return ctx.getImageData(0, 0, cellWidth, cellHeight).data.reduce(function(previous, current) {
-        const enDivide = previous[previous.length - 1]
-        if (enDivide.length === 4) {
-            previous.push([current])
-            return previous
-        }
-        enDivide.push(current)
-        return previous
-    },[[]])
-}
-
-//4次元の配列を1次元に戻し、Uint8ClampedArray型で返す
-function restoreUint8ClampedArray (origin) {
-    return(
-        new Uint8ClampedArray(
-            origin.reduce( //一次元に戻す
-                function(accumulator, currentValue) {
-                    return accumulator.concat(currentValue);
-                }, []
-            )
-        )
-    )
-}
-
 //from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
 function hsvToRgb(H,S,V) {
     //https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
