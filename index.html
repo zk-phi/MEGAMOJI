@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="spectre-0.5.3.min.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/hannari.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/nicomoji.css">
     <script src="jsgif/b64.js"></script>
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
@@ -87,7 +92,19 @@
             </div>
             <div class="form-group">
               <label class="form-label">フォント</label>
-              <input type="text" id="JS_text_font" class="form-input" value="bold 128px sans-serif">
+              <select id="JS_text_font" class="form-select" style="font-family: sans-serif; font-weight: bold">
+                <option value="bold 128px sans-serif">ゴシック (システム)</option>
+                <option value="bold 128px serif">明朝 (システム)</option>
+                <option value="normal 128px serif">明朝 細 (システム)</option>
+                <option value="bolder 128px 'Mplus 1p'">M+ 1p 太 (Google Fonts)</option>
+                <option value="normal 128px 'Mplus 1p'">M+ 1p (Web: Google Fonts)</option>
+                <option value="bolder 128px 'Rounded Mplus 1c'">Rounded M+ 1c 太 (Web: Google Fonts)</option>
+                <option value="normal 128px 'Rounded Mplus 1c'">Rounded M+ 1c (Web: Google Fonts)</option>
+                <option value="normal 128px 'Sawarabi Mincho'">さわらび明朝 (Web: Google Fonts)</option>
+                <option value="normal 128px Hannari">はんなり明朝 (Web: Google Fonts)</option>
+                <option value="normal 128px 'Nico Moji'">ニコモジ (Web: Google Fonts)</option>
+              </select>
+              <small>※Web フォントは読み込みにタイムラグがあります</small>
             </div>
           </div>
           <div class="card-footer">
