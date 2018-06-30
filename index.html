@@ -106,8 +106,20 @@
               </select>
               <small>※Web フォントは読み込みにタイムラグがあります</small>
             </div>
+            <div id="JS_text_details" class="card" style="display: none">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="form-label">行間 (文字分)</label>
+                  <input type="text" id="JS_line_spacing" class="form-input" value="0.1">
+                </div>
+              </div>
+              <div class="card-footer">
+                <input type="button" id="JS_close_text_details" class="btn btn-block btn-default" value="- Collapse">
+              </div>
+            </div>
           </div>
           <div class="card-footer">
+            <input type="button" id="JS_open_text_details" class="btn btn-block btn-default mb-2" value="+ Advanced">
             <input type="button" id="JS_generate" class="btn btn-block btn-primary" value="Generate">
           </div>
         </div>

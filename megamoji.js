@@ -90,7 +90,7 @@ function crop_canvas (source_canvas, left, top, w, h) {
     return canvas;
 }
 
-function generate_text_image (text, color, font, align) {
+function line_image (line, color, font) {
     var canvas = document.createElement("canvas");
     canvas.width  = TEXT_CANVAS_SIZE;
     canvas.height = TEXT_CANVAS_SIZE;
@@ -99,38 +99,55 @@ function generate_text_image (text, color, font, align) {
     ctx.fillStyle    = color;
     ctx.font         = font;
     ctx.textBaseline = "top";
+    ctx.fillText(line, 0, 0);
 
-    var lines       = text.split("\n");
-    var line_widths = lines.map(function (line) { return ctx.measureText(line).width; });
-    var total_width = Math.ceil(Math.max.apply(null, line_widths));
-
-    var current_total_height = 0;
-    lines.forEach(function (line, ix) {
-        ctx.save();
-        if (align == "right") {
-            ctx.translate(total_width - line_widths[ix], 0)
-        } else if (align == "center") {
-            ctx.translate((total_width - line_widths[ix]) / 2, 0);
-        } else if (align == "stretch") {
-            ctx.transform(total_width / line_widths[ix], 0, 0, 1, 0, 0);
-        }
-
-        ctx.fillText(line, 0, current_total_height);
-        ctx.restore();
-
-        /* measure total height */
-        var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        for (var row = current_total_height; row < canvas.height; row++) {
-            for (var column = 0; column < canvas.width; column++) {
-                if (data[(row * canvas.width + column) * 4 + 3]) {
-                    current_total_height = row;
-                    break;
-                }
+    /* find topmost and bottommost non-transparent pixels */
+    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var row = 0, top = -1, bottom = 0; row < canvas.height; row++) {
+        for (var column = 0; column < canvas.width; column++) {
+            if (data[(row * canvas.width + column) * 4 + 3]) {
+                if (top == -1) top = row;
+                bottom = row;
+                break;
             }
         }
+    }
+
+    var width  = ctx.measureText(line).width;
+    var height = bottom - top;
+
+    return crop_canvas(canvas, 0, top, width, height);
+}
+
+function generate_text_image (text, color, font, align) {
+    var line_spacing = $("#JS_line_spacing").val() * EMOJI_SIZE;
+    var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
+    var max_width    = Math.max.apply(null, images.map(function (canvas) { return canvas.width; }));
+    var total_height = images.reduce(function (l, r) { return l + r.height; }, 0) + line_spacing * (images.length - 1);
+
+    var canvas = document.createElement("canvas");
+    canvas.width  = max_width;
+    canvas.height = total_height;
+
+    var ctx = canvas.getContext('2d');
+
+    var current_height = 0;
+    images.forEach(function (image) {
+        ctx.save();
+
+        if (align == "right") {
+            ctx.translate(max_width - line_widths[ix], 0)
+        } else if (align == "center") {
+            ctx.translate((max_width - line_widths[ix]) / 2, 0);
+        } else if (align == "stretch") {
+            ctx.transform(max_width / line_widths[ix], 0, 0, 1, 0, 0);
+        }
+
+        ctx.drawImage(image, 0, current_height);
+        current_height += image.height + line_spacing;
     });
 
-    return crop_canvas(canvas, 0, 0, total_width, current_total_height).toDataURL();
+    return canvas.toDataURL();
 }
 
 function compute_recomended_configuration () {
@@ -582,4 +599,6 @@ $(function() {
     $("#JS_close_details").click(function () { $("#JS_open_details").show(); $("#JS_details").hide(); });
     $("#JS_open_image_details").click(function () { $(this).hide(); $("#JS_image_details").show(); });
     $("#JS_close_image_details").click(function () { $("#JS_open_image_details").show(); $("#JS_image_details").hide(); });
+    $("#JS_open_text_details").click(function () { $(this).hide(); $("#JS_text_details").show(); });
+    $("#JS_close_text_details").click(function () { $("#JS_open_text_details").show(); $("#JS_text_details").hide(); });
 });
