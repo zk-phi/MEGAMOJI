@@ -79,13 +79,13 @@ function filter_chromakey () {
     $("#JS_base-image").attr('src', canvas.toDataURL("image/png"));
 }
 
-function crop_canvas (source_canvas, w, h) {
+function crop_canvas (source_canvas, left, top, w, h) {
     var canvas    = document.createElement("canvas");
     var ctx       = canvas.getContext('2d');
     canvas.width  = w;
     canvas.height = h;
 
-    ctx.drawImage(source_canvas, 0, 0, w, h, 0, 0, w, h);
+    ctx.drawImage(source_canvas, left, top, w, h, 0, 0, w, h);
 
     return canvas;
 }
@@ -130,7 +130,7 @@ function generate_text_image (text, color, font, align) {
         }
     });
 
-    return crop_canvas(canvas, total_width, current_total_height).toDataURL();
+    return crop_canvas(canvas, 0, 0, total_width, current_total_height).toDataURL();
 }
 
 function compute_recomended_configuration () {
