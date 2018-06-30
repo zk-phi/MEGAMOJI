@@ -581,16 +581,9 @@ $(function() {
         $("#JS_base-image").attr('src', generate_text_image(
             $("#JS_text").val(),
             $("#JS_text_color").val(),
-            $("#JS_text_font").val(),
+            $(".JS_text_font:checked").val().replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
             $("#JS_text_align").val()
         ));
-    });
-    $("#JS_text_font").change(function () {
-        var font = $(this).val();
-        $(this).css({
-            fontFamily: font.match(/('.*'|[^ ]+)$/)[0],
-            fontWeight: font.match(/^[^ ]+/)[0]
-        });
     });
     $("#JS_base-image").bind('load', compute_recomended_configuration);
     $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);

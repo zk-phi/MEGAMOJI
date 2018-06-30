@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="spectre-0.5.3.min.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css">
-    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/hannari.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/kokoro.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/nicomoji.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css">
     <script src="jsgif/b64.js"></script>
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
@@ -92,19 +93,40 @@
             </div>
             <div class="form-group">
               <label class="form-label">フォント</label>
-              <select id="JS_text_font" class="form-select" style="font-family: sans-serif; font-weight: bold">
-                <option value="bold 128px sans-serif">ゴシック (システム)</option>
-                <option value="bold 128px serif">明朝 (システム)</option>
-                <option value="normal 128px serif">明朝 細 (システム)</option>
-                <option value="900 128px 'Mplus 1p'">M+ 1p 極太 (Google Fonts)</option>
-                <option value="bold 128px 'Mplus 1p'">M+ 1p (Web: Google Fonts)</option>
-                <option value="900 128px 'Rounded Mplus 1c'">Rounded M+ 1c 極太 (Web: Google Fonts)</option>
-                <option value="bold 128px 'Rounded Mplus 1c'">Rounded M+ 1c (Web: Google Fonts)</option>
-                <option value="bold 128px 'Sawarabi Mincho'">さわらび明朝 (Web: Google Fonts)</option>
-                <option value="bold 128px Hannari">はんなり明朝 (Web: Google Fonts)</option>
-                <option value="normal 128px 'Nico Moji'">ニコモジ (Web: Google Fonts)</option>
-              </select>
-              <small>※Web フォントは読み込みにタイムラグがあります</small>
+              <small>システムフォント</small>
+              <label class="form-radio" style="font-weight: bold; font-family: sans-serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="bold sans-serif" checked>
+                <i class="form-icon"></i> ゴシック (sans-serif, bold)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal serif">
+                <i class="form-icon"></i> 明朝 (serif)
+              </label>
+              <small>Web フォント (Google Fonts)</small>
+              <label class="form-radio" style="font-weight: bold; font-family: 'Sawarabi Gothic'">
+                <input type="radio" name="text_font" class="JS_text_font" value="bold 'Sawarabi Gothic'">
+                <i class="form-icon"></i> ゴシック (さわらびゴシック, bold)
+              </label>
+              <label class="form-radio" style="font-weight: 900; font-family: 'Mplus 1p'">
+                <input type="radio" name="text_font" class="JS_text_font" value="900 'Mplus 1p'">
+                <i class="form-icon"></i> 極太ゴシック (M+ 1p, Black)
+              </label>
+              <label class="form-radio" style="font-weight: 900; font-family: 'Rounded Mplus 1c'">
+                <input type="radio" name="text_font" class="JS_text_font" value="900 'Rounded Mplus 1c'">
+                <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: 'Sawarabi Mincho'">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Sawarabi Mincho'">
+                <i class="form-icon"></i> 明朝 (さわらび明朝)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: Kokoro, serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal Kokoro, serif">
+                <i class="form-icon"></i> レトロ (こころ明朝)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: 'Nico Moji', sans-serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Nico Moji', serif">
+                <i class="form-icon"></i> ニコモジ
+              </label>
             </div>
             <div id="JS_text_details" class="card" style="display: none">
               <div class="card-body">
