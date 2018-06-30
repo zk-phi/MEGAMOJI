@@ -313,7 +313,7 @@ function effect_river (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_signedBall (keyframe, ctx, cellWidth, cellHeight, background) {
+function effect_signPole (keyframe, ctx, cellWidth, cellHeight, background) {
     var bgColorHSV = hexToHsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
