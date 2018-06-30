@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="spectre-0.5.3.min.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/kokoro.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/nicomoji.css">
+    <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css">
     <script src="jsgif/b64.js"></script>
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
@@ -83,14 +89,59 @@
             </div>
             <div class="form-group">
               <label class="form-label">色</label>
-              <input type="color" id="JS_text_color" class="form-input" value="#ff0000">
+              <input type="color" id="JS_text_color" class="form-input" value="#e85600">
             </div>
             <div class="form-group">
               <label class="form-label">フォント</label>
-              <input type="text" id="JS_text_font" class="form-input" value="bold 128px sans-serif">
+              <small>システムフォント</small>
+              <label class="form-radio" style="font-weight: bold; font-family: sans-serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="bold sans-serif" checked>
+                <i class="form-icon"></i> ゴシック (sans-serif, bold)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal serif">
+                <i class="form-icon"></i> 明朝 (serif)
+              </label>
+              <small>Web フォント (Google Fonts)</small>
+              <label class="form-radio" style="font-weight: bold; font-family: 'Sawarabi Gothic'">
+                <input type="radio" name="text_font" class="JS_text_font" value="bold 'Sawarabi Gothic'">
+                <i class="form-icon"></i> ゴシック (さわらびゴシック, bold)
+              </label>
+              <label class="form-radio" style="font-weight: 900; font-family: 'Mplus 1p'">
+                <input type="radio" name="text_font" class="JS_text_font" value="900 'Mplus 1p'">
+                <i class="form-icon"></i> 極太ゴシック (M+ 1p, Black)
+              </label>
+              <label class="form-radio" style="font-weight: 900; font-family: 'Rounded Mplus 1c'">
+                <input type="radio" name="text_font" class="JS_text_font" value="900 'Rounded Mplus 1c'">
+                <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: 'Sawarabi Mincho'">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Sawarabi Mincho'">
+                <i class="form-icon"></i> 明朝 (さわらび明朝)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: Kokoro, serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal Kokoro, serif">
+                <i class="form-icon"></i> レトロ (こころ明朝)
+              </label>
+              <label class="form-radio" style="font-weight: normal; font-family: 'Nico Moji', sans-serif">
+                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Nico Moji', serif">
+                <i class="form-icon"></i> ニコモジ
+              </label>
+            </div>
+            <div id="JS_text_details" class="card" style="display: none">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="form-label">行間 (文字分)</label>
+                  <input type="text" id="JS_line_spacing" class="form-input" value="0.1">
+                </div>
+              </div>
+              <div class="card-footer">
+                <input type="button" id="JS_close_text_details" class="btn btn-block btn-default" value="- Collapse">
+              </div>
             </div>
           </div>
           <div class="card-footer">
+            <input type="button" id="JS_open_text_details" class="btn btn-block btn-default mb-2" value="+ Advanced">
             <input type="button" id="JS_generate" class="btn btn-block btn-primary" value="Generate">
           </div>
         </div>
