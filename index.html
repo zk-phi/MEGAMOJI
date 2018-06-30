@@ -196,11 +196,13 @@
             </div>
             <div class="form-group">
               <label class="form-label">アニメ (セルごと)</label>
+              <div><small>変色</small></div>
               <label class="form-checkbox form-inline">
                 <input type="checkbox" class="JS_effect" value="effect_kira">
                 <i class="form-icon"></i>
                 キラ (Chrome のみ)
               </label>
+              <div><small>動き</small></div>
               <label class="form-checkbox form-inline">
                 <input type="checkbox" class="JS_effect" value="effect_gatagata">
                 <i class="form-icon"></i>
@@ -246,6 +248,7 @@
                 <i class="form-icon"></i>
                 ピチピチ
               </label>
+              <div><small>シャドウ</small></div>
               <label class="form-checkbox form-inline">
                 <input type="checkbox" class="JS_effect" value="effect_shadow">
                 <i class="form-icon"></i>
@@ -271,46 +274,6 @@
                 <i class="form-icon"></i>
                 ネオン
               </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_psych">
-                <i class="form-icon"></i>
-                サイケ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_check">
-                <i class="form-icon"></i>
-                チェック
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_stripe">
-                <i class="form-icon"></i>
-                ストライプ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_tiritiri">
-                <i class="form-icon"></i>
-                チリチリ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_river">
-                <i class="form-icon"></i>
-                川
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_signPole">
-                <i class="form-icon"></i>
-                サインポール
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_dizzy">
-                <i class="form-icon"></i>
-                めまい
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_timeMachine">
-                <i class="form-icon"></i>
-                タイムマシン
-              </label>
             </div>
           </div>
           <div class="card-footer">
@@ -318,10 +281,6 @@
             <input type="button" id="JS_open_details" class="btn btn-block btn-default" value="+ Advanced">
             <div id="JS_details" class="card" style="display: none">
               <div class="card-body">
-                <div class="form-group">
-                  <label class="form-label">背景色</label>
-                  <input type="color" id="JS_background_color" class="form-input" value="#ffffff">
-                </div>
                 <div class="form-group">
                   <label class="form-label">オフセット左 (px)</label>
                   <input type="text" value="0" id="JS_left" class="form-input">
@@ -341,6 +300,53 @@
                 <div class="form-group">
                   <label class="form-label">スピード</label>
                   <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">背景色</label>
+                  <input type="color" id="JS_background_color" class="form-input" value="#ffffff">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">アニメ (背景)</label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_check">
+                    <i class="form-icon"></i>
+                    チェック
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_stripe">
+                    <i class="form-icon"></i>
+                    ストライプ
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_tiritiri">
+                    <i class="form-icon"></i>
+                    チリチリ
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_river">
+                    <i class="form-icon"></i>
+                    川
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_signPole">
+                    <i class="form-icon"></i>
+                    サインポール
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_psych">
+                    <i class="form-icon"></i>
+                    サイケ
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_dizzy">
+                    <i class="form-icon"></i>
+                    めまい
+                  </label>
+                  <label class="form-checkbox form-inline">
+                    <input type="checkbox" class="JS_effect" value="effect_timeMachine">
+                    <i class="form-icon"></i>
+                    タイムマシン
+                  </label>
                 </div>
               </div>
               <div class="card-footer">
