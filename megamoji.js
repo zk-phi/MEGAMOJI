@@ -122,7 +122,8 @@ function line_image (line, color, font) {
 function generate_text_image (text, color, font, align) {
     var line_spacing = $("#JS_line_spacing").val() * EMOJI_SIZE;
     var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
-    var max_width    = Math.max.apply(null, images.map(function (canvas) { return canvas.width; }));
+    var line_widths  = images.map(function (canvas) { return canvas.width; })
+    var max_width    = Math.max.apply(null, line_widths);
     var total_height = images.reduce(function (l, r) { return l + r.height; }, 0) + line_spacing * (images.length - 1);
 
     var canvas = document.createElement("canvas");
@@ -132,7 +133,7 @@ function generate_text_image (text, color, font, align) {
     var ctx = canvas.getContext('2d');
 
     var current_height = 0;
-    images.forEach(function (image) {
+    images.forEach(function (image, ix) {
         ctx.save();
 
         if (align == "right") {
