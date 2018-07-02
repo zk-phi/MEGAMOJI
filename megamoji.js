@@ -101,8 +101,8 @@ function line_image (line, color, font) {
     return crop_canvas(canvas, 0, top, width, height);
 }
 
-function generate_text_image (text, color, font, align) {
-    var line_spacing = $("#JS_line_spacing").val() * EMOJI_SIZE;
+/* Text, Color, Font, Alignment, LineSpacing -> BlobURL */
+function generate_text_image (text, color, font, align, line_spacing) {
     var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
     var line_widths  = images.map(function (canvas) { return canvas.width; })
     var max_width    = Math.max.apply(null, line_widths);
@@ -584,7 +584,8 @@ $(function() {
             $("#JS_text").val(),
             $("#JS_text_color").val(),
             $(".JS_text_font:checked").val().replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
-            $("#JS_text_align").val()
+            $("#JS_text_align").val(),
+            $("#JS_line_spacing").val() * EMOJI_SIZE
         ));
     });
     $("#JS_base-image").bind('load', compute_recomended_configuration);
