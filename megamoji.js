@@ -3,6 +3,8 @@ var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
 var ANIMATION_FRAMES    = 12;
 
+/* ---- Core */
+
 function load_file (path, callback) {
     var reader = new FileReader();
     reader.onload = function (e) { callback(e.target.result); };
@@ -497,6 +499,8 @@ function hexToHsv (hex) {
         v: Math.round(v * 100)
     };
 }
+
+/* ---- View */
 
 function compute_recomended_configuration () {
     var image    = $("#JS_base-image")[0];
