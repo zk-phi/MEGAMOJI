@@ -3,31 +3,13 @@ var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
 var ANIMATION_FRAMES    = 12;
 
-function load_file () {
+function load_file (path, callback) {
     var reader = new FileReader();
-    reader.onload = function(e) { $("#JS_base-image").attr('src', e.target.result); };
-    reader.readAsDataURL($("#JS_file")[0].files[0]);
+    reader.onload = function (e) { callback(e.target.result); };
+    reader.readAsDataURL(path);
 }
 
-function reload_file () {
-    var url    = $("#JS_url").val();
-    var filter = window[$("#JS_filter").val()];
-
-    if (url) {
-        $("#JS_base-image").attr('src', url);
-        if (filter) filter();
-    } else {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $("#JS_base-image").attr('src', e.target.result);
-            if (filter) filter();
-        };
-        reader.readAsDataURL($("#JS_file")[0].files[0]);
-    }
-}
-
-function filter_chromakey () {
-    var image  = $("#JS_base-image")[0];
+function filter_chromakey (image) {
     var canvas = document.createElement("canvas");
     var ctx    = canvas.getContext('2d');
     canvas.width  = image.naturalWidth;
@@ -76,7 +58,7 @@ function filter_chromakey () {
     }
 
     ctx.putImageData(image_data, 0, 0);
-    $("#JS_base-image").attr('src', canvas.toDataURL("image/png"));
+    return canvas.toDataURL("image/png");
 }
 
 function crop_canvas (source_canvas, left, top, w, h) {
@@ -575,9 +557,28 @@ function render_results () {
 }
 
 $(function() {
-    $("#JS_file").change(load_file);
-    $("#JS_file,#JS_url").change(function () { $("#JS_filter").val(""); });
-    $("#JS_reload").click(reload_file);
+    $("#JS_file").change(function () {
+        load_file($("#JS_file")[0].files[0], function (blobUrl) {
+            $("#JS_base-image").attr('src', blobUrl);
+        });
+    });
+    $("#JS_file,#JS_url").change(function () {
+        $("#JS_filter").val("");
+    });
+    $("#JS_reload").click(function () {
+        var url    = $("#JS_url").val();
+        var filter = window[$("#JS_filter").val()];
+        var $image = $("#JS_base-image");
+        if (url) {
+            $image.attr('src', url);
+            if (filter) $image.attr('src', filter($image[0]));
+        } else {
+            load_file($("#JS_file")[0].files[0], function (blobUrl) {
+                $image.attr('src', blobUrl);
+                if (filter) $image.attr('src', filter($image[0]));
+            });
+        }
+    });
     $("#JS_generate").click(function () {
         $("#JS_base-image").attr('src', generate_text_image(
             $("#JS_text").val(),
