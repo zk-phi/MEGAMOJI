@@ -133,33 +133,6 @@ function generate_text_image (text, color, font, align) {
     return canvas.toDataURL();
 }
 
-function compute_recomended_configuration () {
-    var image    = $("#JS_base-image")[0];
-    var v        = parseInt($("#JS_v").val());
-    var h        = parseInt($("#JS_h").val());
-    var trimming = $("#JS_trimming").val();
-
-    var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
-    var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
-
-    switch ($("#JS_trimming").val()) {
-        case "cover":
-            var zoom_ratio = Math.max(width_ratio, height_ratio);
-            width_ratio = height_ratio = zoom_ratio;
-            break;
-        case "contain":
-            var zoom_ratio = Math.min(width_ratio, height_ratio);
-            width_ratio = height_ratio = zoom_ratio;
-            break;
-    }
-
-    $("#JS_zoom_h").val(width_ratio + "");
-    $("#JS_zoom_v").val(height_ratio + "");
-    $("#JS_left").val((image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "");
-    $("#JS_top").val(Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "");
-    $("#JS_top").removeProp("checked");
-}
-
 function effect_kira (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
 }
@@ -523,6 +496,33 @@ function hexToHsv (hex) {
         s: Math.round(s * 100),
         v: Math.round(v * 100)
     };
+}
+
+function compute_recomended_configuration () {
+    var image    = $("#JS_base-image")[0];
+    var v        = parseInt($("#JS_v").val());
+    var h        = parseInt($("#JS_h").val());
+    var trimming = $("#JS_trimming").val();
+
+    var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
+    var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
+
+    switch ($("#JS_trimming").val()) {
+        case "cover":
+            var zoom_ratio = Math.max(width_ratio, height_ratio);
+            width_ratio = height_ratio = zoom_ratio;
+            break;
+        case "contain":
+            var zoom_ratio = Math.min(width_ratio, height_ratio);
+            width_ratio = height_ratio = zoom_ratio;
+            break;
+    }
+
+    $("#JS_zoom_h").val(width_ratio + "");
+    $("#JS_zoom_v").val(height_ratio + "");
+    $("#JS_left").val((image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "");
+    $("#JS_top").val(Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "");
+    $("#JS_top").removeProp("checked");
 }
 
 function render_results () {
