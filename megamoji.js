@@ -603,6 +603,8 @@ var methods = {
             }
             vm.resultImages.push(row);
         }
+
+        ga("send", "event", "emoji", "render");
     },
     onToggleFileDetails: function () {
         vm.source.file.showDetails = !vm.source.file.showDetails;
@@ -636,3 +638,7 @@ var methods = {
 };
 
 var vm = new Vue({ el: "#app", data: store, methods: methods });
+
+window.onerror = function (msg, file, line, col) {
+    ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
+};
