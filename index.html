@@ -16,362 +16,385 @@
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
     <script src="jsgif/GIFEncoder.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="megamoji.js"></script>
+    <script src="vue-2.5.16.min.js"></script>
     <title>MEGAMOJI</title>
     <style>.result_area img { border: 1px solid #eee }</style>
   </head>
 
   <body class="container grid-xl my-2">
-    <h1>MEGAMOJI</h1>
+    <div id="app">
 
-    <p>
-      Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
-    </p>
+      <h1>MEGAMOJI</h1>
 
-    <h2>1. 元画像</h2>
+      <p>
+        Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
+      </p>
 
-    <div class="columns my-2">
+      <h2>1. 元画像</h2>
 
-      <div class="column col-4 col-md-12">
-        <div class="card my-2">
-          <div class="card-header">
-            <div class="card-title h5">a. 画像から</div>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label class="form-label">ファイル</label>
-              <input type="file" id="JS_file" class="form-input">
+      <div class="columns my-2">
+
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">a. 画像から</div>
             </div>
-            <div class="form-group">
-              <label class="form-label">URL (要 CORS)</label>
-              <input type="text" id="JS_url" class="form-input">
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">ファイル</label>
+                <input type="file" v-model="source.file.path" @change="onChangeFile" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">URL (要 CORS)</label>
+                <input type="text" v-model="source.file.url" @change="onChangeUrl" class="form-input">
+              </div>
             </div>
-          </div>
-          <div class="card-footer">
-            <input type="button" id="JS_reload" class="btn btn-block btn-primary mb-2" value="(Re)Load">
-            <input type="button" id="JS_open_image_details" class="btn btn-block btn-default" value="+ Advanced">
-            <div id="JS_image_details" class="card" style="display: none">
-              <div class="card-body">
-                <div class="form-group">
-                  <label class="form-label">前処理</label>
-                  <select id="JS_filter" class="form-select">
-                    <option value="" selected>なし</option>
-                    <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
-                  </select>
+            <div class="card-footer">
+              <button class="btn btn-block btn-primary mb-2" @click="onClickReload">
+                (Re)Load
+              </button>
+              <button v-if="!source.file.showDetails" class="btn btn-block btn-default" @click="onToggleFileDetails">
+                + Advanced
+              </button>
+              <div v-if="source.file.showDetails" class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">前処理</label>
+                    <select v-model="source.file.filter" class="form-select">
+                      <option value="">なし</option>
+                      <option value="filter_chromakey">透過 (クロマキー・隅から)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button @click="onToggleFileDetails" class="btn btn-block btn-default">
+                    - Collapse
+                  </button>
                 </div>
               </div>
-              <div class="card-footer">
-                <input type="button" id="JS_close_image_details" class="btn btn-block btn-default" value="- Collapse">
-              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="column col-4 col-md-12">
-        <div class="card my-2">
-          <div class="card-header">
-            <div class="card-title h5">b. テキストから</div>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label class="form-label">テキスト (改行可)</label>
-              <textarea id="JS_text" class="form-input"></textarea>
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">b. テキストから</div>
             </div>
-            <div class="form-group">
-              <label class="form-label">揃え</label>
-              <select id="JS_text_align" class="form-select">
-                <option value="left" selected>左</option>
-                <option value="center">中央</option>
-                <option value="right">右</option>
-                <option value="stretch">両端</option>
-              </select>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">テキスト (改行可)</label>
+                <textarea v-model="source.text.content" class="form-input"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">揃え</label>
+                <select v-model="source.text.align" class="form-select">
+                  <option value="left">左</option>
+                  <option value="center">中央</option>
+                  <option value="right">右</option>
+                  <option value="stretch">両端</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">色</label>
+                <input type="color" v-model="source.text.color" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">フォント</label>
+                <small>システムフォント</small>
+                <label class="form-radio" style="font-weight: bold; font-family: sans-serif">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="bold sans-serif">
+                  <i class="form-icon"></i> ゴシック (sans-serif, bold)
+                </label>
+                <label class="form-radio" style="font-weight: normal; font-family: serif">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="normal serif">
+                  <i class="form-icon"></i> 明朝 (serif)
+                </label>
+                <small>Web フォント (Google Fonts)</small>
+                <label class="form-radio" style="font-weight: bold; font-family: 'Sawarabi Gothic'">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Sawarabi Gothic'">
+                  <i class="form-icon"></i> ゴシック (さわらびゴシック, bold)
+                </label>
+                <label class="form-radio" style="font-weight: 900; font-family: 'Mplus 1p'">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="900 'Mplus 1p'">
+                  <i class="form-icon"></i> 極太ゴシック (M+ 1p, Black)
+                </label>
+                <label class="form-radio" style="font-weight: 900; font-family: 'Rounded Mplus 1c'">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="900 'Rounded Mplus 1c'">
+                  <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
+                </label>
+                <label class="form-radio" style="font-weight: normal; font-family: 'Sawarabi Mincho'">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="normal 'Sawarabi Mincho'">
+                  <i class="form-icon"></i> 明朝 (さわらび明朝)
+                </label>
+                <label class="form-radio" style="font-weight: normal; font-family: Kokoro, serif">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="normal Kokoro, serif">
+                  <i class="form-icon"></i> レトロ (こころ明朝)
+                </label>
+                <label class="form-radio" style="font-weight: normal; font-family: 'Nico Moji', sans-serif">
+                  <input type="radio" name="text_font" v-model="source.text.font" value="normal 'Nico Moji', serif">
+                  <i class="form-icon"></i> ニコモジ
+                </label>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="form-label">色</label>
-              <input type="color" id="JS_text_color" class="form-input" value="#e85600">
-            </div>
-            <div class="form-group">
-              <label class="form-label">フォント</label>
-              <small>システムフォント</small>
-              <label class="form-radio" style="font-weight: bold; font-family: sans-serif">
-                <input type="radio" name="text_font" class="JS_text_font" value="bold sans-serif" checked>
-                <i class="form-icon"></i> ゴシック (sans-serif, bold)
-              </label>
-              <label class="form-radio" style="font-weight: normal; font-family: serif">
-                <input type="radio" name="text_font" class="JS_text_font" value="normal serif">
-                <i class="form-icon"></i> 明朝 (serif)
-              </label>
-              <small>Web フォント (Google Fonts)</small>
-              <label class="form-radio" style="font-weight: bold; font-family: 'Sawarabi Gothic'">
-                <input type="radio" name="text_font" class="JS_text_font" value="bold 'Sawarabi Gothic'">
-                <i class="form-icon"></i> ゴシック (さわらびゴシック, bold)
-              </label>
-              <label class="form-radio" style="font-weight: 900; font-family: 'Mplus 1p'">
-                <input type="radio" name="text_font" class="JS_text_font" value="900 'Mplus 1p'">
-                <i class="form-icon"></i> 極太ゴシック (M+ 1p, Black)
-              </label>
-              <label class="form-radio" style="font-weight: 900; font-family: 'Rounded Mplus 1c'">
-                <input type="radio" name="text_font" class="JS_text_font" value="900 'Rounded Mplus 1c'">
-                <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
-              </label>
-              <label class="form-radio" style="font-weight: normal; font-family: 'Sawarabi Mincho'">
-                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Sawarabi Mincho'">
-                <i class="form-icon"></i> 明朝 (さわらび明朝)
-              </label>
-              <label class="form-radio" style="font-weight: normal; font-family: Kokoro, serif">
-                <input type="radio" name="text_font" class="JS_text_font" value="normal Kokoro, serif">
-                <i class="form-icon"></i> レトロ (こころ明朝)
-              </label>
-              <label class="form-radio" style="font-weight: normal; font-family: 'Nico Moji', sans-serif">
-                <input type="radio" name="text_font" class="JS_text_font" value="normal 'Nico Moji', serif">
-                <i class="form-icon"></i> ニコモジ
-              </label>
-            </div>
-          </div>
-          <div class="card-footer">
-            <input type="button" id="JS_generate" class="btn btn-block btn-primary mb-2" value="Generate">
-            <input type="button" id="JS_open_text_details" class="btn btn-block btn-default" value="+ Advanced">
-            <div id="JS_text_details" class="card" style="display: none">
-              <div class="card-body">
-                <div class="form-group">
-                  <label class="form-label">行間 (文字分)</label>
-                  <input type="text" id="JS_line_spacing" class="form-input" value="0.1">
+            <div class="card-footer">
+              <button @click="onClickGenerateText" class="btn btn-block btn-primary mb-2">
+                Generate
+              </button>
+              <button v-if="!source.text.showDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
+                + Advanced
+              </button>
+              <div v-if="source.text.showDetails" class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">行間 (文字分)</label>
+                    <input type="text" v-model="source.text.lineSpacing" class="form-input">
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button @click="onToggleTextDetails" class="btn btn-block btn-default">
+                    - Collapse
+                  </button>
                 </div>
               </div>
-              <div class="card-footer">
-                <input type="button" id="JS_close_text_details" class="btn btn-block btn-default" value="- Collapse">
+            </div>
+          </div>
+        </div>
+
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">プレビュー</div>
+            </div>
+            <div class="card-body">
+              <p><img ref="baseImage" @load="refreshDefaultSettings" :src="baseImage" crossorigin="anonymous" style="max-width: 100%;" /></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <h2>2. Emoji</h2>
+
+      <div class="columns my-2">
+
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">効果</div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">拡大縮小</label>
+                <select v-model="target.trimming" @change="refreshDefaultSettings" class="form-select">
+                  <option value="">ぴっちり</option>
+                  <option value="cover">はみだす (アス比維持)</option>
+                  <option value="contain">おさめる (アス比維持)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">分割 横</label>
+                <input type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">分割 縦</label>
+                <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">アニメ (全体)</label>
+                <select v-model="target.animation" class="form-select">
+                  <option value="">なし</option>
+                  <option value="animation_scroll">スクロール</option>
+                  <option value="animation_push">押し出し</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">アニメ (セルごと)</label>
+                <div><small>変色</small></div>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_kira">
+                  <i class="form-icon"></i>
+                  キラ (Chrome のみ)
+                </label>
+                <div><small>動き</small></div>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_gatagata">
+                  <i class="form-icon"></i>
+                  ガタガタ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_zoom">
+                  <i class="form-icon"></i>
+                  びょいんびょいん
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_blink">
+                  <i class="form-icon"></i>
+                  BLINK
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_rotate">
+                  <i class="form-icon"></i>
+                  ぐるぐる
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_patapata">
+                  <i class="form-icon"></i>
+                  ぱたぱた
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_yatta">
+                  <i class="form-icon"></i>
+                  ヤッタ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_poyon">
+                  <i class="form-icon"></i>
+                  ぽよーん
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_sidetoside">
+                  <i class="form-icon"></i>
+                  すいっすいっ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_pyon">
+                  <i class="form-icon"></i>
+                  ピチピチ
+                </label>
+                <div><small>シャドウ</small></div>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_shadow">
+                  <i class="form-icon"></i>
+                  影
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_shadow_rotate">
+                  <i class="form-icon"></i>
+                  影ぐるぐる
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_natural_blur">
+                  <i class="form-icon"></i>
+                  ブラー
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_aurora_blur">
+                  <i class="form-icon"></i>
+                  オーロラ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_neon">
+                  <i class="form-icon"></i>
+                  ネオン
+                </label>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button @click="render" class="btn btn-block btn-primary mb-2">
+                Render
+              </button>
+              <button v-if="!target.showDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
+                + Advanced
+              </button>
+              <div v-if="target.showDetails" class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">オフセット左 (px)</label>
+                    <input type="text" v-model="target.offsetLeft" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">オフセット上 (px)</label>
+                    <input type="text" v-model="target.offsetTop" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">拡大率 (横)</label>
+                    <input type="text" v-model="target.hZoom" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">拡大率 (縦)</label>
+                    <input type="text" v-model="target.vZoom" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">スピード</label>
+                    <input type="number" v-model="target.framerate" min="1" max="60" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">背景色</label>
+                    <input type="color" v-model="target.backgroundColor" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">アニメ (背景)</label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_check">
+                      <i class="form-icon"></i>
+                      チェック
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_stripe">
+                      <i class="form-icon"></i>
+                      ストライプ
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_tiritiri">
+                      <i class="form-icon"></i>
+                      チリチリ
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_river">
+                      <i class="form-icon"></i>
+                      川
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_signPole">
+                      <i class="form-icon"></i>
+                      サインポール
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_psych">
+                      <i class="form-icon"></i>
+                      サイケ
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_dizzy">
+                      <i class="form-icon"></i>
+                      めまい
+                    </label>
+                    <label class="form-checkbox form-inline">
+                      <input type="checkbox" v-model="target.effects" value="effect_timeMachine">
+                      <i class="form-icon"></i>
+                      タイムマシン
+                    </label>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button @click="onToggleTargetDetails" class="btn btn-block btn-default">
+                    - Collapse
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="column col-4 col-md-12">
-        <div class="card my-2">
-          <div class="card-header">
-            <div class="card-title h5">プレビュー</div>
-          </div>
-          <div class="card-body">
-            <p><img id="JS_base-image" crossorigin="anonymous" style="max-width: 100%;" /></p>
+        <div class="column col-8 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">結果 (右クリックで保存)</div>
+            </div>
+            <div class="card-body" class="result_area">
+              <div v-for="row in resultImages">
+                <img v-for="col in row" :src="col">
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
 
     </div>
 
-    <h2>2. Emoji</h2>
-
-    <div class="columns my-2">
-
-      <div class="column col-4 col-md-12">
-        <div class="card my-2">
-          <div class="card-header">
-            <div class="card-title h5">効果</div>
-          </div>
-          <div class="card-body">
-            <div class="form-group">
-              <label class="form-label">拡大縮小</label>
-              <select id="JS_trimming" class="form-select">
-                <option value="" selected>ぴっちり</option>
-                <option value="cover">はみだす (アス比維持)</option>
-                <option value="contain">おさめる (アス比維持)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">分割 横</label>
-              <input type="number" value="1" min="1" id="JS_h" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">分割 縦</label>
-              <input type="number" value="1" min="1" id="JS_v" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">アニメ (全体)</label>
-              <select id="JS_animation" class="form-select">
-                <option value="" selected>なし</option>
-                <option value="animation_scroll">スクロール</option>
-                <option value="animation_push">押し出し</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">アニメ (セルごと)</label>
-              <div><small>変色</small></div>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_kira">
-                <i class="form-icon"></i>
-                キラ (Chrome のみ)
-              </label>
-              <div><small>動き</small></div>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_gatagata">
-                <i class="form-icon"></i>
-                ガタガタ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_zoom">
-                <i class="form-icon"></i>
-                びょいんびょいん
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_blink">
-                <i class="form-icon"></i>
-                BLINK
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_rotate">
-                <i class="form-icon"></i>
-                ぐるぐる
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_patapata">
-                <i class="form-icon"></i>
-                ぱたぱた
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_yatta">
-                <i class="form-icon"></i>
-                ヤッタ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_poyon">
-                <i class="form-icon"></i>
-                ぽよーん
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_sidetoside">
-                <i class="form-icon"></i>
-                すいっすいっ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_pyon">
-                <i class="form-icon"></i>
-                ピチピチ
-              </label>
-              <div><small>シャドウ</small></div>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_shadow">
-                <i class="form-icon"></i>
-                影
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_shadow_rotate">
-                <i class="form-icon"></i>
-                影ぐるぐる
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_natural_blur">
-                <i class="form-icon"></i>
-                ブラー
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_aurora_blur">
-                <i class="form-icon"></i>
-                オーロラ
-              </label>
-              <label class="form-checkbox form-inline">
-                <input type="checkbox" class="JS_effect" value="effect_neon">
-                <i class="form-icon"></i>
-                ネオン
-              </label>
-            </div>
-          </div>
-          <div class="card-footer">
-            <input type="button" id="JS_render" class="btn btn-block btn-primary mb-2" value="Render">
-            <input type="button" id="JS_open_details" class="btn btn-block btn-default" value="+ Advanced">
-            <div id="JS_details" class="card" style="display: none">
-              <div class="card-body">
-                <div class="form-group">
-                  <label class="form-label">オフセット左 (px)</label>
-                  <input type="text" value="0" id="JS_left" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">オフセット上 (px)</label>
-                  <input type="text" value="0" id="JS_top" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">拡大率 (横)</label>
-                  <input type="text" value="1.0" id="JS_zoom_h" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">拡大率 (縦)</label>
-                  <input type="text" value="1.0" id="JS_zoom_v" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">スピード</label>
-                  <input type="number" value="18" min="1" max="60" id="JS_framerate" class="form-input">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">背景色</label>
-                  <input type="color" id="JS_background_color" class="form-input" value="#ffffff">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">アニメ (背景)</label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_check">
-                    <i class="form-icon"></i>
-                    チェック
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_stripe">
-                    <i class="form-icon"></i>
-                    ストライプ
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_tiritiri">
-                    <i class="form-icon"></i>
-                    チリチリ
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_river">
-                    <i class="form-icon"></i>
-                    川
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_signPole">
-                    <i class="form-icon"></i>
-                    サインポール
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_psych">
-                    <i class="form-icon"></i>
-                    サイケ
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_dizzy">
-                    <i class="form-icon"></i>
-                    めまい
-                  </label>
-                  <label class="form-checkbox form-inline">
-                    <input type="checkbox" class="JS_effect" value="effect_timeMachine">
-                    <i class="form-icon"></i>
-                    タイムマシン
-                  </label>
-                </div>
-              </div>
-              <div class="card-footer">
-                <input type="button" id="JS_close_details" class="btn btn-block btn-default" value="- Collapse">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="column col-8 col-md-12">
-        <div class="card my-2">
-          <div class="card-header">
-            <div class="card-title h5">結果 (右クリックで保存)</div>
-          </div>
-          <div class="card-body">
-            <p id="JS_results" class="result_area">
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+    <script src="megamoji.js"></script>
   </body>
 
 </html>

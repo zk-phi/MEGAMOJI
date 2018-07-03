@@ -3,31 +3,15 @@ var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
 var ANIMATION_FRAMES    = 12;
 
-function load_file () {
+/* ---- Core */
+
+function load_file (path, callback) {
     var reader = new FileReader();
-    reader.onload = function(e) { $("#JS_base-image").attr('src', e.target.result); };
-    reader.readAsDataURL($("#JS_file")[0].files[0]);
+    reader.onload = function (e) { callback(e.target.result); };
+    reader.readAsDataURL(path);
 }
 
-function reload_file () {
-    var url    = $("#JS_url").val();
-    var filter = window[$("#JS_filter").val()];
-
-    if (url) {
-        $("#JS_base-image").attr('src', url);
-        if (filter) filter();
-    } else {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $("#JS_base-image").attr('src', e.target.result);
-            if (filter) filter();
-        };
-        reader.readAsDataURL($("#JS_file")[0].files[0]);
-    }
-}
-
-function filter_chromakey () {
-    var image  = $("#JS_base-image")[0];
+function filter_chromakey (image) {
     var canvas = document.createElement("canvas");
     var ctx    = canvas.getContext('2d');
     canvas.width  = image.naturalWidth;
@@ -76,7 +60,7 @@ function filter_chromakey () {
     }
 
     ctx.putImageData(image_data, 0, 0);
-    $("#JS_base-image").attr('src', canvas.toDataURL("image/png"));
+    return canvas.toDataURL("image/png");
 }
 
 function crop_canvas (source_canvas, left, top, w, h) {
@@ -119,8 +103,8 @@ function line_image (line, color, font) {
     return crop_canvas(canvas, 0, top, width, height);
 }
 
-function generate_text_image (text, color, font, align) {
-    var line_spacing = $("#JS_line_spacing").val() * EMOJI_SIZE;
+/* Text, Color, Font, Alignment, LineSpacing -> BlobURL */
+function generate_text_image (text, color, font, align, line_spacing) {
     var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
     var line_widths  = images.map(function (canvas) { return canvas.width; })
     var max_width    = Math.max.apply(null, line_widths);
@@ -149,33 +133,6 @@ function generate_text_image (text, color, font, align) {
     });
 
     return canvas.toDataURL();
-}
-
-function compute_recomended_configuration () {
-    var image    = $("#JS_base-image")[0];
-    var v        = parseInt($("#JS_v").val());
-    var h        = parseInt($("#JS_h").val());
-    var trimming = $("#JS_trimming").val();
-
-    var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
-    var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
-
-    switch ($("#JS_trimming").val()) {
-        case "cover":
-            var zoom_ratio = Math.max(width_ratio, height_ratio);
-            width_ratio = height_ratio = zoom_ratio;
-            break;
-        case "contain":
-            var zoom_ratio = Math.min(width_ratio, height_ratio);
-            width_ratio = height_ratio = zoom_ratio;
-            break;
-    }
-
-    $("#JS_zoom_h").val(width_ratio + "");
-    $("#JS_zoom_v").val(height_ratio + "");
-    $("#JS_left").val((image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "");
-    $("#JS_top").val(Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "");
-    $("#JS_top").removeProp("checked");
 }
 
 function effect_kira (keyframe, ctx, cellWidth, cellHeight, background) {
@@ -543,56 +500,145 @@ function hexToHsv (hex) {
     };
 }
 
-function render_results () {
-    var image        = $("#JS_base-image")[0];
-    var v            = parseInt($("#JS_v").val());
-    var h            = parseInt($("#JS_h").val());
-    var width_ratio  = parseFloat($("#JS_zoom_h").val());
-    var height_ratio = parseFloat($("#JS_zoom_v").val());
-    var left         = parseInt($("#JS_left").val());
-    var top          = parseInt($("#JS_top").val());
-    var framerate    = parseInt($("#JS_framerate").val());
-    var animation    = window[$("#JS_animation").val()];
-    var effects      = $(".JS_effect:checked").map(function () { return window[$(this).val()]; }).toArray();
-    var background   = $("#JS_background_color").val();
-
-    var cell_width = EMOJI_SIZE / width_ratio;
-    var cell_height = EMOJI_SIZE / height_ratio;
-    var $results = $("#JS_results");
-    $results.html("");
-    for (var y = 0; y < v; y++) {
-        for (var x = 0; x < h; x++) {
-            var url = render_result_cell(
-                image,
-                left + x * cell_width, top + y * cell_height,
-                cell_width, cell_height,
-                animation, effects, framerate, background
-            );
-            $results.append("<img width='" + EMOJI_SIZE + "px' src='" + url +"'>");
-        }
-        $results.append("<br>");
-    }
+function urlToImage (url) {
+    var img = document.createElement("img");
+    img.src = url;
+    return img;
 }
 
-$(function() {
-    $("#JS_file").change(load_file);
-    $("#JS_file,#JS_url").change(function () { $("#JS_filter").val(""); });
-    $("#JS_reload").click(reload_file);
-    $("#JS_generate").click(function () {
-        $("#JS_base-image").attr('src', generate_text_image(
-            $("#JS_text").val(),
-            $("#JS_text_color").val(),
-            $(".JS_text_font:checked").val().replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
-            $("#JS_text_align").val()
-        ));
-    });
-    $("#JS_base-image").bind('load', compute_recomended_configuration);
-    $("#JS_h,#JS_v,#JS_trimming").change(compute_recomended_configuration);
-    $("#JS_render").click(render_results);
-    $("#JS_open_details").click(function () { $(this).hide(); $("#JS_details").show(); });
-    $("#JS_close_details").click(function () { $("#JS_open_details").show(); $("#JS_details").hide(); });
-    $("#JS_open_image_details").click(function () { $(this).hide(); $("#JS_image_details").show(); });
-    $("#JS_close_image_details").click(function () { $("#JS_open_image_details").show(); $("#JS_image_details").hide(); });
-    $("#JS_open_text_details").click(function () { $(this).hide(); $("#JS_text_details").show(); });
-    $("#JS_close_text_details").click(function () { $("#JS_open_text_details").show(); $("#JS_text_details").hide(); });
-});
+/* ---- View */
+
+var store = {
+    baseImage: null,
+    resultImages: [],
+    /* form inputs */
+    source: {
+        file: {
+            /* basic */
+            file: null,
+            url: null,
+            /* advanced */
+            showDetails: false,
+            filter: ""
+        },
+        text: {
+            /* basic */
+            content: "",
+            align: "left",
+            color: "#e85600",
+            font: "bold sans-serif",
+            /* advanced */
+            showDetails: false,
+            lineSpacing: 0.1
+        }
+    },
+    target: {
+        /* basic */
+        trimming: "",
+        hCells: 1,
+        vCells: 1,
+        animation: "",
+        effects: [],
+        /* advanced */
+        showDetails: false,
+        offsetLeft: 0,
+        offsetTop: 0,
+        hZoom: "1.0",
+        vZoom: "1.0",
+        framerate: 18,
+        backgroundColor: "#ffffff"
+    },
+};
+
+var methods = {
+    loadFile: function () {
+        load_file(vm.source.file.file, function (blobUrl) {
+            var filter = window[vm.source.file.filter];
+            vm.baseImage = filter ? filter(urlToImage(blobUrl)) : blobUrl;
+        });
+    },
+    loadUrl: function () {
+        var filter = window[vm.source.file.filter];
+        vm.baseImage = filter ? filter(urlToImage(vm.source.file.url)) : vm.source.file.url;
+    },
+    refreshDefaultSettings: function () {
+        var image = vm.$refs.baseImage;
+        var v     = vm.target.vCells;
+        var h     = vm.target.hCells;
+        var width_ratio  = (EMOJI_SIZE * h) / image.naturalWidth;
+        var height_ratio = (EMOJI_SIZE * v) / image.naturalHeight;
+
+        if (vm.target.trimming == "cover") {
+            width_ratio = height_ratio = Math.max(width_ratio, height_ratio);
+        } else if (vm.target.trimming == "contain") {
+            width_ratio = height_ratio = Math.min(width_ratio, height_ratio);
+        }
+
+        vm.target.hZoom      = width_ratio + "";
+        vm.target.vZoom      = height_ratio + "";
+        vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "";
+        vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "";
+    },
+    render: function () {
+        var image     = vm.$refs.baseImage;
+        var animation = window[vm.target.animation];
+        var effects   = vm.target.effects.map(function (x) { return window[x]; });
+
+        var offsetLeft = parseInt(vm.target.offsetLeft);
+        var offsetTop  = parseInt(vm.target.offsetTop);
+
+        var cell_width = EMOJI_SIZE / vm.target.hZoom;
+        var cell_height = EMOJI_SIZE / vm.target.vZoom;
+
+        vm.resultImages = [];
+        for (var y = 0; y < vm.target.vCells; y++) {
+            for (var x = 0, row = []; x < vm.target.hCells; x++) {
+                var url = render_result_cell(
+                    image,
+                    offsetLeft + x * cell_width, offsetTop + y * cell_height,
+                    cell_width, cell_height,
+                    animation, effects, vm.target.framerate, vm.target.backgroundColor
+                );
+                row.push(url);
+            }
+            vm.resultImages.push(row);
+        }
+
+        ga("send", "event", "emoji", "render");
+    },
+    onToggleFileDetails: function () {
+        vm.source.file.showDetails = !vm.source.file.showDetails;
+    },
+    onToggleTextDetails: function () {
+        vm.source.text.showDetails = !vm.source.text.showDetails;
+    },
+    onToggleTargetDetails: function () {
+        vm.target.showDetails = !vm.target.showDetails;
+    },
+    onChangeFile: function (e) {
+        vm.source.file.filter = "";
+        vm.source.file.file = e.target.files[0];
+        vm.loadFile();
+    },
+    onChangeUrl: function () {
+        vm.source.file.filter = "";
+    },
+    onClickReload: function () {
+        vm.source.file.url ? vm.loadUrl() : vm.loadFile();
+    },
+    onClickGenerateText: function () {
+        vm.baseImage = generate_text_image(
+            vm.source.text.content,
+            vm.source.text.color,
+            vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+            vm.source.text.align,
+            vm.source.text.lineSpacing * EMOJI_SIZE
+        );
+    }
+};
+
+var vm = new Vue({ el: "#app", data: store, methods: methods });
+
+window.onerror = function (msg, file, line, col) {
+    ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
+};
