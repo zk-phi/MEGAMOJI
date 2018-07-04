@@ -378,21 +378,100 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetH + width > image.naturalWidth) {
-        var endPos = (image.naturalWidth - offsetH) * (cellWidth / width);
-        ctx.drawImage(image, 0, offsetV, width, height, endPos, 0, cellWidth, cellHeight);
+var ANIMATION_DIRECTION = {
+    left: 'direction_left',
+    top: 'direction_top',
+    right: 'direction_right',
+    bottom: 'direction_bottom'
+}
+
+function get_next_offset (keyframe, image, offsetH, offsetV, width, height, direction) {
+    var h = offsetH;
+    var v = offsetV;
+    switch (direction) {
+        case ANIMATION_DIRECTION.left:
+            h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+            break;
+        case ANIMATION_DIRECTION.top:
+            v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
+            break;
+        case ANIMATION_DIRECTION.right:
+            var offsetLeft = parseInt(vm.target.offsetLeft);
+            var x = (image.naturalWidth - width) - (offsetH - offsetLeft);
+            h = (x - image.naturalWidth * keyframe) % image.naturalWidth;
+            break;
+        case ANIMATION_DIRECTION.bottom:
+            var offsetTop = parseInt(vm.target.offsetTop);
+            var y = (image.naturalHeight - height) - (offsetV - offsetTop);
+            v = (y - image.naturalHeight * keyframe) % image.naturalHeight;
+    }
+    return { offsetH: h, offsetV: v }
+}
+
+function additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    var exists = false;
+    var sx = 0;
+    var sy = 0;
+    var dx = 0;
+    var dy = 0;
+    switch (direction) {
+        case ANIMATION_DIRECTION.left:
+            if (offsetH + width > image.naturalWidth) {
+                exists = true;
+                sy = offsetV;
+                dx = (image.naturalWidth - offsetH) * (cellWidth / width);
+            }
+            break;
+        case ANIMATION_DIRECTION.top:
+            if (offsetV + height > image.naturalHeight) {
+                exists = true;
+                sx = offsetH;
+                dy = (image.naturalHeight - offsetV) * (cellHeight / height);
+            }
+            break;
+        case ANIMATION_DIRECTION.right:
+            // if (offsetH < 0) {
+                exists = true;
+                sx = offsetH + image.naturalWidth;
+                sy = offsetV;
+            // }
+            break;
+        case ANIMATION_DIRECTION.bottom:
+            // if (offsetV < 0) {
+                exists = true;
+                sx = offsetH;
+                sy = offsetV + image.naturalHeight;
+            // }
+            break;
+        default:
+    }
+
+    return {
+        exists: exists,
+        sx: sx,
+        sy: sy,
+        dx: dx,
+        dy: dy
     }
 }
 
-function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
-    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    var offset = get_next_offset(keyframe, image, offsetH, offsetV, width, height, direction);
+    var h = offset.offsetH;
+    var v = offset.offsetV;
+    ctx.drawImage(image, h, v, width, height, 0, 0, cellWidth, cellHeight);
+    var additionalAnimation = additional_animation(image, h, v, width, height, cellWidth, cellHeight, direction);
+    if (additionalAnimation.exists) {
+        ctx.drawImage(image, additionalAnimation.sx, additionalAnimation.sy, width, height, additionalAnimation.dx, additionalAnimation.dy, cellWidth, cellHeight);
+    }
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
+function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction);
+}
+
+function render_result_cell (image, offsetH, offsetV, width, height, animation, direction, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -420,7 +499,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
                 i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background
             ); });
             if (animation) {
-                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, direction);
             } else {
                 ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
@@ -538,6 +617,7 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
+        animationDirection: "direction_left",
         effects: [],
         /* advanced */
         showDetails: false,
@@ -590,18 +670,42 @@ var methods = {
         var cell_width = EMOJI_SIZE / vm.target.hZoom;
         var cell_height = EMOJI_SIZE / vm.target.vZoom;
 
-        vm.resultImages = [];
-        for (var y = 0; y < vm.target.vCells; y++) {
+        var direction = vm.target.animationDirection;
+        var innerLoop = animation && direction === ANIMATION_DIRECTION.right
+        ? function(y) {
+            for (var x = (vm.target.hCells - 1), row = []; 0 <= x; x--) {
+                var url = render_result_cell(
+                    image,
+                    offsetLeft + x * cell_width, offsetTop + y * cell_height,
+                    cell_width, cell_height,
+                    animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
+                );
+                row.push(url);
+            }
+            return row;
+        }
+        : function(y) {
             for (var x = 0, row = []; x < vm.target.hCells; x++) {
                 var url = render_result_cell(
                     image,
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
-                    animation, effects, vm.target.framerate, vm.target.backgroundColor
+                    animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
                 );
                 row.push(url);
             }
-            vm.resultImages.push(row);
+            return row;
+        }
+
+        vm.resultImages = [];
+        if (animation && direction === ANIMATION_DIRECTION.bottom) {
+            for (var y = (vm.target.vCells - 1); 0 <= y; y--) {
+                vm.resultImages.push(innerLoop(y));
+            }
+        } else {
+            for (var y = 0; y < vm.target.vCells; y++) {
+                vm.resultImages.push(innerLoop(y));
+            }
         }
 
         ga("send", "event", "emoji", "render");
