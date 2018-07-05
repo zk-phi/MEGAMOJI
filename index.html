@@ -204,18 +204,16 @@
                 <label class="form-label">アニメ (全体)</label>
                 <select v-model="target.animation" class="form-select">
                   <option value="">なし</option>
-                  <option value="animation_scroll">スクロール</option>
-                  <option value="animation_push">押し出し</option>
+                  <option value="animation_scroll_horizontal">スクロール（水平）</option>
+                  <option value="animation_scroll_vertical">スクロール（垂直）</option>
+                  <option value="animation_push_horizontal">押し出し（水平）</option>
+                  <option value="animation_push_vertical">押し出し（垂直）</option>
                 </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">アニメ (全体 - 進行方向)</label>
-                <select v-model="target.animationDirection" class="form-select">
-                  <option value="direction_left" selected>右から左</option>
-                  <option value="direction_top">下から上</option>
-                  <option value="direction_right">左から右</option>
-                  <option value="direction_bottom">上から下</option>
-                </select>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.reverseDirection">
+                  <i class="form-icon"></i>
+                  逆方向に進む
+                </label>
               </div>
               <div class="form-group">
                 <label class="form-label">アニメ (セルごと)</label>

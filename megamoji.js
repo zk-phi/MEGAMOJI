@@ -379,33 +379,8 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 var ANIMATION_DIRECTION = {
-    left: 'direction_left',
-    top: 'direction_top',
-    right: 'direction_right',
-    bottom: 'direction_bottom'
-}
-
-function get_next_offset (keyframe, image, offsetH, offsetV, width, height, direction) {
-    var h = offsetH;
-    var v = offsetV;
-    switch (direction) {
-        case ANIMATION_DIRECTION.left:
-            h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-            break;
-        case ANIMATION_DIRECTION.top:
-            v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
-            break;
-        case ANIMATION_DIRECTION.right:
-            var offsetLeft = parseInt(vm.target.offsetLeft);
-            var x = (image.naturalWidth - width) - (offsetH - offsetLeft);
-            h = (x - image.naturalWidth * keyframe) % image.naturalWidth;
-            break;
-        case ANIMATION_DIRECTION.bottom:
-            var offsetTop = parseInt(vm.target.offsetTop);
-            var y = (image.naturalHeight - height) - (offsetV - offsetTop);
-            v = (y - image.naturalHeight * keyframe) % image.naturalHeight;
-    }
-    return { offsetH: h, offsetV: v }
+    horizontal: 'direction_horizontal',
+    vertical: 'direction_vertical'
 }
 
 function additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
@@ -415,34 +390,30 @@ function additional_animation(image, offsetH, offsetV, width, height, cellWidth,
     var dx = 0;
     var dy = 0;
     switch (direction) {
-        case ANIMATION_DIRECTION.left:
+        case ANIMATION_DIRECTION.horizontal:
             if (offsetH + width > image.naturalWidth) {
                 exists = true;
                 sy = offsetV;
                 dx = (image.naturalWidth - offsetH) * (cellWidth / width);
             }
             break;
-        case ANIMATION_DIRECTION.top:
+        case ANIMATION_DIRECTION.vertical:
             if (offsetV + height > image.naturalHeight) {
                 exists = true;
                 sx = offsetH;
                 dy = (image.naturalHeight - offsetV) * (cellHeight / height);
             }
             break;
-        case ANIMATION_DIRECTION.right:
-            // if (offsetH < 0) {
-                exists = true;
-                sx = offsetH + image.naturalWidth;
-                sy = offsetV;
-            // }
-            break;
-        case ANIMATION_DIRECTION.bottom:
-            // if (offsetV < 0) {
-                exists = true;
-                sx = offsetH;
-                sy = offsetV + image.naturalHeight;
-            // }
-            break;
+        // case ANIMATION_DIRECTION.right:
+        //     exists = true;
+        //     sx = offsetH + image.naturalWidth;
+        //     sy = offsetV;
+        //     break;
+        // case ANIMATION_DIRECTION.bottom:
+        //     exists = true;
+        //     sx = offsetH;
+        //     sy = offsetV + image.naturalHeight;
+        //     break;
         default:
     }
 
@@ -455,23 +426,40 @@ function additional_animation(image, offsetH, offsetV, width, height, cellWidth,
     }
 }
 
-function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
-    var offset = get_next_offset(keyframe, image, offsetH, offsetV, width, height, direction);
-    var h = offset.offsetH;
-    var v = offset.offsetV;
-    ctx.drawImage(image, h, v, width, height, 0, 0, cellWidth, cellHeight);
-    var additionalAnimation = additional_animation(image, h, v, width, height, cellWidth, cellHeight, direction);
+// スクロールアニメーション
+function animation_scroll (ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    var additionalAnimation = additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction);
     if (additionalAnimation.exists) {
         ctx.drawImage(image, additionalAnimation.sx, additionalAnimation.sy, width, height, additionalAnimation.dx, additionalAnimation.dy, cellWidth, cellHeight);
     }
 }
 
-function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
-    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction);
+// 水平方向にスクロール
+function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+    animation_scroll(keyframe, ctx, image, h, offsetV, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.horizontal);
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, direction, effects, framerate, background) {
+// 垂直方向にスクロール
+function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
+    animation_scroll(keyframe, ctx, image, offsetH, v, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.vertical);
+}
+
+// 水平方向に押し出し
+function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_horizontal(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
+// 垂直方向に押し出し
+function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
+function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -499,7 +487,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
                 i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background
             ); });
             if (animation) {
-                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, direction);
+                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
                 ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
@@ -617,7 +605,7 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
-        animationDirection: "direction_left",
+        reverseDirection: false,
         effects: [],
         /* advanced */
         showDetails: false,
@@ -670,43 +658,58 @@ var methods = {
         var cell_width = EMOJI_SIZE / vm.target.hZoom;
         var cell_height = EMOJI_SIZE / vm.target.vZoom;
 
-        var direction = vm.target.animationDirection;
-        var innerLoop = animation && direction === ANIMATION_DIRECTION.right
-        ? function(y) {
-            for (var x = (vm.target.hCells - 1), row = []; 0 <= x; x--) {
-                var url = render_result_cell(
-                    image,
-                    offsetLeft + x * cell_width, offsetTop + y * cell_height,
-                    cell_width, cell_height,
-                    animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
-                );
-                row.push(url);
-            }
-            return row;
-        }
-        : function(y) {
+        var reverse = vm.target.reverseDirection;
+
+        vm.resultImages = [];
+        for (var y = 0; y < vm.target.vCells; y++) {
             for (var x = 0, row = []; x < vm.target.hCells; x++) {
                 var url = render_result_cell(
                     image,
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
-                    animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
+                    animation, effects, vm.target.framerate, vm.target.backgroundColor
                 );
                 row.push(url);
             }
-            return row;
+            vm.resultImages.push(row);
         }
 
-        vm.resultImages = [];
-        if (animation && direction === ANIMATION_DIRECTION.bottom) {
-            for (var y = (vm.target.vCells - 1); 0 <= y; y--) {
-                vm.resultImages.push(innerLoop(y));
-            }
-        } else {
-            for (var y = 0; y < vm.target.vCells; y++) {
-                vm.resultImages.push(innerLoop(y));
-            }
-        }
+        // var innerLoop = animation && direction === ANIMATION_DIRECTION.right
+        // ? function(y) {
+        //     for (var x = (vm.target.hCells - 1), row = []; 0 <= x; x--) {
+        //         var url = render_result_cell(
+        //             image,
+        //             offsetLeft + x * cell_width, offsetTop + y * cell_height,
+        //             cell_width, cell_height,
+        //             animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
+        //         );
+        //         row.push(url);
+        //     }
+        //     return row;
+        // }
+        // : function(y) {
+        //     for (var x = 0, row = []; x < vm.target.hCells; x++) {
+        //         var url = render_result_cell(
+        //             image,
+        //             offsetLeft + x * cell_width, offsetTop + y * cell_height,
+        //             cell_width, cell_height,
+        //             animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
+        //         );
+        //         row.push(url);
+        //     }
+        //     return row;
+        // }
+
+        // vm.resultImages = [];
+        // if (animation && direction === ANIMATION_DIRECTION.bottom) {
+        //     for (var y = (vm.target.vCells - 1); 0 <= y; y--) {
+        //         vm.resultImages.push(innerLoop(y));
+        //     }
+        // } else {
+        //     for (var y = 0; y < vm.target.vCells; y++) {
+        //         vm.resultImages.push(innerLoop(y));
+        //     }
+        // }
 
         ga("send", "event", "emoji", "render");
     },
