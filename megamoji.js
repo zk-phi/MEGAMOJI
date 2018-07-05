@@ -404,16 +404,6 @@ function additional_animation(image, offsetH, offsetV, width, height, cellWidth,
                 dy = (image.naturalHeight - offsetV) * (cellHeight / height);
             }
             break;
-        // case ANIMATION_DIRECTION.right:
-        //     exists = true;
-        //     sx = offsetH + image.naturalWidth;
-        //     sy = offsetV;
-        //     break;
-        // case ANIMATION_DIRECTION.bottom:
-        //     exists = true;
-        //     sx = offsetH;
-        //     sy = offsetV + image.naturalHeight;
-        //     break;
         default:
     }
 
@@ -438,13 +428,13 @@ function animation_scroll (ctx, image, offsetH, offsetV, width, height, cellWidt
 // 水平方向にスクロール
 function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     var h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    animation_scroll(keyframe, ctx, image, h, offsetV, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.horizontal);
+    animation_scroll(ctx, image, h, offsetV, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.horizontal);
 }
 
 // 垂直方向にスクロール
 function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     var v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
-    animation_scroll(keyframe, ctx, image, offsetH, v, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.vertical);
+    animation_scroll(ctx, image, offsetH, v, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.vertical);
 }
 
 // 水平方向に押し出し
@@ -459,7 +449,7 @@ function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width,
     animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -480,14 +470,15 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.setFrameRate(framerate);
         encoder.start();
         for (var i = 0; i < ANIMATION_FRAMES; i++) {
+            var keyframe = animationInvert ? 1 - (i / ANIMATION_FRAMES) : i / ANIMATION_FRAMES;
             ctx.save();
             ctx.fillStyle = background;
             ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
-            effects.forEach(function (effect) { effect(
-                i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background
-            ); });
+            effects.forEach(function (effect) {
+                effect(keyframe, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background);
+            });
             if (animation) {
-                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+                animation(keyframe, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
                 ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
@@ -605,7 +596,7 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
-        reverseDirection: false,
+        animationInvert: false,
         effects: [],
         /* advanced */
         showDetails: false,
@@ -658,8 +649,6 @@ var methods = {
         var cell_width = EMOJI_SIZE / vm.target.hZoom;
         var cell_height = EMOJI_SIZE / vm.target.vZoom;
 
-        var reverse = vm.target.reverseDirection;
-
         vm.resultImages = [];
         for (var y = 0; y < vm.target.vCells; y++) {
             for (var x = 0, row = []; x < vm.target.hCells; x++) {
@@ -667,49 +656,13 @@ var methods = {
                     image,
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
-                    animation, effects, vm.target.framerate, vm.target.backgroundColor
+                    animation, vm.target.animationInvert,
+                    effects, vm.target.framerate, vm.target.backgroundColor
                 );
                 row.push(url);
             }
             vm.resultImages.push(row);
         }
-
-        // var innerLoop = animation && direction === ANIMATION_DIRECTION.right
-        // ? function(y) {
-        //     for (var x = (vm.target.hCells - 1), row = []; 0 <= x; x--) {
-        //         var url = render_result_cell(
-        //             image,
-        //             offsetLeft + x * cell_width, offsetTop + y * cell_height,
-        //             cell_width, cell_height,
-        //             animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
-        //         );
-        //         row.push(url);
-        //     }
-        //     return row;
-        // }
-        // : function(y) {
-        //     for (var x = 0, row = []; x < vm.target.hCells; x++) {
-        //         var url = render_result_cell(
-        //             image,
-        //             offsetLeft + x * cell_width, offsetTop + y * cell_height,
-        //             cell_width, cell_height,
-        //             animation, direction, effects, vm.target.framerate, vm.target.backgroundColor
-        //         );
-        //         row.push(url);
-        //     }
-        //     return row;
-        // }
-
-        // vm.resultImages = [];
-        // if (animation && direction === ANIMATION_DIRECTION.bottom) {
-        //     for (var y = (vm.target.vCells - 1); 0 <= y; y--) {
-        //         vm.resultImages.push(innerLoop(y));
-        //     }
-        // } else {
-        //     for (var y = 0; y < vm.target.vCells; y++) {
-        //         vm.resultImages.push(innerLoop(y));
-        //     }
-        // }
 
         ga("send", "event", "emoji", "render");
     },
