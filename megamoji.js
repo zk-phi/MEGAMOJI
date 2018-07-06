@@ -380,63 +380,22 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-var ANIMATION_DIRECTION = {
-    horizontal: 'direction_horizontal',
-    vertical: 'direction_vertical'
-}
-
-function additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
-    var exists = false;
-    var sx = 0;
-    var sy = 0;
-    var dx = 0;
-    var dy = 0;
-    switch (direction) {
-        case ANIMATION_DIRECTION.horizontal:
-            if (offsetH + width > image.naturalWidth) {
-                exists = true;
-                sy = offsetV;
-                dx = (image.naturalWidth - offsetH) * (cellWidth / width);
-            }
-            break;
-        case ANIMATION_DIRECTION.vertical:
-            if (offsetV + height > image.naturalHeight) {
-                exists = true;
-                sx = offsetH;
-                dy = (image.naturalHeight - offsetV) * (cellHeight / height);
-            }
-            break;
-        default:
-    }
-
-    return {
-        exists: exists,
-        sx: sx,
-        sy: sy,
-        dx: dx,
-        dy: dy
-    }
-}
-
-// スクロールアニメーション
-function animation_scroll (ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    var additionalAnimation = additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction);
-    if (additionalAnimation.exists) {
-        ctx.drawImage(image, additionalAnimation.sx, additionalAnimation.sy, width, height, additionalAnimation.dx, additionalAnimation.dy, cellWidth, cellHeight);
-    }
-}
-
 // 水平方向にスクロール
 function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    var h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    animation_scroll(ctx, image, h, offsetV, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.horizontal);
+    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    if (offsetH + width > image.naturalWidth) {
+        ctx.drawImage(image, 0, offsetV, width, height, (image.naturalWidth - offsetH) * (cellWidth / width), 0, cellWidth, cellHeight);
+    }
 }
 
 // 垂直方向にスクロール
 function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    var v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
-    animation_scroll(ctx, image, offsetH, v, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.vertical);
+    offsetV = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    if (offsetV + height > image.naturalHeight) {
+        ctx.drawImage(image, offsetH, 0, width, height, 0, (image.naturalHeight - offsetV) * (cellHeight / height), cellWidth, cellHeight);
+    }
 }
 
 // 水平方向に押し出し
