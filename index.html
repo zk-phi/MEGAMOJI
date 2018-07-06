@@ -209,6 +209,11 @@
                   <option value="animation_push_horizontal">押し出し（水平）</option>
                   <option value="animation_push_vertical">押し出し（垂直）</option>
                 </select>
+                <label class="form-checkbox">
+                  <input type="checkbox" v-model="target.animationInvert">
+                  <i class="form-icon"></i>
+                  進行方向を反転
+                </label>
               </div>
               <div class="form-group">
                 <label class="form-label">アニメ (セルごと)</label>
@@ -291,15 +296,7 @@
                   ネオン
                 </label>
               </div>
-              <div class="form-group">
-                <label class="form-label">アニメ (フレーム)</label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.animationInvert">
-                  <i class="form-icon"></i>
-                  反転
-                </label>
-              </div>
-          </div>
+            </div>
             <div class="card-footer">
               <button @click="render" class="btn btn-block btn-primary mb-2">
                 Render
