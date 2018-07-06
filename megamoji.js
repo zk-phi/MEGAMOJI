@@ -130,6 +130,8 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
         ctx.drawImage(image, 0, current_height);
         current_height += image.height + line_spacing;
+
+        ctx.restore();
     });
 
     return canvas.toDataURL();
