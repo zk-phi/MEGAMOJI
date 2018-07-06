@@ -378,21 +378,78 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function animation_scroll (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetH + width > image.naturalWidth) {
-        var endPos = (image.naturalWidth - offsetH) * (cellWidth / width);
-        ctx.drawImage(image, 0, offsetV, width, height, endPos, 0, cellWidth, cellHeight);
+var ANIMATION_DIRECTION = {
+    horizontal: 'direction_horizontal',
+    vertical: 'direction_vertical'
+}
+
+function additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    var exists = false;
+    var sx = 0;
+    var sy = 0;
+    var dx = 0;
+    var dy = 0;
+    switch (direction) {
+        case ANIMATION_DIRECTION.horizontal:
+            if (offsetH + width > image.naturalWidth) {
+                exists = true;
+                sy = offsetV;
+                dx = (image.naturalWidth - offsetH) * (cellWidth / width);
+            }
+            break;
+        case ANIMATION_DIRECTION.vertical:
+            if (offsetV + height > image.naturalHeight) {
+                exists = true;
+                sx = offsetH;
+                dy = (image.naturalHeight - offsetV) * (cellHeight / height);
+            }
+            break;
+        default:
+    }
+
+    return {
+        exists: exists,
+        sx: sx,
+        sy: sy,
+        dx: dx,
+        dy: dy
     }
 }
 
-function animation_push (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
-    animation_scroll(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+// スクロールアニメーション
+function animation_scroll (ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction) {
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    var additionalAnimation = additional_animation(image, offsetH, offsetV, width, height, cellWidth, cellHeight, direction);
+    if (additionalAnimation.exists) {
+        ctx.drawImage(image, additionalAnimation.sx, additionalAnimation.sy, width, height, additionalAnimation.dx, additionalAnimation.dy, cellWidth, cellHeight);
+    }
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, effects, framerate, background) {
+// 水平方向にスクロール
+function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var h = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+    animation_scroll(ctx, image, h, offsetV, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.horizontal);
+}
+
+// 垂直方向にスクロール
+function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var v = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
+    animation_scroll(ctx, image, offsetH, v, width, height, cellWidth, cellHeight, ANIMATION_DIRECTION.vertical);
+}
+
+// 水平方向に押し出し
+function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_horizontal(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
+// 垂直方向に押し出し
+function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
+function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -413,14 +470,15 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.setFrameRate(framerate);
         encoder.start();
         for (var i = 0; i < ANIMATION_FRAMES; i++) {
+            var keyframe = animationInvert ? 1 - (i / ANIMATION_FRAMES) : i / ANIMATION_FRAMES;
             ctx.save();
             ctx.fillStyle = background;
             ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
-            effects.forEach(function (effect) { effect(
-                i / ANIMATION_FRAMES, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background
-            ); });
+            effects.forEach(function (effect) {
+                effect(keyframe, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background);
+            });
             if (animation) {
-                animation(i / ANIMATION_FRAMES, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+                animation(keyframe, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             } else {
                 ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             }
@@ -538,6 +596,7 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
+        animationInvert: false,
         effects: [],
         /* advanced */
         showDetails: false,
@@ -597,7 +656,8 @@ var methods = {
                     image,
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
-                    animation, effects, vm.target.framerate, vm.target.backgroundColor
+                    animation, vm.target.animationInvert,
+                    effects, vm.target.framerate, vm.target.backgroundColor
                 );
                 row.push(url);
             }
