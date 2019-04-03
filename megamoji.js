@@ -434,14 +434,14 @@ function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width,
     animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background, transparent) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
     if (!animation && !effects.length) {
         canvas.width = EMOJI_SIZE;
         canvas.height = EMOJI_SIZE;
-        ctx.fillStyle = background;
+        ctx.fillStyle = transparent ? 'rgba(0, 0, 0, 0)' : background;
         ctx.fillRect(0, 0, EMOJI_SIZE, EMOJI_SIZE);
         ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, EMOJI_SIZE, EMOJI_SIZE);
 
@@ -590,7 +590,8 @@ var store = {
         hZoom: "1.0",
         vZoom: "1.0",
         framerate: 18,
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        transparent: false
     },
 };
 
@@ -642,7 +643,7 @@ var methods = {
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
                     animation, vm.target.animationInvert,
-                    effects, vm.target.framerate, vm.target.backgroundColor
+                    effects, vm.target.framerate, vm.target.backgroundColor, vm.target.transparent
                 );
                 row.push(url);
             }
