@@ -233,6 +233,17 @@ function effect_poyon (keyframe, ctx, cellWidth, cellHeight, background) {
     }
 }
 
+function effect_motimoti (keyframe, ctx, cellWidth, cellHeight, background) {
+    var ratio = Math.sin(Math.PI * Math.abs(keyframe - 0.5) / 0.5) / 4;
+    ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight);
+}
+
+function effect_yurayura (keyframe, ctx, cellWidth, cellHeight, background) {
+    ctx.translate(cellWidth / 2, cellHeight);
+    ctx.rotate(Math.PI * Math.abs(keyframe - 0.5) / 2 - Math.PI / 8);
+    ctx.translate(- cellWidth / 2, - cellHeight);
+}
+
 function effect_zoom (keyframe, ctx, cellWidth, cellHeight, background) {
     var zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
     ctx.transform(1 + zoom, 0, 0, 1 + zoom, - cellWidth / 2 * zoom, - cellHeight / 2 * zoom);
