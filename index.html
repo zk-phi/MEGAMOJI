@@ -32,12 +32,17 @@
 
       <h2>1. 元画像</h2>
 
+      <select v-model="source.sourceMode" class="form-select">
+        <option value="file">ファイルから選ぶ</option>
+        <option value="text">テキストから作る</option>
+      </select>
+
       <div class="columns my-2">
 
-        <div class="column col-4 col-md-12">
+        <div v-if="source.sourceMode == 'file'" class="column col-4 col-md-12">
           <div class="card my-2">
             <div class="card-header">
-              <div class="card-title h5">a. 画像から</div>
+              <div class="card-title h5">ファイルから選ぶ</div>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -72,10 +77,10 @@
           </div>
         </div>
 
-        <div class="column col-4 col-md-12">
+        <div v-if="source.sourceMode == 'text'" class="column col-4 col-md-12">
           <div class="card my-2">
             <div class="card-header">
-              <div class="card-title h5">b. テキストから</div>
+              <div class="card-title h5">テキストから作る</div>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -157,7 +162,7 @@
           </div>
         </div>
 
-        <div class="column col-4 col-md-12">
+        <div class="column col-8 col-md-12">
           <div class="card my-2">
             <div class="card-header">
               <div class="card-title h5">プレビュー</div>
