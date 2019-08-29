@@ -570,7 +570,6 @@ var store = {
         file: {
             /* basic */
             file: null,
-            url: null,
             /* advanced */
             showDetails: false,
             filter: ""
@@ -612,10 +611,6 @@ var methods = {
             var filter = window[vm.source.file.filter];
             vm.baseImage = filter ? filter(urlToImage(blobUrl)) : blobUrl;
         });
-    },
-    loadUrl: function () {
-        var filter = window[vm.source.file.filter];
-        vm.baseImage = filter ? filter(urlToImage(vm.source.file.url)) : vm.source.file.url;
     },
     refreshDefaultSettings: function () {
         var image = vm.$refs.baseImage;
@@ -677,11 +672,8 @@ var methods = {
         vm.source.file.file = e.target.files[0];
         vm.loadFile();
     },
-    onChangeUrl: function () {
-        vm.source.file.filter = "";
-    },
     onClickReload: function () {
-        vm.source.file.url ? vm.loadUrl() : vm.loadFile();
+        vm.loadFile();
     },
     onClickGenerateText: function () {
         vm.baseImage = generate_text_image(

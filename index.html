@@ -44,10 +44,6 @@
                 <label class="form-label">ファイル</label>
                 <input type="file" v-model="source.file.path" @change="onChangeFile" class="form-input">
               </div>
-              <div class="form-group">
-                <label class="form-label">URL (要 CORS)</label>
-                <input type="text" v-model="source.file.url" @change="onChangeUrl" class="form-input">
-              </div>
             </div>
             <div class="card-footer">
               <button class="btn btn-block btn-primary mb-2" @click="onClickReload">
