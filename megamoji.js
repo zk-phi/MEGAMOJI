@@ -335,6 +335,63 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
+/* ---- ANIMATIONS */
+
+/*
+ * An animation is a function which actually renders each animation frames.
+ *
+ * [arguments]
+ * - keyframe ... a 0.0 - 1.0 progress of the animation
+ * - ctx      ... a (possively) effected 2d rendering context
+ * - image    ... the source image to be rendered
+ * - offsetH, offsetV, width, height ... range of the source image to be rendered
+ * - cellWidth, cellHeight ... size of the image to be rendered
+ */
+
+function animation_ekken (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
+    var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
+    var ekkenOffset = cellWidth * keyframe;
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
+    ctx.drawImage(image, offsetH, offsetV, width / 2, height, - ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
+    ctx.drawImage(image, offsetH + width / 2, offsetV, width / 2, height, cellWidth / 2 + ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
+}
+
+function animation_ekken_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
+    var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
+    var ekkenOffset = cellWidth * keyframe;
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
+    ctx.drawImage(image, offsetH, offsetV, width, height / 2, 0, - ekkenOffset / 2, cellWidth, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, 0, cellHeight / 2 + ekkenOffset / 2, cellWidth, cellHeight / 2);
+}
+
+function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    if (offsetH + width > image.naturalWidth) {
+        ctx.drawImage(image, 0, offsetV, width, height, (image.naturalWidth - offsetH) * (cellWidth / width), 0, cellWidth, cellHeight);
+    }
+}
+
+function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    offsetV = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
+    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
+    if (offsetV + height > image.naturalHeight) {
+        ctx.drawImage(image, offsetH, 0, width, height, 0, (image.naturalHeight - offsetV) * (cellHeight / height), cellWidth, cellHeight);
+    }
+}
+
+function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_horizontal(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
+function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
+}
+
 /* ---- Core */
 
 function load_file (path, callback) {
@@ -415,56 +472,6 @@ function generate_text_image (text, color, font, align, line_spacing) {
     });
 
     return canvas.toDataURL();
-}
-
-// 謁見
-function animation_ekken (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-    var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-    var ekkenOffset = cellWidth * keyframe;
-    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
-    ctx.drawImage(image, offsetH, offsetV, width / 2, height, - ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
-    ctx.drawImage(image, offsetH + width / 2, offsetV, width / 2, height, cellWidth / 2 + ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
-}
-
-// 謁見
-function animation_ekken_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-    var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-    var ekkenOffset = cellWidth * keyframe;
-    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
-    ctx.drawImage(image, offsetH, offsetV, width, height / 2, 0, - ekkenOffset / 2, cellWidth, cellHeight / 2);
-    ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, 0, cellHeight / 2 + ekkenOffset / 2, cellWidth, cellHeight / 2);
-}
-
-// 水平方向にスクロール
-function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetH + width > image.naturalWidth) {
-        ctx.drawImage(image, 0, offsetV, width, height, (image.naturalWidth - offsetH) * (cellWidth / width), 0, cellWidth, cellHeight);
-    }
-}
-
-// 垂直方向にスクロール
-function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetV = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetV + height > image.naturalHeight) {
-        ctx.drawImage(image, offsetH, 0, width, height, 0, (image.naturalHeight - offsetV) * (cellHeight / height), cellWidth, cellHeight);
-    }
-}
-
-// 水平方向に押し出し
-function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
-    animation_scroll_horizontal(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
-}
-
-// 垂直方向に押し出し
-function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
-    animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
 function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background, transparent) {
