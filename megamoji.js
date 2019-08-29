@@ -555,7 +555,7 @@ function generate_text_image (text, color, font, align, line_spacing) {
     return canvas.toDataURL();
 }
 
-/* ---- Core */
+/* ---- CORE */
 
 function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background, transparent) {
     var canvas = document.createElement("canvas");
@@ -598,8 +598,6 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         return "data:image/gif;base64," + encode64(encoder.stream().getData());
     }
 }
-
-/* ---- View */
 
 var store = {
     baseImage: null,
