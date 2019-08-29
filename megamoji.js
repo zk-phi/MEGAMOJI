@@ -62,87 +62,20 @@ function filter_chromakey (image) {
     return canvas.toDataURL("image/png");
 }
 
-/* ---- Core */
+/* ---- EFFECTS */
 
-function load_file (path, callback) {
-    var reader = new FileReader();
-    reader.onload = function (e) { callback(e.target.result); };
-    reader.readAsDataURL(path);
-}
-
-function crop_canvas (source_canvas, left, top, w, h) {
-    var canvas    = document.createElement("canvas");
-    var ctx       = canvas.getContext('2d');
-    canvas.width  = w;
-    canvas.height = h;
-
-    ctx.drawImage(source_canvas, left, top, w, h, 0, 0, w, h);
-
-    return canvas;
-}
-
-function line_image (line, color, font) {
-    var canvas = document.createElement("canvas");
-    canvas.width  = TEXT_CANVAS_SIZE;
-    canvas.height = TEXT_CANVAS_SIZE;
-
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle    = color;
-    ctx.font         = font;
-    ctx.textBaseline = "top";
-    ctx.fillText(line, 0, 0);
-
-    /* find topmost and bottommost non-transparent pixels */
-    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    for (var row = 0, top = -1, bottom = 0; row < canvas.height; row++) {
-        for (var column = 0; column < canvas.width; column++) {
-            if (data[(row * canvas.width + column) * 4 + 3]) {
-                if (top == -1) top = row;
-                bottom = row;
-                break;
-            }
-        }
-    }
-
-    var width  = ctx.measureText(line).width;
-    var height = bottom - top;
-
-    return crop_canvas(canvas, 0, top, width, height);
-}
-
-/* Text, Color, Font, Alignment, LineSpacing -> BlobURL */
-function generate_text_image (text, color, font, align, line_spacing) {
-    var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
-    var line_widths  = images.map(function (canvas) { return canvas.width; })
-    var max_width    = Math.max.apply(null, line_widths);
-    var total_height = images.reduce(function (l, r) { return l + r.height; }, 0) + line_spacing * (images.length - 1);
-
-    var canvas = document.createElement("canvas");
-    canvas.width  = max_width;
-    canvas.height = total_height;
-
-    var ctx = canvas.getContext('2d');
-
-    var current_height = 0;
-    images.forEach(function (image, ix) {
-        ctx.save();
-
-        if (align == "right") {
-            ctx.translate(max_width - line_widths[ix], 0)
-        } else if (align == "center") {
-            ctx.translate((max_width - line_widths[ix]) / 2, 0);
-        } else if (align == "stretch") {
-            ctx.transform(max_width / line_widths[ix], 0, 0, 1, 0, 0);
-        }
-
-        ctx.drawImage(image, 0, current_height);
-        current_height += image.height + line_spacing;
-
-        ctx.restore();
-    });
-
-    return canvas.toDataURL();
-}
+/*
+ * An effect takes a 2d rendering context and makes modifications to it.
+ * These functions are called just before rendering an animation frame.
+ * Note that users can enable multiple effects at the same time.
+ *
+ * [arguments]
+ * - keyframe   ... a 0.0 - 1.0 progress of the animation
+ * - ctx        ... the rendering context to be modified
+ * - cellWidth  ... width of the image to be rendered
+ * - cellHeight ... height of the image to be rendered
+ * - background ... hex notation of the background color
+ */
 
 function effect_kira (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
@@ -400,6 +333,88 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
         }
     }
     ctx.putImageData(image_data, 0, 0);
+}
+
+/* ---- Core */
+
+function load_file (path, callback) {
+    var reader = new FileReader();
+    reader.onload = function (e) { callback(e.target.result); };
+    reader.readAsDataURL(path);
+}
+
+function crop_canvas (source_canvas, left, top, w, h) {
+    var canvas    = document.createElement("canvas");
+    var ctx       = canvas.getContext('2d');
+    canvas.width  = w;
+    canvas.height = h;
+
+    ctx.drawImage(source_canvas, left, top, w, h, 0, 0, w, h);
+
+    return canvas;
+}
+
+function line_image (line, color, font) {
+    var canvas = document.createElement("canvas");
+    canvas.width  = TEXT_CANVAS_SIZE;
+    canvas.height = TEXT_CANVAS_SIZE;
+
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle    = color;
+    ctx.font         = font;
+    ctx.textBaseline = "top";
+    ctx.fillText(line, 0, 0);
+
+    /* find topmost and bottommost non-transparent pixels */
+    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    for (var row = 0, top = -1, bottom = 0; row < canvas.height; row++) {
+        for (var column = 0; column < canvas.width; column++) {
+            if (data[(row * canvas.width + column) * 4 + 3]) {
+                if (top == -1) top = row;
+                bottom = row;
+                break;
+            }
+        }
+    }
+
+    var width  = ctx.measureText(line).width;
+    var height = bottom - top;
+
+    return crop_canvas(canvas, 0, top, width, height);
+}
+
+/* Text, Color, Font, Alignment, LineSpacing -> BlobURL */
+function generate_text_image (text, color, font, align, line_spacing) {
+    var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
+    var line_widths  = images.map(function (canvas) { return canvas.width; })
+    var max_width    = Math.max.apply(null, line_widths);
+    var total_height = images.reduce(function (l, r) { return l + r.height; }, 0) + line_spacing * (images.length - 1);
+
+    var canvas = document.createElement("canvas");
+    canvas.width  = max_width;
+    canvas.height = total_height;
+
+    var ctx = canvas.getContext('2d');
+
+    var current_height = 0;
+    images.forEach(function (image, ix) {
+        ctx.save();
+
+        if (align == "right") {
+            ctx.translate(max_width - line_widths[ix], 0)
+        } else if (align == "center") {
+            ctx.translate((max_width - line_widths[ix]) / 2, 0);
+        } else if (align == "stretch") {
+            ctx.transform(max_width / line_widths[ix], 0, 0, 1, 0, 0);
+        }
+
+        ctx.drawImage(image, 0, current_height);
+        current_height += image.height + line_spacing;
+
+        ctx.restore();
+    });
+
+    return canvas.toDataURL();
 }
 
 // 謁見
