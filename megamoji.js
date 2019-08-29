@@ -461,14 +461,9 @@ function hexToHsv (hex) {
     };
 }
 
-/* ---- Core */
+/* ---- CANVAS UTILS */
 
-function load_file (path, callback) {
-    var reader = new FileReader();
-    reader.onload = function (e) { callback(e.target.result); };
-    reader.readAsDataURL(path);
-}
-
+/* Create a new canvas and render specified region of the source canvas. */
 function crop_canvas (source_canvas, left, top, w, h) {
     var canvas    = document.createElement("canvas");
     var ctx       = canvas.getContext('2d');
@@ -479,6 +474,22 @@ function crop_canvas (source_canvas, left, top, w, h) {
 
     return canvas;
 }
+
+/* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
+function load_file (path, callback) {
+    var reader = new FileReader();
+    reader.onload = function (e) { callback(e.target.result); };
+    reader.readAsDataURL(path);
+}
+
+/* Create an img object, set src attr to the specified url, and return it. */
+function urlToImage (url) {
+    var img = document.createElement("img");
+    img.src = url;
+    return img;
+}
+
+/* ---- Core */
 
 function line_image (line, color, font) {
     var canvas = document.createElement("canvas");
@@ -583,12 +594,6 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
 
         return "data:image/gif;base64," + encode64(encoder.stream().getData());
     }
-}
-
-function urlToImage (url) {
-    var img = document.createElement("img");
-    img.src = url;
-    return img;
 }
 
 /* ---- View */
