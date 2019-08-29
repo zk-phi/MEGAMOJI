@@ -3,13 +3,12 @@ var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
 var ANIMATION_FRAMES    = 12;
 
-/* ---- Core */
+/* ---- FILTERS */
 
-function load_file (path, callback) {
-    var reader = new FileReader();
-    reader.onload = function (e) { callback(e.target.result); };
-    reader.readAsDataURL(path);
-}
+/*
+ * A filter takes a source img object and returns a BlobURL of the filtered image.
+ * Intended to be used as a preprocessor for input images.
+ */
 
 function filter_chromakey (image) {
     var canvas = document.createElement("canvas");
@@ -61,6 +60,14 @@ function filter_chromakey (image) {
 
     ctx.putImageData(image_data, 0, 0);
     return canvas.toDataURL("image/png");
+}
+
+/* ---- Core */
+
+function load_file (path, callback) {
+    var reader = new FileReader();
+    reader.onload = function (e) { callback(e.target.result); };
+    reader.readAsDataURL(path);
 }
 
 function crop_canvas (source_canvas, left, top, w, h) {
