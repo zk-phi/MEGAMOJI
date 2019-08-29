@@ -109,19 +109,19 @@ function effect_shadow (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 function effect_natural_blur (keyframe, ctx, cellWidth, cellHeight, background) {
-    var hsv_color = hsvToRgb(0, 0, keyframe)
+    var hsv_color = hsv_to_rgb(0, 0, keyframe)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
 
 function effect_neon(keyframe, ctx, cellWidth, cellHeight, background) {
-    var hsv_color = hsvToRgb(keyframe*360*4%360, 1, 1)
+    var hsv_color = hsv_to_rgb(keyframe*360*4%360, 1, 1)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 10;
 }
 
 function effect_aurora_blur(keyframe, ctx, cellWidth, cellHeight, background) {
-    var hsv_color = hsvToRgb(keyframe*360, 1, 1)
+    var hsv_color = hsv_to_rgb(keyframe*360, 1, 1)
     ctx.shadowColor = `rgb(${hsv_color[0]}, ${hsv_color[1]}, ${hsv_color[2]})`;
     ctx.shadowBlur = 50*keyframe;
 }
@@ -214,12 +214,12 @@ function effect_stripe (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 function effect_river (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = hexToHsv(background);
+    var bgColorHSV = hex_to_hsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
         if ((row / 4 + (keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
-            var color = hsvToRgb(bgColorHSV["h"] + 180, 1, 1);
+            var color = hsv_to_rgb(bgColorHSV["h"] + 180, 1, 1);
             data[row] = color[0];
             data[row + 1] = color[1];
             data[row + 2] = color[2];
@@ -228,14 +228,14 @@ function effect_river (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_signPole (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = hexToHsv(background);
+function effect_sign_pole (keyframe, ctx, cellWidth, cellHeight, background) {
+    var bgColorHSV = hex_to_hsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
         for (var col = 0; col < cellWidth; col++) {
             if ((row + col + (keyframe * 40)) % 40 < 40 && (row + col + (keyframe * 40)) % 40 > 20) {
-                var color = hsvToRgb(bgColorHSV["h"] + 180, 1, 1);
+                var color = hsv_to_rgb(bgColorHSV["h"] + 180, 1, 1);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
@@ -246,25 +246,25 @@ function effect_signPole (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 function effect_psych (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = hexToHsv(background);
+    var bgColorHSV = hex_to_hsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
         for (var col = 0; col < cellWidth; col++) {
             if (row % 10 <= 5 && col % 10 >= 5) {
-                var color = hsvToRgb((keyframe * 360 * 4 + 180) % 360, 1, 1);
+                var color = hsv_to_rgb((keyframe * 360 * 4 + 180) % 360, 1, 1);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
                 data[(row * cellWidth + col) * 4 + 3] = 255;
             } else if (row % 10 < 5 ^ col % 10 < 5) {
-                var color = hsvToRgb((keyframe * 360 * 4 + 90) % 360, 1, 1);
+                var color = hsv_to_rgb((keyframe * 360 * 4 + 90) % 360, 1, 1);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
                 data[(row * cellWidth + col) * 4 + 3] = 255;
             } else {
-                var color = hsvToRgb((keyframe * 360 * 4) % 360, 1, 1);
+                var color = hsv_to_rgb((keyframe * 360 * 4) % 360, 1, 1);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
@@ -276,25 +276,25 @@ function effect_psych (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 function effect_check (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = hexToHsv(background);
+    var bgColorHSV = hex_to_hsv(background);
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < cellHeight; row++) {
         for (var col = 0; col < cellWidth; col++) {
             if (row % 16 <= 8 && col % 16 >= 8) {
-                var color = hsvToRgb(bgColorHSV['h'], 1, 0.8);
+                var color = hsv_to_rgb(bgColorHSV['h'], 1, 0.8);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
                 data[(row * cellWidth + col) * 4 + 3] = 255;
             } else if (row % 16 < 8 ^ col % 16 < 8) {
-                var color = hsvToRgb(bgColorHSV['h'], 1, 1);
+                var color = hsv_to_rgb(bgColorHSV['h'], 1, 1);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
                 data[(row * cellWidth + col) * 4 + 3] = 255;
             } else {
-                var color = hsvToRgb(bgColorHSV['h'], 1, 0.5);
+                var color = hsv_to_rgb(bgColorHSV['h'], 1, 0.5);
                 data[(row * cellWidth + col) * 4] = color[0];
                 data[(row * cellWidth + col) * 4 + 1] = color[1];
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
@@ -305,12 +305,12 @@ function effect_check (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(image_data, 0, 0);
 }
 
-function effect_timeMachine (keyframe, ctx, cellWidth, cellHeight, background) {
+function effect_time_machine (keyframe, ctx, cellWidth, cellHeight, background) {
     var image_data = ctx.getImageData(0, 0, cellWidth, cellHeight);
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
         if ((row / 4) % 40 < 40 * keyframe) {
-            var color = hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
+            var color = hsv_to_rgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
             data[row] = color[0];
             data[row + 1] = color[1];
             data[row + 2] = color[2];
@@ -325,7 +325,7 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
     var data = image_data.data;
     for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
         if ((row / 4+(keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
-            var color = hsvToRgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
+            var color = hsv_to_rgb(keyframe * 360 * 4 % 360 + 180, 1, 1);
             data[row] = color[0];
             data[row + 1] = color[1];
             data[row + 2] = color[2];
@@ -395,7 +395,7 @@ function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width,
 /* ---- COLOR UTILS */
 
 // taken from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
-function hsvToRgb(H,S,V) {
+function hsv_to_rgb(H,S,V) {
     // see also: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
 
     var C = V * S;
@@ -421,7 +421,7 @@ function hsvToRgb(H,S,V) {
 }
 
 // taken from https://stackoverflow.com/questions/8022885/rgb-to-hsv-color-in-javascript
-function hexToHsv (hex) {
+function hex_to_hsv (hex) {
     var r = parseInt(hex.substring(1, 3), 16) / 255;
     var g = parseInt(hex.substring(3, 5), 16) / 255;
     var b = parseInt(hex.substring(5, 7), 16) / 255;
@@ -483,7 +483,7 @@ function load_file (path, callback) {
 }
 
 /* Create an img object, set src attr to the specified url, and return it. */
-function urlToImage (url) {
+function url_to_image (url) {
     var img = document.createElement("img");
     img.src = url;
     return img;
@@ -647,7 +647,7 @@ var methods = {
     loadFile: function () {
         load_file(vm.source.file.file, function (blobUrl) {
             var filter = window[vm.source.file.filter];
-            vm.baseImage = filter ? filter(urlToImage(blobUrl)) : blobUrl;
+            vm.baseImage = filter ? filter(url_to_image(blobUrl)) : blobUrl;
         });
     },
     refreshDefaultSettings: function () {
