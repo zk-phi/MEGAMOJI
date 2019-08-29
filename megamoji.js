@@ -489,8 +489,9 @@ function urlToImage (url) {
     return img;
 }
 
-/* ---- Core */
+/* ---- TEXT IMAGE GENERATOR */
 
+/* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 function line_image (line, color, font) {
     var canvas = document.createElement("canvas");
     canvas.width  = TEXT_CANVAS_SIZE;
@@ -520,7 +521,7 @@ function line_image (line, color, font) {
     return crop_canvas(canvas, 0, top, width, height);
 }
 
-/* Text, Color, Font, Alignment, LineSpacing -> BlobURL */
+/* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 function generate_text_image (text, color, font, align, line_spacing) {
     var images       = text.split("\n").map(function (line) { return line_image(line, color, font); });
     var line_widths  = images.map(function (canvas) { return canvas.width; })
@@ -553,6 +554,8 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
     return canvas.toDataURL();
 }
+
+/* ---- Core */
 
 function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background, transparent) {
     var canvas = document.createElement("canvas");
