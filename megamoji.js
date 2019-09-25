@@ -576,11 +576,12 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
+        encoder.setTransparent(0xffffff);
         encoder.start();
         for (var i = 0; i < ANIMATION_FRAMES; i++) {
             var keyframe = animationInvert ? 1 - (i / ANIMATION_FRAMES) : i / ANIMATION_FRAMES;
             ctx.save();
-            ctx.fillStyle = background;
+            ctx.fillStyle = transparent ? '#ffffff' : background;
             ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
             effects.forEach(function (effect) {
                 effect(keyframe, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background);
