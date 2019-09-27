@@ -32,6 +32,8 @@
 
       <h2>1. 元画像</h2>
 
+      <p>元になる画像を選択します</p>
+
       <select v-model="source.sourceMode" class="form-select">
         <option value="file">ファイルから選ぶ</option>
         <option value="text">テキストから作る</option>
@@ -177,7 +179,7 @@
 
       <h2>2. トリミング・効果</h2>
 
-      <p>結果は右クリックで保存できます</p>
+      <p>元画像から Slack Emoji を作成します</p>
 
       <div class="columns my-2">
 
@@ -412,7 +414,7 @@
         <div class="column col-8 col-md-12">
           <div class="card my-2">
             <div class="card-header">
-              <div class="card-title h5">結果</div>
+              <div class="card-title h5">結果 (右クリックで保存)</div>
             </div>
             <div class="card-body" class="result_area">
               <div v-for="row in resultImages">
