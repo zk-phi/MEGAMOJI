@@ -605,7 +605,7 @@ var store = {
     resultImages: [],
     /* form inputs */
     source: {
-        sourceMode: "file",
+        sourceMode: "unselected",
         file: {
             /* basic */
             file: null,

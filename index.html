@@ -35,6 +35,7 @@
       <p>元になる画像を選択します</p>
 
       <select v-model="source.sourceMode" class="form-select">
+        <option value="unselected">(選択してください)</option>
         <option value="file">ファイルから選ぶ</option>
         <option value="text">テキストから作る</option>
       </select>
@@ -164,7 +165,7 @@
           </div>
         </div>
 
-        <div class="column col-8 col-md-12">
+        <div v-if="source.sourceMode != 'unselected'" class="column col-8 col-md-12">
           <div class="card my-2">
             <div class="card-header">
               <div class="card-title h5">プレビュー</div>
