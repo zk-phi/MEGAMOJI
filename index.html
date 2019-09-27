@@ -182,7 +182,9 @@
 
       <p>元画像から Slack Emoji を作成します</p>
 
-      <div class="columns my-2">
+      <p v-if="!baseImage">(元画像が選択されていません)</p>
+
+      <div v-else class="columns my-2">
 
         <div class="column col-4 col-md-12">
           <div class="card my-2">
