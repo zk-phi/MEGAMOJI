@@ -78,7 +78,23 @@ function filter_chromakey (image) {
  */
 
 function effect_kira (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.filter = "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
+    var current_filter = ctx.filter == "none" ? "" : ctx.filter + " ";
+    ctx.filter = current_filter + "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
+}
+
+function effect_nega (keyframe, ctx, cellWidth, cellHeight, background) {
+    var current_filter = ctx.filter == "none" ? "" : ctx.filter + " ";
+    ctx.filter = current_filter + "invert(" + Math.floor(50 + 50 * Math.sin(2 * Math.PI * keyframe)) + "%)";
+}
+
+function effect_moyamoya (keyframe, ctx, cellWidth, cellHeight, background) {
+    var current_filter = ctx.filter == "none" ? "" : ctx.filter + " ";
+    ctx.filter = current_filter + "blur(" + (2 + Math.abs(1 * Math.cos(2 * Math.PI * keyframe))) + "px)";
+}
+
+function effect_foil (keyframe, ctx, cellWidth, cellHeight, background) {
+    var current_filter = ctx.filter == "none" ? "" : ctx.filter + " ";
+    ctx.filter = current_filter + "brightness(" + (120 + Math.floor(20 * Math.sin(2 * Math.PI * keyframe))) + "%)";
 }
 
 function effect_blink (keyframe, ctx, cellWidth, cellHeight, background) {

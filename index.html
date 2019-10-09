@@ -227,11 +227,26 @@
               </div>
               <div class="form-group">
                 <label class="form-label">アニメ (セルごと)</label>
-                <div><small>変色</small></div>
+                <div><small>フィルタ (Chrome のみ)</small></div>
                 <label class="form-checkbox form-inline">
                   <input type="checkbox" v-model="target.effects" value="effect_kira">
                   <i class="form-icon"></i>
-                  キラ (Chrome のみ)
+                  キラ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_nega">
+                  <i class="form-icon"></i>
+                  ネガ
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_moyamoya">
+                  <i class="form-icon"></i>
+                  もやもや
+                </label>
+                <label class="form-checkbox form-inline">
+                  <input type="checkbox" v-model="target.effects" value="effect_foil">
+                  <i class="form-icon"></i>
+                  Foil
                 </label>
                 <div><small>動き</small></div>
                 <label class="form-checkbox form-inline">
