@@ -87,10 +87,6 @@ function effect_blink (keyframe, ctx, cellWidth, cellHeight, background) {
     }
 }
 
-function effect_tikatika (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.globalAlpha = Math.round(keyframe * 10 * 1.2) % 2 ;
-}
-
 function effect_pyon (keyframe, ctx, cellWidth, cellHeight, background) {
     var resistance = 1.7; // バウンド時の強さ
     var y
