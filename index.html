@@ -373,8 +373,8 @@
                     <input class="slider" v-model="target.framerate" type="range" min="1" max="60">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">フレーム数</label>
-                    <input type="number" v-model="target.framecount" min="1" max="12" class="form-input">
+                    <label class="form-label">フレーム数: {{target.framecount}}</label>
+                    <input class="slider" v-model="target.framecount" type="range" min="1" max="12">
                   </div>
                   <div class="form-group">
                     <label class="form-label">背景色</label>
