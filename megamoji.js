@@ -1,7 +1,6 @@
 var TEXT_CANVAS_SIZE    = 1500; /* a sufficiently large number */
 var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
-var ANIMATION_FRAMES    = 12;
 
 /* ---- FILTERS */
 
@@ -569,7 +568,7 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
 /* ---- CORE */
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, background, transparent) {
+function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, framecount, background, transparent) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -590,8 +589,8 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
         encoder.setFrameRate(framerate);
         encoder.setTransparent(0xffffff);
         encoder.start();
-        for (var i = 0; i < ANIMATION_FRAMES; i++) {
-            var keyframe = animationInvert ? 1 - (i / ANIMATION_FRAMES) : i / ANIMATION_FRAMES;
+        for (var i = 0; i < framecount; i++) {
+            var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
             ctx.save();
             ctx.fillStyle = transparent ? '#ffffff' : background;
             ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
@@ -651,6 +650,7 @@ var store = {
         hZoom: "1.0",
         vZoom: "1.0",
         framerate: 18,
+        framecount: 12,
         backgroundColor: "#ffffff",
         transparent: false
     },
@@ -700,7 +700,8 @@ var methods = {
                     offsetLeft + x * cell_width, offsetTop + y * cell_height,
                     cell_width, cell_height,
                     animation, vm.target.animationInvert,
-                    effects, vm.target.framerate, vm.target.backgroundColor, vm.target.transparent
+                    effects, vm.target.framerate, vm.target.framecount,
+                    vm.target.backgroundColor, vm.target.transparent
                 );
                 row.push(url);
             }
