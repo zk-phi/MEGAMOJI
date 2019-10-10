@@ -377,6 +377,14 @@ function animation_ekken_vertical (keyframe, ctx, image, offsetH, offsetV, width
     ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, 0, cellHeight / 2 + ekkenOffset / 2, cellWidth, cellHeight / 2);
 }
 
+function animation_kanpai (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+    flip_context(ctx, cellWidth);
+    ctx.drawImage(image, offsetH, offsetV, width * size, height, cellWidth * (1 - size), 0, cellWidth * size, cellHeight);
+    flip_context(ctx, cellWidth);
+    ctx.drawImage(image, offsetH, offsetV, width * size, height, cellWidth * (1 - size), 0, cellWidth * size, cellHeight);
+}
+
 function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
@@ -498,6 +506,12 @@ function url_to_image (url) {
     var img = document.createElement("img");
     img.src = url;
     return img;
+}
+
+/* flip a rendering context */
+function flip_context (renderingContext2d, width) {
+    renderingContext2d.translate(width, 0);
+    renderingContext2d.scale(-1, 1);
 }
 
 /* ---- TEXT IMAGE GENERATOR */
