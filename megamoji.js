@@ -655,6 +655,7 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
+        speed: "",
         animationInvert: false,
         effects: [],
         /* advanced */
@@ -694,6 +695,18 @@ var methods = {
         vm.target.vZoom      = height_ratio + "";
         vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / width_ratio * h) / 2 + "";
         vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / height_ratio * v) / 2) + "";
+    },
+    refreshFrameSettings: function () {
+        if (vm.target.speed == "") {
+            vm.target.framerate = 18;
+            vm.target.framecount = 12;
+        } else if (vm.target.speed == "turbo") {
+            vm.target.framerate = 60;
+            vm.target.framecount = 12;
+        } else if (vm.target.speed == "super-turbo") {
+            vm.target.framerate = 60;
+            vm.target.framecount = 6;
+        }
     },
     render: function () {
         var image     = vm.$refs.baseImage;

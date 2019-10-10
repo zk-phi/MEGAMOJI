@@ -220,6 +220,14 @@
                   <option value="animation_ekken_vertical">謁見バーティカル</option>
                   <option value="animation_kanpai">乾杯</option>
                 </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">スピード</label>
+                <select v-model="target.speed" @change="refreshFrameSettings" class="form-select">
+                  <option value="">普通</option>
+                  <option value="turbo">速い</option>
+                  <option value="super-turbo">爆速</option>
+                </select>
                 <label class="form-checkbox">
                   <input type="checkbox" v-model="target.animationInvert">
                   <i class="form-icon"></i>
