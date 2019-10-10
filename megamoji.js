@@ -385,6 +385,14 @@ function animation_kanpai (keyframe, ctx, image, offsetH, offsetV, width, height
     ctx.drawImage(image, offsetH, offsetV, width * size, height, cellWidth * (1 - size), 0, cellWidth * size, cellHeight);
 }
 
+function animation_kanpai_lefty (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+    flip_context(ctx, cellWidth);
+    ctx.drawImage(image, offsetH + width * (1 - size), offsetV, width * size, height, 0, 0, cellWidth * size, cellHeight);
+    flip_context(ctx, cellWidth);
+    ctx.drawImage(image, offsetH + width * (1 - size), offsetV, width * size, height, 0, 0, cellWidth * size, cellHeight);
+}
+
 function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
     ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
