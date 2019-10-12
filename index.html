@@ -4,7 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
-    <link rel="stylesheet" href="spectre-0.5.3.min.css">
+    <link rel="stylesheet" href="spectre-0.5.8.min.css">
+    <link rel="stylesheet" href="spectre-exp-0.5.8.min.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/kokoro.css">
@@ -368,12 +369,12 @@
                     <input type="text" v-model="target.vZoom" class="form-input">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">フレームレート</label>
-                    <input type="number" v-model="target.framerate" min="1" max="60" class="form-input">
+                    <label class="form-label">アニメ速度 (フレームレート): {{target.framerate}}</label>
+                    <input class="slider" v-model="target.framerate" type="range" min="1" max="60">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">フレーム数</label>
-                    <input type="number" v-model="target.framecount" min="1" max="12" class="form-input">
+                    <label class="form-label">フレーム数: {{target.framecount}}</label>
+                    <input class="slider" v-model="target.framecount" type="range" min="1" max="12">
                   </div>
                   <div class="form-group">
                     <label class="form-label">背景色</label>
