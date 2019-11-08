@@ -747,6 +747,10 @@ var methods = {
                         effects, vm.target.framerate, vm.target.framecount,
                         vm.target.backgroundColor, vm.target.transparent
                     );
+                    /**
+                     * If the result exceeds the limitation, retry with a smaller canvas.
+                     * This does not happen in most cases.
+                     */
                     if (dataurl_size(url) < BINARY_SIZE_LIMIT) {
                         break;
                     } else {
