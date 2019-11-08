@@ -1,6 +1,7 @@
 var TEXT_CANVAS_SIZE    = 1500; /* a sufficiently large number */
 var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 64;
+var BINARY_SIZE_LIMIT   = 64000;
 
 /* ---- FILTERS */
 
@@ -522,6 +523,13 @@ function flip_context (renderingContext2d, width) {
     renderingContext2d.scale(-1, 1);
 }
 
+/* compute binary size from a dataurl. return 0 if uncomputable. */
+function dataurl_size (str) {
+    var ix = str.indexOf(',');
+    if (ix < 0) return 0;
+    return Math.ceil((str.length - ix - 1) / 4.0 * 3);
+}
+
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
@@ -590,22 +598,20 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
 /* ---- CORE */
 
-function render_result_cell (image, offsetH, offsetV, width, height, animation, animationInvert, effects, framerate, framecount, background, transparent) {
+function render_result_cell (image, offsetH, offsetV, width, height, target_size, animation, animationInvert, effects, framerate, framecount, background, transparent) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
+    canvas.width = target_size;
+    canvas.height = target_size;
+
     if (!animation && !effects.length) {
-        canvas.width = EMOJI_SIZE;
-        canvas.height = EMOJI_SIZE;
         ctx.fillStyle = transparent ? 'rgba(0, 0, 0, 0)' : background;
-        ctx.fillRect(0, 0, EMOJI_SIZE, EMOJI_SIZE);
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, EMOJI_SIZE, EMOJI_SIZE);
+        ctx.fillRect(0, 0, target_size, target_size);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, target_size, target_size);
 
         return canvas.toDataURL();
     } else {
-        canvas.width = ANIMATED_EMOJI_SIZE;
-        canvas.height = ANIMATED_EMOJI_SIZE;
-
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
@@ -615,14 +621,14 @@ function render_result_cell (image, offsetH, offsetV, width, height, animation, 
             var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
             ctx.save();
             ctx.fillStyle = transparent ? '#ffffff' : background;
-            ctx.fillRect(0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+            ctx.fillRect(0, 0, target_size, target_size);
             effects.forEach(function (effect) {
-                effect(keyframe, ctx, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE, background);
+                effect(keyframe, ctx, target_size, target_size, background);
             });
             if (animation) {
-                animation(keyframe, ctx, image, offsetH, offsetV, width, height, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+                animation(keyframe, ctx, image, offsetH, offsetV, width, height, target_size, target_size);
             } else {
-                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, ANIMATED_EMOJI_SIZE, ANIMATED_EMOJI_SIZE);
+                ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, target_size, target_size);
             }
             ctx.restore();
             encoder.addFrame(ctx);
@@ -730,14 +736,23 @@ var methods = {
         vm.resultImages = [];
         for (var y = 0; y < vm.target.vCells; y++) {
             for (var x = 0, row = []; x < vm.target.hCells; x++) {
-                var url = render_result_cell(
-                    image,
-                    offsetLeft + x * cell_width, offsetTop + y * cell_height,
-                    cell_width, cell_height,
-                    animation, vm.target.animationInvert,
-                    effects, vm.target.framerate, vm.target.framecount,
-                    vm.target.backgroundColor, vm.target.transparent
-                );
+                var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+                var url;
+                while (true) {
+                    url = render_result_cell(
+                        image,
+                        offsetLeft + x * cell_width, offsetTop + y * cell_height,
+                        cell_width, cell_height, target_size,
+                        animation, vm.target.animationInvert,
+                        effects, vm.target.framerate, vm.target.framecount,
+                        vm.target.backgroundColor, vm.target.transparent
+                    );
+                    if (dataurl_size(url) < BINARY_SIZE_LIMIT) {
+                        break;
+                    } else {
+                        target_size = Math.floor(target_size * 0.9);
+                    }
+                }
                 row.push(url);
             }
             vm.resultImages.push(row);
