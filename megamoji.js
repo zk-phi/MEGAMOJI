@@ -158,6 +158,13 @@ function effect_rotate (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
 
+function effect_kurukuru (keyframe, ctx, cellWidth, cellHeight, background) {
+    ctx.translate(
+        Math.cos(Math.PI * 2 * keyframe) * 0.1 * cellWidth,
+        Math.sin(Math.PI * 2 * keyframe) * 0.1 * cellHeight,
+    );
+}
+
 var last_gata = false;
 function effect_gatagata (keyframe, ctx, cellWidth, cellHeight, background) {
     last_gata = !last_gata;
