@@ -427,6 +427,14 @@ function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width,
     animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
+function animation_xile (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
+    for (var i = 0; i < 3; i++) {
+        var x = Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth;
+        var y = Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight;
+        ctx.drawImage(image, offsetH, offsetV, width, height, x, y, cellWidth * 0.8, cellHeight * 0.8);
+    }
+}
+
 /* ---- COLOR UTILS */
 
 // taken from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
