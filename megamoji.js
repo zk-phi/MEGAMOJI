@@ -777,7 +777,8 @@ var methods = {
             vm.resultImages.push(row);
         }
 
-        ga("send", "event", "emoji", "render");
+        var settings = vm.target.animation + "/" + vm.target.effects.join(",");
+        ga("send", "event", "emoji", "render", settings);
     },
     onToggleFileDetails: function () {
         vm.source.file.showDetails = !vm.source.file.showDetails;
