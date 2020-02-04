@@ -813,3 +813,19 @@ var vm = new Vue({ el: "#app", data: store, methods: methods });
 window.onerror = function (msg, file, line, col) {
     ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
 };
+
+!function () {
+    var match = location.href.match(/\?([^?]+)$/);
+    if (match) {
+        if (match[1] == "test") {
+            vm.source.sourceMode = "text";
+            vm.baseImage = generate_text_image(
+                "あ",
+                "#e85600",
+                "bold 128px sans-serif",
+                "center",
+                12.8
+            )
+        }
+    }
+}();
