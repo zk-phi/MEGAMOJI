@@ -7,7 +7,12 @@ var baseSelections = [
     "assets/base/1f976.svg",
     "assets/base/1f975.svg",
     "assets/base/1f621.svg",
+
     "assets/base/common_cat.svg",
+    "assets/base/1f435.svg",
+    "assets/base/1f437.svg",
+    "assets/base/1f47d.svg",
+    "assets/base/1f608.svg",
 
     "assets/base/1f628.svg",
     "assets/base/1f631.svg",
@@ -18,11 +23,18 @@ var baseSelections = [
     "assets/base/1f973.svg",
     "assets/base/1f92f.svg",
 
-    "assets/base/1f608.svg",
-
     "assets/base/1f345.svg",
     "assets/base/1f383.svg",
 
+    "assets/base/1f4a9.svg",
+
+    // NG
+    // "assets/base/1f425.svg",
+    // "assets/base/1f98d.svg",
+    // "assets/base/1f428.svg",
+    // "assets/base/1f431.svg",
+
+    // duplicated
     // "assets/base/1f30d.svg",
     // "assets/base/1f30e.svg",
     // "assets/base/1f30f.svg",
@@ -42,6 +54,7 @@ var baseSelections = [
 var eyesSelections = [
     "assets/void.svg",
 
+    "assets/eyes/1f425.svg",
     "assets/eyes/1f921.svg",
     "assets/eyes/1f600.svg",
     "assets/eyes/1f913.svg",
@@ -56,6 +69,10 @@ var eyesSelections = [
 
     "assets/eyes/1f31a.svg",
     "assets/eyes/1f63a.svg",
+    "assets/eyes/1f435.svg",
+    "assets/eyes/1f437.svg",
+    "assets/eyes/1f431.svg",
+    "assets/eyes/1f428.svg",
 
     "assets/eyes/1f917.svg",
     "assets/eyes/1f92d.svg",
@@ -84,9 +101,12 @@ var eyesSelections = [
     "assets/eyes/1f923.svg",
 
     "assets/eyes/1f922.svg",
+    "assets/eyes/1f98d.svg",
     "assets/eyes/1f383.svg",
-    "assets/eyes/1f97a.svg",
     "assets/eyes/1f644.svg",
+    "assets/eyes/1f97a.svg",
+    "assets/eyes/1f4a9.svg",
+    "assets/eyes/1f47d.svg",
     "assets/eyes/1f640.svg",
     "assets/eyes/1f631.svg",
     "assets/eyes/1f61c.svg",
@@ -137,6 +157,7 @@ var eyesSelections = [
     "assets/eyes/1f63e.svg",
     "assets/eyes/1f92c.svg",
     "assets/eyes/1f621.svg",
+    "assets/eyes/1f47f.svg",
     "assets/eyes/1f608.svg",
 
     "assets/eyes/1f618.svg",
@@ -189,9 +210,12 @@ var mouthsSelections = [
     "assets/mouths/1f60d.svg",
     "assets/mouths/1f609.svg",
     "assets/mouths/263a.svg",
+    "assets/mouths/1f435.svg",
     "assets/mouths/1f638.svg",
     "assets/mouths/1f60f.svg",
     "assets/mouths/1f63c.svg",
+    "assets/mouths/1f47d.svg",
+    "assets/mouths/1f98d.svg",
 
     "assets/mouths/1f610.svg",
     "assets/mouths/1f614.svg",
@@ -214,6 +238,7 @@ var mouthsSelections = [
     "assets/mouths/1f621.svg",
     "assets/mouths/1f63f.svg",
     "assets/mouths/1f63e.svg",
+    "assets/mouths/1f47f.svg",
 
     "assets/mouths/1f629.svg",
     "assets/mouths/1f62b.svg",
@@ -259,10 +284,16 @@ var mouthsSelections = [
     "assets/mouths/1f910.svg",
     "assets/mouths/1f912.svg",
     "assets/mouths/1f922.svg",
+    "assets/mouths/1f431.svg",
+    "assets/mouths/1f437.svg",
     "assets/mouths/1f92c.svg",
     "assets/mouths/1f92d.svg",
     "assets/mouths/1f973.svg",
 
+    // NG
+    // "assets/mouths/1f4a9.svg",
+
+    // duplicated
     // "assets/mouths/1f619.svg",
     // "assets/mouths/1f61c.svg",
     // "assets/mouths/1f61d.svg",
@@ -289,8 +320,11 @@ var mouthsSelections = [
 var texturesSelections = [
     "assets/void.svg",
 
+    "assets/textures/1f428.svg",
     "assets/textures/1f383.svg",
     "assets/textures/common_cat.svg",
+    "assets/textures/1f435.svg",
+    "assets/textures/1f98d.svg",
 
     "assets/textures/1f60a.svg",
     "assets/textures/1f61a.svg",
@@ -299,6 +333,9 @@ var texturesSelections = [
     "assets/textures/1f921.svg",
 
     "assets/textures/1f973.svg",
+
+    // NG
+    // "assets/textures/1f425.svg",
 ];
 
 var othersSelections = [
@@ -320,6 +357,10 @@ var othersSelections = [
     "assets/others/1f917.svg",
     "assets/others/1f92b.svg",
 
+    "assets/others/1f648.svg",
+    "assets/others/1f649.svg",
+    "assets/others/1f64a.svg",
+
     "assets/others/1f613.svg",
     "assets/others/1f605.svg",
     "assets/others/1f975.svg",
@@ -339,5 +380,6 @@ var othersSelections = [
     "assets/others/1f973.svg",
     "assets/others/1f976.svg",
 
+    // duplicated
     // "assets/others/1f630.svg",
 ];
