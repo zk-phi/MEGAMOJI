@@ -1,0 +1,13 @@
+.result_area img {
+  border: 1px solid #eee
+}
+
+.fukumoji .btn {
+  height: 48px;
+  width: 48px;
+  border: 2px solid white;
+}
+
+.fukumoji .btn.selected {
+  border: 2px solid red;
+}

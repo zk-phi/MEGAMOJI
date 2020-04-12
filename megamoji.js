@@ -676,6 +676,13 @@ var store = {
             /* advanced */
             showDetails: false,
             lineSpacing: 0.1
+        },
+        fukumoji: {
+            base: "assets/void.svg",
+            textures: "assets/void.svg",
+            eyes: "assets/void.svg",
+            mouths: "assets/void.svg",
+            others: "assets/void.svg"
         }
     },
     target: {
@@ -706,6 +713,30 @@ var methods = {
             var filter = window[vm.source.file.filter];
             vm.baseImage = filter ? filter(url_to_image(blobUrl)) : blobUrl;
         });
+    },
+    fukumojiSelect: function (key, value) {
+        vm.source.fukumoji[key] = value;
+
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext('2d');
+
+        canvas.width = 128;
+        canvas.height = 128;
+
+        // images are expected to be loaded here
+        var img = document.createElement("img");
+        img.src = vm.source.fukumoji.base;
+        ctx.drawImage(img, 0, 0, 128, 128);
+        img.src = vm.source.fukumoji.textures;
+        ctx.drawImage(img, 0, 0, 128, 128);
+        img.src = vm.source.fukumoji.mouths;
+        ctx.drawImage(img, 0, 0, 128, 128);
+        img.src = vm.source.fukumoji.eyes;
+        ctx.drawImage(img, 0, 0, 128, 128);
+        img.src = vm.source.fukumoji.others;
+        ctx.drawImage(img, 0, 0, 128, 128);
+
+        vm.baseImage = canvas.toDataURL();
     },
     refreshDefaultSettings: function () {
         var image = vm.$refs.baseImage;

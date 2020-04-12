@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="spectre-0.5.8.min.css">
     <link rel="stylesheet" href="spectre-exp-0.5.8.min.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
@@ -13,13 +14,13 @@
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/nicomoji.css">
     <link rel="preload" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/earlyaccess/sawarabigothic.css">
     <script src="ga.js"></script>
+    <script src="parts.js"></script>
     <script src="jsgif/b64.js"></script>
     <script src="jsgif/NeuQuant.js"></script>
     <script src="jsgif/LZWEncoder.js"></script>
     <script src="jsgif/GIFEncoder.js"></script>
     <script src="vue-2.5.16.min.js"></script>
     <title>MEGAMOJI</title>
-    <style>.result_area img { border: 1px solid #eee }</style>
   </head>
 
   <body class="container grid-xl my-2">
@@ -39,6 +40,7 @@
         <option value="unselected">(選択してください)</option>
         <option value="file">ファイルから選ぶ</option>
         <option value="text">テキストから作る</option>
+        <option value="fukumoji">パーツを選んで作る</option>
       </select>
 
       <div v-if="source.sourceMode == 'file'" class="columns my-2">
@@ -186,6 +188,78 @@
           </div>
         </div>
         <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">プレビュー</div>
+            </div>
+            <div class="card-body">
+              <p><img ref="baseImage" @load="refreshDefaultSettings" :src="baseImage" crossorigin="anonymous" style="max-width: 100%;" /></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="source.sourceMode == 'fukumoji'" class="columns my-2 fukumoji">
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">ベース</div>
+            </div>
+            <div class="card-body">
+              <img v-for="e in baseSelections"
+                   :class="source.fukumoji.base == e ? 'btn selected' : 'btn'"
+                   :src="e"
+                   @click="fukumojiSelect('base', e);" />
+            </div>
+          </div>
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">目</div>
+            </div>
+            <div class="card-body">
+              <img v-for="e in eyesSelections"
+                   :class="source.fukumoji.eyes == e ? 'btn selected' : 'btn'"
+                   :src="e"
+                   @click="fukumojiSelect('eyes', e);" />
+            </div>
+          </div>
+        </div>
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">鼻・その他</div>
+            </div>
+            <div class="card-body">
+              <img v-for="e in texturesSelections"
+                   :class="source.fukumoji.textures == e ? 'btn selected' : 'btn'"
+                   :src="e"
+                   @click="fukumojiSelect('textures', e);" />
+            </div>
+          </div>
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">口</div>
+            </div>
+            <div class="card-body">
+              <img v-for="e in mouthsSelections"
+                   :class="source.fukumoji.mouths == e ? 'btn selected' : 'btn'"
+                   :src="e"
+                   @click="fukumojiSelect('mouths', e);" />
+            </div>
+          </div>
+        </div>
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">飾り</div>
+            </div>
+            <div class="card-body">
+              <img v-for="e in othersSelections"
+                   :class="source.fukumoji.others == e ? 'btn selected' : 'btn'"
+                   :src="e"
+                   @click="fukumojiSelect('others', e);" />
+            </div>
+          </div>
           <div class="card my-2">
             <div class="card-header">
               <div class="card-title h5">プレビュー</div>
