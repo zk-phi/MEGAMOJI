@@ -809,7 +809,7 @@ var methods = {
         }
 
         var settings = vm.target.animation + "/" + vm.target.effects.join(",");
-        ga("send", "event", "emoji", "render", settings);
+        ga("send", "event", vm.source.sourceMode, "render", settings);
     },
     onToggleFileDetails: function () {
         vm.source.file.showDetails = !vm.source.file.showDetails;
