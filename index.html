@@ -166,7 +166,7 @@
             </div>
             <div class="card-footer">
               <button @click="onClickGenerateText" class="btn btn-block btn-primary mb-2">
-                確認して次へ
+                プレビューを更新
               </button>
               <button v-if="!source.text.showDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
                 + その他
@@ -425,36 +425,7 @@
                 </label>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">整形方法を選ぶ</div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label class="form-label">拡大縮小</label>
-                <select v-model="target.trimming" @change="refreshDefaultSettings" class="form-select">
-                  <option value="">ぴっちり</option>
-                  <option value="cover">はみだす (アス比維持)</option>
-                  <option value="contain">おさめる (アス比維持)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">分割 横</label>
-                <input type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1" class="form-input">
-              </div>
-              <div class="form-group">
-                <label class="form-label">分割 縦</label>
-                <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
-              </div>
-            </div>
             <div class="card-footer">
-              <button @click="render" class="btn btn-block btn-primary mb-2">
-                Emoji 生成
-              </button>
               <button v-if="!target.showDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
                 + その他
               </button>
@@ -543,6 +514,42 @@
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column col-4 col-md-12">
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">整形方法を選ぶ</div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">拡大縮小</label>
+                <select v-model="target.trimming" @change="refreshDefaultSettings" class="form-select">
+                  <option value="">ぴっちり</option>
+                  <option value="cover">はみだす (アス比維持)</option>
+                  <option value="contain">おさめる (アス比維持)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">分割 横</label>
+                <input type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">分割 縦</label>
+                <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
+              </div>
+            </div>
+          </div>
+          <div class="card my-2">
+            <div class="card-header">
+              <div class="card-title h5">Emoji 生成</div>
+            </div>
+            <div class="card-body">
+              <button @click="render" class="btn btn-block btn-primary mb-2">
+                Emoji を生成する
+              </button>
             </div>
           </div>
         </div>
