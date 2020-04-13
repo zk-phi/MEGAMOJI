@@ -846,7 +846,7 @@ window.onerror = function (msg, file, line, col) {
 };
 
 !function () {
-    var match = location.href.match(/\?([^?]+)$/);
+    var match = location.href.match(/\?([^=]+)(=(.*))?$/);
     if (match) {
         if (match[1] == "test") {
             vm.source.sourceMode = "text";
@@ -857,6 +857,8 @@ window.onerror = function (msg, file, line, col) {
                 "center",
                 12.8
             )
+        } else if (match[1] == "mode") {
+            vm.source.sourceMode = match[3];
         }
     }
 }();
