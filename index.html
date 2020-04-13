@@ -138,6 +138,24 @@
                 </label>
               </div>
             </div>
+            <div class="card-footer">
+              <button v-if="!source.text.showDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
+                + その他
+              </button>
+              <div v-if="source.text.showDetails" class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">行間 (文字分)</label>
+                    <input type="text" v-model="source.text.lineSpacing" class="form-input">
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button @click="onToggleTextDetails" class="btn btn-block btn-default">
+                    - 閉じる
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="column col-4 col-md-12">
@@ -168,22 +186,6 @@
               <button @click="onClickGenerateText" class="btn btn-block btn-primary mb-2">
                 プレビューを更新
               </button>
-              <button v-if="!source.text.showDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
-                + その他
-              </button>
-              <div v-if="source.text.showDetails" class="card">
-                <div class="card-body">
-                  <div class="form-group">
-                    <label class="form-label">行間 (文字分)</label>
-                    <input type="text" v-model="source.text.lineSpacing" class="form-input">
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button @click="onToggleTextDetails" class="btn btn-block btn-default">
-                    - 閉じる
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
