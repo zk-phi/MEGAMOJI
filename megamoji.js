@@ -696,6 +696,7 @@ var store = {
         effects: [],
         /* advanced */
         showDetails: false,
+        showAnimeDetails: false,
         offsetLeft: 0,
         offsetTop: 0,
         hZoom: "1.0",
@@ -819,6 +820,9 @@ var methods = {
     },
     onToggleTargetDetails: function () {
         vm.target.showDetails = !vm.target.showDetails;
+    },
+    onToggleTargetAnimeDetails: function () {
+        vm.target.showAnimeDetails = !vm.target.showAnimeDetails;
     },
     onChangeFile: function (e) {
         vm.source.file.filter = "";

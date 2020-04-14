@@ -428,27 +428,11 @@
               </div>
             </div>
             <div class="card-footer">
-              <button v-if="!target.showDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
+              <button v-if="!target.showAnimeDetails" @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
                 + その他
               </button>
-              <div v-if="target.showDetails" class="card">
+              <div v-if="target.showAnimeDetails" class="card">
                 <div class="card-body">
-                  <div class="form-group">
-                    <label class="form-label">オフセット左 (px)</label>
-                    <input type="text" v-model="target.offsetLeft" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">オフセット上 (px)</label>
-                    <input type="text" v-model="target.offsetTop" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">拡大率 (横)</label>
-                    <input type="text" v-model="target.hZoom" class="form-input">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">拡大率 (縦)</label>
-                    <input type="text" v-model="target.vZoom" class="form-input">
-                  </div>
                   <div class="form-group">
                     <label class="form-label">アニメ速度 (フレームレート): {{target.framerate}}</label>
                     <input class="slider" v-model="target.framerate" type="range" min="1" max="60">
@@ -511,7 +495,7 @@
                   </div>
                 </div>
                 <div class="card-footer">
-                  <button @click="onToggleTargetDetails" class="btn btn-block btn-default">
+                  <button @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
                     - 閉じる
                   </button>
                 </div>
@@ -541,6 +525,36 @@
               <div class="form-group">
                 <label class="form-label">分割 縦</label>
                 <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button v-if="!target.showDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
+                + その他
+              </button>
+              <div v-if="target.showDetails" class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">オフセット左 (px)</label>
+                    <input type="text" v-model="target.offsetLeft" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">オフセット上 (px)</label>
+                    <input type="text" v-model="target.offsetTop" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">拡大率 (横)</label>
+                    <input type="text" v-model="target.hZoom" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">拡大率 (縦)</label>
+                    <input type="text" v-model="target.vZoom" class="form-input">
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button @click="onToggleTargetDetails" class="btn btn-block btn-default">
+                    - 閉じる
+                  </button>
+                </div>
               </div>
             </div>
           </div>
