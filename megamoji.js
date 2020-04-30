@@ -687,6 +687,23 @@ function render_result_cell (image, offsetH, offsetV, width, height, targetWidth
 }
 
 function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+    if (!animation && !effects.length) {
+        var cells = splitCanvasIntoCells(
+            render_single_frame(
+                0, image,
+                offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+                targetSize * hCells, targetSize * vCells,
+                animation, animationInvert, effects, framerate, framecount,
+                transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
+            ),
+            0, 0, hCells, vCells, targetSize, targetSize
+        );
+        return cells.map(function (row) {
+            return row.map(function (cell) {
+                return cell.toDataURL();
+            });
+        });
+    }
     var renderedCells = [];
     for (var y = 0; y < vCells; y++) {
         for (var x = 0, row = []; x < hCells; x++) {
