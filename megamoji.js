@@ -654,6 +654,38 @@ function render_result_cell (image, offsetH, offsetV, width, height, target_size
     }
 }
 
+function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+    var renderedCells = [];
+    for (var y = 0; y < vCells; y++) {
+        for (var x = 0, row = []; x < hCells; x++) {
+            var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+            var url;
+            while (true) {
+                url = render_result_cell(
+                    image,
+                    offsetH + x * cellWidth, offsetV + y * cellHeight,
+                    cellWidth, cellHeight, target_size,
+                    animation, animationInvert,
+                    effects, framerate, framecount,
+                    backgroundColor, transparent
+                );
+                /**
+                 * If the result exceeds the limitation, retry with a smaller canvas.
+                 * This does not happen in most cases.
+                 */
+                if (dataurl_size(url) < BINARY_SIZE_LIMIT) {
+                    break;
+                } else {
+                    target_size = Math.floor(target_size * 0.9);
+                }
+            }
+            row.push(url);
+        }
+        renderedCells.push(row);
+    }
+    return renderedCells;
+}
+
 var store = {
     baseImage: null,
     resultImages: [],
@@ -780,37 +812,17 @@ var methods = {
         var cell_width = EMOJI_SIZE / vm.target.hZoom;
         var cell_height = EMOJI_SIZE / vm.target.vZoom;
 
-        vm.resultImages = [];
-        for (var y = 0; y < vm.target.vCells; y++) {
-            for (var x = 0, row = []; x < vm.target.hCells; x++) {
-                var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
-                var url;
-                while (true) {
-                    url = render_result_cell(
-                        image,
-                        offsetLeft + x * cell_width, offsetTop + y * cell_height,
-                        cell_width, cell_height, target_size,
-                        animation, vm.target.animationInvert,
-                        effects, vm.target.framerate, vm.target.framecount,
-                        vm.target.backgroundColor, vm.target.transparent
-                    );
-                    /**
-                     * If the result exceeds the limitation, retry with a smaller canvas.
-                     * This does not happen in most cases.
-                     */
-                    if (dataurl_size(url) < BINARY_SIZE_LIMIT) {
-                        break;
-                    } else {
-                        target_size = Math.floor(target_size * 0.9);
-                    }
-                }
-                row.push(url);
-            }
-            vm.resultImages.push(row);
-        }
-
         var settings = vm.target.animation + "/" + vm.target.effects.join(",");
         ga("send", "event", vm.source.sourceMode, "render", settings);
+
+        vm.resultImages = render_all_cells(
+            image,
+            offsetLeft, offsetTop,
+            vm.target.hCells, vm.target.vCells, cell_width, cell_height,
+            animation, vm.target.animationInvert,
+            effects, vm.target.framerate, vm.target.framecount,
+            vm.target.backgroundColor, vm.target.transparent
+        );
     },
     onToggleFileDetails: function () {
         vm.source.file.showDetails = !vm.source.file.showDetails;
