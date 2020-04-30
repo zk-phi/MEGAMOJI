@@ -613,33 +613,33 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
 /* ---- CORE */
 
-function render_single_frame (keyframe, image, offsetH, offsetV, width, height, target_size, animation, animationInvert, effects, framerate, framecount, fillStyle) {
+function render_single_frame (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, animation, animationInvert, effects, framerate, framecount, fillStyle) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
-    canvas.width = target_size;
-    canvas.height = target_size;
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
 
     ctx.fillStyle = fillStyle;
-    ctx.fillRect(0, 0, target_size, target_size);
+    ctx.fillRect(0, 0, targetWidth, targetHeight);
 
     effects.forEach(function (effect) {
-        effect(keyframe, ctx, target_size, target_size, fillStyle);
+        effect(keyframe, ctx, targetWidth, targetHeight, fillStyle);
     });
     if (animation) {
-        animation(keyframe, ctx, image, offsetH, offsetV, width, height, target_size, target_size);
+        animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth, targetHeight);
     } else {
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, target_size, target_size);
+        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, targetWidth, targetHeight);
     }
 
     return canvas;
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, target_size, animation, animationInvert, effects, framerate, framecount, background, transparent) {
+function render_result_cell (image, offsetH, offsetV, width, height, targetWidth, targetHeight, animation, animationInvert, effects, framerate, framecount, background, transparent) {
     if (!animation && !effects.length) {
         return render_single_frame(
             0, image,
-            offsetH, offsetV, width, height, target_size,
+            offsetH, offsetV, width, height, targetWidth, targetHeight,
             animation, animationInvert, effects, framerate, framecount,
             transparent ? 'rgba(0, 0, 0, 0)' : background
         ).toDataURL();
@@ -656,7 +656,7 @@ function render_result_cell (image, offsetH, offsetV, width, height, target_size
             encoder.addFrame(
                 render_single_frame(
                     keyframe, image,
-                    offsetH, offsetV, width, height, target_size,
+                    offsetH, offsetV, width, height, targetWidth, targetHeight,
                     animation, animationInvert, effects, framerate, framecount,
                     transparent ? '#ffffff' : background
                 ).getContext('2d')
@@ -676,7 +676,7 @@ function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCel
                 render_result_cell(
                     image,
                     offsetH + x * cellWidth, offsetV + y * cellHeight,
-                    cellWidth, cellHeight, targetSize,
+                    cellWidth, cellHeight, targetSize, targetSize,
                     animation, animationInvert,
                     effects, framerate, framecount,
                     backgroundColor, transparent
