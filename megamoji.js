@@ -518,6 +518,24 @@ function crop_canvas (source_canvas, left, top, w, h) {
     return canvas;
 }
 
+/* Split canvas into a 2d-array of canvases */
+function splitCanvasIntoCells (canvas, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
+    var cells = [];
+    for (var y = 0; y < vCells; y++) {
+        for (var x = 0, row = []; x < hCells; x++) {
+            row.push(
+                crop_canvas(
+                    canvas,
+                    offsetH + x * cellWidth, offsetV + y * cellHeight,
+                    cellWidth, cellHeight
+                )
+            );
+        }
+        cells.push(row);
+    }
+    return cells;
+}
+
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
 function load_file (path, callback) {
     var reader = new FileReader();
