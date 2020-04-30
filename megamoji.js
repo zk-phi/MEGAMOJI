@@ -654,36 +654,49 @@ function render_result_cell (image, offsetH, offsetV, width, height, target_size
     }
 }
 
-function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
     var renderedCells = [];
     for (var y = 0; y < vCells; y++) {
         for (var x = 0, row = []; x < hCells; x++) {
-            var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
-            var url;
-            while (true) {
-                url = render_result_cell(
+            row.push(
+                render_result_cell(
                     image,
                     offsetH + x * cellWidth, offsetV + y * cellHeight,
-                    cellWidth, cellHeight, target_size,
+                    cellWidth, cellHeight, targetSize,
                     animation, animationInvert,
                     effects, framerate, framecount,
                     backgroundColor, transparent
-                );
-                /**
-                 * If the result exceeds the limitation, retry with a smaller canvas.
-                 * This does not happen in most cases.
-                 */
-                if (dataurl_size(url) < BINARY_SIZE_LIMIT) {
-                    break;
-                } else {
-                    target_size = Math.floor(target_size * 0.9);
-                }
-            }
-            row.push(url);
+                )
+            );
         }
         renderedCells.push(row);
     }
     return renderedCells;
+}
+
+function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+    var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+    while (true) {
+        var ret = render_all_cells_with_fixed_size(
+            image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, target_size,
+            animation, animationInvert, effects, framerate, framecount,
+            backgroundColor, transparent
+        );
+        /**
+         * If a cell exceeds the limitation, retry with smaller target_size.
+         * This does not happen in most cases.
+         */
+        var shouldRetry = ret.some(function (row) {
+            return row.some(function (cell) {
+                return dataurl_size(cell) >= BINARY_SIZE_LIMIT;
+            });
+        });
+        if (shouldRetry) {
+            target_size = Math.floor(target_size * 0.9);
+        } else {
+            return ret;
+        }
+    }
 }
 
 var store = {
