@@ -703,24 +703,45 @@ function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCel
                 return cell.toDataURL();
             });
         });
-    }
-    var renderedCells = [];
-    for (var y = 0; y < vCells; y++) {
-        for (var x = 0, row = []; x < hCells; x++) {
-            row.push(
-                render_result_cell(
-                    image,
-                    offsetH + x * cellWidth, offsetV + y * cellHeight,
-                    cellWidth, cellHeight, targetSize, targetSize,
-                    animation, animationInvert,
-                    effects, framerate, framecount,
-                    backgroundColor, transparent
-                )
-            );
+    } else {
+        /* instantiate GIF encoders for each cells */
+        var cells = [];
+        for (var y = 0; y < vCells; y++) {
+            for (var x = 0, row = []; x < hCells; x++) {
+                var encoder = new GIFEncoder();
+                encoder.setRepeat(0);
+                encoder.setFrameRate(framerate);
+                if (transparent) encoder.setTransparent(0xffffff);
+                encoder.start();
+                row.push(encoder);
+            }
+            cells.push(row);
         }
-        renderedCells.push(row);
+        for (var i = 0; i < framecount; i++) {
+            var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
+            var imageCells = splitCanvasIntoCells(
+                render_single_frame(
+                    keyframe, image,
+                    offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+                    targetSize * hCells, targetSize * vCells,
+                    animation, animationInvert, effects, framerate, framecount,
+                    transparent ? '#ffffff' : backgroundColor
+                ),
+                0, 0, hCells, vCells, targetSize, targetSize
+            );
+            for (y = 0; y < vCells; y++) {
+                for (x = 0, row = []; x < hCells; x++) {
+                    cells[y][x].addFrame(imageCells[y][x].getContext('2d'));
+                }
+            }
+        }
+        return cells.map(function (row) {
+            return row.map(function (cell) {
+                cell.finish();
+                return "data:image/gif;base64," + encode64(cell.stream().getData());
+            });
+        });
     }
-    return renderedCells;
 }
 
 function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
