@@ -647,7 +647,9 @@ function render_result_cell (image, offsetH, offsetV, width, height, target_size
         var encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
-        encoder.setTransparent(0xffffff);
+        if (transparent) {
+            encoder.setTransparent(0xffffff);
+        }
         encoder.start();
         for (var i = 0; i < framecount; i++) {
             var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
