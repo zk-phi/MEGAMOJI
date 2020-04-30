@@ -653,39 +653,6 @@ function render_single_frame (keyframe, image, offsetH, offsetV, width, height, 
     return canvas;
 }
 
-function render_result_cell (image, offsetH, offsetV, width, height, targetWidth, targetHeight, animation, animationInvert, effects, framerate, framecount, background, transparent) {
-    if (!animation && !effects.length) {
-        return render_single_frame(
-            0, image,
-            offsetH, offsetV, width, height, targetWidth, targetHeight,
-            animation, animationInvert, effects, framerate, framecount,
-            transparent ? 'rgba(0, 0, 0, 0)' : background
-        ).toDataURL();
-    } else {
-        var encoder = new GIFEncoder();
-        encoder.setRepeat(0);
-        encoder.setFrameRate(framerate);
-        if (transparent) {
-            encoder.setTransparent(0xffffff);
-        }
-        encoder.start();
-        for (var i = 0; i < framecount; i++) {
-            var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
-            encoder.addFrame(
-                render_single_frame(
-                    keyframe, image,
-                    offsetH, offsetV, width, height, targetWidth, targetHeight,
-                    animation, animationInvert, effects, framerate, framecount,
-                    transparent ? '#ffffff' : background
-                ).getContext('2d')
-            );
-        }
-        encoder.finish();
-
-        return "data:image/gif;base64," + encode64(encoder.stream().getData());
-    }
-}
-
 function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
     if (!animation && !effects.length) {
         var cells = splitCanvasIntoCells(
