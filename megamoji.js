@@ -648,7 +648,7 @@ function render_single_frame (keyframe, image, offsetH, offsetV, width, height, 
     if (animation) {
         animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth * 2, targetHeight * 2);
     } else {
-        ctx.drawImage(image, offsetH, offsetV, width, height, targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
+        ctx.drawImage(image, offsetH - width / 2, offsetV - height / 2, width * 2, height * 2, 0, 0, targetWidth * 2, targetHeight * 2);
     }
 
     if (noCrop) {
