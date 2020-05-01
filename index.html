@@ -553,6 +553,14 @@
                     <label class="form-label">拡大率 (縦)</label>
                     <input type="text" v-model="target.vZoom" class="form-input">
                   </div>
+                  <div class="form-group">
+                    <label class="form-label">開発者用</label>
+                    <label class="form-checkbox">
+                    <input type="checkbox" v-model="target.noCrop">
+                    <i class="form-icon"></i>
+                    余白を切らない
+                    </label>
+                  </div>
                 </div>
                 <div class="card-footer">
                   <button @click="onToggleTargetDetails" class="btn btn-block btn-default">

@@ -107,11 +107,11 @@ function effect_pyon (keyframe, ctx, cellWidth, cellHeight, background) {
     var resistance = 1.7; // バウンド時の強さ
     var y
     if(keyframe > 0.7) {
-        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3)
+        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 6)
     } else {
-        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 3) * Math.exp(-keyframe * resistance)
+        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 6) * Math.exp(-keyframe * resistance)
     }
-    ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 15);
+    ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 30);
 }
 
 function effect_shadow (keyframe, ctx, cellWidth, cellHeight, background) {
@@ -149,7 +149,7 @@ function effect_patapata (keyframe, ctx, cellWidth, cellHeight, background) {
 }
 
 function effect_sidetoside (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.transform(1, 0, 0, 1, cellWidth * Math.sin(2 * Math.PI * keyframe), 0);
+    ctx.transform(1, 0, 0, 1, cellWidth * Math.sin(2 * Math.PI * keyframe) / 2, 0);
 }
 
 function effect_rotate (keyframe, ctx, cellWidth, cellHeight, background) {
@@ -160,8 +160,8 @@ function effect_rotate (keyframe, ctx, cellWidth, cellHeight, background) {
 
 function effect_kurukuru (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.translate(
-        Math.cos(Math.PI * 2 * keyframe) * 0.1 * cellWidth,
-        Math.sin(Math.PI * 2 * keyframe) * 0.1 * cellHeight,
+        Math.cos(Math.PI * 2 * keyframe) * 0.05 * cellWidth,
+        Math.sin(Math.PI * 2 * keyframe) * 0.05 * cellHeight,
     );
 }
 
@@ -175,32 +175,32 @@ function effect_gatagata (keyframe, ctx, cellWidth, cellHeight, background) {
 
 function effect_yatta (keyframe, ctx, cellWidth, cellHeight, background) {
     if (keyframe >= 0.5) {
-        ctx.transform(-1, 0, 0, 1, cellWidth, 0);
+        flip_context(ctx, cellWidth);
     }
     ctx.translate(cellWidth / 2, cellHeight / 2);
     ctx.rotate(0.1);
     ctx.translate(- cellWidth / 2, - cellHeight / 2);
-    ctx.translate(0, cellHeight / 8 * Math.sin(8 * Math.PI * keyframe));
+    ctx.translate(0, cellHeight / 16 * Math.sin(8 * Math.PI * keyframe));
 }
 
 function effect_poyon (keyframe, ctx, cellWidth, cellHeight, background) {
     if (keyframe < 0.6) {
-        ctx.translate(0, - cellHeight / 3 * Math.sin(Math.PI * keyframe / 0.6));
+        ctx.translate(0, - cellHeight / 6 * Math.sin(Math.PI * keyframe / 0.6));
     } else {
         var ratio = Math.sin(Math.PI * (keyframe - 0.6) / 0.4) / 2;
-        ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight);
+        ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight * 3 / 4);
     }
 }
 
 function effect_motimoti (keyframe, ctx, cellWidth, cellHeight, background) {
     var ratio = Math.sin(Math.PI * Math.abs(keyframe - 0.5) / 0.5) / 4;
-    ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight);
+    ctx.transform(1 + ratio, 0, 0, 1 - ratio, - ratio * cellWidth / 2, ratio * cellHeight * 3 / 4);
 }
 
 function effect_yurayura (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.translate(cellWidth / 2, cellHeight);
+    ctx.translate(cellWidth / 2, cellHeight * 3 / 4);
     ctx.rotate(Math.PI * Math.abs(keyframe - 0.5) / 2 - Math.PI / 8);
-    ctx.translate(- cellWidth / 2, - cellHeight);
+    ctx.translate(- cellWidth / 2, - cellHeight * 3 / 4);
 }
 
 function effect_zoom (keyframe, ctx, cellWidth, cellHeight, background) {
@@ -370,51 +370,51 @@ function effect_dizzy (keyframe, ctx, cellWidth, cellHeight, background) {
 function animation_ekken (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
     var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-    var ekkenOffset = cellWidth * keyframe;
-    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
-    ctx.drawImage(image, offsetH, offsetV, width / 2, height, - ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
-    ctx.drawImage(image, offsetH + width / 2, offsetV, width / 2, height, cellWidth / 2 + ekkenOffset / 2, 0, cellWidth / 2, cellHeight);
+    var ekkenOffset = cellWidth / 2 * keyframe;
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (2 - size) / 4, cellHeight * (2 - size) / 4, cellWidth / 2 * size, cellHeight / 2 * size);
+    ctx.drawImage(image, offsetH, offsetV, width / 2, height, - ekkenOffset / 2, cellHeight / 4, cellWidth / 4, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV, width / 2, height, - ekkenOffset / 2 + cellWidth / 4, cellHeight / 4, cellWidth / 4, cellHeight / 2);
+    ctx.drawImage(image, offsetH + width / 2, offsetV, width / 2, height, cellWidth / 2 + ekkenOffset / 2, cellHeight / 4, cellWidth / 4, cellHeight / 2);
+    ctx.drawImage(image, offsetH + width / 2, offsetV, width / 2, height, cellWidth * 3 / 4 + ekkenOffset / 2, cellHeight / 4, cellWidth / 4, cellHeight / 2);
 }
 
 function animation_ekken_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
     var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-    var ekkenOffset = cellWidth * keyframe;
-    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (1 - size) / 2, cellHeight * (1 - size) / 2, cellWidth * size, cellHeight * size);
-    ctx.drawImage(image, offsetH, offsetV, width, height / 2, 0, - ekkenOffset / 2, cellWidth, cellHeight / 2);
-    ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, 0, cellHeight / 2 + ekkenOffset / 2, cellWidth, cellHeight / 2);
+    var ekkenOffset = cellHeight / 2 * keyframe;
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth * (2 - size) / 4, cellHeight * (2 - size) / 4, cellWidth * size / 2, cellHeight * size / 2);
+    ctx.drawImage(image, offsetH, offsetV, width, height / 2, cellWidth / 4, - ekkenOffset / 2, cellWidth / 2, cellHeight / 4);
+    ctx.drawImage(image, offsetH, offsetV, width, height / 2, cellWidth / 4, cellWidth / 4 - ekkenOffset / 2, cellWidth / 2, cellHeight / 4);
+    ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, cellWidth / 4, cellHeight / 2 + ekkenOffset / 2, cellWidth / 2, cellHeight / 4);
+    ctx.drawImage(image, offsetH, offsetV + height / 2, width, height / 2, cellWidth / 4, cellHeight * 3 / 4 + ekkenOffset / 2, cellWidth / 2, cellHeight / 4);
 }
 
 function animation_kanpai (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
     flip_context(ctx, cellWidth);
-    ctx.drawImage(image, offsetH, offsetV, width * size, height, cellWidth * (1 - size), 0, cellWidth * size, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2);
     flip_context(ctx, cellWidth);
-    ctx.drawImage(image, offsetH, offsetV, width * size, height, cellWidth * (1 - size), 0, cellWidth * size, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2);
 }
 
 function animation_kanpai_lefty (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
     flip_context(ctx, cellWidth);
-    ctx.drawImage(image, offsetH + width * (1 - size), offsetV, width * size, height, 0, 0, cellWidth * size, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2);
     flip_context(ctx, cellWidth);
-    ctx.drawImage(image, offsetH + width * (1 - size), offsetV, width * size, height, 0, 0, cellWidth * size, cellHeight);
+    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2);
 }
 
 function animation_scroll_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetH = (offsetH + image.naturalWidth * keyframe) % image.naturalWidth;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetH + width > image.naturalWidth) {
-        ctx.drawImage(image, 0, offsetV, width, height, (image.naturalWidth - offsetH) * (cellWidth / width), 0, cellWidth, cellHeight);
-    }
+    ctx.drawImage(image, offsetH, offsetV, width, height, - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 2 - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2);
 }
 
 function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    offsetV = (offsetV + image.naturalHeight * keyframe) % image.naturalHeight;
-    ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, cellWidth, cellHeight);
-    if (offsetV + height > image.naturalHeight) {
-        ctx.drawImage(image, offsetH, 0, width, height, 0, (image.naturalHeight - offsetV) * (cellHeight / height), cellWidth, cellHeight);
-    }
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 4, - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 4, cellHeight / 2 - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2);
+    ctx.drawImage(image, offsetH, offsetV, width, height, cellWidth / 4, cellHeight - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2);
 }
 
 function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
@@ -429,9 +429,9 @@ function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width,
 
 function animation_xile (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     for (var i = 0; i < 3; i++) {
-        var x = Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth;
-        var y = Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight;
-        ctx.drawImage(image, offsetH, offsetV, width, height, x, y, cellWidth * 0.8, cellHeight * 0.8);
+        var x = Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth / 2 + cellWidth / 4;
+        var y = Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight / 2 + cellHeight / 4;
+        ctx.drawImage(image, offsetH, offsetV, width, height, x, y, cellWidth / 2 * 0.8, cellHeight / 2 * 0.8);
     }
 }
 
@@ -631,39 +631,46 @@ function generate_text_image (text, color, font, align, line_spacing) {
 
 /* ---- CORE */
 
-function render_single_frame (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, animation, animationInvert, effects, framerate, framecount, fillStyle) {
+function render_single_frame (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop, animation, animationInvert, effects, framerate, framecount, fillStyle) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
-    canvas.width = targetWidth;
-    canvas.height = targetHeight;
+    /* use larger canvas, because some effects may translate the canvas */
+    canvas.width = targetWidth * 2;
+    canvas.height = targetHeight * 2;
 
     ctx.fillStyle = fillStyle;
-    ctx.fillRect(0, 0, targetWidth, targetHeight);
+    ctx.fillRect(0, 0, targetWidth * 2, targetHeight * 2);
 
     effects.forEach(function (effect) {
-        effect(keyframe, ctx, targetWidth, targetHeight, fillStyle);
+        effect(keyframe, ctx, targetWidth * 2, targetHeight * 2, fillStyle);
     });
     if (animation) {
-        animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth, targetHeight);
+        animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth * 2, targetHeight * 2);
     } else {
-        ctx.drawImage(image, offsetH, offsetV, width, height, 0, 0, targetWidth, targetHeight);
+        ctx.drawImage(image, offsetH, offsetV, width, height, targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
     }
 
-    return canvas;
+    if (noCrop) {
+        return canvas;
+    } else {
+        return crop_canvas(canvas, targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
+    }
 }
 
-function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
     if (!animation && !effects.length) {
-        var cells = splitCanvasIntoCells(
-            render_single_frame(
-                0, image,
-                offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
-                targetSize * hCells, targetSize * vCells,
-                animation, animationInvert, effects, framerate, framecount,
-                transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
-            ),
-            0, 0, hCells, vCells, targetSize, targetSize
+        var img = render_single_frame(
+            0, image,
+            offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+            targetSize * hCells, targetSize * vCells, noCrop,
+            animation, animationInvert, effects, framerate, framecount,
+            transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
+        );
+        var cells = noCrop ? (
+            splitCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
+        ) : (
+            splitCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
         );
         return cells.map(function (row) {
             return row.map(function (cell) {
@@ -686,19 +693,21 @@ function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCel
         }
         for (var i = 0; i < framecount; i++) {
             var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
-            var imageCells = splitCanvasIntoCells(
-                render_single_frame(
-                    keyframe, image,
-                    offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
-                    targetSize * hCells, targetSize * vCells,
-                    animation, animationInvert, effects, framerate, framecount,
-                    transparent ? '#ffffff' : backgroundColor
-                ),
-                0, 0, hCells, vCells, targetSize, targetSize
+            var img = render_single_frame(
+                keyframe, image,
+                offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+                targetSize * hCells, targetSize * vCells, noCrop,
+                animation, animationInvert, effects, framerate, framecount,
+                transparent ? '#ffffff' : backgroundColor
+            );
+            var imgCells = noCrop ? (
+                splitCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
+            ) : (
+                splitCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
             );
             for (y = 0; y < vCells; y++) {
                 for (x = 0, row = []; x < hCells; x++) {
-                    cells[y][x].addFrame(imageCells[y][x].getContext('2d'));
+                    cells[y][x].addFrame(imgCells[y][x].getContext('2d'));
                 }
             }
         }
@@ -711,11 +720,11 @@ function render_all_cells_with_fixed_size (image, offsetH, offsetV, hCells, vCel
     }
 }
 
-function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
+function render_all_cells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
     var target_size = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
     while (true) {
         var ret = render_all_cells_with_fixed_size(
-            image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, target_size,
+            image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, target_size, noCrop,
             animation, animationInvert, effects, framerate, framecount,
             backgroundColor, transparent
         );
@@ -783,6 +792,7 @@ var store = {
         offsetTop: 0,
         hZoom: "1.0",
         vZoom: "1.0",
+        noCrop: false,
         framerate: 18,
         framecount: 12,
         backgroundColor: "#ffffff",
@@ -868,7 +878,7 @@ var methods = {
         vm.resultImages = render_all_cells(
             image,
             offsetLeft, offsetTop,
-            vm.target.hCells, vm.target.vCells, cell_width, cell_height,
+            vm.target.hCells, vm.target.vCells, cell_width, cell_height, vm.target.noCrop,
             animation, vm.target.animationInvert,
             effects, vm.target.framerate, vm.target.framecount,
             vm.target.backgroundColor, vm.target.transparent
