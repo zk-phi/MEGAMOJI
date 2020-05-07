@@ -648,7 +648,11 @@ function render_single_frame (keyframe, image, offsetH, offsetV, width, height, 
     if (animation) {
         animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth * 2, targetHeight * 2);
     } else {
-        ctx.drawImage(image, offsetH - width / 2, offsetV - height / 2, width * 2, height * 2, 0, 0, targetWidth * 2, targetHeight * 2);
+        var left = offsetH - width / 2;
+        var top = offsetV - height / 2;
+        var targetLeft = left >= 0 ? 0 : - left * targetWidth / width;
+        var targetTop = top >= 0 ? 0 : - top * targetHeight / height;
+        ctx.drawImage(image, Math.max(0, left), Math.max(0, top), width * 2, height * 2, targetLeft, targetTop, targetWidth * 2, targetHeight * 2);
     }
 
     if (noCrop) {
