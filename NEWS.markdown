@@ -12,6 +12,7 @@ Google Fonts を 早期アクセス版 から正式版 に移行＆整理
   - M PLUS 1p (正しく読み込まれていなかった)
 
 - 追加されたフォント
+  - Rounded M+ 1c, Bold (Black では太すぎる時用)
   - Noto Sans (さわらびゴシック Bold に代わって)
   - Noto Serif (極太明朝がなかったので)
 
