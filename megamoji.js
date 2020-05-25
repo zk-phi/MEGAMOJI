@@ -767,7 +767,7 @@ var store = {
             content: "",
             align: "left",
             color: "#e85600",
-            font: "bold sans-serif",
+            font: "sans-serif",
             /* advanced */
             showDetails: false,
             lineSpacing: 0.1
@@ -912,7 +912,7 @@ var methods = {
         vm.baseImage = generate_text_image(
             vm.source.text.content,
             vm.source.text.color,
-            vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+            EMOJI_SIZE + "px " + vm.source.text.font,
             vm.source.text.align,
             vm.source.text.lineSpacing * EMOJI_SIZE
         );
@@ -933,7 +933,7 @@ window.onerror = function (msg, file, line, col) {
             vm.baseImage = generate_text_image(
                 "あ",
                 "#e85600",
-                "bold 128px sans-serif",
+                "128px sans-serif",
                 "center",
                 12.8
             )
