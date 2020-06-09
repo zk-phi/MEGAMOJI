@@ -418,12 +418,26 @@ function animation_scroll_vertical (keyframe, ctx, image, offsetH, offsetV, widt
 }
 
 function animation_push_horizontal (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    /*   push: 0 0.5   0.5   1.0
+     * scroll: 0 0.125 0.875 1.0 */
+    keyframe = keyframe < 0.125 ? (
+        keyframe * 4
+    ) : keyframe < 0.875 ? (
+        0.5
+    ) : (
+        (keyframe - 0.875) * 4 + 0.5
+    );
     animation_scroll_horizontal(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
 function animation_push_vertical (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
-    keyframe = keyframe > 0.75 ? (keyframe - 0.75) * 4 : 0;
+    keyframe = keyframe < 0.125 ? (
+        keyframe * 4
+    ) : keyframe < 0.875 ? (
+        0.5
+    ) : (
+        (keyframe - 0.875) * 4 + 0.5
+    );
     animation_scroll_vertical(keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight);
 }
 
