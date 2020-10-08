@@ -254,10 +254,7 @@ var store = {
     source: {
         sourceMode: "unselected",
         file: {
-            /* basic */
             file: null,
-            /* advanced */
-            showDetails: false,
             filter: ""
         },
         text: {

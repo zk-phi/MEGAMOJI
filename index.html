@@ -56,30 +56,18 @@
                 <label class="form-label">ファイル</label>
                 <input type="file" @change="onChangeFile" class="form-input">
               </div>
+              <div class="form-group">
+                <label class="form-label">前処理</label>
+                <select v-model="source.file.filter" class="form-select">
+                  <option value="">なし</option>
+                  <option value="filterChromakey">クロマキー透過 (左上から)</option>
+                </select>
+              </div>
             </div>
             <div class="card-footer">
               <button class="btn btn-block btn-primary mb-2" @click="onClickReload">
                 再読み込み
               </button>
-              <button v-if="!source.file.showDetails" class="btn btn-block btn-default" @click="onToggleFileDetails">
-                + その他
-              </button>
-              <div v-if="source.file.showDetails" class="card">
-                <div class="card-body">
-                  <div class="form-group">
-                    <label class="form-label">前処理</label>
-                    <select v-model="source.file.filter" class="form-select">
-                      <option value="">なし</option>
-                      <option value="filterChromakey">背景透過 (クロマキー)</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <button @click="onToggleFileDetails" class="btn btn-block btn-default">
-                    - 閉じる
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
