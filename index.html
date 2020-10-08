@@ -67,7 +67,7 @@
                     <label class="form-label">前処理</label>
                     <select v-model="source.file.filter" class="form-select">
                       <option value="">なし</option>
-                      <option value="filter_chromakey">背景透過 (クロマキー)</option>
+                      <option value="filterChromakey">背景透過 (クロマキー)</option>
                     </select>
                   </div>
                 </div>
@@ -286,15 +286,15 @@
                 <label class="form-label">アニメ (組合わせ不可)</label>
                 <select v-model="target.animation" class="form-select">
                   <option value="">なし</option>
-                  <option value="animation_scroll_horizontal">スクロール（水平）</option>
-                  <option value="animation_scroll_vertical">スクロール（垂直）</option>
-                  <option value="animation_push_horizontal">押し出し（水平）</option>
-                  <option value="animation_push_vertical">押し出し（垂直）</option>
-                  <option value="animation_ekken">謁見</option>
-                  <option value="animation_ekken_vertical">謁見バーティカル</option>
-                  <option value="animation_kanpai">乾杯</option>
-                  <option value="animation_kanpai_lefty">乾杯 (左利き)</option>
-                  <option value="animation_xile">ザイル</option>
+                  <option value="animationScrollHorizontal">スクロール（水平）</option>
+                  <option value="animationScrollVertical">スクロール（垂直）</option>
+                  <option value="animationPushHorizontal">押し出し（水平）</option>
+                  <option value="animationPushVertical">押し出し（垂直）</option>
+                  <option value="animationEkken">謁見</option>
+                  <option value="animationEkkenVertical">謁見バーティカル</option>
+                  <option value="animationKanpai">乾杯</option>
+                  <option value="animationKanpaiLefty">乾杯 (左利き)</option>
+                  <option value="animationXile">ザイル</option>
                 </select>
               </div>
               <div class="form-group">
@@ -314,109 +314,109 @@
                 <label class="form-label">アニメ (組合わせ可)</label>
                 <div><small>フィルタ (Chrome のみ)</small></div>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_kira">
+                  <input type="checkbox" v-model="target.effects" value="effectKira">
                   <i class="form-icon"></i>
                   キラ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_nega">
+                  <input type="checkbox" v-model="target.effects" value="effectNega">
                   <i class="form-icon"></i>
                   ネガ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_moyamoya">
+                  <input type="checkbox" v-model="target.effects" value="effectMoyamoya">
                   <i class="form-icon"></i>
                   もやもや
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_foil">
+                  <input type="checkbox" v-model="target.effects" value="effectFoil">
                   <i class="form-icon"></i>
                   Foil
                 </label>
                 <div><small>動き</small></div>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_gatagata">
+                  <input type="checkbox" v-model="target.effects" value="effectGatagata">
                   <i class="form-icon"></i>
                   ガタガタ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_zoom">
+                  <input type="checkbox" v-model="target.effects" value="effectZoom">
                   <i class="form-icon"></i>
                   びょいんびょいん
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_blink">
+                  <input type="checkbox" v-model="target.effects" value="effectBlink">
                   <i class="form-icon"></i>
                   BLINK
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_rotate">
+                  <input type="checkbox" v-model="target.effects" value="effectRotate">
                   <i class="form-icon"></i>
                   ぐるぐる
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_kurukuru">
+                  <input type="checkbox" v-model="target.effects" value="effectKurukuru">
                   <i class="form-icon"></i>
                   くるくる
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_yurayura">
+                  <input type="checkbox" v-model="target.effects" value="effectYurayura">
                   <i class="form-icon"></i>
                   ゆらゆら
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_patapata">
+                  <input type="checkbox" v-model="target.effects" value="effectPatapata">
                   <i class="form-icon"></i>
                   ぱたぱた
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_yatta">
+                  <input type="checkbox" v-model="target.effects" value="effectYatta">
                   <i class="form-icon"></i>
                   ヤッタ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_poyon">
+                  <input type="checkbox" v-model="target.effects" value="effectPoyon">
                   <i class="form-icon"></i>
                   ぽよーん
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_motimoti">
+                  <input type="checkbox" v-model="target.effects" value="effectMotimoti">
                   <i class="form-icon"></i>
                   もちもち
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_sidetoside">
+                  <input type="checkbox" v-model="target.effects" value="effectSidetoside">
                   <i class="form-icon"></i>
                   すいっすいっ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_pyon">
+                  <input type="checkbox" v-model="target.effects" value="effectPyon">
                   <i class="form-icon"></i>
                   ピチピチ
                 </label>
                 <div><small>シャドウ</small></div>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_shadow">
+                  <input type="checkbox" v-model="target.effects" value="effectShadow">
                   <i class="form-icon"></i>
                   影
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_shadow_rotate">
+                  <input type="checkbox" v-model="target.effects" value="effectShadowRotate">
                   <i class="form-icon"></i>
                   影ぐるぐる
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_natural_blur">
+                  <input type="checkbox" v-model="target.effects" value="effectNaturalBlur">
                   <i class="form-icon"></i>
                   ブラー
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_aurora_blur">
+                  <input type="checkbox" v-model="target.effects" value="effectAuroraBlur">
                   <i class="form-icon"></i>
                   オーロラ
                 </label>
                 <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effect_neon">
+                  <input type="checkbox" v-model="target.effects" value="effectNeon">
                   <i class="form-icon"></i>
                   ネオン
                 </label>
@@ -448,42 +448,42 @@
                   <div class="form-group">
                     <label class="form-label">アニメ (背景)</label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_check">
+                      <input type="checkbox" v-model="target.effects" value="effectCheck">
                       <i class="form-icon"></i>
                       チェック
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_stripe">
+                      <input type="checkbox" v-model="target.effects" value="effectStripe">
                       <i class="form-icon"></i>
                       ストライプ
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_tiritiri">
+                      <input type="checkbox" v-model="target.effects" value="effectTiritiri">
                       <i class="form-icon"></i>
                       チリチリ
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_river">
+                      <input type="checkbox" v-model="target.effects" value="effectRiver">
                       <i class="form-icon"></i>
                       川
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_sign_pole">
+                      <input type="checkbox" v-model="target.effects" value="effectSignPole">
                       <i class="form-icon"></i>
                       サインポール
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_psych">
+                      <input type="checkbox" v-model="target.effects" value="effectPsych">
                       <i class="form-icon"></i>
                       サイケ
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_dizzy">
+                      <input type="checkbox" v-model="target.effects" value="effectDizzy">
                       <i class="form-icon"></i>
                       めまい
                     </label>
                     <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effect_time_machine">
+                      <input type="checkbox" v-model="target.effects" value="effectTimemachine">
                       <i class="form-icon"></i>
                       タイムマシン
                     </label>
