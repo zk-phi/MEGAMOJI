@@ -1,0 +1,65 @@
+/* noto-sans-jp-700 - latin_japanese */
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/noto-sans-jp-v25-latin_japanese-700.eot'); /* IE9 Compat Modes */
+  src: local('Noto Sans Japanese Bold'), local('NotoSansJapanese-Bold'),
+  url('../fonts/noto-sans-jp-v25-latin_japanese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-700.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-700.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-700.svg#NotoSansJP') format('svg'); /* Legacy iOS */
+}
+/* noto-sans-jp-900 - latin_japanese */
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/noto-sans-jp-v25-latin_japanese-900.eot'); /* IE9 Compat Modes */
+  src: local('Noto Sans Japanese Black'), local('NotoSansJapanese-Black'),
+  url('../fonts/noto-sans-jp-v25-latin_japanese-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-900.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-900.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-900.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/noto-sans-jp-v25-latin_japanese-900.svg#NotoSansJP') format('svg'); /* Legacy iOS */
+}
+/* m-plus-rounded-1c-900 - latin_japanese */
+@font-face {
+  font-family: 'M PLUS Rounded 1c';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.eot'); /* IE9 Compat Modes */
+  src: local('M PLUS Rounded 1c Black'), local('MPLUSRounded1c-Black'),
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.svg#MPLUSRounded1c') format('svg'); /* Legacy iOS */
+}
+/* m-plus-rounded-1c-700 - latin_japanese */
+@font-face {
+  font-family: 'M PLUS Rounded 1c';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.eot'); /* IE9 Compat Modes */
+  src: local('M PLUS Rounded 1c Bold'), local('MPLUSRounded1c-Bold'),
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.svg#MPLUSRounded1c') format('svg'); /* Legacy iOS */
+}
+/* noto-serif-jp-900 - latin_japanese */
+@font-face {
+  font-family: 'Noto Serif JP';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/noto-serif-jp-v7-latin_japanese-900.eot'); /* IE9 Compat Modes */
+  src: local('Noto Serif JP Black'), local('NotoSerifJP-Black'),
+  url('../fonts/noto-serif-jp-v7-latin_japanese-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/noto-serif-jp-v7-latin_japanese-900.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/noto-serif-jp-v7-latin_japanese-900.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/noto-serif-jp-v7-latin_japanese-900.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/noto-serif-jp-v7-latin_japanese-900.svg#NotoSerifJP') format('svg'); /* Legacy iOS */
+}
