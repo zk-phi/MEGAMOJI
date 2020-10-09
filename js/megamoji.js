@@ -383,9 +383,6 @@ var methods = {
             vm.target.backgroundColor, vm.target.transparent
         );
     },
-    onToggleFileDetails: function () {
-        vm.source.file.showDetails = !vm.source.file.showDetails;
-    },
     onToggleTextDetails: function () {
         vm.source.text.showDetails = !vm.source.text.showDetails;
     },
