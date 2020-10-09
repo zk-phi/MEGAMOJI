@@ -278,12 +278,8 @@ var store = {
     /* ui */
     ui: {
         mode: "text",
-        textTab: "content",
         fukumojiTab: "base",
-        targetTab: "effects",
-        showTextDetails: false,
-        showTrimingDetails: false,
-        showAnimeDetails: false,
+        showTargetDetails: false
     },
     /* form inputs */
     source: {
@@ -414,14 +410,11 @@ var methods = {
         vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + "";
         vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + "";
     },
-    onSelectTextTab: function (value) {
-        vm.ui.textTab = value;
+    onSelectMode: function (value) {
+        vm.ui.mode = value;
     },
     onSelectFukumojiTab: function (value) {
         vm.ui.fukumojiTab = value;
-    },
-    onSelectTargetTab: function (value) {
-        vm.ui.targetTab = value;
     },
     onSelectFukumojiPart: function (key, value) {
         vm.source.fukumoji[key] = value;
@@ -439,14 +432,8 @@ var methods = {
             vm.target.framecount = 6;
         }
     },
-    onToggleTextDetails: function () {
-        vm.ui.showTextDetails = !vm.ui.showTextDetails;
-    },
     onToggleTargetDetails: function () {
-        vm.ui.showTrimingDetails = !vm.ui.showTrimingDetails;
-    },
-    onToggleTargetAnimeDetails: function () {
-        vm.ui.showAnimeDetails = !vm.ui.showAnimeDetails;
+        vm.ui.showTargetDetails = !vm.ui.showTargetDetails;
     },
     onChangeFile: function (e) {
         vm.source.file.file = e.target.files[0];

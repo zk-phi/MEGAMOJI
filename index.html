@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/spectre-0.5.8.min.css">
-    <link rel="stylesheet" href="css/spectre-exp-0.5.8.min.css">
+    <link rel="stylesheet" href="css/bulma-0.8.0.min.css">
     <link rel="stylesheet"  href="css/fonts.css">
     <script src="js/ga.js"></script>
     <script src="js/effects.js"></script>
@@ -22,546 +21,506 @@
     <title>MEGAMOJI</title>
   </head>
 
-  <body class="container grid-xl my-2">
-    <div id="app">
+  <body>
+    <section id="app" class="section">
 
-      <h1>MEGAMOJI <small>- Slack 絵文字を簡単に作るやつ</small></h1>
+      <h1 class="title">MEGAMOJI</h1>
 
-      <p>
-        <a href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">更新情報</a>
-      </p>
+      <h2 class="subtitle">
+        Slack などの絵文字を簡単に作れるやつ |
+        <a target="_blank" href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">
+          更新履歴
+        </a>
+      </h2>
 
-      <select v-model="ui.mode" class="form-select my-2">
-        <option value="text">テキストから作る</option>
-        <option value="file">ファイルから選ぶ</option>
-        <option value="fukumoji">パーツを選んで作る</option>
-      </select>
+      <div class="tabs">
+        <ul>
+          <li :class="ui.mode == 'text' ? 'is-active' : ''">
+            <a @click="onSelectMode('text')">テキストから作る</a>
+          </li>
+          <li :class="ui.mode == 'file' ? 'is-active' : ''">
+            <a @click="onSelectMode('file')">ファイルから選ぶ</a>
+          </li>
+          <li :class="ui.mode == 'fukumoji' ? 'is-active' : ''">
+            <a @click="onSelectMode('fukumoji')">パーツから選ぶ</a>
+          </li>
+          <li :class="ui.mode == 'target' ? 'is-active' : ''">
+            <a @click="onSelectMode('target')">★ 効果をつける</a>
+          </li>
+        </ul>
+      </div>
 
-      <div class="columns my-2">
+      <div class="columns">
 
-        <div v-if="ui.mode == 'file'" class="column col-4 col-md-12">
-          <div class="panel my-2">
-
-            <div class="panel-header">
-              <div class="panel-title">ファイルから選ぶ</div>
-            </div>
-
-            <div class="panel-body">
-              <div class="form-group">
-                <label class="form-label">ファイル</label>
-                <input type="file" @change="onChangeFile" class="form-input">
+        <div v-if="ui.mode == 'text'" class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">システムフォント</label>
+                    <div class="control">
+                      <label class="radio" style="font: normal 1em sans-serif">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="normal sans-serif">
+                        ゴシック (sans-serif)
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="font: normal 1em serif">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="normal serif">
+                        明朝 (serif)
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Web フォント (Google Fonts)</label>
+                    <div class="control">
+                      <label class="radio" style="font: bold 1em 'Noto Sans JP'">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Noto Sans JP'">
+                        太めゴシック (Noto Sans JP, bold)
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="font: bold 1em 'M PLUS Rounded 1c'">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="bold 'M PLUS Rounded 1c'">
+                        太め丸ゴ (M PLUS Rounded 1c, bold)
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="font: 900 1em 'Noto Serif JP'">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Serif JP'">
+                        太め明朝 (Noto Serif JP, black)
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="font: 900 1em 'Noto Sans JP'">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Sans JP'">
+                        極太ゴシック (Noto Sans JP, black)
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="font: 900 1em 'M PLUS Rounded 1c'">
+                        <input type="radio" name="text_font" v-model="source.text.font" value="900 'M PLUS Rounded 1c'">
+                        極太丸ゴ (M PLUS Rounded 1c, black)
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">色</label>
+                    <div class="control">
+                      <input class="input" type="color" v-model="source.text.color">
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">テキスト (改行可)</label>
+                    <div class="control">
+                      <textarea class="textarea" v-model="source.text.content"></textarea>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">揃え</label>
+                    <div class="control">
+                      <div class="select">
+                        <select v-model="source.text.align">
+                          <option value="left">左</option>
+                          <option value="center">中央</option>
+                          <option value="right">右</option>
+                          <option value="stretch">両端</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">行間 (文字分)</label>
+                    <div class="control">
+                      <input class="input" type="text" v-model="source.text.lineSpacing">
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label">前処理</label>
-                <select v-model="source.file.filter" class="form-select">
-                  <option value="">なし</option>
-                  <option value="filterChromakey">クロマキー透過 (左上から)</option>
-                </select>
-              </div>
             </div>
-
-            <div class="panel-footer"></div>
-
           </div>
         </div>
 
-        <div v-if="ui.mode == 'text'" class="column col-4 col-md-12">
-          <div class="panel my-2">
-
-            <div class="panel-header">
-              <div class="panel-title">テキストから作る</div>
-            </div>
-
-            <div class="panel-nav">
-              <ul class="tab tab-block">
-                <li :class="ui.textTab == 'content' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectTextTab('content')">
-                  <a href="javascript: void(0)">テキスト</a>
-                </li>
-                <li :class="ui.textTab == 'font' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectTextTab('font')">
-                  <a href="javascript: void(0)">フォント</a>
-                </li>
-              </ul>
-            </div>
-
-            <div v-if="ui.textTab == 'content'" class="panel-body">
-              <div class="form-group">
-                <label class="form-label">テキスト (改行可)</label>
-                <textarea v-model="source.text.content" class="form-input"></textarea>
+        <div v-if="ui.mode == 'file'" class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="field">
+                <label class="label">ファイル</label>
+                <div class="control">
+                  <input class="input" type="file" @change="onChangeFile">
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label">揃え</label>
-                <select v-model="source.text.align" class="form-select">
-                  <option value="left">左</option>
-                  <option value="center">中央</option>
-                  <option value="right">右</option>
-                  <option value="stretch">両端</option>
-                </select>
-              </div>
-            </div>
-
-            <div v-if="ui.textTab == 'content'" class="panel-footer"></div>
-
-            <div v-if="ui.textTab == 'font'" class="panel-body">
-              <div class="form-group">
-                <label class="form-label">システムフォント</label>
-                <label class="form-radio" style="font: normal 1em sans-serif">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="normal sans-serif">
-                  <i class="form-icon"></i> ゴシック (sans-serif)
-                </label>
-                <label class="form-radio" style="font: normal 1em serif">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="normal serif">
-                  <i class="form-icon"></i> 明朝 (serif)
-                </label>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Web フォント (Google Fonts)</label>
-                <label class="form-radio" style="font: bold 1em 'Noto Sans JP'">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Noto Sans JP'">
-                  <i class="form-icon"></i> 太めゴシック (Noto Sans, Bold)
-                </label>
-                <label class="form-radio" style="font: bold 1em 'M PLUS Rounded 1c'">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="bold 'M PLUS Rounded 1c'">
-                  <i class="form-icon"></i> 太め丸ゴ (Rounded M+ 1c, Bold)
-                </label>
-                <label class="form-radio" style="font: 900 1em 'Noto Serif JP'">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Serif JP'">
-                  <i class="form-icon"></i> 太め明朝 (Noto Serif, Black)
-                </label>
-                <label class="form-radio" style="font: 900 1em 'Noto Sans JP'">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Sans JP'">
-                  <i class="form-icon"></i> 極太ゴシック (Noto Sans, Black)
-                </label>
-                <label class="form-radio" style="font: 900 1em 'M PLUS Rounded 1c'">
-                  <input type="radio" name="text_font" v-model="source.text.font" value="900 'M PLUS Rounded 1c'">
-                  <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
-                </label>
-              </div>
-              <div class="form-group">
-                <label class="form-label">色</label>
-                <input type="color" v-model="source.text.color" class="form-input">
-              </div>
-            </div>
-
-            <div v-if="ui.textTab == 'font'" class="panel-footer">
-              <button v-if="!ui.showTextDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
-                + その他
-              </button>
-              <div v-if="ui.showTextDetails" class="panel">
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label class="form-label">行間 (文字分)</label>
-                    <input type="text" v-model="source.text.lineSpacing" class="form-input">
+              <div class="field">
+                <label class="label">前処理</label>
+                <div class="control">
+                  <div class="select">
+                    <select v-model="source.file.filter">
+                      <option value="">なし</option>
+                      <option value="filterChromakey">クロマキー透過 (左上から)</option>
+                    </select>
                   </div>
                 </div>
-                <div class="panel-footer">
-                  <button @click="onToggleTextDetails" class="btn btn-block btn-default">
-                    - 閉じる
-                  </button>
-                </div>
               </div>
             </div>
-
           </div>
         </div>
 
-        <div v-if="ui.mode == 'fukumoji'" class="column col-4 col-md-12">
-          <div class="panel my-2">
-
-            <div class="panel-header">
-              <div class="panel-title">パーツを選んで作る</div>
+        <div v-if="ui.mode == 'fukumoji'" class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="tabs is-toggle">
+                <ul>
+                  <li :class="ui.fukumojiTab == 'base' ? 'is-active' : ''">
+                    <a @click="onSelectFukumojiTab('base')">ベース</a>
+                  </li>
+                  <li :class="ui.fukumojiTab == 'eyes' ? 'is-active' : ''">
+                    <a @click="onSelectFukumojiTab('eyes')">目</a>
+                  </li>
+                  <li :class="ui.fukumojiTab == 'mouths' ? 'is-active' : ''">
+                    <a @click="onSelectFukumojiTab('mouths')">口</a>
+                  </li>
+                  <li :class="ui.fukumojiTab == 'others' ? 'is-active' : ''">
+                    <a @click="onSelectFukumojiTab('others')">飾り</a>
+                  </li>
+                  <li :class="ui.fukumojiTab == 'textures' ? 'is-active' : ''">
+                    <a @click="onSelectFukumojiTab('textures')">その他</a>
+                  </li>
+                </ul>
+              </div>
+              <div v-if="ui.fukumojiTab == 'base'" class="fukumoji">
+                <img v-for="e in baseSelections"
+                     :class="source.fukumoji.base == e ? 'selected' : ''"
+                     :src="e"
+                     @click="onSelectFukumojiPart('base', e);" />
+              </div>
+              <div v-if="ui.fukumojiTab == 'eyes'" class="fukumoji">
+                <img v-for="e in eyesSelections"
+                     :class="source.fukumoji.eyes == e ? 'selected' : ''"
+                     :src="e"
+                     @click="onSelectFukumojiPart('eyes', e);" />
+              </div>
+              <div v-if="ui.fukumojiTab == 'textures'" class="fukumoji">
+                <img v-for="e in texturesSelections"
+                     :class="source.fukumoji.textures == e ? 'selected' : ''"
+                     :src="e"
+                     @click="onSelectFukumojiPart('textures', e);" />
+              </div>
+              <div v-if="ui.fukumojiTab == 'mouths'" class="fukumoji">
+                <img v-for="e in mouthsSelections"
+                     :class="source.fukumoji.mouths == e ? 'selected' : ''"
+                     :src="e"
+                     @click="onSelectFukumojiPart('mouths', e);" />
+              </div>
+              <div v-if="ui.fukumojiTab == 'others'" class="fukumoji">
+                <img v-for="e in othersSelections"
+                     :class="source.fukumoji.others == e ? 'selected' : ''"
+                     :src="e"
+                     @click="onSelectFukumojiPart('others', e);" />
+              </div>
             </div>
-
-            <div class="panel-nav">
-              <ul class="tab tab-block">
-                <li :class="ui.fukumojiTab == 'base' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectFukumojiTab('base')">
-                  <a href="javascript: void(0)">ベース</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'eyes' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectFukumojiTab('eyes')">
-                  <a href="javascript: void(0)">目</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'mouths' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectFukumojiTab('mouths')">
-                  <a href="javascript: void(0)">口</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'others' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectFukumojiTab('others')">
-                  <a href="javascript: void(0)">飾り</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'textures' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectFukumojiTab('textures')">
-                  <a href="javascript: void(0)">その他</a>
-                </li>
-              </ul>
-            </div>
-
-            <div v-if="ui.fukumojiTab == 'base'" class="panel-body">
-              <img v-for="e in baseSelections"
-                   :class="source.fukumoji.base == e ? 'btn selected' : 'btn'"
-                   :src="e"
-                   @click="onSelectFukumojiPart('base', e);" />
-            </div>
-
-            <div v-if="ui.fukumojiTab == 'eyes'" class="panel-body">
-              <img v-for="e in eyesSelections"
-                   :class="source.fukumoji.eyes == e ? 'btn selected' : 'btn'"
-                   :src="e"
-                   @click="onSelectFukumojiPart('eyes', e);" />
-            </div>
-
-            <div v-if="ui.fukumojiTab == 'textures'" class="panel-body">
-              <img v-for="e in texturesSelections"
-                   :class="source.fukumoji.textures == e ? 'btn selected' : 'btn'"
-                   :src="e"
-                   @click="onSelectFukumojiPart('textures', e);" />
-            </div>
-
-            <div v-if="ui.fukumojiTab == 'mouths'" class="panel-body">
-              <img v-for="e in mouthsSelections"
-                   :class="source.fukumoji.mouths == e ? 'btn selected' : 'btn'"
-                   :src="e"
-                   @click="onSelectFukumojiPart('mouths', e);" />
-            </div>
-
-            <div v-if="ui.fukumojiTab == 'others'" class="panel-body">
-              <img v-for="e in othersSelections"
-                   :class="source.fukumoji.others == e ? 'btn selected' : 'btn'"
-                   :src="e"
-                   @click="onSelectFukumojiPart('others', e);" />
-            </div>
-
-            <div class="panel-footer"></div>
-
           </div>
         </div>
 
-        <div class="column col-4 col-md-12">
-          <div class="panel my-2">
-
-            <div class="panel-header">
-              <div class="panel-title">仕上げ</div>
-            </div>
-
-            <div class="panel-nav">
-              <ul class="tab tab-block">
-                <li :class="ui.targetTab == 'effects' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectTargetTab('effects')">
-                  <a href="javascript: void(0)">効果</a>
-                </li>
-                <li :class="ui.targetTab == 'trimming' ? 'tab-item active' : 'tab-item'"
-                    @click="onSelectTargetTab('trimming')">
-                  <a href="javascript: void(0)">トリミング</a>
-                </li>
-              </ul>
-            </div>
-
-            <div v-if="ui.targetTab == 'effects'" class="panel-body">
-              <div class="form-group">
-                <label class="form-label">アニメ (組合わせ不可)</label>
-                <select v-model="target.animation" class="form-select">
-                  <option value="">なし</option>
-                  <option value="animationScrollHorizontal">スクロール（水平）</option>
-                  <option value="animationScrollVertical">スクロール（垂直）</option>
-                  <option value="animationPushHorizontal">押し出し（水平）</option>
-                  <option value="animationPushVertical">押し出し（垂直）</option>
-                  <option value="animationEkken">謁見</option>
-                  <option value="animationEkkenVertical">謁見バーティカル</option>
-                  <option value="animationKanpai">乾杯</option>
-                  <option value="animationKanpaiLefty">乾杯 (左利き)</option>
-                  <option value="animationXile">ザイル</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">スピード</label>
-                <select @change="onSelectSpeedPreset" class="form-select">
-                  <option value="">普通</option>
-                  <option value="turbo">速い</option>
-                  <option value="super-turbo">爆速</option>
-                </select>
-                <label class="form-checkbox">
-                  <input type="checkbox" v-model="target.animationInvert">
-                  <i class="form-icon"></i>
-                  進行方向を反転
-                </label>
-              </div>
-              <div class="form-group">
-                <label class="form-label">アニメ (組合わせ可)</label>
-                <div><small>フィルタ (Chrome のみ)</small></div>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectKira">
-                  <i class="form-icon"></i>
-                  キラ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectNega">
-                  <i class="form-icon"></i>
-                  ネガ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectMoyamoya">
-                  <i class="form-icon"></i>
-                  もやもや
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectFoil">
-                  <i class="form-icon"></i>
-                  Foil
-                </label>
-                <div><small>動き</small></div>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectGatagata">
-                  <i class="form-icon"></i>
-                  ガタガタ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectZoom">
-                  <i class="form-icon"></i>
-                  びょいんびょいん
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectBlink">
-                  <i class="form-icon"></i>
-                  BLINK
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectRotate">
-                  <i class="form-icon"></i>
-                  ぐるぐる
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectKurukuru">
-                  <i class="form-icon"></i>
-                  くるくる
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectYurayura">
-                  <i class="form-icon"></i>
-                  ゆらゆら
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectPatapata">
-                  <i class="form-icon"></i>
-                  ぱたぱた
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectYatta">
-                  <i class="form-icon"></i>
-                  ヤッタ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectPoyon">
-                  <i class="form-icon"></i>
-                  ぽよーん
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectMotimoti">
-                  <i class="form-icon"></i>
-                  もちもち
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectSidetoside">
-                  <i class="form-icon"></i>
-                  すいっすいっ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectPyon">
-                  <i class="form-icon"></i>
-                  ピチピチ
-                </label>
-                <div><small>シャドウ</small></div>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectShadow">
-                  <i class="form-icon"></i>
-                  影
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectShadowRotate">
-                  <i class="form-icon"></i>
-                  影ぐるぐる
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectNaturalBlur">
-                  <i class="form-icon"></i>
-                  ブラー
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectAuroraBlur">
-                  <i class="form-icon"></i>
-                  オーロラ
-                </label>
-                <label class="form-checkbox form-inline">
-                  <input type="checkbox" v-model="target.effects" value="effectNeon">
-                  <i class="form-icon"></i>
-                  ネオン
-                </label>
-              </div>
-            </div>
-
-            <div v-if="ui.targetTab == 'effects'" class="panel-footer">
-              <button v-if="!ui.showAnimeDetails" @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
-                + その他
-              </button>
-              <div v-if="ui.showAnimeDetails" class="panel">
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label class="form-label">アニメ速度 (フレームレート): {{target.framerate}}</label>
-                    <input class="slider" v-model="target.framerate" type="range" min="1" max="60">
+        <div v-if="ui.mode == 'target'" class="column">
+          <div class="card">
+            <div class="card-content">
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">アニメーション</label>
+                    <div class="control">
+                      <div class="select">
+                        <select v-model="target.animation">
+                          <option value="">なし</option>
+                          <option value="animationScrollHorizontal">スクロール（水平）</option>
+                          <option value="animationScrollVertical">スクロール（垂直）</option>
+                          <option value="animationPushHorizontal">押し出し（水平）</option>
+                          <option value="animationPushVertical">押し出し（垂直）</option>
+                          <option value="animationEkken">謁見</option>
+                          <option value="animationEkkenVertical">謁見バーティカル</option>
+                          <option value="animationKanpai">乾杯</option>
+                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
+                          <option value="animationXile">ザイル</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">フレーム数: {{target.framecount}}</label>
-                    <input class="slider" v-model="target.framecount" type="range" min="1" max="12">
+                  <div class="field">
+                    <label class="label">スピード</label>
+                    <div class="control">
+                      <div class="select">
+                        <select @change="onSelectSpeedPreset">
+                          <option value="">普通</option>
+                          <option value="turbo">速い</option>
+                          <option value="super-turbo">爆速</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.animationInvert">
+                        進行方向を反転
+                      </label>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">背景色</label>
-                    <input type="color" v-model="target.backgroundColor" class="form-input">
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.transparent">
-                      <i class="form-icon"></i>
-                      透明 (アニメは非推奨)
-                    </label>
+                  <div class="field">
+                    <label class="label">フィルタ (Chrome のみ動作確認)</label>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectKira">
+                        キラ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectMoyamoya">
+                        もやもや
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectFoil">
+                        Foil
+                      </label>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">アニメ (背景)</label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectCheck">
-                      <i class="form-icon"></i>
-                      チェック
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectStripe">
-                      <i class="form-icon"></i>
-                      ストライプ
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectTiritiri">
-                      <i class="form-icon"></i>
-                      チリチリ
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectRiver">
-                      <i class="form-icon"></i>
-                      川
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectSignPole">
-                      <i class="form-icon"></i>
-                      サインポール
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectPsych">
-                      <i class="form-icon"></i>
-                      サイケ
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectDizzy">
-                      <i class="form-icon"></i>
-                      めまい
-                    </label>
-                    <label class="form-checkbox form-inline">
-                      <input type="checkbox" v-model="target.effects" value="effectTimemachine">
-                      <i class="form-icon"></i>
-                      タイムマシン
-                    </label>
+                  <div class="field">
+                    <label class="label">動き</label>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectGatagata">
+                        ガタガタ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectZoom">
+                        びょいんびょいん
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectBlink">
+                        BLINK
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectRotate">
+                        ぐるぐる
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectKurukuru">
+                        くるくる
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectYurayura">
+                        ゆらゆら
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectPatapata">
+                        ぱたぱた
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectYatta">
+                        ヤッタ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectPoyon">
+                        ぽよーん
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectMotimoti">
+                        もちもち
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectSidetoside">
+                        すいっすいっ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectPyon">
+                        ピチピチ
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">シャドウ</label>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectShadow">
+                        影
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectShadowRotate">
+                        影ぐるぐる
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectNaturalBlur">
+                        ブラー
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectAuroraBlur">
+                        オーロラ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectNeon">
+                        ネオン
+                      </label>
+                    </div>
+                  </div>
+                  <div v-if="ui.showTargetDetails">
+                    <div class="field">
+                      <label class="label">アニメ速度 (フレームレート): {{target.framerate}}</label>
+                      <div class="control">
+                        <input v-model="target.framerate" type="range" min="1" max="60">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">フレーム数: {{target.framecount}}</label>
+                      <div class="control">
+                        <input v-model="target.framecount" type="range" min="1" max="12">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">過激なエフェクト</label>
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectNega">
+                          ネガ
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectCheck">
+                          チェック
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectStripe">
+                          ストライプ
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectTiritiri">
+                          チリチリ
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectRiver">
+                          川
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectSignPole">
+                          サインポール
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectPsych">
+                          サイケ
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectDizzy">
+                          めまい
+                        </label>
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectTimemachine">
+                          タイムマシン
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="panel-footer">
-                  <button @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
-                    - 閉じる
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div v-if="ui.targetTab == 'trimming'" class="panel-body">
-              <div class="form-group">
-                <label class="form-label">拡大縮小</label>
-                <select v-model="target.trimming" @change="refreshDefaultSettings" class="form-select">
-                  <option value="">ぴっちり</option>
-                  <option value="cover">はみだす (アス比維持)</option>
-                  <option value="contain">おさめる (アス比維持)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">分割 横</label>
-                <input type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1" class="form-input">
-              </div>
-              <div class="form-group">
-                <label class="form-label">分割 縦</label>
-                <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
-              </div>
-            </div>
-
-            <div v-if="ui.targetTab == 'trimming'" class="panel-footer">
-              <button v-if="!ui.showTrimingDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
-                + その他
-              </button>
-              <div v-if="ui.showTrimingDetails" class="panel">
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label class="form-label">オフセット左 (px)</label>
-                    <input type="text" v-model="target.offsetLeft" class="form-input">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">拡大縮小</label>
+                    <div class="control">
+                      <div class="select">
+                        <select v-model="target.trimming" @change="refreshDefaultSettings">
+                          <option value="">ぴっちり</option>
+                          <option value="cover">はみだす (アス比維持)</option>
+                          <option value="contain">おさめる (アス比維持)</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">オフセット上 (px)</label>
-                    <input type="text" v-model="target.offsetTop" class="form-input">
+                  <div class="field">
+                    <label class="label">分割 横</label>
+                    <div class="control">
+                      <input class="input" type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1">
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">拡大率 (横)</label>
-                    <input type="text" v-model="target.hZoom" class="form-input">
+                  <div class="field">
+                    <label class="label">分割 縦</label>
+                    <div class="control">
+                      <input class="input" type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1">
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">拡大率 (縦)</label>
-                    <input type="text" v-model="target.vZoom" class="form-input">
+                  <div class="field">
+                    <label class="label">背景色</label>
+                    <div class="control">
+                      <input class="input" type="color" v-model="target.backgroundColor">
+                    </div>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.transparent">
+                        透明 (アニメは非推奨)
+                      </label>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">開発者用</label>
-                    <label class="form-checkbox">
-                      <input type="checkbox" v-model="target.noCrop">
-                      <i class="form-icon"></i>
-                      余白を切らない
-                    </label>
+                  <div v-if="ui.showTargetDetails">
+                    <div class="field">
+                      <label class="label">オフセット左 (px)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="target.offsetLeft">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">オフセット上 (px)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="target.offsetTop">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">拡大率 (横)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="target.hZoom">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">拡大率 (縦)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="target.vZoom">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">開発者用</label>
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.noCrop">
+                          余白を切らない
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="panel-footer">
-                  <button @click="onToggleTargetDetails" class="btn btn-block btn-default">
-                    - 閉じる
-                  </button>
                 </div>
               </div>
             </div>
-
+            <div class="card-footer">
+              <a class="card-footer-item" @click="onToggleTargetDetails">
+                {{ ui.showTargetDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+              </a>
+            </div>
           </div>
         </div>
 
-        <div class="column col-4 col-md-12">
-          <div class="panel my-2">
-
-            <div class="panel-header">
-              <div class="panel-title">結果 (右クリックで保存)</div>
-            </div>
-
-            <div class="panel-body" class="result_area">
+        <div class="column is-one-third">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">結果 (右クリックで保存)</p>
+            </header>
+            <div class="card-content result_area">
               <div v-for="row in resultImages">
                 <img v-for="col in row" :src="col">
               </div>
             </div>
-
-            <div class="panel-footer"></div>
-
           </div>
         </div>
 
       </div>
-    </div>
+    </section>
 
-    <hr />
-
-    <small>
-      「パーツを選んで作る」の素材は Twemoji ((C) Twitter, CC-BY) を加工して作成しており、同じく CC-BY のもと自由に使用できます。このページではアクセス数などの集計に Google Analytics (cookie) を使用しています。オプトアウトアドオンで拒否することができます。<a href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/LICENSE.org">権利表示</a>
-    </small>
+    <footer class="footer">
+      <p class="content">
+        「パーツを選んで作る」の素材は Twemoji ((C) Twitter, CC-BY) を加工して作成しており、同じく CC-BY のもと自由に使用できます。このページではアクセス数などの集計に Google Analytics (cookie) を使用しています。オプトアウトアドオンで拒否することができます。<a href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/LICENSE.org">権利表示</a>
+      </p>
+    </footer>
 
     <script src="js/megamoji.js"></script>
   </body>

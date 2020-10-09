@@ -2,12 +2,18 @@
   border: 1px solid #eee
 }
 
-.fukumoji .btn {
+.fukumoji img {
+  border-radius: 4px;
   height: 48px;
   width: 48px;
   border: 2px solid white;
+  cursor: pointer;
 }
 
-.fukumoji .btn.selected {
+.fukumoji img:hover {
+  border: 2px solid gainsboro;
+}
+
+.fukumoji img.selected {
   border: 2px solid red;
 }

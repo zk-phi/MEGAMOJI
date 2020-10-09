@@ -9,7 +9,7 @@
 
 - Vue.js 2.5.16 (Evan You, MIT License)
 - jsgif (Kevin Kwok, MIT License)
-- Spectre (Yan Zhu, MIT License)
+- Bulma (Jeremy Thomas, MIT License)
 - Rounded M+ 1c (M+ Font Project, Open Font License)
 - Noto Sans, Noto Serif (Google, Apache License)
 - Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
