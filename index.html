@@ -25,34 +25,28 @@
   <body class="container grid-xl my-2">
     <div id="app">
 
-      <h1>MEGAMOJI</h1>
-
-      <p>
-        Slack の絵文字を簡単に作るやつ（テキストから生成、画像トリミング、分割、gifアニメなど）
-      </p>
+      <h1>MEGAMOJI <small>- Slack 絵文字を簡単に作るやつ</small></h1>
 
       <p>
         <a href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">更新情報</a>
       </p>
 
-      <h2>1. 元画像</h2>
-
-      <p>元になる画像を選択します</p>
-
-      <select v-model="source.sourceMode" class="form-select my-2">
-        <option value="unselected">(選択してください)</option>
-        <option value="file">ファイルから選ぶ</option>
+      <select v-model="ui.mode" class="form-select my-2">
         <option value="text">テキストから作る</option>
+        <option value="file">ファイルから選ぶ</option>
         <option value="fukumoji">パーツを選んで作る</option>
       </select>
 
-      <div v-if="source.sourceMode == 'file'" class="columns my-2">
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">ファイルを選択</div>
+      <div class="columns my-2">
+
+        <div v-if="ui.mode == 'file'" class="column col-4 col-md-12">
+          <div class="panel my-2">
+
+            <div class="panel-header">
+              <div class="panel-title">ファイルから選ぶ</div>
             </div>
-            <div class="card-body">
+
+            <div class="panel-body">
               <div class="form-group">
                 <label class="form-label">ファイル</label>
                 <input type="file" @change="onChangeFile" class="form-input">
@@ -65,35 +59,53 @@
                 </select>
               </div>
             </div>
-            <div class="card-footer">
-              <button class="btn btn-block btn-primary mb-2" @click="onClickReload">
-                再読み込み
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="column col-8 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">プレビュー</div>
-            </div>
-            <div class="card-body">
-              <p><img ref="baseImage" @load="refreshDefaultSettings" :src="baseImage" crossorigin="anonymous" style="max-width: 100%;" /></p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div v-if="source.sourceMode == 'text'" class="columns my-2">
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">フォント</div>
+            <div class="panel-footer"></div>
+
+          </div>
+        </div>
+
+        <div v-if="ui.mode == 'text'" class="column col-4 col-md-12">
+          <div class="panel my-2">
+
+            <div class="panel-header">
+              <div class="panel-title">テキストから作る</div>
             </div>
-            <div class="card-body">
+
+            <div class="panel-nav">
+              <ul class="tab tab-block">
+                <li :class="ui.textTab == 'content' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectTextTab('content')">
+                  <a href="javascript: void(0)">テキスト</a>
+                </li>
+                <li :class="ui.textTab == 'font' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectTextTab('font')">
+                  <a href="javascript: void(0)">フォント</a>
+                </li>
+              </ul>
+            </div>
+
+            <div v-if="ui.textTab == 'content'" class="panel-body">
               <div class="form-group">
-                <label class="form-label">フォント</label>
-                <small>システムフォント</small>
+                <label class="form-label">テキスト (改行可)</label>
+                <textarea v-model="source.text.content" class="form-input"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">揃え</label>
+                <select v-model="source.text.align" class="form-select">
+                  <option value="left">左</option>
+                  <option value="center">中央</option>
+                  <option value="right">右</option>
+                  <option value="stretch">両端</option>
+                </select>
+              </div>
+            </div>
+
+            <div v-if="ui.textTab == 'content'" class="panel-footer"></div>
+
+            <div v-if="ui.textTab == 'font'" class="panel-body">
+              <div class="form-group">
+                <label class="form-label">システムフォント</label>
                 <label class="form-radio" style="font: normal 1em sans-serif">
                   <input type="radio" name="text_font" v-model="source.text.font" value="normal sans-serif">
                   <i class="form-icon"></i> ゴシック (sans-serif)
@@ -102,7 +114,9 @@
                   <input type="radio" name="text_font" v-model="source.text.font" value="normal serif">
                   <i class="form-icon"></i> 明朝 (serif)
                 </label>
-                <small>Web フォント (Google Fonts)</small>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Web フォント (Google Fonts)</label>
                 <label class="form-radio" style="font: bold 1em 'Noto Sans JP'">
                   <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Noto Sans JP'">
                   <i class="form-icon"></i> 太めゴシック (Noto Sans, Bold)
@@ -124,156 +138,127 @@
                   <i class="form-icon"></i> 極太丸ゴ (Rounded M+ 1c, Black)
                 </label>
               </div>
+              <div class="form-group">
+                <label class="form-label">色</label>
+                <input type="color" v-model="source.text.color" class="form-input">
+              </div>
             </div>
-            <div class="card-footer">
-              <button v-if="!source.text.showDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
+
+            <div v-if="ui.textTab == 'font'" class="panel-footer">
+              <button v-if="!ui.showTextDetails" @click="onToggleTextDetails" class="btn btn-block btn-default">
                 + その他
               </button>
-              <div v-if="source.text.showDetails" class="card">
-                <div class="card-body">
+              <div v-if="ui.showTextDetails" class="panel">
+                <div class="panel-body">
                   <div class="form-group">
                     <label class="form-label">行間 (文字分)</label>
                     <input type="text" v-model="source.text.lineSpacing" class="form-input">
                   </div>
                 </div>
-                <div class="card-footer">
+                <div class="panel-footer">
                   <button @click="onToggleTextDetails" class="btn btn-block btn-default">
                     - 閉じる
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">テキストを入力</div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label class="form-label">テキスト (改行可)</label>
-                <textarea v-model="source.text.content" class="form-input"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label">揃え</label>
-                <select v-model="source.text.align" class="form-select">
-                  <option value="left">左</option>
-                  <option value="center">中央</option>
-                  <option value="right">右</option>
-                  <option value="stretch">両端</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">色</label>
-                <input type="color" v-model="source.text.color" class="form-input">
-              </div>
-            </div>
-            <div class="card-footer">
-              <button @click="onClickGenerateText" class="btn btn-block btn-primary mb-2">
-                プレビューを更新
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">プレビュー</div>
-            </div>
-            <div class="card-body">
-              <p><img ref="baseImage" @load="refreshDefaultSettings" :src="baseImage" crossorigin="anonymous" style="max-width: 100%;" /></p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div v-if="source.sourceMode == 'fukumoji'" class="columns my-2 fukumoji">
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">ベース</div>
+          </div>
+        </div>
+
+        <div v-if="ui.mode == 'fukumoji'" class="column col-4 col-md-12">
+          <div class="panel my-2">
+
+            <div class="panel-header">
+              <div class="panel-title">パーツを選んで作る</div>
             </div>
-            <div class="card-body">
+
+            <div class="panel-nav">
+              <ul class="tab tab-block">
+                <li :class="ui.fukumojiTab == 'base' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectFukumojiTab('base')">
+                  <a href="javascript: void(0)">ベース</a>
+                </li>
+                <li :class="ui.fukumojiTab == 'eyes' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectFukumojiTab('eyes')">
+                  <a href="javascript: void(0)">目</a>
+                </li>
+                <li :class="ui.fukumojiTab == 'mouths' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectFukumojiTab('mouths')">
+                  <a href="javascript: void(0)">口</a>
+                </li>
+                <li :class="ui.fukumojiTab == 'others' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectFukumojiTab('others')">
+                  <a href="javascript: void(0)">飾り</a>
+                </li>
+                <li :class="ui.fukumojiTab == 'textures' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectFukumojiTab('textures')">
+                  <a href="javascript: void(0)">その他</a>
+                </li>
+              </ul>
+            </div>
+
+            <div v-if="ui.fukumojiTab == 'base'" class="panel-body">
               <img v-for="e in baseSelections"
                    :class="source.fukumoji.base == e ? 'btn selected' : 'btn'"
                    :src="e"
-                   @click="fukumojiSelect('base', e);" />
+                   @click="onSelectFukumojiPart('base', e);" />
             </div>
-          </div>
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">目</div>
-            </div>
-            <div class="card-body">
+
+            <div v-if="ui.fukumojiTab == 'eyes'" class="panel-body">
               <img v-for="e in eyesSelections"
                    :class="source.fukumoji.eyes == e ? 'btn selected' : 'btn'"
                    :src="e"
-                   @click="fukumojiSelect('eyes', e);" />
+                   @click="onSelectFukumojiPart('eyes', e);" />
             </div>
-          </div>
-        </div>
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">鼻・その他</div>
-            </div>
-            <div class="card-body">
+
+            <div v-if="ui.fukumojiTab == 'textures'" class="panel-body">
               <img v-for="e in texturesSelections"
                    :class="source.fukumoji.textures == e ? 'btn selected' : 'btn'"
                    :src="e"
-                   @click="fukumojiSelect('textures', e);" />
+                   @click="onSelectFukumojiPart('textures', e);" />
             </div>
-          </div>
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">口</div>
-            </div>
-            <div class="card-body">
+
+            <div v-if="ui.fukumojiTab == 'mouths'" class="panel-body">
               <img v-for="e in mouthsSelections"
                    :class="source.fukumoji.mouths == e ? 'btn selected' : 'btn'"
                    :src="e"
-                   @click="fukumojiSelect('mouths', e);" />
+                   @click="onSelectFukumojiPart('mouths', e);" />
             </div>
-          </div>
-        </div>
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">飾り</div>
-            </div>
-            <div class="card-body">
+
+            <div v-if="ui.fukumojiTab == 'others'" class="panel-body">
               <img v-for="e in othersSelections"
                    :class="source.fukumoji.others == e ? 'btn selected' : 'btn'"
                    :src="e"
-                   @click="fukumojiSelect('others', e);" />
+                   @click="onSelectFukumojiPart('others', e);" />
             </div>
-          </div>
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">プレビュー</div>
-            </div>
-            <div class="card-body">
-              <p><img ref="baseImage" @load="refreshDefaultSettings" :src="baseImage" crossorigin="anonymous" style="max-width: 100%;" /></p>
-            </div>
+
+            <div class="panel-footer"></div>
+
           </div>
         </div>
-      </div>
-
-      <h2>2. Emoji</h2>
-
-      <p>元画像を縮小 / 効果を加えて Slack Emoji にします</p>
-
-      <p v-if="!baseImage">(元画像が選択されていません)</p>
-
-      <div v-else class="columns my-2">
 
         <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">効果を選ぶ</div>
+          <div class="panel my-2">
+
+            <div class="panel-header">
+              <div class="panel-title">仕上げ</div>
             </div>
-            <div class="card-body">
+
+            <div class="panel-nav">
+              <ul class="tab tab-block">
+                <li :class="ui.targetTab == 'effects' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectTargetTab('effects')">
+                  <a href="javascript: void(0)">効果</a>
+                </li>
+                <li :class="ui.targetTab == 'trimming' ? 'tab-item active' : 'tab-item'"
+                    @click="onSelectTargetTab('trimming')">
+                  <a href="javascript: void(0)">トリミング</a>
+                </li>
+              </ul>
+            </div>
+
+            <div v-if="ui.targetTab == 'effects'" class="panel-body">
               <div class="form-group">
                 <label class="form-label">アニメ (組合わせ不可)</label>
                 <select v-model="target.animation" class="form-select">
@@ -414,12 +399,13 @@
                 </label>
               </div>
             </div>
-            <div class="card-footer">
-              <button v-if="!target.showAnimeDetails" @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
+
+            <div v-if="ui.targetTab == 'effects'" class="panel-footer">
+              <button v-if="!ui.showAnimeDetails" @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
                 + その他
               </button>
-              <div v-if="target.showAnimeDetails" class="card">
-                <div class="card-body">
+              <div v-if="ui.showAnimeDetails" class="panel">
+                <div class="panel-body">
                   <div class="form-group">
                     <label class="form-label">アニメ速度 (フレームレート): {{target.framerate}}</label>
                     <input class="slider" v-model="target.framerate" type="range" min="1" max="60">
@@ -481,22 +467,15 @@
                     </label>
                   </div>
                 </div>
-                <div class="card-footer">
+                <div class="panel-footer">
                   <button @click="onToggleTargetAnimeDetails" class="btn btn-block btn-default">
                     - 閉じる
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">整形方法を選ぶ</div>
-            </div>
-            <div class="card-body">
+            <div v-if="ui.targetTab == 'trimming'" class="panel-body">
               <div class="form-group">
                 <label class="form-label">拡大縮小</label>
                 <select v-model="target.trimming" @change="refreshDefaultSettings" class="form-select">
@@ -514,12 +493,13 @@
                 <input type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1" class="form-input">
               </div>
             </div>
-            <div class="card-footer">
-              <button v-if="!target.showDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
+
+            <div v-if="ui.targetTab == 'trimming'" class="panel-footer">
+              <button v-if="!ui.showTrimingDetails" @click="onToggleTargetDetails" class="btn btn-block btn-default">
                 + その他
               </button>
-              <div v-if="target.showDetails" class="card">
-                <div class="card-body">
+              <div v-if="ui.showTrimingDetails" class="panel">
+                <div class="panel-body">
                   <div class="form-group">
                     <label class="form-label">オフセット左 (px)</label>
                     <input type="text" v-model="target.offsetLeft" class="form-input">
@@ -539,47 +519,42 @@
                   <div class="form-group">
                     <label class="form-label">開発者用</label>
                     <label class="form-checkbox">
-                    <input type="checkbox" v-model="target.noCrop">
-                    <i class="form-icon"></i>
-                    余白を切らない
+                      <input type="checkbox" v-model="target.noCrop">
+                      <i class="form-icon"></i>
+                      余白を切らない
                     </label>
                   </div>
                 </div>
-                <div class="card-footer">
+                <div class="panel-footer">
                   <button @click="onToggleTargetDetails" class="btn btn-block btn-default">
                     - 閉じる
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">Emoji 生成</div>
-            </div>
-            <div class="card-body">
-              <button @click="render" class="btn btn-block btn-primary mb-2">
-                Emoji を生成する
-              </button>
-            </div>
+
           </div>
         </div>
 
         <div class="column col-4 col-md-12">
-          <div class="card my-2">
-            <div class="card-header">
-              <div class="card-title h5">結果 (右クリックで保存)</div>
+          <div class="panel my-2">
+
+            <div class="panel-header">
+              <div class="panel-title">結果 (右クリックで保存)</div>
             </div>
-            <div class="card-body" class="result_area">
+
+            <div class="panel-body" class="result_area">
               <div v-for="row in resultImages">
                 <img v-for="col in row" :src="col">
               </div>
             </div>
+
+            <div class="panel-footer"></div>
+
           </div>
         </div>
 
       </div>
-
     </div>
 
     <hr />

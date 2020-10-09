@@ -35,6 +35,29 @@ function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWi
     return cells;
 }
 
+/* Merge images into one image and return as a BlobURL. */
+function mergeImages (w, h, srcs, callback) {
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext('2d');
+
+    canvas.width = w;
+    canvas.height = h;
+
+    var ix = 0;
+    var img = document.createElement("img");
+
+    img.onload = function (e) {
+        ctx.drawImage(img, 0, 0, w, h);
+        if (++ix == srcs.length) {
+            callback(canvas.toDataURL());
+        } else {
+            img.src = srcs[ix];
+        }
+    };
+
+    img.src = srcs[0];
+}
+
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
 function loadFileAsBlobURL (path, callback) {
     var reader = new FileReader();
@@ -252,9 +275,18 @@ function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cel
 var store = {
     baseImage: null,
     resultImages: [],
+    /* ui */
+    ui: {
+        mode: "text",
+        textTab: "content",
+        fukumojiTab: "base",
+        targetTab: "effects",
+        showTextDetails: false,
+        showTrimingDetails: false,
+        showAnimeDetails: false,
+    },
     /* form inputs */
     source: {
-        sourceMode: "unselected",
         file: {
             file: null,
             filter: ""
@@ -266,7 +298,6 @@ var store = {
             color: "#e85600",
             font: "normal sans-serif",
             /* advanced */
-            showDetails: false,
             lineSpacing: 0.1
         },
         fukumoji: {
@@ -286,8 +317,6 @@ var store = {
         animationInvert: false,
         effects: [],
         /* advanced */
-        showDetails: false,
-        showAnimeDetails: false,
         offsetLeft: 0,
         offsetTop: 0,
         hZoom: "1.0",
@@ -301,50 +330,74 @@ var store = {
 };
 
 var watch = {
-    'source.file.file': function () {
-        vm.loadFile();
+    baseImage: function () {
+        vm.refreshDefaultSettings();
+        vm.render();
+    },
+    'source.file': {
+        handler: function () {
+            vm.loadFile();
+        },
+        deep: true
+    },
+    'source.text': {
+        handler: function () {
+            vm.renderText();
+        },
+        deep: true
+    },
+    'source.fukumoji': {
+        handler: function () {
+            vm.renderFukumoji();
+        },
+        deep: true
+    },
+    target: {
+        handler: function () {
+            vm.render();
+        },
+        deep: true
     }
 };
 
 var methods = {
     loadFile: function () {
         loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
-            var filter = window[vm.source.file.filter];
-            if (filter) {
-                urlToImg(blobUrl, function (img) {
-                    vm.baseImage = filter(img);
-                });
-            } else {
-                vm.baseImage = blobUrl;
-            }
+            urlToImg(blobUrl, function (img) {
+                var filter = window[vm.source.file.filter];
+                if (filter) {
+                    urlToImg(filter(img), function (img) { vm.baseImage = img; });
+                } else {
+                    vm.baseImage = img;
+                }
+            });
         });
     },
-    fukumojiSelect: function (key, value) {
-        vm.source.fukumoji[key] = value;
-
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext('2d');
-
-        canvas.width = 128;
-        canvas.height = 128;
-
-        // images are expected to be loaded here
-        var img = document.createElement("img");
-        img.src = vm.source.fukumoji.base;
-        ctx.drawImage(img, 0, 0, 128, 128);
-        img.src = vm.source.fukumoji.textures;
-        ctx.drawImage(img, 0, 0, 128, 128);
-        img.src = vm.source.fukumoji.mouths;
-        ctx.drawImage(img, 0, 0, 128, 128);
-        img.src = vm.source.fukumoji.eyes;
-        ctx.drawImage(img, 0, 0, 128, 128);
-        img.src = vm.source.fukumoji.others;
-        ctx.drawImage(img, 0, 0, 128, 128);
-
-        vm.baseImage = canvas.toDataURL();
+    renderText: function () {
+        var blobUrl = makeTextImage(
+            vm.source.text.content,
+            vm.source.text.color,
+            vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+            vm.source.text.align,
+            vm.source.text.lineSpacing * EMOJI_SIZE
+        );
+        urlToImg(blobUrl, function (img) { vm.baseImage = img; });
+    },
+    renderFukumoji: function () {
+        var blobUrl = mergeImages(128, 128, [
+            vm.source.fukumoji.base,
+            vm.source.fukumoji.textures,
+            vm.source.fukumoji.mouths,
+            vm.source.fukumoji.eyes,
+            vm.source.fukumoji.others
+        ], function (blobUrl) {
+            urlToImg(blobUrl, function (img) {
+                vm.baseImage = img;
+            });
+        });
     },
     refreshDefaultSettings: function () {
-        var image = vm.$refs.baseImage;
+        var image = vm.baseImage;
         var v     = vm.target.vCells;
         var h     = vm.target.hCells;
         var widthRatio  = (EMOJI_SIZE * h) / image.naturalWidth;
@@ -361,6 +414,18 @@ var methods = {
         vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + "";
         vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + "";
     },
+    onSelectTextTab: function (value) {
+        vm.ui.textTab = value;
+    },
+    onSelectFukumojiTab: function (value) {
+        vm.ui.fukumojiTab = value;
+    },
+    onSelectTargetTab: function (value) {
+        vm.ui.targetTab = value;
+    },
+    onSelectFukumojiPart: function (key, value) {
+        vm.source.fukumoji[key] = value;
+    },
     onSelectSpeedPreset: function (e) {
         var speed = e.target.value;
         if (speed == "") {
@@ -374,8 +439,22 @@ var methods = {
             vm.target.framecount = 6;
         }
     },
+    onToggleTextDetails: function () {
+        vm.ui.showTextDetails = !vm.ui.showTextDetails;
+    },
+    onToggleTargetDetails: function () {
+        vm.ui.showTrimingDetails = !vm.ui.showTrimingDetails;
+    },
+    onToggleTargetAnimeDetails: function () {
+        vm.ui.showAnimeDetails = !vm.ui.showAnimeDetails;
+    },
+    onChangeFile: function (e) {
+        vm.source.file.file = e.target.files[0];
+    },
     render: function () {
-        var image     = vm.$refs.baseImage;
+        if (!vm.baseImage) return;
+
+        var image     = vm.baseImage;
         var animation = window[vm.target.animation];
         var effects   = vm.target.effects.map(function (x) { return window[x]; });
 
@@ -386,7 +465,7 @@ var methods = {
         var cellHeight = EMOJI_SIZE / vm.target.vZoom;
 
         var settings = vm.target.animation + "/" + vm.target.effects.join(",");
-        ga("send", "event", vm.source.sourceMode, "render", settings);
+        ga("send", "event", vm.ui.mode, "render", settings);
 
         vm.resultImages = renderAllCells(
             image,
@@ -395,30 +474,6 @@ var methods = {
             animation, vm.target.animationInvert,
             effects, vm.target.framerate, vm.target.framecount,
             vm.target.backgroundColor, vm.target.transparent
-        );
-    },
-    onToggleTextDetails: function () {
-        vm.source.text.showDetails = !vm.source.text.showDetails;
-    },
-    onToggleTargetDetails: function () {
-        vm.target.showDetails = !vm.target.showDetails;
-    },
-    onToggleTargetAnimeDetails: function () {
-        vm.target.showAnimeDetails = !vm.target.showAnimeDetails;
-    },
-    onChangeFile: function (e) {
-        vm.source.file.file = e.target.files[0];
-    },
-    onClickReload: function () {
-        vm.loadFile();
-    },
-    onClickGenerateText: function () {
-        vm.baseImage = makeTextImage(
-            vm.source.text.content,
-            vm.source.text.color,
-            vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
-            vm.source.text.align,
-            vm.source.text.lineSpacing * EMOJI_SIZE
         );
     }
 };
@@ -433,16 +488,10 @@ window.onerror = function (msg, file, line, col) {
     var match = location.href.match(/\?([^=]+)(=(.*))?$/);
     if (match) {
         if (match[1] == "test") {
-            vm.source.sourceMode = "text";
-            vm.baseImage = makeTextImage(
-                "あ",
-                "#e85600",
-                "normal 128px sans-serif",
-                "center",
-                12.8
-            )
+            vm.ui.mode = "text";
+            vm.source.text.content = "あ";
         } else if (match[1] == "mode") {
-            vm.source.sourceMode = match[3];
+            vm.ui.mode = match[3];
         }
     }
 }();
