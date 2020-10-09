@@ -300,6 +300,12 @@ var store = {
     },
 };
 
+var watch = {
+    'source.file.file': function () {
+        vm.loadFile();
+    }
+};
+
 var methods = {
     loadFile: function () {
         loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
@@ -402,7 +408,6 @@ var methods = {
     },
     onChangeFile: function (e) {
         vm.source.file.file = e.target.files[0];
-        vm.loadFile();
     },
     onClickReload: function () {
         vm.loadFile();
@@ -418,7 +423,7 @@ var methods = {
     }
 };
 
-var vm = new Vue({ el: "#app", data: store, methods: methods });
+var vm = new Vue({ el: "#app", data: store, methods: methods, watch: watch });
 
 window.onerror = function (msg, file, line, col) {
     ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
