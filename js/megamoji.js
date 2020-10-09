@@ -84,7 +84,7 @@ function _makeTextImageSingleLine (line, color, font) {
         }
     }
 
-    var width  = ctx.measureText(line).width;
+    var width  = ctx.measureText(line || " ").width;
     var height = bottom - top;
 
     return cropCanvas(canvas, 0, top, width, height);
