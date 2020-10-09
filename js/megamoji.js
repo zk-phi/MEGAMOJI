@@ -43,10 +43,12 @@ function loadFileAsBlobURL (path, callback) {
 }
 
 /* Create an img object, set src attr to the specified url, and return it. */
-function urlToImg (url) {
+function urlToImg (url, cb) {
     var img = document.createElement("img");
     img.src = url;
-    return img;
+    img.onload = function () {
+        cb(img);
+    }
 }
 
 /* compute binary size from a dataurl. return 0 if uncomputable. */
@@ -303,7 +305,13 @@ var methods = {
     loadFile: function () {
         loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
             var filter = window[vm.source.file.filter];
-            vm.baseImage = filter ? filter(urlToImg(blobUrl)) : blobUrl;
+            if (filter) {
+                urlToImg(blobUrl, function (img) {
+                    vm.baseImage = filter(img);
+                });
+            } else {
+                vm.baseImage = blobUrl;
+            }
         });
     },
     fukumojiSelect: function (key, value) {
@@ -393,7 +401,6 @@ var methods = {
         vm.target.showAnimeDetails = !vm.target.showAnimeDetails;
     },
     onChangeFile: function (e) {
-        vm.source.file.filter = "";
         vm.source.file.file = e.target.files[0];
         vm.loadFile();
     },
