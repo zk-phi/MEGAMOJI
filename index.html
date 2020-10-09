@@ -291,7 +291,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">スピード</label>
-                <select v-model="target.speed" @change="refreshFrameSettings" class="form-select">
+                <select @change="onSelectSpeedPreset" class="form-select">
                   <option value="">普通</option>
                   <option value="turbo">速い</option>
                   <option value="super-turbo">爆速</option>

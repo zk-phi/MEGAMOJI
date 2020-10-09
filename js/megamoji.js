@@ -283,7 +283,6 @@ var store = {
         hCells: 1,
         vCells: 1,
         animation: "",
-        speed: "",
         animationInvert: false,
         effects: [],
         /* advanced */
@@ -356,14 +355,15 @@ var methods = {
         vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + "";
         vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + "";
     },
-    refreshFrameSettings: function () {
-        if (vm.target.speed == "") {
+    onSelectSpeedPreset: function (e) {
+        var speed = e.target.value;
+        if (speed == "") {
             vm.target.framerate = 18;
             vm.target.framecount = 12;
-        } else if (vm.target.speed == "turbo") {
+        } else if (speed == "turbo") {
             vm.target.framerate = 60;
             vm.target.framecount = 12;
-        } else if (vm.target.speed == "super-turbo") {
+        } else if (speed == "super-turbo") {
             vm.target.framerate = 60;
             vm.target.framecount = 6;
         }
