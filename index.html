@@ -33,7 +33,7 @@
         </a>
       </h2>
 
-      <div class="tabs">
+      <div class="tabs is-boxed">
         <ul>
           <li :class="ui.mode == 'text' ? 'is-active' : ''">
             <a @click="onSelectMode('text')">テキストから作る</a>
@@ -43,9 +43,6 @@
           </li>
           <li :class="ui.mode == 'fukumoji' ? 'is-active' : ''">
             <a @click="onSelectMode('fukumoji')">パーツから選ぶ</a>
-          </li>
-          <li :class="ui.mode == 'target' ? 'is-active' : ''">
-            <a @click="onSelectMode('target')">★ 効果をつける</a>
           </li>
         </ul>
       </div>
@@ -501,15 +498,23 @@
         </div>
 
         <div class="column is-one-third">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">結果 (右クリックで保存)</p>
-            </header>
-            <div class="card-content result_area">
-              <div v-for="row in resultImages">
-                <img v-for="col in row" :src="col">
+          <div class="block">
+            <div class="card mb">
+              <header class="card-header">
+                <p class="card-header-title">結果 (右クリックで保存)</p>
+              </header>
+              <div class="card-content result_area">
+                <div v-for="row in resultImages">
+                  <img v-for="col in row" :src="col">
+                </div>
               </div>
             </div>
+          </div>
+          <div class="block">
+            <button v-if="baseImage" class="button is-light is-link is-rounded"
+                    @click="onSelectMode('target')">
+              効果をつける
+            </button>
           </div>
         </div>
 
