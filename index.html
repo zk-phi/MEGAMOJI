@@ -511,10 +511,16 @@
             </div>
           </div>
           <div class="block">
-            <button v-if="baseImage" class="button is-light is-link is-rounded"
-                    @click="onSelectMode('target')">
-              効果をつける
-            </button>
+            <div class="buttons">
+              <button v-if="baseImage" class="button is-light is-link is-rounded"
+                      @click="onSelectMode('target')">
+                効果をつける
+              </button>
+              <button v-if="baseImage" class="button is-light is-danger is-rounded"
+                      onClick="window.location.reload()">
+                リセット
+              </button>
+            </div>
           </div>
         </div>
 
