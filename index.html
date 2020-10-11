@@ -18,22 +18,22 @@
     <script src="js/jsgif/LZWEncoder.js"></script>
     <script src="js/jsgif/GIFEncoder.js"></script>
     <script src="js/vue-2.5.16.min.js"></script>
-    <title>MEGAMOJI</title>
+    <title>MEGAMOJI - 簡単アニメ絵文字メーカー</title>
+    <meta name="description" content="チャットなどで便利なアニメ絵文字を一撃で作成できます。">
   </head>
 
   <body>
     <section id="app" class="section">
 
-      <h1 class="title">MEGAMOJI</h1>
+      <h1 class="title">MEGAMOJI - 簡単アニメ絵文字メーカー</h1>
 
-      <h2 class="subtitle">
-        Slack などの絵文字を簡単に作れるやつ |
+      <p class="block">
         <a target="_blank" href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">
           更新履歴
         </a>
-      </h2>
+      </p>
 
-      <div class="tabs is-boxed">
+      <div class="block tabs is-boxed">
         <ul>
           <li :class="ui.mode == 'text' ? 'is-active' : ''">
             <a @click="onSelectMode('text')">テキストから作る</a>
