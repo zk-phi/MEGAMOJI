@@ -358,26 +358,30 @@ var watch = {
 
 var methods = {
     loadFile: function () {
-        loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
-            urlToImg(blobUrl, function (img) {
-                var filter = window[vm.source.file.filter];
-                if (filter) {
-                    urlToImg(filter(img), function (img) { vm.baseImage = img; });
-                } else {
-                    vm.baseImage = img;
-                }
+        if (vm.source.file.file) {
+            loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
+                urlToImg(blobUrl, function (img) {
+                    var filter = window[vm.source.file.filter];
+                    if (filter) {
+                        urlToImg(filter(img), function (img) { vm.baseImage = img; });
+                    } else {
+                        vm.baseImage = img;
+                    }
+                });
             });
-        });
+        }
     },
     renderText: function () {
-        var blobUrl = makeTextImage(
-            vm.source.text.content,
-            vm.source.text.color,
-            vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
-            vm.source.text.align,
-            vm.source.text.lineSpacing * EMOJI_SIZE
-        );
-        urlToImg(blobUrl, function (img) { vm.baseImage = img; });
+        if (vm.source.text.content) {
+            var blobUrl = makeTextImage(
+                vm.source.text.content,
+                vm.source.text.color,
+                vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+                vm.source.text.align,
+                vm.source.text.lineSpacing * EMOJI_SIZE
+            );
+            urlToImg(blobUrl, function (img) { vm.baseImage = img; });
+        }
     },
     renderFukumoji: function () {
         var blobUrl = mergeImages(128, 128, [
