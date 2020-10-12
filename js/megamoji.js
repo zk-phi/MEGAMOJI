@@ -372,7 +372,7 @@ var methods = {
         }
     },
     renderText: function () {
-        if (vm.source.text.content) {
+        if (vm.source.text.content || vm.baseImage) {
             var blobUrl = makeTextImage(
                 vm.source.text.content,
                 vm.source.text.color,
