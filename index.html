@@ -33,7 +33,7 @@
         </a>
       </p>
 
-      <div class="block tabs is-boxed">
+      <div class="block tabs is-toggle is-toggle-rounded">
         <ul>
           <li :class="ui.mode == 'text' ? 'is-active' : ''">
             <a @click="onSelectMode('text')">テキストから作る</a>
@@ -70,7 +70,7 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">Web フォント (Google Fonts)</label>
+                    <label class="label">Google Fonts</label>
                     <div class="control">
                       <label class="radio" style="font: bold 1em 'Noto Sans JP'">
                         <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Noto Sans JP'">
