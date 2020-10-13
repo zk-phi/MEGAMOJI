@@ -275,6 +275,7 @@ function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cel
 var store = {
     baseImage: null,
     resultImages: [],
+    resultBgClass: "default",
     /* ui */
     ui: {
         mode: "text",

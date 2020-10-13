@@ -500,12 +500,29 @@
         <div class="column is-one-third">
           <div class="block">
             <div class="card mb">
-              <header class="card-header">
-                <p class="card-header-title">結果 (右クリックで保存)</p>
-              </header>
-              <div class="card-content result_area">
-                <div v-for="row in resultImages">
-                  <img v-for="col in row" :src="col">
+              <div :class="'card-content result_area ' + resultBgClass">
+                <div class="field">
+                  <label class="label">絵文字 (右クリックで保存)</label>
+                  <div v-for="row in resultImages">
+                    <img v-for="col in row" :src="col">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">背景サンプル</label>
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="result_bg" v-model="resultBgClass" value="default">
+                      デフォルト
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="result_bg" v-model="resultBgClass" value="light">
+                      ライト
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="result_bg" v-model="resultBgClass" value="dark">
+                      ダーク
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
