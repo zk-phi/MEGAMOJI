@@ -442,13 +442,13 @@
                   <div class="field">
                     <label class="label">背景色</label>
                     <div class="control">
-                      <input class="input" type="color" v-model="target.backgroundColor">
-                    </div>
-                    <div class="control">
                       <label class="checkbox">
                         <input type="checkbox" v-model="target.transparent">
-                        透明 (アニメは非推奨)
+                        透明にする
                       </label>
+                    </div>
+                    <div class="control">
+                      <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                     </div>
                   </div>
                   <div v-if="ui.showTargetDetails">
