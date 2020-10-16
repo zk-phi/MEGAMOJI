@@ -418,9 +418,11 @@ var methods = {
     },
     onSetShowTarget: function (value) {
         vm.ui.showTargetPanel = value;
+        ga('send', 'pageview', value ? "/target" : ("/" + vm.ui.mode));
     },
     onSelectMode: function (value) {
         vm.ui.mode = value;
+        ga('send', 'pageview', "/" + value);
     },
     onSelectFukumojiTab: function (value) {
         vm.ui.fukumojiTab = value;
@@ -490,4 +492,5 @@ window.onerror = function (msg, file, line, col) {
             vm.ui.mode = match[3];
         }
     }
+    ga('send', 'pageview', "/");
 }();
