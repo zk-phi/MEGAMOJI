@@ -35,13 +35,13 @@
 
       <div class="block tabs is-toggle is-toggle-rounded">
         <ul>
-          <li :class="ui.mode == 'text' ? 'is-active' : ''">
+          <li :class="ui.mode == 'text' && !ui.showTargetPanel ? 'is-active' : ''">
             <a @click="onSelectMode('text')">テキストから作る</a>
           </li>
-          <li :class="ui.mode == 'file' ? 'is-active' : ''">
+          <li :class="ui.mode == 'file' && !ui.showTargetPanel ? 'is-active' : ''">
             <a @click="onSelectMode('file')">ファイルから選ぶ</a>
           </li>
-          <li :class="ui.mode == 'fukumoji' ? 'is-active' : ''">
+          <li :class="ui.mode == 'fukumoji' && !ui.showTargetPanel ? 'is-active' : ''">
             <a @click="onSelectMode('fukumoji')">パーツから選ぶ</a>
           </li>
         </ul>
@@ -49,7 +49,7 @@
 
       <div class="columns">
 
-        <div v-if="ui.mode == 'text'" class="column">
+        <div v-if="ui.mode == 'text' && !ui.showTargetPanel" class="column">
           <div class="card">
             <div class="card-content">
               <div class="columns">
@@ -141,7 +141,7 @@
           </div>
         </div>
 
-        <div v-if="ui.mode == 'file'" class="column">
+        <div v-if="ui.mode == 'file' && !ui.showTargetPanel" class="column">
           <div class="card">
             <div class="card-content">
               <div class="field">
@@ -165,7 +165,7 @@
           </div>
         </div>
 
-        <div v-if="ui.mode == 'fukumoji'" class="column">
+        <div v-if="ui.mode == 'fukumoji' && !ui.showTargetPanel" class="column">
           <div class="card">
             <div class="card-content">
               <div class="tabs is-toggle">
@@ -221,7 +221,7 @@
           </div>
         </div>
 
-        <div v-if="ui.mode == 'target'" class="column">
+        <div v-if="ui.showTargetPanel" class="column">
           <div class="card">
             <div class="card-content">
               <div class="columns">
@@ -530,8 +530,8 @@
           <div class="block">
             <div class="buttons">
               <button v-if="baseImage" class="button is-light is-link is-rounded"
-                      @click="onSelectMode('target')">
-                効果をつける
+                      @click="onSetShowTarget(!ui.showTargetPanel)">
+                {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
               </button>
               <button v-if="baseImage" class="button is-light is-danger is-rounded"
                       onClick="window.location.reload()">

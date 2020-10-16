@@ -279,6 +279,7 @@ var store = {
     /* ui */
     ui: {
         mode: "text",
+        showTargetPanel: false,
         fukumojiTab: "base",
         showTargetDetails: false
     },
@@ -414,6 +415,9 @@ var methods = {
         vm.target.vZoom      = heightRatio + "";
         vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + "";
         vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + "";
+    },
+    onSetShowTarget: function (value) {
+        vm.ui.showTargetPanel = value;
     },
     onSelectMode: function (value) {
         vm.ui.mode = value;
