@@ -422,6 +422,7 @@ var methods = {
     },
     onSelectMode: function (value) {
         vm.ui.mode = value;
+        vm.ui.showTargetPanel = false;
         ga('send', 'pageview', "/" + value);
     },
     onSelectFukumojiTab: function (value) {
