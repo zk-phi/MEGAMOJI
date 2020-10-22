@@ -323,7 +323,7 @@ var store = {
         framerate: 18,
         framecount: 12,
         backgroundColor: "#ffffff",
-        transparent: true
+        transparent: false
     },
 };
 
