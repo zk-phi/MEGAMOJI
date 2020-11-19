@@ -182,7 +182,7 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
 
 /**
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
- * each images may exceed BINARY_SIZE_LIMIT.
+ * each images may exceed binarySizeLimit.
  */
 function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
     if (!animation && !effects.length) {
@@ -247,8 +247,8 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
 }
 
 /* returns a 2d-array of (possibly animated) images. */
-function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
-    var targetSize = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
+    var targetSize = maxSize;
     while (true) {
         var ret = _renderAllCellsFixedSize(
             image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
@@ -261,7 +261,7 @@ function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cel
          */
         var shouldRetry = ret.some(function (row) {
             return row.some(function (cell) {
-                return dataurlSize(cell) >= BINARY_SIZE_LIMIT;
+                return dataurlSize(cell) >= binarySizeLimit;
             });
         });
         if (shouldRetry) {
@@ -466,13 +466,15 @@ var methods = {
         var settings = vm.target.animation + "/" + vm.target.effects.join(",");
         ga("send", "event", vm.ui.mode, "render", settings);
 
+        var maxSize = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         vm.resultImages = renderAllCells(
             image,
             offsetLeft, offsetTop,
-            vm.target.hCells, vm.target.vCells, cellWidth, cellHeight, vm.target.noCrop,
+            vm.target.hCells, vm.target.vCells, cellWidth, cellHeight,
+            maxSize, vm.target.noCrop,
             animation, vm.target.animationInvert,
             effects, vm.target.framerate, vm.target.framecount,
-            vm.target.backgroundColor, vm.target.transparent
+            vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT
         );
     }
 };
