@@ -296,7 +296,7 @@ var store = {
             color: "#ff0000",
             font: "normal sans-serif",
             /* advanced */
-            lineSpacing: 0.1
+            lineSpacing: 0.05
         },
         fukumoji: {
             base: "assets/void.svg",
