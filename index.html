@@ -124,9 +124,9 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">色</label>
+                    <label class="label">行間 (文字分)</label>
                     <div class="control">
-                      <input class="input" type="color" v-model="source.text.color">
+                      <input class="input" type="text" v-model="source.text.lineSpacing">
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                   <div class="field">
                     <label class="label">テキスト (改行可)</label>
                     <div class="control">
-                      <textarea class="textarea" v-model="source.text.content"></textarea>
+                      <textarea class="textarea" rows=3 v-model="source.text.content"></textarea>
                     </div>
                   </div>
                   <div class="field">
@@ -151,9 +151,102 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">行間 (文字分)</label>
+                    <label class="label">色</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="source.text.lineSpacing">
+                      <label class="radio" style="color: #000000">
+                        <input type="radio" name="color" v-model="source.text.color" value="#000000">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #444444">
+                        <input type="radio" name="color" v-model="source.text.color" value="#444444">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #888888">
+                        <input type="radio" name="color" v-model="source.text.color" value="#888888">
+                        ◆
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="color: #8888ff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#8888ff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ff88ff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff88ff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ff8888">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff8888">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ffff88">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ffff88">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #88ff88">
+                        <input type="radio" name="color" v-model="source.text.color" value="#88ff88">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #88ffff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#88ffff">
+                        ◆
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="color: #0000ff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#0000ff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ff00ff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff00ff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ff0000">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff0000">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ffff00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ffff00">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #00ff00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#00ff00">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #00ffff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#00ffff">
+                        ◆
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio" style="color: #000088">
+                        <input type="radio" name="color" v-model="source.text.color" value="#000088">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #880088">
+                        <input type="radio" name="color" v-model="source.text.color" value="#880088">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #880000">
+                        <input type="radio" name="color" v-model="source.text.color" value="#880000">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #888800">
+                        <input type="radio" name="color" v-model="source.text.color" value="#888800">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #008800">
+                        <input type="radio" name="color" v-model="source.text.color" value="#008800">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #008888">
+                        <input type="radio" name="color" v-model="source.text.color" value="#008888">
+                        ◆
+                      </label>
+                    </div>
+                    <div class="control">
+                      その他の色
+                      <input class="input" type="color" v-model="source.text.color">
                     </div>
                   </div>
                 </div>
