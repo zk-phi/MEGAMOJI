@@ -7,9 +7,17 @@
 
 * 使用している OSS
 
+Libraries
 - Vue.js 2.5.16 (Evan You, MIT License)
 - jsgif (Kevin Kwok, MIT License)
 - Bulma (Jeremy Thomas, MIT License)
+
+Materials
+- Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
+
+Fonts
 - Rounded M+ 1c (M+ Font Project, Open Font License)
 - Noto Sans, Noto Serif (Google, Apache License)
-- Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
+- あかずきんポップ (FLOP DESIGN, M+ Fonts License)
+- 零ゴシック (FLOP DESIGN, Open Font License)
+- 略字超少明朝ステンシル風 (nukosuki, Open Font License)

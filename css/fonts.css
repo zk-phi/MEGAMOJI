@@ -63,3 +63,18 @@
   url('../fonts/noto-serif-jp-v7-latin_japanese-900.ttf') format('truetype'), /* Safari, Android, iOS */
   url('../fonts/noto-serif-jp-v7-latin_japanese-900.svg#NotoSerifJP') format('svg'); /* Legacy iOS */
 }
+/* あかずきんポップ */
+@font-face {
+  font-family: "AkazukiPOP";
+  src: url('../fonts/AkazukiPOP.woff') format('woff');
+}
+/* 零ゴシック */
+@font-face {
+  font-family: "ZeroGothic";
+  src: url('../fonts/ZeroGothic.woff') format('woff');
+}
+/* 略字超少明朝ステンシル風 */
+@font-face {
+  font-family: "rycsminStencily";
+  src: url('../fonts/rycsminStencily.woff') format('woff');
+}
