@@ -123,10 +123,18 @@
                       </label>
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">行間 (文字分)</label>
-                    <div class="control">
-                      <input class="input" type="text" v-model="source.text.lineSpacing">
+                  <div v-if="ui.showTextDetails">
+                    <div class="field">
+                      <label class="label">その他のフォント</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="source.text.font">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">行間 (文字分)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="source.text.lineSpacing">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -157,100 +165,137 @@
                         <input type="radio" name="color" v-model="source.text.color" value="#000000">
                         ◆
                       </label>
-                      <label class="radio" style="color: #444444">
-                        <input type="radio" name="color" v-model="source.text.color" value="#444444">
+                      <label class="radio" style="color: #3f3f3f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#3f3f3f">
                         ◆
                       </label>
-                      <label class="radio" style="color: #888888">
-                        <input type="radio" name="color" v-model="source.text.color" value="#888888">
+                      <label class="radio" style="color: #7f7f7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f7f7f">
                         ◆
                       </label>
-                    </div>
-                    <div class="control">
-                      <label class="radio" style="color: #8888ff">
-                        <input type="radio" name="color" v-model="source.text.color" value="#8888ff">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #ff88ff">
-                        <input type="radio" name="color" v-model="source.text.color" value="#ff88ff">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #ff8888">
-                        <input type="radio" name="color" v-model="source.text.color" value="#ff8888">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #ffff88">
-                        <input type="radio" name="color" v-model="source.text.color" value="#ffff88">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #88ff88">
-                        <input type="radio" name="color" v-model="source.text.color" value="#88ff88">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #88ffff">
-                        <input type="radio" name="color" v-model="source.text.color" value="#88ffff">
+                      <label class="radio" style="color: #bfbfbf">
+                        <input type="radio" name="color" v-model="source.text.color" value="#bfbfbf">
                         ◆
                       </label>
                     </div>
                     <div class="control">
-                      <label class="radio" style="color: #0000ff">
-                        <input type="radio" name="color" v-model="source.text.color" value="#0000ff">
+                      <label class="radio" style="color: #7f0000">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f0000">
                         ◆
                       </label>
-                      <label class="radio" style="color: #ff00ff">
-                        <input type="radio" name="color" v-model="source.text.color" value="#ff00ff">
+                      <label class="radio" style="color: #7f5f00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f5f00">
                         ◆
                       </label>
+                      <label class="radio" style="color: #3f7f00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#3f7f00">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #007f1f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#007f1f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #007f7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#007f7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #001f7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#001f7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #3f007f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#3f007f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #7f005f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f005f">
+                        ◆
+                      </label>
+                    </div>
+                    <div class="control">
                       <label class="radio" style="color: #ff0000">
                         <input type="radio" name="color" v-model="source.text.color" value="#ff0000">
                         ◆
                       </label>
-                      <label class="radio" style="color: #ffff00">
-                        <input type="radio" name="color" v-model="source.text.color" value="#ffff00">
+                      <label class="radio" style="color: #ffbf00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ffbf00">
                         ◆
                       </label>
-                      <label class="radio" style="color: #00ff00">
-                        <input type="radio" name="color" v-model="source.text.color" value="#00ff00">
+                      <label class="radio" style="color: #7fff00">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7fff00">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #00ff3f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#00ff3f">
                         ◆
                       </label>
                       <label class="radio" style="color: #00ffff">
                         <input type="radio" name="color" v-model="source.text.color" value="#00ffff">
                         ◆
                       </label>
-                    </div>
-                    <div class="control">
-                      <label class="radio" style="color: #000088">
-                        <input type="radio" name="color" v-model="source.text.color" value="#000088">
+                      <label class="radio" style="color: #003fff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#003fff">
                         ◆
                       </label>
-                      <label class="radio" style="color: #880088">
-                        <input type="radio" name="color" v-model="source.text.color" value="#880088">
+                      <label class="radio" style="color: #7f00ff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f00ff">
                         ◆
                       </label>
-                      <label class="radio" style="color: #880000">
-                        <input type="radio" name="color" v-model="source.text.color" value="#880000">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #888800">
-                        <input type="radio" name="color" v-model="source.text.color" value="#888800">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #008800">
-                        <input type="radio" name="color" v-model="source.text.color" value="#008800">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #008888">
-                        <input type="radio" name="color" v-model="source.text.color" value="#008888">
+                      <label class="radio" style="color: #ff00bf">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff00bf">
                         ◆
                       </label>
                     </div>
                     <div class="control">
-                      その他の色
-                      <input class="input" type="color" v-model="source.text.color">
+                      <label class="radio" style="color: #ff7f7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff7f7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ffdf7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ffdf7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #bfff7f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#bfff7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #7fff9f">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7fff9f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #7fffff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7fffff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #7f9fff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#7f9fff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #bf7fff">
+                        <input type="radio" name="color" v-model="source.text.color" value="#bf7fff">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #ff7fdf">
+                        <input type="radio" name="color" v-model="source.text.color" value="#ff7fdf">
+                        ◆
+                      </label>
+                    </div>
+                  </div>
+                  <div v-if="ui.showTextDetails">
+                    <div class="field">
+                      <label class="label">その他の色</label>
+                      <div class="control">
+                        <input class="input" type="color" v-model="source.text.color">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="card-footer">
+              <a class="card-footer-item" @click="onToggleTextDetails">
+                {{ ui.showTextDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+              </a>
             </div>
           </div>
         </div>
@@ -340,43 +385,6 @@
             <div class="card-content">
               <div class="columns">
                 <div class="column">
-                  <div class="field">
-                    <label class="label">アニメーション</label>
-                    <div class="control">
-                      <div class="select">
-                        <select v-model="target.animation">
-                          <option value="">なし</option>
-                          <option value="animationScrollHorizontal">スクロール（水平）</option>
-                          <option value="animationScrollVertical">スクロール（垂直）</option>
-                          <option value="animationPushHorizontal">押し出し（水平）</option>
-                          <option value="animationPushVertical">押し出し（垂直）</option>
-                          <option value="animationEkken">謁見</option>
-                          <option value="animationEkkenVertical">謁見バーティカル</option>
-                          <option value="animationKanpai">乾杯</option>
-                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
-                          <option value="animationXile">ザイル</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">スピード</label>
-                    <div class="control">
-                      <div class="select">
-                        <select @change="onSelectSpeedPreset">
-                          <option value="">普通</option>
-                          <option value="turbo">速い</option>
-                          <option value="super-turbo">爆速</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.animationInvert">
-                        進行方向を反転
-                      </label>
-                    </div>
-                  </div>
                   <div class="field">
                     <label class="label">フィルタ (Chrome のみ動作確認)</label>
                     <div class="control">
@@ -474,18 +482,6 @@
                   </div>
                   <div v-if="ui.showTargetDetails">
                     <div class="field">
-                      <label class="label">アニメ速度 (フレームレート): {{target.framerate}}</label>
-                      <div class="control">
-                        <input v-model="target.framerate" type="range" min="1" max="60">
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label class="label">フレーム数: {{target.framecount}}</label>
-                      <div class="control">
-                        <input v-model="target.framecount" type="range" min="1" max="12">
-                      </div>
-                    </div>
-                    <div class="field">
                       <label class="label">過激なエフェクト</label>
                       <div class="control">
                         <label class="checkbox">
@@ -526,6 +522,41 @@
                         </label>
                       </div>
                     </div>
+                    <div class="field">
+                      <label class="label">背景色</label>
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.transparent">
+                          透明にする
+                        </label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">アニメ速度 (フレームレート): {{target.framerate}}</label>
+                      <div class="control">
+                        <input v-model="target.framerate" type="range" min="1" max="60">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">フレーム数: {{target.framecount}}</label>
+                      <div class="control">
+                        <input v-model="target.framecount" type="range" min="1" max="12">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">開発者用</label>
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.noCrop">
+                          余白を切らない
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="column">
@@ -542,30 +573,57 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">分割 横</label>
+                    <label class="label">アニメーション</label>
                     <div class="control">
-                      <input class="input" type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1">
+                      <div class="select">
+                        <select v-model="target.animation">
+                          <option value="">なし</option>
+                          <option value="animationScrollHorizontal">スクロール（水平）</option>
+                          <option value="animationScrollVertical">スクロール（垂直）</option>
+                          <option value="animationPushHorizontal">押し出し（水平）</option>
+                          <option value="animationPushVertical">押し出し（垂直）</option>
+                          <option value="animationEkken">謁見</option>
+                          <option value="animationEkkenVertical">謁見バーティカル</option>
+                          <option value="animationKanpai">乾杯</option>
+                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
+                          <option value="animationXile">ザイル</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">分割 縦</label>
+                    <label class="label">スピード</label>
                     <div class="control">
-                      <input class="input" type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1">
+                      <div class="select">
+                        <select @change="onSelectSpeedPreset">
+                          <option value="">普通</option>
+                          <option value="turbo">速い</option>
+                          <option value="super-turbo">爆速</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">背景色</label>
                     <div class="control">
                       <label class="checkbox">
-                        <input type="checkbox" v-model="target.transparent">
-                        透明にする
+                        <input type="checkbox" v-model="target.animationInvert">
+                        進行方向を反転
                       </label>
-                    </div>
-                    <div class="control">
-                      <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                     </div>
                   </div>
                   <div v-if="ui.showTargetDetails">
+                    <div class="field">
+                      <label class="label">分割 横</label>
+                      <div class="control">
+                        <input class="input" type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">分割 縦</label>
+                      <div class="control">
+                        <input class="input" type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1">
+                      </div>
+                    </div>
                     <div class="field">
                       <label class="label">オフセット左 (px)</label>
                       <div class="control">
@@ -588,15 +646,6 @@
                       <label class="label">拡大率 (縦)</label>
                       <div class="control">
                         <input class="input" type="text" v-model="target.vZoom">
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label class="label">開発者用</label>
-                      <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.noCrop">
-                          余白を切らない
-                        </label>
                       </div>
                     </div>
                   </div>

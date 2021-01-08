@@ -281,6 +281,7 @@ var store = {
         mode: "text",
         showTargetPanel: false,
         fukumojiTab: "base",
+        showTextDetails: false,
         showTargetDetails: false
     },
     /* form inputs */
@@ -443,6 +444,9 @@ var methods = {
             vm.target.framerate = 60;
             vm.target.framecount = 6;
         }
+    },
+    onToggleTextDetails: function () {
+        vm.ui.showTextDetails = !vm.ui.showTextDetails;
     },
     onToggleTargetDetails: function () {
         vm.ui.showTargetDetails = !vm.ui.showTargetDetails;
