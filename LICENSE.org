@@ -21,3 +21,4 @@ Fonts
 - あかずきんポップ (FLOP DESIGN, M+ Fonts License)
 - 零ゴシック (FLOP DESIGN, Open Font License)
 - 略字超少明朝ステンシル風 (nukosuki, Open Font License)
+- PixelMplus (itouhiro, M+ Fonts License)
