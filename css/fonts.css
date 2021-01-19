@@ -73,11 +73,6 @@
   font-family: "ZeroGothic";
   src: url('../fonts/ZeroGothic.woff') format('woff');
 }
-/* 略字超少明朝ステンシル風 */
-@font-face {
-  font-family: "rycsminStencily";
-  src: url('../fonts/rycsminStencily.woff') format('woff');
-}
 /* PixelMplus */
 @font-face {
   font-family: "PixelMplus";
