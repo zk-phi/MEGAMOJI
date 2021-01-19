@@ -19,6 +19,7 @@ Fonts
 - Rounded M+ 1c (M+ Font Project, Open Font License)
 - Noto Sans, Noto Serif (Google, Apache License)
 - あかずきんポップ (FLOP DESIGN, M+ Fonts License)
+- ポッタ (Font Zone 108, Open Font License)
 - 零ゴシック (FLOP DESIGN, Open Font License)
 - PixelMplus (itouhiro, M+ Fonts License)
 - レゲエ (Fontworks, Open Font License)

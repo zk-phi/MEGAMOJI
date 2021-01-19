@@ -88,3 +88,8 @@
   font-family: "Rampart";
   src: url('../fonts/RampartOne-Regular.woff') format('woff');
 }
+/* ポッタ */
+@font-face {
+  font-family: "Potta";
+  src: url('../fonts/PottaOne-Regular.woff') format('woff');
+}
