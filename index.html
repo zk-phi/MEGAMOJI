@@ -498,6 +498,20 @@
                       </label>
                     </div>
                   </div>
+                  <div class="field">
+                    <label class="label">背景色</label>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.transparent">
+                        透明にする
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
+                    </div>
+                  </div>
                   <div v-if="ui.showTargetDetails">
                     <div class="field">
                       <label class="label">過激なエフェクト</label>
@@ -538,20 +552,6 @@
                           <input type="checkbox" v-model="target.effects" value="effectTimemachine">
                           タイムマシン
                         </label>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label class="label">背景色</label>
-                      <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.transparent">
-                          透明にする
-                        </label>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                       </div>
                     </div>
                     <div class="field">
