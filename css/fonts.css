@@ -78,3 +78,8 @@
   font-family: "rycsminStencily";
   src: url('../fonts/rycsminStencily.woff') format('woff');
 }
+/* PixelMplus */
+@font-face {
+  font-family: "PixelMplus";
+  src: url('../fonts/PixelMplus12-Bold.woff') format('woff');
+}
