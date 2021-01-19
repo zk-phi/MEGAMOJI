@@ -83,3 +83,13 @@
   font-family: "PixelMplus";
   src: url('../fonts/PixelMplus12-Bold.woff') format('woff');
 }
+/* レゲエ */
+@font-face {
+  font-family: "Reggae";
+  src: url('../fonts/ReggaeOne-Regular.woff') format('woff');
+}
+/* ランパート */
+@font-face {
+  font-family: "Rampart";
+  src: url('../fonts/RampartOne-Regular.woff') format('woff');
+}

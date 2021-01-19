@@ -22,3 +22,5 @@ Fonts
 - 零ゴシック (FLOP DESIGN, Open Font License)
 - 略字超少明朝ステンシル風 (nukosuki, Open Font License)
 - PixelMplus (itouhiro, M+ Fonts License)
+- レゲエ (Fontworks, Open Font License)
+- ランパート (Fontworks, Open Font License)
