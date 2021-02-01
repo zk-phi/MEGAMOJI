@@ -1,7 +1,7 @@
 var TEXT_CANVAS_SIZE    = 1500; /* a sufficiently large number */
 var EMOJI_SIZE          = 128;
-var ANIMATED_EMOJI_SIZE = 64;
-var BINARY_SIZE_LIMIT   = 64000;
+var ANIMATED_EMOJI_SIZE = 96;
+var BINARY_SIZE_LIMIT   = 128000;
 
 /* ---- CANVAS UTILS */
 
