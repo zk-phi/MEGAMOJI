@@ -149,7 +149,7 @@ function makeTextImage (text, color, font, align, lineSpacing) {
 
 /* ---- CORE */
 
-function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop, animation, animationInvert, effects, framerate, framecount, fillStyle) {
+function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, fillStyle) {
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
 
@@ -173,6 +173,11 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
         ctx.drawImage(image, Math.max(0, left), Math.max(0, top), width * 2, height * 2, targetLeft, targetTop, targetWidth * 2, targetHeight * 2);
     }
 
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    postEffects.forEach(function (postEffect) {
+        postEffect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
+    });
+
     if (noCrop) {
         return canvas;
     } else {
@@ -184,13 +189,13 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
-function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent) {
-    if (!animation && !effects.length) {
+function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent) {
+    if (!animation && !effects.length && !postEffects.length) {
         var img = _renderFrameUncut(
             0, image,
             offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
             targetSize * hCells, targetSize * vCells, noCrop,
-            animation, animationInvert, effects, framerate, framecount,
+            animation, animationInvert, effects, postEffects, framerate, framecount,
             transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
         );
         var cells = noCrop ? (
@@ -223,7 +228,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
                 keyframe, image,
                 offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
                 targetSize * hCells, targetSize * vCells, noCrop,
-                animation, animationInvert, effects, framerate, framecount,
+                animation, animationInvert, effects, postEffects, framerate, framecount,
                 transparent ? '#ffffff' : backgroundColor
             );
             var imgCells = noCrop ? (
@@ -247,12 +252,12 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
 }
 
 /* returns a 2d-array of (possibly animated) images. */
-function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animation, animationInvert, effects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
+function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
     var targetSize = maxSize;
     while (true) {
         var ret = _renderAllCellsFixedSize(
             image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
-            animation, animationInvert, effects, framerate, framecount,
+            animation, animationInvert, effects, postEffects, framerate, framecount,
             backgroundColor, transparent
         );
         /**
@@ -315,6 +320,7 @@ var store = {
         animation: "",
         animationInvert: false,
         effects: [],
+        postEffects: [],
         /* advanced */
         offsetLeft: 0,
         offsetTop: 0,
@@ -457,9 +463,10 @@ var methods = {
     render: function () {
         if (!vm.baseImage) return;
 
-        var image     = vm.baseImage;
-        var animation = window[vm.target.animation];
-        var effects   = vm.target.effects.map(function (x) { return window[x]; });
+        var image       = vm.baseImage;
+        var animation   = window[vm.target.animation];
+        var effects     = vm.target.effects.map(function (x) { return window[x]; });
+        var postEffects = vm.target.postEffects.map(function (x) { return window[x]; });
 
         var offsetLeft = parseInt(vm.target.offsetLeft);
         var offsetTop  = parseInt(vm.target.offsetTop);
@@ -470,14 +477,15 @@ var methods = {
         var settings = vm.target.animation + "/" + vm.target.effects.join(",");
         ga("send", "event", vm.ui.mode, "render", settings);
 
-        var maxSize = (animation || effects.length) ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+        var animated = animation || effects.length || postEffects.length;
+        var maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         vm.resultImages = renderAllCells(
             image,
             offsetLeft, offsetTop,
             vm.target.hCells, vm.target.vCells, cellWidth, cellHeight,
             maxSize, vm.target.noCrop,
             animation, vm.target.animationInvert,
-            effects, vm.target.framerate, vm.target.framecount,
+            effects, postEffects, vm.target.framerate, vm.target.framecount,
             vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT
         );
     }
