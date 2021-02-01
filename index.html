@@ -9,6 +9,7 @@
     <link rel="stylesheet"  href="css/fonts.css">
     <script src="js/ga.js"></script>
     <script src="js/effects.js"></script>
+    <script src="js/posteffects.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/parts.js"></script>
@@ -499,17 +500,12 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">背景色</label>
+                    <label class="label">らくがき</label>
                     <div class="control">
                       <label class="checkbox">
-                        <input type="checkbox" v-model="target.transparent">
-                        透明にする
+                        <input type="checkbox" v-model="target.postEffects" value="postEffectFocusLine">
+                        集中線
                       </label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="control">
-                      <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                     </div>
                   </div>
                   <div v-if="ui.showTargetDetails">
@@ -552,6 +548,20 @@
                           <input type="checkbox" v-model="target.effects" value="effectTimemachine">
                           タイムマシン
                         </label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">背景色</label>
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.transparent">
+                          透明にする
+                        </label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                       </div>
                     </div>
                     <div class="field">
