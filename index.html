@@ -551,20 +551,6 @@
                       </div>
                     </div>
                     <div class="field">
-                      <label class="label">背景色</label>
-                      <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.transparent">
-                          透明にする
-                        </label>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
-                      </div>
-                    </div>
-                    <div class="field">
                       <label class="label">アニメ速度 (フレームレート): {{target.framerate}}</label>
                       <div class="control">
                         <input v-model="target.framerate" type="range" min="1" max="60">
@@ -639,7 +625,21 @@
                       </label>
                     </div>
                   </div>
+                  <div class="field">
+                    <label class="label">背景色</label>
+                    <div class="control">
+                      <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
+                    </div>
+                  </div>
                   <div v-if="ui.showTargetDetails">
+                    <div class="field">
+                      <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.transparent">
+                          背景を塗らない (アニメ gif は非推奨)
+                        </label>
+                      </div>
+                    </div>
                     <div class="field">
                       <label class="label">分割 横</label>
                       <div class="control">
