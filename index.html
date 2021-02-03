@@ -500,6 +500,23 @@
                     </div>
                   </div>
                   <div class="field">
+                    <label class="label">ノイズ</label>
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.postEffects" value="postEffectGlitchWave">
+                        ジージー
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.postEffects" value="postEffectGlitchFill">
+                        ガチャガチャ
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.postEffects" value="postEffectGlitchSlip">
+                        ガサガサ
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
                     <label class="label">らくがき</label>
                     <div class="control">
                       <label class="checkbox">

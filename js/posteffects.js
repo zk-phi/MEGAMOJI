@@ -28,3 +28,29 @@ function postEffectFocusLine (keyframe, ctx, w, h) {
         ctx.closePath();
     }
 }
+
+/** ideas based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79 */
+function postEffectGlitchWave (keyframe, ctx, w, h) {
+    var lineThickness = h / 25;
+    var x = (h / 2 + lineThickness) * keyframe + h / 4 - lineThickness;
+    var image = ctx.getImageData(0, x + lineThickness, w, lineThickness);
+    ctx.putImageData(image, 0, x);
+}
+function postEffectGlitchFill (keyframe, ctx, w, h) {
+    for(var i = 0; i < 3; i++) {
+        var glitchH = 14 * Math.random() + 1;
+        var glitchW = (w / 2 - 1) * Math.random() * 0.7 + 1;
+        var glitchX1 = w / 4 + (w / 2 - glitchW) * Math.random();
+        var glitchX2 = Math.random() < 0.5 ? w / 4 : 3 * w / 4 - glitchW;
+        var glitchY = h / 4 + (h / 2 - glitchH) * Math.random();
+        var image = ctx.getImageData(glitchX1, glitchY, glitchW, glitchH);
+        ctx.putImageData(image, glitchX2, glitchY);
+    }
+}
+function postEffectGlitchSlip (keyframe, ctx, w, h) {
+    for (var y = h / 4; y < 3 * h / 4; y++) {
+        if (Math.random() < 0.2) y++;
+        var image = ctx.getImageData(0, y, w, 1);
+        ctx.putImageData(image, Math.random() * 6 - 3, y);
+    }
+}
