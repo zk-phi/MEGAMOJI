@@ -433,10 +433,6 @@
                         びょいんびょいん
                       </label>
                       <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectBlink">
-                        BLINK
-                      </label>
-                      <label class="checkbox">
                         <input type="checkbox" v-model="target.effects" value="effectRotate">
                         ぐるぐる
                       </label>
@@ -529,6 +525,10 @@
                     <div class="field">
                       <label class="label">過激なエフェクト</label>
                       <div class="control">
+                        <label class="checkbox">
+                          <input type="checkbox" v-model="target.effects" value="effectBlink">
+                          BLINK
+                        </label>
                         <label class="checkbox">
                           <input type="checkbox" v-model="target.effects" value="effectNega">
                           ネガ
