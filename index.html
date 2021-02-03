@@ -648,15 +648,15 @@
                       <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
                     </div>
                   </div>
-                  <div v-if="ui.showTargetDetails">
-                    <div class="field">
-                      <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.transparent">
-                          背景を塗らない (アニメ gif は非推奨)
-                        </label>
-                      </div>
+                  <div class="field">
+                    <div class="control">
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.transparent">
+                        背景を塗らない (アニメ gif は非推奨)
+                      </label>
                     </div>
+                  </div>
+                  <div v-if="ui.showTargetDetails">
                     <div class="field">
                       <label class="label">分割 横</label>
                       <div class="control">
