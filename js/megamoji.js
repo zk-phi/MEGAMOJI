@@ -502,6 +502,7 @@ window.onerror = function (msg, file, line, col) {
     if (match) {
         if (match[1] == "test") {
             vm.ui.mode = "text";
+            vm.ui.showTargetPanel = true;
             vm.source.text.content = "あ";
         } else if (match[1] == "mode") {
             vm.ui.mode = match[3];
