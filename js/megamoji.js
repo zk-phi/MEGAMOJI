@@ -299,7 +299,7 @@ var store = {
             /* basic */
             content: "",
             align: "left",
-            color: "#ff0000",
+            color: "#ffbf00",
             font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05
