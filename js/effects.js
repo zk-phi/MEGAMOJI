@@ -16,11 +16,6 @@ function effectKira (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.filter = currentFilter + "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
 }
 
-function effectNega (keyframe, ctx, cellWidth, cellHeight, background) {
-    var currentFilter = ctx.filter == "none" ? "" : ctx.filter + " ";
-    ctx.filter = currentFilter + "invert(" + Math.floor(50 + 50 * Math.sin(2 * Math.PI * keyframe)) + "%)";
-}
-
 function effectMoyamoya (keyframe, ctx, cellWidth, cellHeight, background) {
     var currentFilter = ctx.filter == "none" ? "" : ctx.filter + " ";
     ctx.filter = currentFilter + "blur(" + (2 + Math.abs(1 * Math.cos(2 * Math.PI * keyframe))) + "px)";
@@ -37,23 +32,6 @@ function effectBlink (keyframe, ctx, cellWidth, cellHeight, background) {
     }
 }
 
-function effectPyon (keyframe, ctx, cellWidth, cellHeight, background) {
-    var resistance = 1.7; // バウンド時の強さ
-    var y
-    if(keyframe > 0.7) {
-        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 6)
-    } else {
-        y = - Math.abs(Math.cos(2 * Math.PI * keyframe)) * (cellHeight / 6) * Math.exp(-keyframe * resistance)
-    }
-    ctx.transform(1, 0, 0, 1, 0, y + cellHeight / 30);
-}
-
-function effectShadow (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.shadowColor = 'black';
-    ctx.shadowOffsetY = 7;
-    ctx.shadowOffsetX = 7;
-}
-
 function effectNaturalBlur (keyframe, ctx, cellWidth, cellHeight, background) {
     var HSVColor = _HSV2RGB(0, 0, keyframe)
     ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
@@ -66,12 +44,6 @@ function effectNeon (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.shadowBlur = 10;
 }
 
-function effectAuroraBlur (keyframe, ctx, cellWidth, cellHeight, background) {
-    var HSVColor = _HSV2RGB(keyframe*360, 1, 1)
-    ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
-    ctx.shadowBlur = 50*keyframe;
-}
-
 function effectShadowRotate (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.shadowColor = 'black';
     ctx.shadowOffsetY = Math.cos(2 * Math.PI * keyframe)*5;
@@ -80,10 +52,6 @@ function effectShadowRotate (keyframe, ctx, cellWidth, cellHeight, background) {
 
 function effectPatapata (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
-}
-
-function effectSidetoside (keyframe, ctx, cellWidth, cellHeight, background) {
-    ctx.transform(1, 0, 0, 1, cellWidth * Math.sin(2 * Math.PI * keyframe) / 2, 0);
 }
 
 function effectRotate (keyframe, ctx, cellWidth, cellHeight, background) {
@@ -153,51 +121,6 @@ function effectTiritiri (keyframe, ctx, cellWidth, cellHeight, background) {
     ctx.putImageData(imageData, 0, 0);
 }
 
-function effectStripe (keyframe, ctx, cellWidth, cellHeight, background) {
-    var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-    var data = imageData.data;
-    for (var row = 0; row < cellHeight; row++) {
-        for (var col = 0; col < cellWidth; col++) {
-            if (col % 3 === 1)  {
-                data[(row * cellWidth + col) * 4 + 3] = 0;
-            }
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function effectRiver (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = _hex2HSV(background);
-    var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-    var data = imageData.data;
-    for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
-        if ((row / 4 + (keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
-            var color = _HSV2RGB(bgColorHSV["h"] + 180, 1, 1);
-            data[row] = color[0];
-            data[row + 1] = color[1];
-            data[row + 2] = color[2];
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function effectSignPole (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = _hex2HSV(background);
-    var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-    var data = imageData.data;
-    for (var row = 0; row < cellHeight; row++) {
-        for (var col = 0; col < cellWidth; col++) {
-            if ((row + col + (keyframe * 40)) % 40 < 40 && (row + col + (keyframe * 40)) % 40 > 20) {
-                var color = _HSV2RGB(bgColorHSV["h"] + 180, 1, 1);
-                data[(row * cellWidth + col) * 4] = color[0];
-                data[(row * cellWidth + col) * 4 + 1] = color[1];
-                data[(row * cellWidth + col) * 4 + 2] = color[2];
-            }
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-}
-
 function effectPsych (keyframe, ctx, cellWidth, cellHeight, background) {
     var bgColorHSV = _hex2HSV(background);
     var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
@@ -223,51 +146,6 @@ function effectPsych (keyframe, ctx, cellWidth, cellHeight, background) {
                 data[(row * cellWidth + col) * 4 + 2] = color[2];
                 data[(row * cellWidth + col) * 4 + 3] = 255;
             }
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function effectCheck (keyframe, ctx, cellWidth, cellHeight, background) {
-    var bgColorHSV = _hex2HSV(background);
-    var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-    var data = imageData.data;
-    for (var row = 0; row < cellHeight; row++) {
-        for (var col = 0; col < cellWidth; col++) {
-            if (row % 16 <= 8 && col % 16 >= 8) {
-                var color = _HSV2RGB(bgColorHSV['h'], 1, 0.8);
-                data[(row * cellWidth + col) * 4] = color[0];
-                data[(row * cellWidth + col) * 4 + 1] = color[1];
-                data[(row * cellWidth + col) * 4 + 2] = color[2];
-                data[(row * cellWidth + col) * 4 + 3] = 255;
-            } else if (row % 16 < 8 ^ col % 16 < 8) {
-                var color = _HSV2RGB(bgColorHSV['h'], 1, 1);
-                data[(row * cellWidth + col) * 4] = color[0];
-                data[(row * cellWidth + col) * 4 + 1] = color[1];
-                data[(row * cellWidth + col) * 4 + 2] = color[2];
-                data[(row * cellWidth + col) * 4 + 3] = 255;
-            } else {
-                var color = _HSV2RGB(bgColorHSV['h'], 1, 0.5);
-                data[(row * cellWidth + col) * 4] = color[0];
-                data[(row * cellWidth + col) * 4 + 1] = color[1];
-                data[(row * cellWidth + col) * 4 + 2] = color[2];
-                data[(row * cellWidth + col) * 4 + 3] = 255;
-            }
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function effectTimemachine (keyframe, ctx, cellWidth, cellHeight, background) {
-    var imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-    var data = imageData.data;
-    for (var row = 0; row < (cellHeight * cellWidth * 4); row = row + 4) {
-        if ((row / 4) % 40 < 40 * keyframe) {
-            var color = _HSV2RGB(keyframe * 360 * 4 % 360 + 180, 1, 1);
-            data[row] = color[0];
-            data[row + 1] = color[1];
-            data[row + 2] = color[2];
-            data[row + 3] = 255;
         }
     }
     ctx.putImageData(imageData, 0, 0);
