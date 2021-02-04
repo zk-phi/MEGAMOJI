@@ -7,7 +7,7 @@
 
 パキっとした文字が出せるようになりました。
 
-![outline](imgs/outline.gif)
+![outline](imgs/outline.png)
 
 ### 新フェクト： モザイクを追加した
 
