@@ -61,3 +61,44 @@ function postEffectGlitch (keyframe, ctx, w, h) {
         }
     }();
 }
+
+function postEffectMosaic (keyframe, ctx, w, h) {
+    var image = ctx.getImageData(0, 0, w, h);
+    var data = image.data;
+
+    var cellSize = Math.floor(Math.min(w, h) / 32);
+    var cellCountH = Math.ceil(w / cellSize + 1);
+    var cellCountV = Math.ceil(h / cellSize + 1);
+    var offsetX = Math.floor(w / 4 - cellSize + cellSize * keyframe);
+    var offsetY = Math.floor(h / 4 - cellSize + cellSize * keyframe);
+
+    for (var cellX = 0; cellX < cellCountH; cellX++) {
+        for (var cellY = 0; cellY < cellCountV; cellY++) {
+            var cellColor = [0, 0, 0];
+            var x = offsetX + cellX * cellSize;
+            var y = offsetY + cellY * cellSize;
+            for (var dx = 0; dx < cellSize; dx++) {
+                for (var dy = 0; dy < cellSize; dy++) {
+                    var ix = (y + dy) * w + x + dx;
+                    cellColor[0] += data[ix * 4 + 0];
+                    cellColor[1] += data[ix * 4 + 1];
+                    cellColor[2] += data[ix * 4 + 2];
+                }
+            }
+
+            cellColor[0] /= cellSize * cellSize;
+            cellColor[1] /= cellSize * cellSize;
+            cellColor[2] /= cellSize * cellSize;
+            for (var dx = 0; dx < cellSize; dx++) {
+                for (var dy = 0; dy < cellSize; dy++) {
+                    var ix = (y + dy) * w + x + dx;
+                    data[ix * 4 + 0] = cellColor[0];
+                    data[ix * 4 + 1] = cellColor[1];
+                    data[ix * 4 + 2] = cellColor[2];
+                }
+            }
+        }
+    }
+
+    ctx.putImageData(image, 0, 0);
+}
