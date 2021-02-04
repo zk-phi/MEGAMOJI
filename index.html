@@ -479,6 +479,10 @@
                         <input type="checkbox" v-model="target.effects" value="effectMotimoti">
                         もちもち
                       </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.effects" value="effectBlink">
+                        BLINK
+                      </label>
                     </div>
                   </div>
                   <div class="field">
@@ -499,7 +503,7 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">効果</label>
+                    <label class="label">エフェクト</label>
                     <div class="control">
                       <label class="checkbox">
                         <input type="checkbox" v-model="target.postEffects" value="postEffectFocusLine">
@@ -513,12 +517,8 @@
                   </div>
                   <div v-if="ui.showTargetDetails">
                     <div class="field">
-                      <label class="label">過激なエフェクト</label>
+                      <label class="label">背景エフェクト</label>
                       <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.effects" value="effectBlink">
-                          BLINK
-                        </label>
                         <label class="checkbox">
                           <input type="checkbox" v-model="target.effects" value="effectTiritiri">
                           チリチリ
