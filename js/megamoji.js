@@ -41,7 +41,7 @@ function shrinkCanvas (source) {
 
     var left = 0;
     left: for (; left < source.width; left++) {
-        for (var y = 0; y < source.height; y++) {
+        for (var y = top + 1; y < bottom; y++) {
             if (data[(y * source.width + left) * 4 + 3]) {
                 break left;
             }
@@ -50,7 +50,7 @@ function shrinkCanvas (source) {
 
     var right = source.width - 1;
     right: for (; right >= left; right--) {
-        for (var y = 0; y < source.height; y++) {
+        for (var y = top + 1; y < bottom; y++) {
             if (data[(y * source.width + right) * 4 + 3]) {
                 break right;
             }
