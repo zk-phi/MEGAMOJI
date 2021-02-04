@@ -26,7 +26,7 @@ function effectKira (keyframe, ctx, cellWidth, cellHeight, background) {
 
 function effectMoyamoya (keyframe, ctx, cellWidth, cellHeight, background) {
     var currentFilter = ctx.filter == "none" ? "" : ctx.filter + " ";
-    ctx.filter = currentFilter + "blur(" + (5 + 0.5 * Math.cos(2 * Math.PI * keyframe)) + "px)";
+    ctx.filter = currentFilter + "blur(" + (6 + 1 * Math.cos(2 * Math.PI * keyframe)) + "px)";
 }
 
 function effectFoil (keyframe, ctx, cellWidth, cellHeight, background) {
