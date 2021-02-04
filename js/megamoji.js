@@ -1,4 +1,3 @@
-var TEXT_CANVAS_SIZE    = 1500; /* a sufficiently large number */
 var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 96;
 var BINARY_SIZE_LIMIT   = 128000;
@@ -84,10 +83,10 @@ function dataurlSize (str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function _makeTextImageSingleLine (line, color, font) {
+function _makeTextImageSingleLine (line, color, font, fontHeight) {
     var canvas = document.createElement("canvas");
-    canvas.width  = TEXT_CANVAS_SIZE;
-    canvas.height = TEXT_CANVAS_SIZE;
+    canvas.width = fontHeight * (line.length + 1) * 1.5;
+    canvas.height = fontHeight * 1.5;
 
     var ctx = canvas.getContext('2d');
     ctx.fillStyle    = color;
@@ -114,8 +113,10 @@ function _makeTextImageSingleLine (line, color, font) {
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage (text, color, font, align, lineSpacing) {
-    var images       = text.split("\n").map(function (line) { return _makeTextImageSingleLine(line, color, font); });
+function makeTextImage (text, color, font, fontHeight, align, lineSpacing) {
+    var images = text.split("\n").map(function (line) {
+        return _makeTextImageSingleLine(line, color, font, fontHeight);
+    });
     var lineWidths  = images.map(function (canvas) { return canvas.width; })
     var maxWidth    = Math.max.apply(null, lineWidths);
     var totalHeight = images.reduce(function (l, r) { return l + r.height; }, 0) + lineSpacing * (images.length - 1);
@@ -387,6 +388,7 @@ var methods = {
                 vm.source.text.content,
                 vm.source.text.color,
                 vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+                EMOJI_SIZE,
                 vm.source.text.align,
                 vm.source.text.lineSpacing * EMOJI_SIZE
             );
