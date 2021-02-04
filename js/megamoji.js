@@ -24,7 +24,7 @@ function shrinkCanvas (source) {
     var top = 0;
     top: for (; top < source.height; top++) {
         for (var x = 0; x < source.width; x++) {
-            if (data[(top * source.width + x) * 4 + 3] > 128) {
+            if (data[(top * source.width + x) * 4 + 3]) {
                 break top;
             }
         }
@@ -33,7 +33,7 @@ function shrinkCanvas (source) {
     var bottom = source.height - 1;
     bottom: for (; bottom >= top; bottom--) {
         for (var x = 0; x < source.width; x++) {
-            if (data[(bottom * source.width + x) * 4 + 3] > 128) {
+            if (data[(bottom * source.width + x) * 4 + 3]) {
                 break bottom;
             }
         }
@@ -42,7 +42,7 @@ function shrinkCanvas (source) {
     var left = 0;
     left: for (; left < source.width; left++) {
         for (var y = 0; y < source.height; y++) {
-            if (data[(y * source.width + left) * 4 + 3] > 128) {
+            if (data[(y * source.width + left) * 4 + 3]) {
                 break left;
             }
         }
@@ -51,7 +51,7 @@ function shrinkCanvas (source) {
     var right = source.width - 1;
     right: for (; right >= left; right--) {
         for (var y = 0; y < source.height; y++) {
-            if (data[(y * source.width + right) * 4 + 3] > 128) {
+            if (data[(y * source.width + right) * 4 + 3]) {
                 break right;
             }
         }
