@@ -29,7 +29,7 @@ function postEffectFocusLine (keyframe, ctx, w, h) {
     }
 }
 
-/** ideas based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79 */
+/** the ideas based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79 */
 function postEffectGlitch (keyframe, ctx, w, h) {
     // wave
     !function () {
