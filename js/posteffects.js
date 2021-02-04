@@ -66,7 +66,7 @@ function postEffectMosaic (keyframe, ctx, w, h) {
     var image = ctx.getImageData(0, 0, w, h);
     var data = image.data;
 
-    var cellSize = Math.floor(Math.min(w, h) / 32);
+    var cellSize = Math.floor(Math.min(w, h) / 16);
     var cellCountH = Math.ceil(w / cellSize + 1);
     var cellCountV = Math.ceil(h / cellSize + 1);
     var offsetX = Math.floor(w / 4 - cellSize + cellSize * keyframe);
