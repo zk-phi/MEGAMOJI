@@ -508,8 +508,8 @@ var methods = {
         var staticEffects = vm.target.staticEffects.map(function (x) { return window[x]; });
         var postEffects   = vm.target.postEffects.map(function (x) { return window[x]; });
 
-        var offsetLeft = parseInt(vm.target.offsetLeft);
-        var offsetTop  = parseInt(vm.target.offsetTop);
+        var offsetLeft = Math.floor(Number(vm.target.offsetLeft));
+        var offsetTop  = Math.floor(Number(vm.target.offsetTop));
 
         var cellWidth = EMOJI_SIZE / vm.target.hZoom;
         var cellHeight = EMOJI_SIZE / vm.target.vZoom;
