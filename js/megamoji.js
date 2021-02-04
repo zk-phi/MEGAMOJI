@@ -92,7 +92,7 @@ function _makeTextImageSingleLine (line, color, font, fontHeight) {
     ctx.fillStyle    = color;
     ctx.font         = font;
     ctx.textBaseline = "top";
-    ctx.fillText(line, 0, 0);
+    ctx.fillText(line, 0, 50);
 
     /* find topmost and bottommost non-transparent pixels */
     var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
