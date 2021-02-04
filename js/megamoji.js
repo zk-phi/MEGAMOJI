@@ -85,8 +85,8 @@ function dataurlSize (str) {
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) {
     var canvas = document.createElement("canvas");
-    canvas.width = fontHeight * (line.length + 1) * 1.5;
-    canvas.height = fontHeight * 1.5;
+    canvas.width = fontHeight * (line.length || 1) * 1.5;
+    canvas.height = fontHeight * 2;
 
     var ctx = canvas.getContext('2d');
     ctx.fillStyle    = color;
