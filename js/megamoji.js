@@ -189,8 +189,8 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
-function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent) {
-    if (!animation && !effects.length && !postEffects.length) {
+function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animated, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent) {
+    if (!animated) {
         var img = _renderFrameUncut(
             0, image,
             offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
@@ -252,12 +252,12 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
 }
 
 /* returns a 2d-array of (possibly animated) images. */
-function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
+function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animated, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
     var targetSize = maxSize;
     while (true) {
         var ret = _renderAllCellsFixedSize(
             image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
-            animation, animationInvert, effects, postEffects, framerate, framecount,
+            animated, animation, animationInvert, effects, postEffects, framerate, framecount,
             backgroundColor, transparent
         );
         /**
@@ -319,6 +319,7 @@ var store = {
         vCells: 1,
         animation: "",
         animationInvert: false,
+        staticEffects: [],
         effects: [],
         postEffects: [],
         /* advanced */
@@ -463,10 +464,11 @@ var methods = {
     render: function () {
         if (!vm.baseImage) return;
 
-        var image       = vm.baseImage;
-        var animation   = window[vm.target.animation];
-        var effects     = vm.target.effects.map(function (x) { return window[x]; });
-        var postEffects = vm.target.postEffects.map(function (x) { return window[x]; });
+        var image         = vm.baseImage;
+        var animation     = window[vm.target.animation];
+        var effects       = vm.target.effects.map(function (x) { return window[x]; });
+        var staticEffects = vm.target.staticEffects.map(function (x) { return window[x]; });
+        var postEffects   = vm.target.postEffects.map(function (x) { return window[x]; });
 
         var offsetLeft = parseInt(vm.target.offsetLeft);
         var offsetTop  = parseInt(vm.target.offsetTop);
@@ -484,8 +486,8 @@ var methods = {
             offsetLeft, offsetTop,
             vm.target.hCells, vm.target.vCells, cellWidth, cellHeight,
             maxSize, vm.target.noCrop,
-            animation, vm.target.animationInvert,
-            effects, postEffects, vm.target.framerate, vm.target.framecount,
+            animated, animation, vm.target.animationInvert,
+            effects.concat(staticEffects), postEffects, vm.target.framerate, vm.target.framecount,
             vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT
         );
     }

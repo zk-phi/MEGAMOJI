@@ -405,6 +405,25 @@
               <div class="columns">
                 <div class="column">
                   <div class="field">
+                    <label class="label">アニメーション</label>
+                    <div class="control">
+                      <div class="select">
+                        <select v-model="target.animation">
+                          <option value="">なし</option>
+                          <option value="animationScrollHorizontal">スクロール（水平）</option>
+                          <option value="animationScrollVertical">スクロール（垂直）</option>
+                          <option value="animationPushHorizontal">押し出し（水平）</option>
+                          <option value="animationPushVertical">押し出し（垂直）</option>
+                          <option value="animationEkken">謁見</option>
+                          <option value="animationEkkenVertical">謁見バーティカル</option>
+                          <option value="animationKanpai">乾杯</option>
+                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
+                          <option value="animationXile">ザイル</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
                     <label class="label">フィルタ (Chrome のみ動作確認)</label>
                     <div class="control">
                       <label class="checkbox">
@@ -551,22 +570,15 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">アニメーション</label>
                     <div class="control">
-                      <div class="select">
-                        <select v-model="target.animation">
-                          <option value="">なし</option>
-                          <option value="animationScrollHorizontal">スクロール（水平）</option>
-                          <option value="animationScrollVertical">スクロール（垂直）</option>
-                          <option value="animationPushHorizontal">押し出し（水平）</option>
-                          <option value="animationPushVertical">押し出し（垂直）</option>
-                          <option value="animationEkken">謁見</option>
-                          <option value="animationEkkenVertical">謁見バーティカル</option>
-                          <option value="animationKanpai">乾杯</option>
-                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
-                          <option value="animationXile">ザイル</option>
-                        </select>
-                      </div>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.staticEffects" value="effectFlipHoriz">
+                        左右を反転
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" v-model="target.staticEffects" value="effectFlipVert">
+                        上下を反転
+                      </label>
                     </div>
                   </div>
                   <div class="field">

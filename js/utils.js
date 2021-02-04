@@ -70,3 +70,9 @@ function _flipContext (renderingContext2d, width) {
     renderingContext2d.translate(width, 0);
     renderingContext2d.scale(-1, 1);
 }
+
+/* flip a rendering context */
+function _flipContextVert (renderingContext2d, height) {
+    renderingContext2d.translate(0, height);
+    renderingContext2d.scale(1, -1);
+}

@@ -11,6 +11,14 @@
  * - background ... hex notation of the background color
  */
 
+function effectFlipHoriz (keyframe, ctx, cellWidth, cellHeight, background) {
+    _flipContext(ctx, cellWidth);
+}
+
+function effectFlipVert (keyframe, ctx, cellWidth, cellHeight, background) {
+    _flipContextVert(ctx, cellHeight);
+}
+
 function effectKira (keyframe, ctx, cellWidth, cellHeight, background) {
     var currentFilter = ctx.filter == "none" ? "" : ctx.filter + " ";
     ctx.filter = currentFilter + "saturate(1000%) hue-rotate(" + (keyframe * 360) + "deg)";
