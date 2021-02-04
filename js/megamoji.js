@@ -16,6 +16,50 @@ function cropCanvas (source, left, top, w, h) {
     return target;
 }
 
+/* drop transparent area from canvas and returns a new cropped canvas */
+function shrinkCanvas (source) {
+    var ctx = source.getContext('2d');
+    var data = ctx.getImageData(0, 0, source.width, source.height).data;
+
+    var top = 0;
+    top: for (; top < source.height; top++) {
+        for (var x = 0; x < source.width; x++) {
+            if (data[(top * source.width + x) * 4 + 3] > 128) {
+                break top;
+            }
+        }
+    }
+
+    var bottom = source.height - 1;
+    bottom: for (; bottom >= top; bottom--) {
+        for (var x = 0; x < source.width; x++) {
+            if (data[(bottom * source.width + x) * 4 + 3] > 128) {
+                break bottom;
+            }
+        }
+    }
+
+    var left = 0;
+    left: for (; left < source.width; left++) {
+        for (var y = 0; y < source.height; y++) {
+            if (data[(y * source.width + left) * 4 + 3] > 128) {
+                break left;
+            }
+        }
+    }
+
+    var right = source.width - 1;
+    right: for (; right >= left; right--) {
+        for (var y = 0; y < source.height; y++) {
+            if (data[(y * source.width + right) * 4 + 3] > 128) {
+                break right;
+            }
+        }
+    }
+
+    return cropCanvas(source, left, top, (right - left + 1) || 1, (bottom - top + 1) || 1);
+}
+
 /* Split canvas into a 2d-array of canvases */
 function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
     var cells = [];
@@ -85,7 +129,7 @@ function dataurlSize (str) {
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) {
     var canvas = document.createElement("canvas");
-    canvas.width = fontHeight * (line.length || 1) * 1.5;
+    canvas.width = fontHeight * (line.length || 1) * 2;
     canvas.height = fontHeight * 2;
 
     var ctx = canvas.getContext('2d');
@@ -94,25 +138,10 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) 
     ctx.lineWidth    = 10;
     ctx.font         = font;
     ctx.textBaseline = "top";
-    ctx.strokeText(line, 0, 50);
-    ctx.fillText(line, 0, 50);
+    ctx.strokeText(line, 25, 25);
+    ctx.fillText(line, 25, 25);
 
-    /* find topmost and bottommost non-transparent pixels */
-    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    for (var row = 0, top = -1, bottom = 0; row < canvas.height; row++) {
-        for (var column = 0; column < canvas.width; column++) {
-            if (data[(row * canvas.width + column) * 4 + 3]) {
-                if (top == -1) top = row;
-                bottom = row;
-                break;
-            }
-        }
-    }
-
-    var width  = ctx.measureText(line || " ").width;
-    var height = bottom - top;
-
-    return cropCanvas(canvas, 0, top, width, height);
+    return shrinkCanvas(canvas);
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
