@@ -306,7 +306,7 @@ var store = {
             content: "",
             align: "left",
             color: "#ffbf00",
-            outline: "#000000",
+            outline: "rgb(0, 0, 0, 0)",
             font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05
