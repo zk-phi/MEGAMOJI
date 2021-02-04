@@ -119,7 +119,9 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing) {
     });
     var lineWidths  = images.map(function (canvas) { return canvas.width; })
     var maxWidth    = Math.max.apply(null, lineWidths);
-    var totalHeight = images.reduce(function (l, r) { return l + r.height; }, 0) + lineSpacing * (images.length - 1);
+    var totalHeight = lineSpacing * (images.length - 1) + images.reduce(function (l, r) {
+        return l + r.height;
+    }, 0);
 
     var canvas = document.createElement("canvas");
     canvas.width  = maxWidth;
