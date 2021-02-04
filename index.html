@@ -149,6 +149,12 @@
                         <input class="input" type="text" v-model="source.text.font">
                       </div>
                     </div>
+                    <div class="field">
+                      <label class="label">行間 (文字分)</label>
+                      <div class="control">
+                        <input class="input" type="text" v-model="source.text.lineSpacing">
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="column">
@@ -299,12 +305,6 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">その他の色</label>
-                    <div class="control">
-                      <input class="input" type="color" v-model="source.text.color">
-                    </div>
-                  </div>
-                  <div class="field">
                     <label class="label">アウトライン</label>
                     <div class="control">
                       <label class="radio">
@@ -333,17 +333,17 @@
                       </label>
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">その他のアウトライン</label>
-                    <div class="control">
-                      <input class="input" type="color" v-model="source.text.outline">
-                    </div>
-                  </div>
                   <div v-if="ui.showTextDetails">
                     <div class="field">
-                      <label class="label">行間 (文字分)</label>
+                      <label class="label">その他の色</label>
                       <div class="control">
-                        <input class="input" type="text" v-model="source.text.lineSpacing">
+                        <input class="input" type="color" v-model="source.text.color">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">その他のアウトライン</label>
+                      <div class="control">
+                        <input class="input" type="color" v-model="source.text.outline">
                       </div>
                     </div>
                   </div>
