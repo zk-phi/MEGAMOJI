@@ -304,6 +304,41 @@
                       <input class="input" type="color" v-model="source.text.color">
                     </div>
                   </div>
+                  <div class="field">
+                    <label class="label">アウトライン</label>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="rgb(0, 0, 0, 0)">
+                        なし
+                      </label>
+                      <label class="radio" style="color: #000000">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="#000000">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #3f3f3f">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="#3f3f3f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #7f7f7f">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="#7f7f7f">
+                        ◆
+                      </label>
+                      <label class="radio" style="color: #bfbfbf">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="#bfbfbf">
+                        ◆
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="#ffffff">
+                        ♢
+                      </label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">その他のアウトライン</label>
+                    <div class="control">
+                      <input class="input" type="color" v-model="source.text.outline">
+                    </div>
+                  </div>
                   <div v-if="ui.showTextDetails">
                     <div class="field">
                       <label class="label">行間 (文字分)</label>

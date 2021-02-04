@@ -83,15 +83,18 @@ function dataurlSize (str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function _makeTextImageSingleLine (line, color, font, fontHeight) {
+function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) {
     var canvas = document.createElement("canvas");
     canvas.width = fontHeight * (line.length + 1) * 1.5;
     canvas.height = fontHeight * 1.5;
 
     var ctx = canvas.getContext('2d');
     ctx.fillStyle    = color;
+    ctx.strokeStyle  = outlineColor;
+    ctx.lineWidth    = 10;
     ctx.font         = font;
     ctx.textBaseline = "top";
+    ctx.strokeText(line, 0, 50);
     ctx.fillText(line, 0, 50);
 
     /* find topmost and bottommost non-transparent pixels */
@@ -113,9 +116,9 @@ function _makeTextImageSingleLine (line, color, font, fontHeight) {
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage (text, color, font, fontHeight, align, lineSpacing) {
+function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outlineColor) {
     var images = text.split("\n").map(function (line) {
-        return _makeTextImageSingleLine(line, color, font, fontHeight);
+        return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor);
     });
     var lineWidths  = images.map(function (canvas) { return canvas.width; })
     var maxWidth    = Math.max.apply(null, lineWidths);
@@ -303,6 +306,7 @@ var store = {
             content: "",
             align: "left",
             color: "#ffbf00",
+            outline: "#000000",
             font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05
@@ -392,7 +396,8 @@ var methods = {
                 vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
                 EMOJI_SIZE,
                 vm.source.text.align,
-                vm.source.text.lineSpacing * EMOJI_SIZE
+                vm.source.text.lineSpacing * EMOJI_SIZE,
+                vm.source.text.outline
             );
             urlToImg(blobUrl, function (img) { vm.baseImage = img; });
         }
