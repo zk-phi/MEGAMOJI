@@ -133,12 +133,14 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) 
     canvas.height = fontHeight * 2;
 
     var ctx = canvas.getContext('2d');
-    ctx.fillStyle    = color;
-    ctx.strokeStyle  = outlineColor;
-    ctx.lineWidth    = 8;
     ctx.font         = font;
     ctx.textBaseline = "top";
-    ctx.strokeText(line, 25, 25);
+    if (outlineColor) {
+        ctx.strokeStyle = outlineColor;
+        ctx.lineWidth   = 8;
+        ctx.strokeText(line, 25, 25);
+    }
+    ctx.fillStyle    = color;
     ctx.fillText(line, 25, 25);
 
     return shrinkCanvas(canvas);
@@ -335,7 +337,7 @@ var store = {
             content: "",
             align: "left",
             color: "#ffbf00",
-            outline: "rgb(0, 0, 0, 0)",
+            outline: "",
             font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05
