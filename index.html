@@ -315,16 +315,12 @@
                         <input type="radio" name="outline" v-model="source.text.outline" value="#000000">
                         ◆
                       </label>
-                      <label class="radio" style="color: #3f3f3f">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="#3f3f3f">
+                      <label class="radio" :style="{ color: _darkerColor(source.text.color) }">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="darker">
                         ◆
                       </label>
-                      <label class="radio" style="color: #7f7f7f">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="#7f7f7f">
-                        ◆
-                      </label>
-                      <label class="radio" style="color: #bfbfbf">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="#bfbfbf">
+                      <label class="radio" :style="{ color: _lighterColor(source.text.color) }">
+                        <input type="radio" name="outline" v-model="source.text.outline" value="lighter">
                         ◆
                       </label>
                       <label class="radio">
@@ -343,7 +339,8 @@
                     <div class="field">
                       <label class="label">その他のアウトライン</label>
                       <div class="control">
-                        <input class="input" type="color" v-model="source.text.outline">
+                        <input class="input" type="color" :value="outlineColor"
+                               @change="source.text.outline = $event.target.value">
                       </div>
                     </div>
                   </div>

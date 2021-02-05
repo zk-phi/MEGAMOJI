@@ -402,6 +402,19 @@ var watch = {
     }
 };
 
+var computed = {
+    outlineColor: function () {
+        var color = vm.source.text.color;
+        if (vm.source.text.outline == "lighter") {
+            return _lighterColor(color);
+        } else if (vm.source.text.outline == "darker") {
+            return _darkerColor(color);
+        } else {
+            return vm.source.text.outline;
+        }
+    }
+};
+
 var methods = {
     loadFile: function () {
         if (vm.source.file.file) {
@@ -426,7 +439,7 @@ var methods = {
                 EMOJI_SIZE,
                 vm.source.text.align,
                 vm.source.text.lineSpacing * EMOJI_SIZE,
-                vm.source.text.outline
+                vm.outlineColor
             );
             urlToImg(blobUrl, function (img) { vm.baseImage = img; });
         }
@@ -531,7 +544,7 @@ var methods = {
     }
 };
 
-var vm = new Vue({ el: "#app", data: store, methods: methods, watch: watch });
+var vm = new Vue({ el: "#app", data: store, methods: methods, watch: watch, computed: computed });
 
 window.onerror = function (msg, file, line, col) {
     ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
