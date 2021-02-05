@@ -24,6 +24,14 @@ function _HSV2RGB (H,S,V) {
     return [R ,G, B];
 }
 
+function _hex2rgb (hex) {
+    return {
+        r: parseInt(hex.substring(1, 3), 16),
+        g: parseInt(hex.substring(3, 5), 16),
+        b: parseInt(hex.substring(5, 7), 16)
+    }
+}
+
 // taken from https://stackoverflow.com/questions/8022885/rgb-to-hsv-color-in-javascript
 function _hex2HSV (hex) {
     var r = parseInt(hex.substring(1, 3), 16) / 255;
@@ -63,6 +71,35 @@ function _hex2HSV (hex) {
         s: Math.round(s * 100),
         v: Math.round(v * 100)
     };
+}
+
+function _intToByte (int) {
+    var str = Number(int).toString(16);
+    if (str.length < 2) {
+        return "0" + str;
+    } else {
+        return str;
+    }
+}
+
+function _lighterColor (hexColor) {
+    var rgb = _hex2rgb(hexColor);
+    var newRgb = {
+        r: Math.min(255, rgb.r + 96),
+        g: Math.min(255, rgb.g + 96),
+        b: Math.min(255, rgb.b + 96),
+    };
+    return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+}
+
+function _darkerColor (hexColor) {
+    var rgb = _hex2rgb(hexColor);
+    var newRgb = {
+        r: Math.max(0, rgb.r - 64),
+        g: Math.max(0, rgb.g - 64),
+        b: Math.max(0, rgb.b - 64),
+    };
+    return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
 }
 
 /* flip a rendering context */
