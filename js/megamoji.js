@@ -135,7 +135,7 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) 
     var ctx = canvas.getContext('2d');
     ctx.fillStyle    = color;
     ctx.strokeStyle  = outlineColor;
-    ctx.lineWidth    = 10;
+    ctx.lineWidth    = 8;
     ctx.font         = font;
     ctx.textBaseline = "top";
     ctx.strokeText(line, 25, 25);
