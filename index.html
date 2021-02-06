@@ -304,6 +304,29 @@
                       </label>
                     </div>
                   </div>
+                  <div class="field" v-if="source.text.gradient.length == 0">
+                    <button class="button" @click="initializeGradient">
+                      グラデーションを追加
+                    </button>
+                  </div>
+                  <div class="field has-addons" v-for="(colorstop, ix) in source.text.gradient">
+                    <div class="control">
+                      <input type="color" class="input" v-model="source.text.gradient[ix].color">
+                    </div>
+                    <div class="control is-expanded">
+                      <input class="input" type="range" min="1" max="100" v-model="source.text.gradient[ix].pos">
+                    </div>
+                    <div class="control">
+                      <button class="button" @click="removeGradientColorStop(ix)">x</button>
+                    </div>
+                  </div>
+                  <div class="field" v-if="source.text.gradient.length > 0">
+                    <div class="control">
+                      <button class="button" @click="addGradientColorStop">
+                        + 色を追加
+                      </button>
+                    </div>
+                  </div>
                   <div class="field">
                     <label class="label">アウトライン</label>
                     <div class="control">

@@ -127,7 +127,7 @@ function dataurlSize (str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) {
+function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor, gradient) {
     var canvas = document.createElement("canvas");
     canvas.width = fontHeight * (line.length || 1) * 2;
     canvas.height = fontHeight * 2;
@@ -135,21 +135,31 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor) 
     var ctx = canvas.getContext('2d');
     ctx.font         = font;
     ctx.textBaseline = "top";
+
     if (outlineColor) {
         ctx.strokeStyle = outlineColor;
         ctx.lineWidth   = 8;
         ctx.strokeText(line, 25, 25);
     }
-    ctx.fillStyle    = color;
+
+    if (gradient.length) {
+        var gradientObj = ctx.createLinearGradient(0, 0, 0, fontHeight + 50);
+        gradient.forEach(function (colorStop) {
+            gradientObj.addColorStop(colorStop.pos / 100, colorStop.color);
+        });
+        ctx.fillStyle = gradientObj;
+    } else {
+        ctx.fillStyle = color;
+    }
     ctx.fillText(line, 25, 25);
 
     return shrinkCanvas(canvas);
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outlineColor) {
+function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
     var images = text.split("\n").map(function (line) {
-        return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor);
+        return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
     });
     var lineWidths  = images.map(function (canvas) { return canvas.width; })
     var maxWidth    = Math.max.apply(null, lineWidths);
@@ -337,6 +347,7 @@ var store = {
             content: "",
             align: "left",
             color: "#ffbf00",
+            gradient: [],
             outline: "",
             font: "normal sans-serif",
             /* advanced */
@@ -390,6 +401,9 @@ var watch = {
         },
         deep: true
     },
+    'source.text.color': function () {
+        vm.source.text.gradient = [];
+    },
     'source.fukumoji': {
         handler: function () {
             vm.renderFukumoji();
@@ -441,7 +455,7 @@ var methods = {
                 EMOJI_SIZE,
                 vm.source.text.align,
                 vm.source.text.lineSpacing * EMOJI_SIZE,
-                vm.outlineColor
+                vm.outlineColor, vm.source.text.gradient
             );
             urlToImg(blobUrl, function (img) { vm.baseImage = img; });
         }
@@ -458,6 +472,23 @@ var methods = {
                 vm.baseImage = img;
             });
         });
+    },
+    initializeGradient: function () {
+        vm.source.text.gradient = [
+            { color: "#ffffff", pos: 0 },
+            { color: vm.source.text.color, pos: 45 },
+            { color: _lighterColor(vm.source.text.color), pos: 55 },
+            { color: _darkerColor(vm.source.text.color), pos: 65 },
+        ];
+    },
+    addGradientColorStop: function () {
+        vm.source.text.gradient.push({
+            color: vm.source.text.color,
+            pos: 50
+        });
+    },
+    removeGradientColorStop: function (ix) {
+        vm.source.text.gradient.splice(ix, 1);
     },
     refreshDefaultSettings: function () {
         var image = vm.baseImage;
