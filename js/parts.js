@@ -1,4 +1,5 @@
-var baseSelections = [
+// eslint-disable-next-line no-unused-vars
+var FUKUMOJI_BASES = [
     "assets/void.svg",
 
     "assets/base/common.svg",
@@ -51,7 +52,8 @@ var baseSelections = [
     // "assets/base/1f92c.svg",
 ];
 
-var eyesSelections = [
+// eslint-disable-next-line no-unused-vars
+var FUKUMOJI_EYES = [
     "assets/void.svg",
 
     "assets/eyes/1f425.svg",
@@ -189,7 +191,8 @@ var eyesSelections = [
     // "assets/eyes/1f63d.svg",
 ];
 
-var mouthsSelections = [
+// eslint-disable-next-line no-unused-vars
+var FUKUMOJI_MOUTHS = [
     "assets/void.svg",
 
     "assets/mouths/1f917.svg",
@@ -317,7 +320,8 @@ var mouthsSelections = [
     // "assets/mouths/1f928.svg",
 ];
 
-var texturesSelections = [
+// eslint-disable-next-line no-unused-vars
+var FUKUMOJI_TEXTURES = [
     "assets/void.svg",
 
     "assets/textures/1f428.svg",
@@ -338,7 +342,8 @@ var texturesSelections = [
     // "assets/textures/1f425.svg",
 ];
 
-var othersSelections = [
+// eslint-disable-next-line no-unused-vars
+var FUKUMOJI_OTHERS = [
     "assets/void.svg",
 
     "assets/others/1f607.svg",

@@ -1,6 +1,47 @@
+/* global document window location FileReader Vue GIFEncoder encode64 ga */
+
 var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 96;
 var BINARY_SIZE_LIMIT   = 128000;
+
+/* ---- COLOR UTILS */
+
+function _hex2rgb (hex) {
+    return {
+        r: parseInt(hex.substring(1, 3), 16),
+        g: parseInt(hex.substring(3, 5), 16),
+        b: parseInt(hex.substring(5, 7), 16)
+    }
+}
+
+function _intToByte (int) {
+    var str = Number(int).toString(16);
+    if (str.length < 2) {
+        return "0" + str;
+    } else {
+        return str;
+    }
+}
+
+function _lighterColor (hexColor) {
+    var rgb = _hex2rgb(hexColor);
+    var newRgb = {
+        r: Math.min(255, rgb.r + 96),
+        g: Math.min(255, rgb.g + 96),
+        b: Math.min(255, rgb.b + 96),
+    };
+    return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+}
+
+function _darkerColor (hexColor) {
+    var rgb = _hex2rgb(hexColor);
+    var newRgb = {
+        r: Math.max(0, rgb.r - 64),
+        g: Math.max(0, rgb.g - 64),
+        b: Math.max(0, rgb.b - 64),
+    };
+    return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+}
 
 /* ---- CANVAS UTILS */
 
@@ -32,7 +73,7 @@ function shrinkCanvas (source) {
 
     var bottom = source.height - 1;
     bottom: for (; bottom >= top; bottom--) {
-        for (var x = 0; x < source.width; x++) {
+        for (x = 0; x < source.width; x++) {
             if (data[(bottom * source.width + x) * 4 + 3]) {
                 break bottom;
             }
@@ -50,7 +91,7 @@ function shrinkCanvas (source) {
 
     var right = source.width - 1;
     right: for (; right >= left; right--) {
-        for (var y = top + 1; y < bottom; y++) {
+        for (y = top + 1; y < bottom; y++) {
             if (data[(y * source.width + right) * 4 + 3]) {
                 break right;
             }
@@ -89,7 +130,7 @@ function mergeImages (w, h, srcs, callback) {
     var ix = 0;
     var img = document.createElement("img");
 
-    img.onload = function (e) {
+    img.onload = function () {
         ctx.drawImage(img, 0, 0, w, h);
         if (++ix == srcs.length) {
             callback(canvas.toDataURL());
@@ -208,7 +249,7 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
     ctx.fillRect(0, 0, targetWidth * 2, targetHeight * 2);
 
     effects.forEach(function (effect) {
-        effect(keyframe, ctx, targetWidth * 2, targetHeight * 2, fillStyle);
+        effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
     });
     if (animation) {
         animation(keyframe, ctx, image, offsetH, offsetV, width, height, targetWidth * 2, targetHeight * 2);
@@ -237,6 +278,7 @@ function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, ta
  * each images may exceed binarySizeLimit.
  */
 function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop, animated, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent) {
+    var cells = [];
     if (!animated) {
         var img = _renderFrameUncut(
             0, image,
@@ -245,7 +287,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
             animation, animationInvert, effects, postEffects, framerate, framecount,
             transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
         );
-        var cells = noCrop ? (
+        cells = noCrop ? (
             cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
         ) : (
             cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
@@ -257,7 +299,6 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
         });
     } else {
         /* instantiate GIF encoders for each cells */
-        var cells = [];
         for (var y = 0; y < vCells; y++) {
             for (var x = 0, row = []; x < hCells; x++) {
                 var encoder = new GIFEncoder();
@@ -271,7 +312,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
         }
         for (var i = 0; i < framecount; i++) {
             var keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
-            var img = _renderFrameUncut(
+            var frame = _renderFrameUncut(
                 keyframe, image,
                 offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
                 targetSize * hCells, targetSize * vCells, noCrop,
@@ -279,9 +320,9 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
                 transparent ? '#ffffff' : backgroundColor
             );
             var imgCells = noCrop ? (
-                cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
+                cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
             ) : (
-                cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
+                cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize, targetSize)
             );
             for (y = 0; y < vCells; y++) {
                 for (x = 0, row = []; x < hCells; x++) {
@@ -301,7 +342,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
 /* returns a 2d-array of (possibly animated) images. */
 function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop, animated, animation, animationInvert, effects, postEffects, framerate, framecount, backgroundColor, transparent, binarySizeLimit) {
     var targetSize = maxSize;
-    while (true) {
+    for (;;) {
         var ret = _renderAllCellsFixedSize(
             image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
             animated, animation, animationInvert, effects, postEffects, framerate, framecount,
@@ -436,9 +477,10 @@ var methods = {
         if (vm.source.file.file) {
             loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
                 urlToImg(blobUrl, function (img) {
-                    var filter = window[vm.source.file.filter];
-                    if (filter) {
-                        urlToImg(filter(img), function (img) { vm.baseImage = img; });
+                    if (vm.source.file.filter) {
+                        urlToImg(vm.source.file.filter(img), function (img) {
+                            vm.baseImage = img;
+                        });
                     } else {
                         vm.baseImage = img;
                     }
@@ -461,7 +503,7 @@ var methods = {
         }
     },
     renderFukumoji: function () {
-        var blobUrl = mergeImages(128, 128, [
+        mergeImages(128, 128, [
             vm.source.fukumoji.base,
             vm.source.fukumoji.textures,
             vm.source.fukumoji.mouths,
@@ -548,30 +590,26 @@ var methods = {
     render: function () {
         if (!vm.baseImage) return;
 
-        var image         = vm.baseImage;
-        var animation     = window[vm.target.animation];
-        var effects       = vm.target.effects.map(function (x) { return window[x]; });
-        var staticEffects = vm.target.staticEffects.map(function (x) { return window[x]; });
-        var postEffects   = vm.target.postEffects.map(function (x) { return window[x]; });
-
         var offsetLeft = Math.floor(Number(vm.target.offsetLeft));
         var offsetTop  = Math.floor(Number(vm.target.offsetTop));
 
         var cellWidth = EMOJI_SIZE / vm.target.hZoom;
         var cellHeight = EMOJI_SIZE / vm.target.vZoom;
 
-        var settings = vm.target.animation + "/" + vm.target.effects.join(",");
-        ga("send", "event", vm.ui.mode, "render", settings);
+        ga("send", "event", vm.ui.mode, "render");
 
-        var animated = animation || effects.length || postEffects.length;
+        var animated = (
+            vm.target.animation || vm.target.effects.length || vm.target.postEffects.length
+        );
         var maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         vm.resultImages = renderAllCells(
-            image,
+            vm.baseImage,
             offsetLeft, offsetTop,
             vm.target.hCells, vm.target.vCells, cellWidth, cellHeight,
             maxSize, vm.target.noCrop,
-            animated, animation, vm.target.animationInvert,
-            effects.concat(staticEffects), postEffects, vm.target.framerate, vm.target.framecount,
+            animated, vm.target.animation, vm.target.animationInvert,
+            vm.target.effects.concat(vm.target.staticEffects),
+            vm.target.postEffects, vm.target.framerate, vm.target.framecount,
             vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT
         );
     }

@@ -24,7 +24,6 @@ http://zk-phi.github.io/MEGAMOJI
 - ~ctx~ :: CanvasRenderingContext2D のオブジェクト
 - ~cellWidth~ :: canvas の横幅
 - ~cellHeight~ :: canvas の高さ
-- ~background~ :: ユーザーの設定した背景色 (hex 表記)
 
 背景が塗りつぶされたあと、 ~drawImage~ される直前の ~ctx~ が渡ってくる
 ので、 ~transform~, ~filter~, ~clip~ など好みの変形をセットしてくださ

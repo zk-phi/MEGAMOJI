@@ -9,6 +9,28 @@
  * - cellWidth, cellHeight ... size of the image to be rendered
  */
 
+// eslint-disable-next-line no-unused-vars
+var ANIMATIONS = [
+    { label: "スクロール（水平）", fn: animationScrollHorizontal },
+    { label: "スクロール（垂直）", fn: animationScrollVertical },
+    { label: "押し出し（水平）", fn: animationPushHorizontal },
+    { label: "押し出し（垂直）", fn: animationPushVertical },
+    { label: "謁見", fn: animationEkken },
+    { label: "謁見バーティカル", fn: animationEkkenVertical },
+    { label: "乾杯", fn: animationKanpai },
+    { label: "乾杯 (左利き)", fn: animationKanpaiLefty },
+    { label: "ザイル", fn: animationXile }
+];
+
+/* ---- utils */
+
+function _flipContext (ctx, width) {
+    ctx.translate(width, 0);
+    ctx.scale(-1, 1);
+}
+
+/* ---- animations */
+
 function animationEkken (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
     var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);

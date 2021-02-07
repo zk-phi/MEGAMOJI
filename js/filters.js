@@ -1,7 +1,14 @@
+/* global document */
+
 /*
  * A filter takes a source img object and returns a BlobURL of the filtered image.
  * Intended to be used as a preprocessor for input images.
  */
+
+// eslint-disable-next-line no-unused-vars
+var FILTERS = [
+    { fn: filterChromakey, label: "クロマキー透過 (左上から)" }
+];
 
 function filterChromakey (image) {
     var canvas = document.createElement("canvas");

@@ -1,3 +1,15 @@
+// eslint-disable-next-line no-unused-vars
+var POST_EFFECTS = [
+    {
+        label: "エフェクト",
+        effects: [
+            { label: "集中線", fn: postEffectFocusLine },
+            { label: "グリッチ", fn: postEffectGlitch },
+            { label: "モザイク", fn: postEffectMosaic }
+        ]
+    }
+];
+
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
 function postEffectFocusLine (keyframe, ctx, w, h) {
     var circumPos = function (deg, r) {
@@ -89,9 +101,9 @@ function postEffectMosaic (keyframe, ctx, w, h) {
             cellColor[0] /= cellSize * cellSize;
             cellColor[1] /= cellSize * cellSize;
             cellColor[2] /= cellSize * cellSize;
-            for (var dx = 0; dx < cellSize; dx++) {
-                for (var dy = 0; dy < cellSize; dy++) {
-                    var ix = (y + dy) * w + x + dx;
+            for (dx = 0; dx < cellSize; dx++) {
+                for (dy = 0; dy < cellSize; dy++) {
+                    ix = (y + dy) * w + x + dx;
                     data[ix * 4 + 0] = cellColor[0];
                     data[ix * 4 + 1] = cellColor[1];
                     data[ix * 4 + 2] = cellColor[2];

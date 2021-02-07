@@ -392,7 +392,9 @@
                   <div class="select">
                     <select v-model="source.file.filter">
                       <option value="">なし</option>
-                      <option value="filterChromakey">クロマキー透過 (左上から)</option>
+                      <option v-for="filter in FILTERS" :value="filter.fn">
+                        {{ filter.label }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -424,31 +426,31 @@
                 </ul>
               </div>
               <div v-if="ui.fukumojiTab == 'base'" class="fukumoji">
-                <img v-for="e in baseSelections"
+                <img v-for="e in FUKUMOJI_BASES"
                      :class="source.fukumoji.base == e ? 'selected' : ''"
                      :src="e"
                      @click="onSelectFukumojiPart('base', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'eyes'" class="fukumoji">
-                <img v-for="e in eyesSelections"
+                <img v-for="e in FUKUMOJI_EYES"
                      :class="source.fukumoji.eyes == e ? 'selected' : ''"
                      :src="e"
                      @click="onSelectFukumojiPart('eyes', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'textures'" class="fukumoji">
-                <img v-for="e in texturesSelections"
+                <img v-for="e in FUKUMOJI_TEXTURES"
                      :class="source.fukumoji.textures == e ? 'selected' : ''"
                      :src="e"
                      @click="onSelectFukumojiPart('textures', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'mouths'" class="fukumoji">
-                <img v-for="e in mouthsSelections"
+                <img v-for="e in FUKUMOJI_MOUTHS"
                      :class="source.fukumoji.mouths == e ? 'selected' : ''"
                      :src="e"
                      @click="onSelectFukumojiPart('mouths', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'others'" class="fukumoji">
-                <img v-for="e in othersSelections"
+                <img v-for="e in FUKUMOJI_OTHERS"
                      :class="source.fukumoji.others == e ? 'selected' : ''"
                      :src="e"
                      @click="onSelectFukumojiPart('others', e);" />
@@ -468,130 +470,36 @@
                       <div class="select">
                         <select v-model="target.animation">
                           <option value="">なし</option>
-                          <option value="animationScrollHorizontal">スクロール（水平）</option>
-                          <option value="animationScrollVertical">スクロール（垂直）</option>
-                          <option value="animationPushHorizontal">押し出し（水平）</option>
-                          <option value="animationPushVertical">押し出し（垂直）</option>
-                          <option value="animationEkken">謁見</option>
-                          <option value="animationEkkenVertical">謁見バーティカル</option>
-                          <option value="animationKanpai">乾杯</option>
-                          <option value="animationKanpaiLefty">乾杯 (左利き)</option>
-                          <option value="animationXile">ザイル</option>
+                          <option v-for="a in ANIMATIONS" :value="a.fn">{{ a.label }}</option>
                         </select>
                       </div>
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">フィルタ (Chrome のみ動作確認)</label>
+                  <div v-for="category in EFFECTS" class="field">
+                    <label class="label">{{ category.label }}</label>
                     <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectKira">
-                        キラ
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectMoyamoya">
-                        もやもや
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectFoil">
-                        Foil
+                      <label v-for="effect in category.effects" class="checkbox">
+                        <input type="checkbox" v-model="target.effects" :value="effect.fn">
+                        {{ effect.label }}
                       </label>
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">変形</label>
+                  <div v-for="category in POST_EFFECTS" class="field">
+                    <label class="label">{{ category.label }}</label>
                     <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectGatagata">
-                        ガタガタ
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectZoom">
-                        びょいんびょいん
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectRotate">
-                        ルーレット
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectKurukuru">
-                        ねるねる
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectYurayura">
-                        ゆらゆら
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectPatapata">
-                        ぱたぱた
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectYatta">
-                        ヤッタ
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectPoyon">
-                        ぽよーん
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectMotimoti">
-                        もちもち
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectBlink">
-                        BLINK
-                      </label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">シャドウ</label>
-                    <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectShadowRotate">
-                        ぐるぐる
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectNaturalBlur">
-                        ブラー
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.effects" value="effectNeon">
-                        ネオン
-                      </label>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">エフェクト</label>
-                    <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.postEffects" value="postEffectFocusLine">
-                        集中線
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.postEffects" value="postEffectGlitch">
-                        グリッチ
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.postEffects" value="postEffectMosaic">
-                        モザイク
+                      <label v-for="effect in category.effects" class="checkbox">
+                        <input type="checkbox" v-model="target.postEffects" :value="effect.fn">
+                        {{ effect.label }}
                       </label>
                     </div>
                   </div>
                   <div v-if="ui.showTargetDetails">
-                    <div class="field">
-                      <label class="label">背景エフェクト</label>
+                    <div class="field" v-for="category in PRO_EFFECTS">
+                      <label class="label">{{ category.label }}</label>
                       <div class="control">
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.effects" value="effectTiritiri">
-                          チリチリ
-                        </label>
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.effects" value="effectPsych">
-                          ディスコ
-                        </label>
-                        <label class="checkbox">
-                          <input type="checkbox" v-model="target.effects" value="effectDizzy">
-                          サイケ
+                        <label v-for="effect in category.effects" class="checkbox">
+                          <input type="checkbox" v-model="target.effects" :value="effect.fn">
+                          {{ effect.label }}
                         </label>
                       </div>
                     </div>
@@ -633,13 +541,9 @@
                   </div>
                   <div class="field">
                     <div class="control">
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.staticEffects" value="effectFlipHoriz">
-                        左右を反転
-                      </label>
-                      <label class="checkbox">
-                        <input type="checkbox" v-model="target.staticEffects" value="effectFlipVert">
-                        上下を反転
+                      <label v-for="effect in STATIC_EFFECTS" class="checkbox">
+                        <input type="checkbox" v-model="target.staticEffects" :value="effect.fn">
+                        {{ effect.label }}
                       </label>
                     </div>
                   </div>
