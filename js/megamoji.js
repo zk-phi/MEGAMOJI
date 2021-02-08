@@ -91,7 +91,7 @@ function shrinkCanvas (source) {
 
     var right = source.width - 1;
     right: for (; right >= left; right--) {
-        for (var y = top + 1; y < bottom; y++) {
+        for (y = top + 1; y < bottom; y++) {
             if (data[(y * source.width + right) * 4 + 3]) {
                 break right;
             }
