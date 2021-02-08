@@ -15,11 +15,13 @@ jobs:
       - run: npm install
       - uses: reviewdog/action-stylelint@v1
         with:
+          level: error
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           stylelint_input: 'css/*.css'
       - uses: reviewdog/action-eslint@v1
         with:
+          level: error
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           eslint_flags: 'js/*.js'
