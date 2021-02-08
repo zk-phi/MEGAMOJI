@@ -13,16 +13,6 @@ http://zk-phi.github.io/MEGAMOJI
 ことがあるので、実験するときは適当なローカルサーバーを立ち上げてくださ
 い。
 
-=eslint=, =stylelint= の最低限の設定があるので、
-
-#+begin_src terminal
-npm install # 初回だけ
-npm run lint:css
-npm run lint:js
-#+end_src
-
-するとイケてない書き方をしていないかチェックできます。
-
 
 *** フィルタの追加
 
