@@ -30,6 +30,7 @@ function _flipContext (ctx, width) {
 }
 
 /* ---- animations */
+a;
 
 function animationEkken (keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight) {
     keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
