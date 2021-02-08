@@ -1,6 +1,9 @@
 name: lint
 
 on:
+  push:
+    branches:
+      - gh-pages
   pull_request:
 
 jobs:
@@ -13,10 +16,10 @@ jobs:
       - uses: reviewdog/action-stylelint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          stylelint_input: 'css/*.css'
+          reporter: github-check
+          stylelint_input: 'css'
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          eslint_flags: 'js/*.js'
+          reporter: github-check
+          eslint_flags: '.'

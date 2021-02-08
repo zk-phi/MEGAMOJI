@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "lint:css": "stylelint css/*.css",
-    "lint:js": "eslint js/*.js"
+    "lint:css": "stylelint css",
+    "lint:js": "eslint ."
   },
   "devDependencies": {
     "eslint": "^7.19.0",
