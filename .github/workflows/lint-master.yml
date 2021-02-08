@@ -1,0 +1,16 @@
+name: lint
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm install
+      - run: stylelint css/*.css
+      - run: eslint js/*.js
