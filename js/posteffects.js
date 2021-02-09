@@ -23,7 +23,7 @@ function postEffectFocusLine(keyframe, ctx, w, h) {
   const innerRadiusMin = outerRadius * 0.6;
   const innerRadiusMax = outerRadius * 0.8;
 
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 200; i += 1) {
     const deg1 = Math.random() * 360;
     const deg2 = deg1 + Math.random() * 1.2;
     const innerRadius = Math.random() * (innerRadiusMax - innerRadiusMin) + innerRadiusMin;
@@ -53,7 +53,7 @@ function postEffectGlitch(keyframe, ctx, w, h) {
 
   // random fill
   !function () {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i += 1) {
       const glitchH = 14 * Math.random() + 1;
       const glitchW = (w / 2 - 1) * Math.random() * 0.7 + 1;
       const glitchX1 = w / 4 + (w / 2 - glitchW) * Math.random();
@@ -66,8 +66,8 @@ function postEffectGlitch(keyframe, ctx, w, h) {
 
   // slip
   !function () {
-    for (let y = h / 4; y < 3 * h / 4; y++) {
-      if (Math.random() < 0.2) y++;
+    for (let y = h / 4; y < 3 * h / 4; y += 1) {
+      if (Math.random() < 0.2) y += 1;
       const image = ctx.getImageData(0, y, w, 1);
       ctx.putImageData(image, Math.random() * 6 - 3, y);
     }
@@ -84,13 +84,13 @@ function postEffectMosaic(keyframe, ctx, w, h) {
   const offsetX = Math.floor(w / 4 - cellSize + cellSize * keyframe);
   const offsetY = Math.floor(h / 4 - cellSize + cellSize * keyframe);
 
-  for (let cellX = 0; cellX < cellCountH; cellX++) {
-    for (let cellY = 0; cellY < cellCountV; cellY++) {
+  for (let cellX = 0; cellX < cellCountH; cellX += 1) {
+    for (let cellY = 0; cellY < cellCountV; cellY += 1) {
       const cellColor = [0, 0, 0];
       const x = offsetX + cellX * cellSize;
       const y = offsetY + cellY * cellSize;
-      for (var dx = 0; dx < cellSize; dx++) {
-        for (var dy = 0; dy < cellSize; dy++) {
+      for (var dx = 0; dx < cellSize; dx += 1) {
+        for (var dy = 0; dy < cellSize; dy += 1) {
           var ix = (y + dy) * w + x + dx;
           cellColor[0] += data[ix * 4 + 0];
           cellColor[1] += data[ix * 4 + 1];
@@ -101,8 +101,8 @@ function postEffectMosaic(keyframe, ctx, w, h) {
       cellColor[0] /= cellSize * cellSize;
       cellColor[1] /= cellSize * cellSize;
       cellColor[2] /= cellSize * cellSize;
-      for (dx = 0; dx < cellSize; dx++) {
-        for (dy = 0; dy < cellSize; dy++) {
+      for (dx = 0; dx < cellSize; dx += 1) {
+        for (dy = 0; dy < cellSize; dy += 1) {
           ix = (y + dy) * w + x + dx;
           data[ix * 4 + 0] = cellColor[0];
           data[ix * 4 + 1] = cellColor[1];

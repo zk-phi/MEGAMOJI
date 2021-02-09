@@ -61,8 +61,8 @@ function shrinkCanvas(source) {
   const data = ctx.getImageData(0, 0, source.width, source.height).data;
 
   let top = 0;
-  top: for (; top < source.height; top++) {
-    for (var x = 0; x < source.width; x++) {
+  top: for (; top < source.height; top += 1) {
+    for (var x = 0; x < source.width; x += 1) {
       if (data[(top * source.width + x) * 4 + 3]) {
         break top;
       }
@@ -71,7 +71,7 @@ function shrinkCanvas(source) {
 
   let bottom = source.height - 1;
   bottom: for (; bottom >= top; bottom--) {
-    for (x = 0; x < source.width; x++) {
+    for (x = 0; x < source.width; x += 1) {
       if (data[(bottom * source.width + x) * 4 + 3]) {
         break bottom;
       }
@@ -79,8 +79,8 @@ function shrinkCanvas(source) {
   }
 
   let left = 0;
-  left: for (; left < source.width; left++) {
-    for (var y = top + 1; y < bottom; y++) {
+  left: for (; left < source.width; left += 1) {
+    for (var y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + left) * 4 + 3]) {
         break left;
       }
@@ -89,7 +89,7 @@ function shrinkCanvas(source) {
 
   let right = source.width - 1;
   right: for (; right >= left; right--) {
-    for (y = top + 1; y < bottom; y++) {
+    for (y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + right) * 4 + 3]) {
         break right;
       }
@@ -102,8 +102,8 @@ function shrinkCanvas(source) {
 /* Split canvas into a 2d-array of canvases */
 function cutoutCanvasIntoCells(source, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
   const cells = [];
-  for (let y = 0; y < vCells; y++) {
-    for (var x = 0, row = []; x < hCells; x++) {
+  for (let y = 0; y < vCells; y += 1) {
+    for (var x = 0, row = []; x < hCells; x += 1) {
       row.push(
         cropCanvas(
           source,
@@ -312,8 +312,8 @@ function _renderAllCellsFixedSize(
     });
   } else {
     /* instantiate GIF encoders for each cells */
-    for (var y = 0; y < vCells; y++) {
-      for (var x = 0, row = []; x < hCells; x++) {
+    for (var y = 0; y < vCells; y += 1) {
+      for (var x = 0, row = []; x < hCells; x += 1) {
         const encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
@@ -323,7 +323,7 @@ function _renderAllCellsFixedSize(
       }
       cells.push(row);
     }
-    for (let i = 0; i < framecount; i++) {
+    for (let i = 0; i < framecount; i += 1) {
       const keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
       const frame = _renderFrameUncut(
         keyframe, image,
@@ -337,8 +337,8 @@ function _renderAllCellsFixedSize(
       ) : (
         cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize, targetSize)
       );
-      for (y = 0; y < vCells; y++) {
-        for (x = 0, row = []; x < hCells; x++) {
+      for (y = 0; y < vCells; y += 1) {
+        for (x = 0, row = []; x < hCells; x += 1) {
           cells[y][x].addFrame(imgCells[y][x].getContext('2d'));
         }
       }
