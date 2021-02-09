@@ -230,21 +230,20 @@ function effectPsych(keyframe, ctx, cellWidth, cellHeight) {
   const data = imageData.data;
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
-      var color;
       if (row % 10 <= 5 && col % 10 >= 5) {
-        color = _HSV2RGB((keyframe * 360 * 4 + 180) % 360, 1, 1);
+        const color = _HSV2RGB((keyframe * 360 * 4 + 180) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color[0];
         data[(row * cellWidth + col) * 4 + 1] = color[1];
         data[(row * cellWidth + col) * 4 + 2] = color[2];
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else if (row % 10 < 5 ^ col % 10 < 5) {
-        color = _HSV2RGB((keyframe * 360 * 4 + 90) % 360, 1, 1);
+        const color = _HSV2RGB((keyframe * 360 * 4 + 90) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color[0];
         data[(row * cellWidth + col) * 4 + 1] = color[1];
         data[(row * cellWidth + col) * 4 + 2] = color[2];
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else {
-        color = _HSV2RGB((keyframe * 360 * 4) % 360, 1, 1);
+        const color = _HSV2RGB((keyframe * 360 * 4) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color[0];
         data[(row * cellWidth + col) * 4 + 1] = color[1];
         data[(row * cellWidth + col) * 4 + 2] = color[2];

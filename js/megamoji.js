@@ -62,7 +62,7 @@ function shrinkCanvas(source) {
 
   let top = 0;
   top: for (; top < source.height; top += 1) {
-    for (var x = 0; x < source.width; x += 1) {
+    for (let x = 0; x < source.width; x += 1) {
       if (data[(top * source.width + x) * 4 + 3]) {
         break top;
       }
@@ -71,7 +71,7 @@ function shrinkCanvas(source) {
 
   let bottom = source.height - 1;
   bottom: for (; bottom >= top; bottom -= 1) {
-    for (x = 0; x < source.width; x += 1) {
+    for (let x = 0; x < source.width; x += 1) {
       if (data[(bottom * source.width + x) * 4 + 3]) {
         break bottom;
       }
@@ -80,7 +80,7 @@ function shrinkCanvas(source) {
 
   let left = 0;
   left: for (; left < source.width; left += 1) {
-    for (var y = top + 1; y < bottom; y += 1) {
+    for (let y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + left) * 4 + 3]) {
         break left;
       }
@@ -89,7 +89,7 @@ function shrinkCanvas(source) {
 
   let right = source.width - 1;
   right: for (; right >= left; right -= 1) {
-    for (y = top + 1; y < bottom; y += 1) {
+    for (let y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + right) * 4 + 3]) {
         break right;
       }
@@ -103,7 +103,8 @@ function shrinkCanvas(source) {
 function cutoutCanvasIntoCells(source, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
   const cells = [];
   for (let y = 0; y < vCells; y += 1) {
-    for (var x = 0, row = []; x < hCells; x += 1) {
+    const row = [];
+    for (let x = 0; x < hCells; x += 1) {
       row.push(
         cropCanvas(
           source,
@@ -312,8 +313,9 @@ function _renderAllCellsFixedSize(
     });
   } else {
     /* instantiate GIF encoders for each cells */
-    for (var y = 0; y < vCells; y += 1) {
-      for (var x = 0, row = []; x < hCells; x += 1) {
+    for (let y = 0; y < vCells; y += 1) {
+      const row = [];
+      for (let x = 0; x < hCells; x += 1) {
         const encoder = new GIFEncoder();
         encoder.setRepeat(0);
         encoder.setFrameRate(framerate);
@@ -337,8 +339,8 @@ function _renderAllCellsFixedSize(
       ) : (
         cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize, targetSize)
       );
-      for (y = 0; y < vCells; y += 1) {
-        for (x = 0, row = []; x < hCells; x += 1) {
+      for (let y = 0; y < vCells; y += 1) {
+        for (let x = 0; x < hCells; x += 1) {
           cells[y][x].addFrame(imgCells[y][x].getContext('2d'));
         }
       }
