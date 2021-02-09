@@ -644,16 +644,15 @@ window.onerror = function (msg, file, line, col) {
   ga('send', 'event', 'error', 'thrown', `${file}:${line}:${col} ${msg}`);
 };
 
-!function () {
-  const match = location.href.match(/\?([^=]+)(=(.*))?$/);
-  if (match) {
-    if (match[1] === 'test') {
-      vm.ui.mode = 'text';
-      vm.ui.showTargetPanel = true;
-      vm.source.text.content = 'あ';
-    } else if (match[1] === 'mode') {
-      vm.ui.mode = match[3];
-    }
+const match = window.location.href.match(/\?([^=]+)(=(.*))?$/);
+if (match) {
+  if (match[1] === 'test') {
+    vm.ui.mode = 'text';
+    vm.ui.showTargetPanel = true;
+    vm.source.text.content = 'あ';
+  } else if (match[1] === 'mode') {
+    vm.ui.mode = match[3];
   }
-  ga('send', 'pageview', '/');
-}();
+}
+
+ga('send', 'pageview', '/');
