@@ -218,11 +218,11 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
   images.forEach(function (image, ix) {
     ctx.save();
 
-    if (align == 'right') {
+    if (align === 'right') {
       ctx.translate(maxWidth - lineWidths[ix], 0)
-    } else if (align == 'center') {
+    } else if (align === 'center') {
       ctx.translate((maxWidth - lineWidths[ix]) / 2, 0);
-    } else if (align == 'stretch') {
+    } else if (align === 'stretch') {
       ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
     }
 
@@ -483,9 +483,9 @@ const watch = {
 const computed = {
   outlineColor: function () {
     const { color } = vm.source.text;
-    if (vm.source.text.outline == 'lighter') {
+    if (vm.source.text.outline === 'lighter') {
       return lighterColor(color);
-    } else if (vm.source.text.outline == 'darker') {
+    } else if (vm.source.text.outline === 'darker') {
       return darkerColor(color);
     } else {
       return vm.source.text.outline;
@@ -560,9 +560,9 @@ const methods = {
     let widthRatio = (EMOJI_SIZE * h) / image.naturalWidth;
     let heightRatio = (EMOJI_SIZE * v) / image.naturalHeight;
 
-    if (vm.target.trimming == 'cover') {
+    if (vm.target.trimming === 'cover') {
       widthRatio = heightRatio = Math.max(widthRatio, heightRatio);
-    } else if (vm.target.trimming == 'contain') {
+    } else if (vm.target.trimming === 'contain') {
       widthRatio = heightRatio = Math.min(widthRatio, heightRatio);
     }
 
@@ -588,13 +588,13 @@ const methods = {
   },
   onSelectSpeedPreset: function (e) {
     const speed = e.target.value;
-    if (speed == '') {
+    if (speed === '') {
       vm.target.framerate = 18;
       vm.target.framecount = 12;
-    } else if (speed == 'turbo') {
+    } else if (speed === 'turbo') {
       vm.target.framerate = 60;
       vm.target.framecount = 12;
-    } else if (speed == 'super-turbo') {
+    } else if (speed === 'super-turbo') {
       vm.target.framerate = 60;
       vm.target.framecount = 6;
     }
@@ -645,11 +645,11 @@ window.onerror = function (msg, file, line, col) {
 !function () {
   const match = location.href.match(/\?([^=]+)(=(.*))?$/);
   if (match) {
-    if (match[1] == 'test') {
+    if (match[1] === 'test') {
       vm.ui.mode = 'text';
       vm.ui.showTargetPanel = true;
       vm.source.text.content = 'あ';
-    } else if (match[1] == 'mode') {
+    } else if (match[1] === 'mode') {
       vm.ui.mode = match[3];
     }
   }
