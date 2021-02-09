@@ -447,193 +447,197 @@ const store = {
 };
 
 const watch = {
-  baseImage: function () {
-    vm.refreshDefaultSettings();
-    vm.render();
+  baseImage: {
+    handler() {
+      this.refreshDefaultSettings();
+      this.render();
+    },
   },
   'source.file': {
-    handler: function () {
-      vm.loadFile();
+    handler() {
+      this.loadFile();
     },
     deep: true,
   },
   'source.text': {
-    handler: function () {
-      vm.renderText();
+    handler() {
+      this.renderText();
     },
     deep: true,
   },
-  'source.text.color': function () {
-    vm.source.text.gradient = [];
+  'source.text.color': {
+    handler() {
+      this.source.text.gradient = [];
+    },
   },
   'source.fukumoji': {
-    handler: function () {
-      vm.renderFukumoji();
+    handler() {
+      this.renderFukumoji();
     },
     deep: true,
   },
   target: {
-    handler: function () {
-      vm.render();
+    handler() {
+      this.render();
     },
     deep: true,
   },
 };
 
 const computed = {
-  outlineColor: function () {
-    const { color } = vm.source.text;
-    if (vm.source.text.outline === 'lighter') {
+  outlineColor() {
+    const { color } = this.source.text;
+    if (this.source.text.outline === 'lighter') {
       return lighterColor(color);
-    } else if (vm.source.text.outline === 'darker') {
+    } else if (this.source.text.outline === 'darker') {
       return darkerColor(color);
     } else {
-      return vm.source.text.outline;
+      return this.source.text.outline;
     }
   },
 };
 
 const methods = {
-  loadFile: function () {
-    if (vm.source.file.file) {
-      loadFileAsBlobURL(vm.source.file.file, function (blobUrl) {
-        urlToImg(blobUrl, function (img) {
-          if (vm.source.file.filter) {
-            urlToImg(vm.source.file.filter(img), function (img) {
-              vm.baseImage = img;
+  loadFile() {
+    if (this.source.file.file) {
+      loadFileAsBlobURL(this.source.file.file, (blobUrl) => {
+        urlToImg(blobUrl, (originalImg) => {
+          if (this.source.file.filter) {
+            urlToImg(this.source.file.filter(originalImg), (filteredImg) => {
+              this.baseImage = filteredImg;
             });
           } else {
-            vm.baseImage = img;
+            this.baseImage = originalImg;
           }
         });
       });
     }
   },
-  renderText: function () {
-    if (vm.source.text.content || vm.baseImage) {
+  renderText() {
+    if (this.source.text.content || this.baseImage) {
       const blobUrl = makeTextImage(
-        vm.source.text.content,
-        vm.source.text.color,
-        vm.source.text.font.replace(/^([^ ]+)/, `$1 ${EMOJI_SIZE}px`),
+        this.source.text.content,
+        this.source.text.color,
+        this.source.text.font.replace(/^([^ ]+)/, `$1 ${EMOJI_SIZE}px`),
         EMOJI_SIZE,
-        vm.source.text.align,
-        vm.source.text.lineSpacing * EMOJI_SIZE,
-        vm.outlineColor, vm.source.text.gradient,
+        this.source.text.align,
+        this.source.text.lineSpacing * EMOJI_SIZE,
+        this.outlineColor, this.source.text.gradient,
       );
-      urlToImg(blobUrl, function (img) { vm.baseImage = img; });
+      urlToImg(blobUrl, (img) => { this.baseImage = img; });
     }
   },
-  renderFukumoji: function () {
+  renderFukumoji() {
     mergeImages(128, 128, [
-      vm.source.fukumoji.base,
-      vm.source.fukumoji.textures,
-      vm.source.fukumoji.mouths,
-      vm.source.fukumoji.eyes,
-      vm.source.fukumoji.others,
-    ], function (blobUrl) {
-      urlToImg(blobUrl, function (img) {
-        vm.baseImage = img;
+      this.source.fukumoji.base,
+      this.source.fukumoji.textures,
+      this.source.fukumoji.mouths,
+      this.source.fukumoji.eyes,
+      this.source.fukumoji.others,
+    ], (blobUrl) => {
+      urlToImg(blobUrl, (img) => {
+        this.baseImage = img;
       });
     });
   },
-  initializeGradient: function () {
-    vm.source.text.gradient = [
+  initializeGradient() {
+    this.source.text.gradient = [
       { color: '#ffffff', pos: 0 },
-      { color: vm.source.text.color, pos: 45 },
-      { color: lighterColor(vm.source.text.color), pos: 55 },
-      { color: darkerColor(vm.source.text.color), pos: 65 },
+      { color: this.source.text.color, pos: 45 },
+      { color: lighterColor(this.source.text.color), pos: 55 },
+      { color: darkerColor(this.source.text.color), pos: 65 },
     ];
   },
-  addGradientColorStop: function () {
-    vm.source.text.gradient.push({
-      color: vm.source.text.color,
+  addGradientColorStop() {
+    this.source.text.gradient.push({
+      color: this.source.text.color,
       pos: 50,
     });
   },
-  removeGradientColorStop: function (ix) {
-    vm.source.text.gradient.splice(ix, 1);
+  removeGradientColorStop(ix) {
+    this.source.text.gradient.splice(ix, 1);
   },
-  refreshDefaultSettings: function () {
-    const image = vm.baseImage;
-    const v = vm.target.vCells;
-    const h = vm.target.hCells;
+  refreshDefaultSettings() {
+    const image = this.baseImage;
+    const v = this.target.vCells;
+    const h = this.target.hCells;
     let widthRatio = (EMOJI_SIZE * h) / image.naturalWidth;
     let heightRatio = (EMOJI_SIZE * v) / image.naturalHeight;
 
-    if (vm.target.trimming === 'cover') {
+    if (this.target.trimming === 'cover') {
       widthRatio = Math.max(widthRatio, heightRatio);
       heightRatio = widthRatio;
-    } else if (vm.target.trimming === 'contain') {
+    } else if (this.target.trimming === 'contain') {
       widthRatio = Math.min(widthRatio, heightRatio);
       heightRatio = widthRatio;
     }
 
-    vm.target.hZoom = `${widthRatio}`;
-    vm.target.vZoom = `${heightRatio}`;
-    vm.target.offsetLeft = `${(image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2}`;
-    vm.target.offsetTop = `${Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2)}`;
+    this.target.hZoom = `${widthRatio}`;
+    this.target.vZoom = `${heightRatio}`;
+    this.target.offsetLeft = `${(image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2}`;
+    this.target.offsetTop = `${Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2)}`;
   },
-  onSetShowTarget: function (value) {
-    vm.ui.showTargetPanel = value;
-    ga('send', 'pageview', value ? '/target' : (`/${vm.ui.mode}`));
+  onSetShowTarget(value) {
+    this.ui.showTargetPanel = value;
+    ga('send', 'pageview', value ? '/target' : (`/${this.ui.mode}`));
   },
-  onSelectMode: function (value) {
-    vm.ui.mode = value;
-    vm.ui.showTargetPanel = false;
+  onSelectMode(value) {
+    this.ui.mode = value;
+    this.ui.showTargetPanel = false;
     ga('send', 'pageview', `/${value}`);
   },
-  onSelectFukumojiTab: function (value) {
-    vm.ui.fukumojiTab = value;
+  onSelectFukumojiTab(value) {
+    this.ui.fukumojiTab = value;
   },
-  onSelectFukumojiPart: function (key, value) {
-    vm.source.fukumoji[key] = value;
+  onSelectFukumojiPart(key, value) {
+    this.source.fukumoji[key] = value;
   },
-  onSelectSpeedPreset: function (e) {
+  onSelectSpeedPreset(e) {
     const speed = e.target.value;
     if (speed === '') {
-      vm.target.framerate = 18;
-      vm.target.framecount = 12;
+      this.target.framerate = 18;
+      this.target.framecount = 12;
     } else if (speed === 'turbo') {
-      vm.target.framerate = 60;
-      vm.target.framecount = 12;
+      this.target.framerate = 60;
+      this.target.framecount = 12;
     } else if (speed === 'super-turbo') {
-      vm.target.framerate = 60;
-      vm.target.framecount = 6;
+      this.target.framerate = 60;
+      this.target.framecount = 6;
     }
   },
-  onToggleTextDetails: function () {
-    vm.ui.showTextDetails = !vm.ui.showTextDetails;
+  onToggleTextDetails() {
+    this.ui.showTextDetails = !this.ui.showTextDetails;
   },
-  onToggleTargetDetails: function () {
-    vm.ui.showTargetDetails = !vm.ui.showTargetDetails;
+  onToggleTargetDetails() {
+    this.ui.showTargetDetails = !this.ui.showTargetDetails;
   },
-  onChangeFile: function (e) {
-    vm.source.file.file = e.target.files[0];
+  onChangeFile(e) {
+    this.source.file.file = e.target.files[0];
   },
-  render: function () {
-    if (!vm.baseImage) return;
+  render() {
+    if (!this.baseImage) return;
 
-    const offsetLeft = Math.floor(Number(vm.target.offsetLeft));
-    const offsetTop = Math.floor(Number(vm.target.offsetTop));
+    const offsetLeft = Math.floor(Number(this.target.offsetLeft));
+    const offsetTop = Math.floor(Number(this.target.offsetTop));
 
-    const cellWidth = EMOJI_SIZE / vm.target.hZoom;
-    const cellHeight = EMOJI_SIZE / vm.target.vZoom;
+    const cellWidth = EMOJI_SIZE / this.target.hZoom;
+    const cellHeight = EMOJI_SIZE / this.target.vZoom;
 
-    ga('send', 'event', vm.ui.mode, 'render');
+    ga('send', 'event', this.ui.mode, 'render');
 
     const animated = (
-      vm.target.animation || vm.target.effects.length || vm.target.postEffects.length
+      this.target.animation || this.target.effects.length || this.target.postEffects.length
     );
     const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
-    vm.resultImages = renderAllCells(
-      vm.baseImage,
+    this.resultImages = renderAllCells(
+      this.baseImage,
       offsetLeft, offsetTop,
-      vm.target.hCells, vm.target.vCells, cellWidth, cellHeight,
-      maxSize, vm.target.noCrop,
-      animated, vm.target.animation, vm.target.animationInvert,
-      vm.target.effects.concat(vm.target.staticEffects),
-      vm.target.postEffects, vm.target.framerate, vm.target.framecount,
-      vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT,
+      this.target.hCells || 1, this.target.vCells || 1, cellWidth, cellHeight,
+      maxSize, this.target.noCrop,
+      animated, this.target.animation, this.target.animationInvert,
+      this.target.effects.concat(this.target.staticEffects),
+      this.target.postEffects, this.target.framerate, this.target.framecount,
+      this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,
     );
   },
 };
