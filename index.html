@@ -427,31 +427,31 @@
               </div>
               <div v-if="ui.fukumojiTab == 'base'" class="fukumoji">
                 <img v-for="e in FUKUMOJI_BASES"
-                     :class="source.fukumoji.base == e ? 'selected' : ''"
+                     :class="'part' + (source.fukumoji.base == e ? ' selected' : '')"
                      :src="e"
                      @click="onSelectFukumojiPart('base', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'eyes'" class="fukumoji">
                 <img v-for="e in FUKUMOJI_EYES"
-                     :class="source.fukumoji.eyes == e ? 'selected' : ''"
+                     :class="'part' + (source.fukumoji.eyes == e ? ' selected' : '')"
                      :src="e"
                      @click="onSelectFukumojiPart('eyes', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'textures'" class="fukumoji">
                 <img v-for="e in FUKUMOJI_TEXTURES"
-                     :class="source.fukumoji.textures == e ? 'selected' : ''"
+                     :class="'part' + (source.fukumoji.textures == e ? ' selected' : '')"
                      :src="e"
                      @click="onSelectFukumojiPart('textures', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'mouths'" class="fukumoji">
                 <img v-for="e in FUKUMOJI_MOUTHS"
-                     :class="source.fukumoji.mouths == e ? 'selected' : ''"
+                     :class="'part' + (source.fukumoji.mouths == e ? ' selected' : '')"
                      :src="e"
                      @click="onSelectFukumojiPart('mouths', e);" />
               </div>
               <div v-if="ui.fukumojiTab == 'others'" class="fukumoji">
                 <img v-for="e in FUKUMOJI_OTHERS"
-                     :class="source.fukumoji.others == e ? 'selected' : ''"
+                     :class="'part' + (source.fukumoji.others == e ? ' selected' : '')"
                      :src="e"
                      @click="onSelectFukumojiPart('others', e);" />
               </div>
@@ -637,7 +637,7 @@
                 <div class="field">
                   <label class="label">絵文字 (右クリックで保存)</label>
                   <div v-for="row in resultImages">
-                    <img v-for="col in row" :src="col">
+                    <img class="cell" v-for="col in row" :src="col">
                   </div>
                 </div>
                 <div class="field">
