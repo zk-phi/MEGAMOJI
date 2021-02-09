@@ -129,7 +129,7 @@ function mergeImages(w, h, srcs, callback) {
   let ix = 0;
   const img = document.createElement('img');
 
-  img.onload = function () {
+  img.onload = () => {
     ctx.drawImage(img, 0, 0, w, h);
     ix += 1;
     if (ix === srcs.length) {
@@ -145,7 +145,7 @@ function mergeImages(w, h, srcs, callback) {
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
 function loadFileAsBlobURL(path, callback) {
   const reader = new FileReader();
-  reader.onload = function (e) { callback(e.target.result); };
+  reader.onload = (e) => callback(e.target.result);
   reader.readAsDataURL(path);
 }
 
@@ -153,9 +153,7 @@ function loadFileAsBlobURL(path, callback) {
 function urlToImg(url, cb) {
   const img = document.createElement('img');
   img.src = url;
-  img.onload = function () {
-    cb(img);
-  };
+  img.onload = () => cb(img);
 }
 
 /* compute binary size from a dataurl. return 0 if uncomputable. */
@@ -185,7 +183,7 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gr
 
   if (gradient.length) {
     const gradientObj = ctx.createLinearGradient(0, 0, 0, fontHeight + 50);
-    gradient.forEach(function (colorStop) {
+    gradient.forEach((colorStop) => {
       gradientObj.addColorStop(colorStop.pos / 100, colorStop.color);
     });
     ctx.fillStyle = gradientObj;
@@ -386,7 +384,7 @@ function renderAllCells(
   }
 }
 
-const store = {
+const data = {
   baseImage: null,
   resultImages: [['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4Xu3UAQ0AAAyDsM+/6QspcwAh2zXawGj64K8A8AgKoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7ADyAB6SPAIFm19U7AAAAAElFTkSuQmCC']],
   resultBgClass: 'default',
@@ -642,7 +640,9 @@ const methods = {
   },
 };
 
-var vm = new Vue({ el: '#app', data: store, methods: methods, watch: watch, computed: computed });
+const vm = new Vue({
+  el: '#app', data, methods, watch, computed,
+});
 
 window.onerror = function (msg, file, line, col) {
   ga('send', 'event', 'error', 'thrown', `${file}:${line}:${col} ${msg}`);
