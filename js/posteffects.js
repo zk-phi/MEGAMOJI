@@ -12,12 +12,10 @@ const POST_EFFECTS = [
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
 function postEffectFocusLine(keyframe, ctx, w, h) {
-  const circumPos = function (deg, r) {
-    return {
-      x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
-      y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
-    };
-  };
+  const circumPos = (deg, r) => ({
+    x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
+    y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
+  });
 
   const outerRadius = Math.sqrt(Math.pow(w / 4, 2) + Math.pow(h / 4, 2));
   const innerRadiusMin = outerRadius * 0.6;

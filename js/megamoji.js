@@ -197,14 +197,12 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gr
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
-  const images = text.split('\n').map(function (line) {
-    return makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
-  });
-  const lineWidths  = images.map(function (canvas) { return canvas.width; })
+  const images = text.split('\n').map((line) => (
+    makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient)
+  ));
+  const lineWidths = images.map((canvas) => canvas.width);
   const maxWidth = Math.max.apply(null, lineWidths);
-  const totalHeight = lineSpacing * (images.length - 1) + images.reduce(function (l, r) {
-    return l + r.height;
-  }, 0);
+  const totalHeight = lineSpacing * (images.length - 1) + images.reduce((l, r) => l + r.height, 0);
 
   const canvas = document.createElement('canvas');
   canvas.width = maxWidth;
@@ -213,7 +211,7 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
   const ctx = canvas.getContext('2d');
 
   let currentHeight = 0;
-  images.forEach(function (image, ix) {
+  images.forEach((image, ix) => {
     ctx.save();
 
     if (align === 'right') {
@@ -251,7 +249,7 @@ function renderFrameUncut(
   ctx.fillStyle = fillStyle;
   ctx.fillRect(0, 0, targetWidth * 2, targetHeight * 2);
 
-  effects.forEach(function (effect) {
+  effects.forEach((effect) => {
     effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
   if (animation) {
@@ -271,7 +269,7 @@ function renderFrameUncut(
   }
 
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  postEffects.forEach(function (postEffect) {
+  postEffects.forEach((postEffect) => {
     postEffect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
 
@@ -305,11 +303,7 @@ function renderAllCellsFixedSize(
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
     );
-    return cells.map(function (row) {
-      return row.map(function (cell) {
-        return cell.toDataURL();
-      });
-    });
+    return cells.map((row) => row.map((cell) => cell.toDataURL()));
   } else {
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
@@ -344,12 +338,10 @@ function renderAllCellsFixedSize(
         }
       }
     }
-    return cells.map(function (row) {
-      return row.map(function (cell) {
-        cell.finish();
-        return `data:image/gif;base64,${encode64(cell.stream().getData())}`;
-      });
-    });
+    return cells.map((row) => row.map((cell) => {
+      cell.finish();
+      return `data:image/gif;base64,${encode64(cell.stream().getData())}`;
+    }));
   }
 }
 
@@ -371,11 +363,7 @@ function renderAllCells(
      * If a cell exceeds the limitation, retry with smaller targetSize.
      * This does not happen in most cases.
      */
-    const shouldRetry = ret.some(function (row) {
-      return row.some(function (cell) {
-        return dataurlSize(cell) >= binarySizeLimit;
-      });
-    });
+    const shouldRetry = ret.some((row) => row.some((cell) => dataurlSize(cell) >= binarySizeLimit));
     if (shouldRetry) {
       targetSize = Math.floor(targetSize * 0.9);
     } else {
@@ -644,7 +632,7 @@ const vm = new Vue({
   el: '#app', data, methods, watch, computed,
 });
 
-window.onerror = function (msg, file, line, col) {
+window.onerror = (msg, file, line, col) => {
   ga('send', 'event', 'error', 'thrown', `${file}:${line}:${col} ${msg}`);
 };
 
