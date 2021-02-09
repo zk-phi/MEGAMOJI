@@ -4,7 +4,7 @@ const BINARY_SIZE_LIMIT = 128000;
 
 /* ---- COLOR UTILS */
 
-function _hex2rgb(hex) {
+function HEX2RGB(hex) {
   return {
     r: parseInt(hex.substring(1, 3), 16),
     g: parseInt(hex.substring(3, 5), 16),
@@ -12,7 +12,7 @@ function _hex2rgb(hex) {
   };
 }
 
-function _intToByte(int) {
+function intToByte(int) {
   const str = Number(int).toString(16);
   if (str.length < 2) {
     return `0${str}`;
@@ -21,24 +21,24 @@ function _intToByte(int) {
   }
 }
 
-function _lighterColor(hexColor) {
-  const rgb = _hex2rgb(hexColor);
+function lighterColor(hexColor) {
+  const rgb = HEX2RGB(hexColor);
   const newRgb = {
     r: Math.min(255, rgb.r + 96),
     g: Math.min(255, rgb.g + 96),
     b: Math.min(255, rgb.b + 96),
   };
-  return `#${_intToByte(newRgb.r)}${_intToByte(newRgb.g)}${_intToByte(newRgb.b)}`;
+  return `#${intToByte(newRgb.r)}${intToByte(newRgb.g)}${intToByte(newRgb.b)}`;
 }
 
-function _darkerColor(hexColor) {
-  const rgb = _hex2rgb(hexColor);
+function darkerColor(hexColor) {
+  const rgb = HEX2RGB(hexColor);
   const newRgb = {
     r: Math.max(0, rgb.r - 64),
     g: Math.max(0, rgb.g - 64),
     b: Math.max(0, rgb.b - 64),
   };
-  return `#${_intToByte(newRgb.r)}${_intToByte(newRgb.g)}${_intToByte(newRgb.b)}`;
+  return `#${intToByte(newRgb.r)}${intToByte(newRgb.g)}${intToByte(newRgb.b)}`;
 }
 
 /* ---- CANVAS UTILS */
@@ -167,7 +167,7 @@ function dataurlSize(str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient) {
+function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient) {
   const canvas = document.createElement('canvas');
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
@@ -199,7 +199,7 @@ function _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, g
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
   const images = text.split('\n').map(function (line) {
-    return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
+    return makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
   });
   const lineWidths  = images.map(function (canvas) { return canvas.width; })
   const maxWidth = Math.max.apply(null, lineWidths);
@@ -236,7 +236,7 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
 
 /* ---- CORE */
 
-function _renderFrameUncut(
+function renderFrameUncut(
   keyframe,
   image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop,
   animation, animationInvert, effects, postEffects, framerate, framecount,
@@ -287,14 +287,14 @@ function _renderFrameUncut(
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
-function _renderAllCellsFixedSize(
+function renderAllCellsFixedSize(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
   animated, animation, animationInvert, effects, postEffects, framerate, framecount,
   backgroundColor, transparent,
 ) {
   let cells = [];
   if (!animated) {
-    const img = _renderFrameUncut(
+    const img = renderFrameUncut(
       0, image,
       offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
       targetSize * hCells, targetSize * vCells, noCrop,
@@ -327,7 +327,7 @@ function _renderAllCellsFixedSize(
     }
     for (let i = 0; i < framecount; i += 1) {
       const keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
-      const frame = _renderFrameUncut(
+      const frame = renderFrameUncut(
         keyframe, image,
         offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
         targetSize * hCells, targetSize * vCells, noCrop,
@@ -363,7 +363,7 @@ function renderAllCells(
 ) {
   let targetSize = maxSize;
   for (;;) {
-    const ret = _renderAllCellsFixedSize(
+    const ret = renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
       animated, animation, animationInvert, effects, postEffects, framerate, framecount,
       backgroundColor, transparent,
@@ -483,9 +483,9 @@ const computed = {
   outlineColor: function () {
     const color = vm.source.text.color;
     if (vm.source.text.outline == 'lighter') {
-      return _lighterColor(color);
+      return lighterColor(color);
     } else if (vm.source.text.outline == 'darker') {
-      return _darkerColor(color);
+      return darkerColor(color);
     } else {
       return vm.source.text.outline;
     }
@@ -539,8 +539,8 @@ const methods = {
     vm.source.text.gradient = [
       { color: '#ffffff', pos: 0 },
       { color: vm.source.text.color, pos: 45 },
-      { color: _lighterColor(vm.source.text.color), pos: 55 },
-      { color: _darkerColor(vm.source.text.color), pos: 65 },
+      { color: lighterColor(vm.source.text.color), pos: 55 },
+      { color: darkerColor(vm.source.text.color), pos: 65 },
     ];
   },
   addGradientColorStop: function () {

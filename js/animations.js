@@ -24,7 +24,7 @@ const ANIMATIONS = [
 
 /* ---- utils */
 
-function _flipContext(ctx, width) {
+function flipContext(ctx, width) {
   ctx.translate(width, 0);
   ctx.scale(-1, 1);
 }
@@ -111,13 +111,13 @@ function animationKanpai(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
-  _flipContext(ctx, cellWidth);
+  flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
     cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
-  _flipContext(ctx, cellWidth);
+  flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -129,13 +129,13 @@ function animationKanpaiLefty(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
-  _flipContext(ctx, cellWidth);
+  flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
     -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
-  _flipContext(ctx, cellWidth);
+  flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,

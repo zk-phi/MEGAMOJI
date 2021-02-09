@@ -64,7 +64,7 @@ const PRO_EFFECTS = [
 /* ---- utils */
 
 // taken from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
-function _HSV2RGB(H, S, V) {
+function HSV2RGB(H, S, V) {
   // see also: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
 
   const C = V * S;
@@ -86,11 +86,11 @@ function _HSV2RGB(H, S, V) {
   );
 
   const m = V - C;
-  return [
-    Math.floor((RGB[0] + m) * 255),
-    Math.floor((RGB[1] + m) * 255),
-    Math.floor((RGB[2] + m) * 255),
-  ];
+  return {
+    r: Math.floor((RGB[0] + m) * 255),
+    g: Math.floor((RGB[1] + m) * 255),
+    b: Math.floor((RGB[2] + m) * 255),
+  };
 }
 
 /* ---- effects */
@@ -127,14 +127,14 @@ function effectBlink(keyframe, ctx, cellWidth) {
 }
 
 function effectNaturalBlur(keyframe, ctx) {
-  const HSVColor = _HSV2RGB(0, 0, keyframe);
-  ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
+  const HSVColor = HSV2RGB(0, 0, keyframe);
+  ctx.shadowColor = `rgb(${HSVColor.r}, ${HSVColor.g}, ${HSVColor.b})`;
   ctx.shadowBlur = 50 * keyframe;
 }
 
 function effectNeon(keyframe, ctx) {
-  const HSVColor = _HSV2RGB(keyframe * 360 * 4 % 360, 1, 1);
-  ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
+  const HSVColor = HSV2RGB(keyframe * 360 * 4 % 360, 1, 1);
+  ctx.shadowColor = `rgb(${HSVColor.r}, ${HSVColor.g}, ${HSVColor.b})`;
   ctx.shadowBlur = 10;
 }
 
@@ -231,22 +231,22 @@ function effectPsych(keyframe, ctx, cellWidth, cellHeight) {
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
       if (row % 10 <= 5 && col % 10 >= 5) {
-        const color = _HSV2RGB((keyframe * 360 * 4 + 180) % 360, 1, 1);
-        data[(row * cellWidth + col) * 4] = color[0];
-        data[(row * cellWidth + col) * 4 + 1] = color[1];
-        data[(row * cellWidth + col) * 4 + 2] = color[2];
+        const color = HSV2RGB((keyframe * 360 * 4 + 180) % 360, 1, 1);
+        data[(row * cellWidth + col) * 4] = color.r;
+        data[(row * cellWidth + col) * 4 + 1] = color.g;
+        data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else if (row % 10 < 5 ^ col % 10 < 5) {
-        const color = _HSV2RGB((keyframe * 360 * 4 + 90) % 360, 1, 1);
-        data[(row * cellWidth + col) * 4] = color[0];
-        data[(row * cellWidth + col) * 4 + 1] = color[1];
-        data[(row * cellWidth + col) * 4 + 2] = color[2];
+        const color = HSV2RGB((keyframe * 360 * 4 + 90) % 360, 1, 1);
+        data[(row * cellWidth + col) * 4] = color.r;
+        data[(row * cellWidth + col) * 4 + 1] = color.g;
+        data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else {
-        const color = _HSV2RGB((keyframe * 360 * 4) % 360, 1, 1);
-        data[(row * cellWidth + col) * 4] = color[0];
-        data[(row * cellWidth + col) * 4 + 1] = color[1];
-        data[(row * cellWidth + col) * 4 + 2] = color[2];
+        const color = HSV2RGB((keyframe * 360 * 4) % 360, 1, 1);
+        data[(row * cellWidth + col) * 4] = color.r;
+        data[(row * cellWidth + col) * 4 + 1] = color.g;
+        data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       }
     }
@@ -259,10 +259,10 @@ function effectDizzy(keyframe, ctx, cellWidth, cellHeight) {
   const data = imageData.data;
   for (let row = 0; row < (cellHeight * cellWidth * 4); row += 4) {
     if ((row / 4 + (keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
-      const color = _HSV2RGB(keyframe * 360 * 4 % 360 + 180, 1, 1);
-      data[row] = color[0];
-      data[row + 1] = color[1];
-      data[row + 2] = color[2];
+      const color = HSV2RGB(keyframe * 360 * 4 % 360 + 180, 1, 1);
+      data[row] = color.r;
+      data[row + 1] = color.g;
+      data[row + 2] = color.b;
       data[row + 3] = 255;
     }
   }
