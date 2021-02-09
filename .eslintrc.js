@@ -8,7 +8,10 @@ module.exports = {
         encode64: true,
         ga: true,
     },
-    extends: "airbnb-base",
+    extends: [
+        "airbnb-base",
+        "plugin:compat/recommended",
+    ],
     rules: {
 
         // basic style modifications
