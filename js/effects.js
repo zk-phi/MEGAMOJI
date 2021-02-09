@@ -133,7 +133,7 @@ function effectNaturalBlur(keyframe, ctx) {
 }
 
 function effectNeon(keyframe, ctx) {
-  const HSVColor = HSV2RGB(keyframe * 360 * 4 % 360, 1, 1);
+  const HSVColor = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360, 1, 1);
   ctx.shadowColor = `rgb(${HSVColor.r}, ${HSVColor.g}, ${HSVColor.b})`;
   ctx.shadowBlur = 10;
 }
@@ -231,19 +231,19 @@ function effectPsych(keyframe, ctx, cellWidth, cellHeight) {
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
       if (row % 10 <= 5 && col % 10 >= 5) {
-        const color = HSV2RGB((keyframe * 360 * 4 + 180) % 360, 1, 1);
+        const color = HSV2RGB(Math.floor(keyframe * 360 * 4 + 180) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else if (row % 10 < 5 ^ col % 10 < 5) {
-        const color = HSV2RGB((keyframe * 360 * 4 + 90) % 360, 1, 1);
+        const color = HSV2RGB(Math.floor(keyframe * 360 * 4 + 90) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else {
-        const color = HSV2RGB((keyframe * 360 * 4) % 360, 1, 1);
+        const color = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360, 1, 1);
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
@@ -258,8 +258,9 @@ function effectDizzy(keyframe, ctx, cellWidth, cellHeight) {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
   const data = imageData.data;
   for (let row = 0; row < (cellHeight * cellWidth * 4); row += 4) {
-    if ((row / 4 + (keyframe * 40)) % 40 < 40 && (row / 4 + (keyframe * 40)) % 40 > 20) {
-      const color = HSV2RGB(keyframe * 360 * 4 % 360 + 180, 1, 1);
+    if (Math.floor(row / 4 + (keyframe * 40)) % 40 < 40
+        && Math.floor(row / 4 + (keyframe * 40)) % 40 > 20) {
+      const color = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360 + 180, 1, 1);
       data[row] = color.r;
       data[row + 1] = color.g;
       data[row + 2] = color.b;
