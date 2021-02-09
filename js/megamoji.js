@@ -61,37 +61,37 @@ function shrinkCanvas(source) {
   const { data } = ctx.getImageData(0, 0, source.width, source.height);
 
   let top = 0;
-  top: for (; top < source.height; top += 1) {
+  topLoop: for (; top < source.height; top += 1) {
     for (let x = 0; x < source.width; x += 1) {
       if (data[(top * source.width + x) * 4 + 3]) {
-        break top;
+        break topLoop;
       }
     }
   }
 
   let bottom = source.height - 1;
-  bottom: for (; bottom >= top; bottom -= 1) {
+  bottomLoop: for (; bottom >= top; bottom -= 1) {
     for (let x = 0; x < source.width; x += 1) {
       if (data[(bottom * source.width + x) * 4 + 3]) {
-        break bottom;
+        break bottomLoop;
       }
     }
   }
 
   let left = 0;
-  left: for (; left < source.width; left += 1) {
+  leftLoop: for (; left < source.width; left += 1) {
     for (let y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + left) * 4 + 3]) {
-        break left;
+        break leftLoop;
       }
     }
   }
 
   let right = source.width - 1;
-  right: for (; right >= left; right -= 1) {
+  rightLoop: for (; right >= left; right -= 1) {
     for (let y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + right) * 4 + 3]) {
-        break right;
+        break rightLoop;
       }
     }
   }
