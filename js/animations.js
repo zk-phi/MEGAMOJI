@@ -10,7 +10,7 @@
  */
 
 // eslint-disable-next-line no-unused-vars
-var ANIMATIONS = [
+const ANIMATIONS = [
   { label: 'スクロール（水平）', fn: animationScrollHorizontal },
   { label: 'スクロール（垂直）', fn: animationScrollVertical },
   { label: '押し出し（水平）', fn: animationPushHorizontal },
@@ -35,8 +35,8 @@ function animationEkken (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-  var ekkenOffset = (cellWidth / 2) * keyframe;
+  const size = 1.0 * keyframe + 0.5 * (1 - keyframe);
+  const ekkenOffset = (cellWidth / 2) * keyframe;
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -73,8 +73,8 @@ function animationEkkenVertical (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  var size        = 1.0 * keyframe + 0.5 * (1 - keyframe);
-  var ekkenOffset = cellHeight / 2 * keyframe;
+  const size = 1.0 * keyframe + 0.5 * (1 - keyframe);
+  const ekkenOffset = cellHeight / 2 * keyframe;
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -110,7 +110,7 @@ function animationEkkenVertical (
 function animationKanpai (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
   _flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
@@ -128,7 +128,7 @@ function animationKanpai (
 function animationKanpaiLefty (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  var size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
   _flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
@@ -218,9 +218,9 @@ function animationPushVertical (
 function animationXile (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  for (var i = 0; i < 3; i++) {
-    var x = Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth / 2 + cellWidth / 4;
-    var y = Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight / 2 + cellHeight / 4;
+  for (let i = 0; i < 3; i++) {
+    const x = Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth / 2 + cellWidth / 4;
+    const y = Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight / 2 + cellHeight / 4;
     ctx.drawImage(
       image,
       offsetH, offsetV, width, height,

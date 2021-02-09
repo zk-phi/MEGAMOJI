@@ -4,23 +4,23 @@
  */
 
 // eslint-disable-next-line no-unused-vars
-var FILTERS = [
+const FILTERS = [
   { fn: filterChromakey, label: 'クロマキー透過 (左上から)' },
 ];
 
 function filterChromakey (image) {
-  var canvas = document.createElement('canvas');
-  var ctx    = canvas.getContext('2d');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
   canvas.width  = image.naturalWidth;
   canvas.height = image.naturalHeight;
 
   ctx.drawImage(image, 0, 0);
 
-  var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  var data = imageData.data;
-  var baseColor = [data[0], data[1], data[2]];
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+  const baseColor = [data[0], data[1], data[2]];
 
-  var queue = [
+  const queue = [
     [0, 0],
     [canvas.width - 1, 0],
     [0, canvas.height - 1],
@@ -28,15 +28,15 @@ function filterChromakey (image) {
   ];
 
   while (queue.length) {
-    var item = queue.shift();
+    const item = queue.shift();
     if (item[0] >= canvas.width || item[1] >= canvas.height || item[0] < 0 || item[1] < 0) {
       continue;
     }
 
-    var ix = (item[1] * canvas.width + item[0]) * 4;
+    const ix = (item[1] * canvas.width + item[0]) * 4;
     if (!data[ix + 3]) continue;
 
-    var norm = Math.hypot(
+    const norm = Math.hypot(
       data[ix] - baseColor[0],
       data[ix + 1] - baseColor[1],
       data[ix + 2] - baseColor[2],
