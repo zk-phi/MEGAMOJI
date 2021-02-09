@@ -1,3 +1,12 @@
 module.exports = {
-  "extends": "eslint:recommended"
+  env: {
+    browser: true
+  },
+  globals: {
+    Vue: true,
+    GIFEncoder: true,
+    encode64: true,
+    ga: true
+  },
+  extends: "eslint:recommended"
 }

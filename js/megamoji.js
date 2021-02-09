@@ -1,5 +1,3 @@
-/* global document window location FileReader Vue GIFEncoder encode64 ga */
-
 var EMOJI_SIZE          = 128;
 var ANIMATED_EMOJI_SIZE = 96;
 var BINARY_SIZE_LIMIT   = 128000;
