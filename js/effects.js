@@ -58,7 +58,7 @@ const PRO_EFFECTS = [
       { label: 'ディスコ', fn: effectPsych },
       { label: 'サイケ', fn: effectDizzy },
     ],
-  }
+  },
 ];
 
 /* ---- utils */

@@ -6,7 +6,7 @@ module.exports = {
     Vue: true,
     GIFEncoder: true,
     encode64: true,
-    ga: true
+    ga: true,
   },
   extends: "eslint:recommended"
 }

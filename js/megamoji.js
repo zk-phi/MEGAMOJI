@@ -9,7 +9,7 @@ function _hex2rgb(hex) {
     r: parseInt(hex.substring(1, 3), 16),
     g: parseInt(hex.substring(3, 5), 16),
     b: parseInt(hex.substring(5, 7), 16),
-  }
+  };
 }
 
 function _intToByte(int) {
@@ -153,7 +153,7 @@ function urlToImg(url, cb) {
   img.src = url;
   img.onload = function () {
     cb(img);
-  }
+  };
 }
 
 /* compute binary size from a dataurl. return 0 if uncomputable. */
@@ -418,7 +418,7 @@ const store = {
       eyes: 'assets/void.svg',
       mouths: 'assets/void.svg',
       others: 'assets/void.svg',
-    }
+    },
   },
   target: {
     /* basic */
