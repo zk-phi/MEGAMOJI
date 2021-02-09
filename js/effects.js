@@ -145,7 +145,12 @@ function effectShadowRotate (keyframe, ctx) {
 }
 
 function effectPatapata (keyframe, ctx, cellWidth) {
-  ctx.transform(Math.cos(2 * Math.PI * keyframe), 0, 0, 1, cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0);
+  ctx.transform(
+    Math.cos(2 * Math.PI * keyframe),
+    0, 0,
+    1,
+    cellWidth * (0.5 - 0.5 * Math.cos(2 * Math.PI * keyframe)), 0,
+  );
 }
 
 function effectRotate (keyframe, ctx, cellWidth, cellHeight) {
@@ -164,7 +169,10 @@ function effectKurukuru (keyframe, ctx, cellWidth, cellHeight) {
 var lastGata = false;
 function effectGatagata (keyframe, ctx, cellWidth, cellHeight) {
   lastGata = !lastGata;
-  ctx.translate(cellWidth / 2 + (Math.random() - 0.5) * 4, cellHeight / 2 + (Math.random() - 0.5) * 4);
+  ctx.translate(
+    cellWidth / 2 + (Math.random() - 0.5) * 4,
+    cellHeight / 2 + (Math.random() - 0.5) * 4,
+  );
   ctx.rotate(lastGata ? -0.05 : 0.05);
   ctx.translate(- cellWidth / 2, - cellHeight / 2);
 }
