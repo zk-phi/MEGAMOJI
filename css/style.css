@@ -1,4 +1,4 @@
-input[type=color] {
+.input[type=color] {
   min-width: 64px !important;
 }
 
@@ -17,30 +17,30 @@ input[type=color] {
 }
 
 .result_area.dark {
+  color: #fff;
   background-color: #333;
+}
+
+.result_area.dark .label {
   color: #fff;
 }
 
-.result_area.dark label {
-  color: #fff;
-}
-
-.result_area img {
+.result_area .cell {
   border: 1px solid #ccc;
 }
 
-.fukumoji img {
-  border-radius: 4px;
-  height: 48px;
+.fukumoji .part {
   width: 48px;
-  border: 2px solid white;
+  height: 48px;
   cursor: pointer;
+  border: 2px solid #fff;
+  border-radius: 4px;
 }
 
-.fukumoji img:hover {
-  border: 2px solid gainsboro;
+.fukumoji .part:hover {
+  border: 2px solid #ccc;
 }
 
-.fukumoji img.selected {
-  border: 2px solid red;
+.fukumoji .part.selected {
+  border: 2px solid #f00;
 }

@@ -1,90 +1,90 @@
 /* noto-sans-jp-700 - latin_japanese */
 @font-face {
-  font-family: 'Noto Sans JP';
+  font-family: "Noto Sans JP";
   font-style: normal;
   font-weight: 700;
   src:
-    local('Noto Sans Japanese Bold'),
-    local('NotoSansJapanese-Bold'),
-    url('../fonts/noto-sans-jp-v25-latin_japanese-700.woff') format('woff');
+    local("Noto Sans Japanese Bold"),
+    local("NotoSansJapanese-Bold"),
+    url("../fonts/noto-sans-jp-v25-latin_japanese-700.woff") format("woff");
 }
 
 /* noto-sans-jp-900 - latin_japanese */
 @font-face {
-  font-family: 'Noto Sans JP';
+  font-family: "Noto Sans JP";
   font-style: normal;
   font-weight: 900;
   src:
-    local('Noto Sans Japanese Black'),
-    local('NotoSansJapanese-Black'),
-    url('../fonts/noto-sans-jp-v25-latin_japanese-900.woff') format('woff');
+    local("Noto Sans Japanese Black"),
+    local("NotoSansJapanese-Black"),
+    url("../fonts/noto-sans-jp-v25-latin_japanese-900.woff") format("woff");
 }
 
 /* m-plus-rounded-1c-900 - latin_japanese */
 @font-face {
-  font-family: 'M PLUS Rounded 1c';
+  font-family: "M PLUS Rounded 1c";
   font-style: normal;
   font-weight: 900;
   src:
-    local('M PLUS Rounded 1c Black'),
-    local('MPLUSRounded1c-Black'),
-    url('../fonts/m-plus-rounded-1c-v10-latin_japanese-900.woff') format('woff');
+    local("M PLUS Rounded 1c Black"),
+    local("MPLUSRounded1c-Black"),
+    url("../fonts/m-plus-rounded-1c-v10-latin_japanese-900.woff") format("woff");
 }
 
 /* m-plus-rounded-1c-700 - latin_japanese */
 @font-face {
-  font-family: 'M PLUS Rounded 1c';
+  font-family: "M PLUS Rounded 1c";
   font-style: normal;
   font-weight: 700;
   src:
-    local('M PLUS Rounded 1c Bold'),
-    local('MPLUSRounded1c-Bold'),
-    url('../fonts/m-plus-rounded-1c-v10-latin_japanese-700.woff') format('woff');
+    local("M PLUS Rounded 1c Bold"),
+    local("MPLUSRounded1c-Bold"),
+    url("../fonts/m-plus-rounded-1c-v10-latin_japanese-700.woff") format("woff");
 }
 
 /* noto-serif-jp-900 - latin_japanese */
 @font-face {
-  font-family: 'Noto Serif JP';
+  font-family: "Noto Serif JP";
   font-style: normal;
   font-weight: 900;
   src:
-    local('Noto Serif JP Black'),
-    local('NotoSerifJP-Black'),
-    url('../fonts/noto-serif-jp-v7-latin_japanese-900.woff') format('woff');
+    local("Noto Serif JP Black"),
+    local("NotoSerifJP-Black"),
+    url("../fonts/noto-serif-jp-v7-latin_japanese-900.woff") format("woff");
 }
 
 /* あかずきんポップ */
 @font-face {
-  font-family: "AkazukiPOP";
-  src: url('../fonts/AkazukiPOP.woff') format('woff');
+  font-family: AkazukiPOP;
+  src: url("../fonts/AkazukiPOP.woff") format("woff");
 }
 
 /* 零ゴシック */
 @font-face {
-  font-family: "ZeroGothic";
-  src: url('../fonts/ZeroGothic.woff') format('woff');
+  font-family: ZeroGothic;
+  src: url("../fonts/ZeroGothic.woff") format("woff");
 }
 
 /* PixelMplus */
 @font-face {
-  font-family: "PixelMplus";
-  src: url('../fonts/PixelMplus12-Bold.woff') format('woff');
+  font-family: PixelMplus;
+  src: url("../fonts/PixelMplus12-Bold.woff") format("woff");
 }
 
 /* レゲエ */
 @font-face {
-  font-family: "Reggae";
-  src: url('../fonts/ReggaeOne-Regular.woff') format('woff');
+  font-family: Reggae;
+  src: url("../fonts/ReggaeOne-Regular.woff") format("woff");
 }
 
 /* ランパート */
 @font-face {
-  font-family: "Rampart";
-  src: url('../fonts/RampartOne-Regular.woff') format('woff');
+  font-family: Rampart;
+  src: url("../fonts/RampartOne-Regular.woff") format("woff");
 }
 
 /* ポッタ */
 @font-face {
-  font-family: "Potta";
-  src: url('../fonts/PottaOne-Regular.woff') format('woff');
+  font-family: Potta;
+  src: url("../fonts/PottaOne-Regular.woff") format("woff");
 }

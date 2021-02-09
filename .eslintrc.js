@@ -8,26 +8,30 @@ module.exports = {
         encode64: true,
         ga: true,
     },
-    extends: 'airbnb-base',
+    extends: [
+        "airbnb-base",
+        "plugin:compat/recommended",
+    ],
     rules: {
 
-        // maybe chaned to "2" later ?
-        indent: ['error', 4],
+        // basic style modifications
+        indent: ["error", 4],
+        quotes: ["error", "double"],
 
         // redundant "else" can help readablity
-        'no-else-return': 'off',
+        "no-else-return": "off",
 
         // ternary ops aren't that unreadable IMO
-        'no-nested-ternary': 'off',
+        "no-nested-ternary": "off",
 
         // bitwise ops are sometimes useful
-        'no-bitwise': 'off',
+        "no-bitwise": "off",
 
         // "continue" can help readablity as like "early-return"
-        'no-continue': 'off',
+        "no-continue": "off",
 
         // fns and classes can be referred before defined
-        'no-use-before-define': ['error', {
+        "no-use-before-define": ["error", {
             // functions: true,
             // classes: true,
             functions: false,
@@ -36,7 +40,7 @@ module.exports = {
         }],
 
         // do not enforce destructuring for arrays (since they can be rather unreadable sometime)
-        'prefer-destructuring': ['error', {
+        "prefer-destructuring": ["error", {
             VariableDeclarator: {
                 array: false,
                 object: true,
@@ -51,30 +55,30 @@ module.exports = {
         }],
 
         // arithmetic ops (eccept for "%" and "**") can be mixed without parens
-        'no-mixed-operators': ['error', {
+        "no-mixed-operators": ["error", {
             groups: [
-                ['%', '**'],
+                ["%", "**"],
                 // ['%', '+'],
                 // ['%', '-'],
-                ['%', '*'],
-                ['%', '/'],
+                ["%", "*"],
+                ["%", "/"],
                 // ['/', '*'],
-                ['&', '|', '<<', '>>', '>>>'],
-                ['==', '!=', '===', '!=='],
-                ['&&', '||'],
+                ["&", "|", "<<", ">>", ">>>"],
+                ["==", "!=", "===", "!=="],
+                ["&&", "||"],
             ],
             allowSamePrecedence: false,
         }],
 
         // labels are allowed to break nested loops
-        'no-restricted-syntax': [
-            'error',
-            'ForInStatement',
-            'ForOfStatement',
+        "no-restricted-syntax": [
+            "error",
+            "ForInStatement",
+            "ForOfStatement",
             // 'LabeledStatement',
-            'WithStatement',
+            "WithStatement",
         ],
-        'no-labels': ['error', {
+        "no-labels": ["error", {
             // allowLoop: false,
             allowLoop: true,
             allowSwitch: false,

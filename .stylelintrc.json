@@ -1,3 +1,21 @@
 {
-  "extends": "stylelint-config-standard"
+    "extends": "stylelint-config-primer",
+    "rules": {
+
+        "at-rule-blacklist": null,
+        "at-rule-disallowed-list": ["extend"],
+
+        "declaration-property-value-blacklist": null,
+        "declaration-property-value-disallowed-list": {
+            "/^transition/": ["/all/"],
+            "/^background/": ["http:", "https:"],
+            "/^border/": ["none"],
+            "/.+/": ["initial"]
+        },
+
+        "plugin/no-unsupported-browser-features": [true, {
+            "severity": "error",
+            "ignore": ["css-gradients"]
+        }]
+    }
 }
