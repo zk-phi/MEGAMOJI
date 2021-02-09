@@ -45,8 +45,8 @@ function darkerColor(hexColor) {
 
 /* Create a new canvas and render specified region of the source canvas. */
 function cropCanvas(source, left, top, w, h) {
-    const target = document.createElement('canvas');
-    const ctx = target.getContext('2d');
+    const target = document.createElement("canvas");
+    const ctx = target.getContext("2d");
     target.width = w;
     target.height = h;
 
@@ -57,7 +57,7 @@ function cropCanvas(source, left, top, w, h) {
 
 /* drop transparent area from canvas and returns a new cropped canvas */
 function shrinkCanvas(source) {
-    const ctx = source.getContext('2d');
+    const ctx = source.getContext("2d");
     const { data } = ctx.getImageData(0, 0, source.width, source.height);
 
     let top = 0;
@@ -120,14 +120,14 @@ function cutoutCanvasIntoCells(source, offsetH, offsetV, hCells, vCells, cellWid
 
 /* Merge images into one image and return as a BlobURL. */
 function mergeImages(w, h, srcs, callback) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     canvas.width = w;
     canvas.height = h;
 
     let ix = 0;
-    const img = document.createElement('img');
+    const img = document.createElement("img");
 
     img.onload = () => {
         ctx.drawImage(img, 0, 0, w, h);
@@ -151,14 +151,14 @@ function loadFileAsBlobURL(path, callback) {
 
 /* Create an img object, set src attr to the specified url, and return it. */
 function urlToImg(url, cb) {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = url;
     img.onload = () => cb(img);
 }
 
 /* compute binary size from a dataurl. return 0 if uncomputable. */
 function dataurlSize(str) {
-    const ix = str.indexOf(',');
+    const ix = str.indexOf(",");
     if (ix < 0) return 0;
     return Math.ceil((str.length - ix - 1) / 4.0 * 3);
 }
@@ -167,13 +167,13 @@ function dataurlSize(str) {
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient) {
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = fontHeight * (line.length || 1) * 2;
     canvas.height = fontHeight * 2;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.font = font;
-    ctx.textBaseline = 'top';
+    ctx.textBaseline = "top";
 
     if (outlineColor) {
         ctx.strokeStyle = outlineColor;
@@ -197,7 +197,7 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gr
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
-    const images = text.split('\n').map((line) => (
+    const images = text.split("\n").map((line) => (
         makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient)
     ));
     const lineWidths = images.map((canvas) => canvas.width);
@@ -206,21 +206,21 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
         l + r.height
     ), 0);
 
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = maxWidth;
     canvas.height = totalHeight;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     let currentHeight = 0;
     images.forEach((image, ix) => {
         ctx.save();
 
-        if (align === 'right') {
+        if (align === "right") {
             ctx.translate(maxWidth - lineWidths[ix], 0);
-        } else if (align === 'center') {
+        } else if (align === "center") {
             ctx.translate((maxWidth - lineWidths[ix]) / 2, 0);
-        } else if (align === 'stretch') {
+        } else if (align === "stretch") {
             ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
         }
 
@@ -241,8 +241,8 @@ function renderFrameUncut(
     animation, animationInvert, effects, postEffects, framerate, framecount,
     fillStyle,
 ) {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     /* use larger canvas, because some effects may translate the canvas */
     canvas.width = targetWidth * 2;
@@ -299,7 +299,7 @@ function renderAllCellsFixedSize(
             offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
             targetSize * hCells, targetSize * vCells, noCrop,
             animation, animationInvert, effects, postEffects, framerate, framecount,
-            transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor,
+            transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
         );
         cells = noCrop ? (
             cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
@@ -328,7 +328,7 @@ function renderAllCellsFixedSize(
                 offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
                 targetSize * hCells, targetSize * vCells, noCrop,
                 animation, animationInvert, effects, postEffects, framerate, framecount,
-                transparent ? '#ffffff' : backgroundColor,
+                transparent ? "#ffffff" : backgroundColor,
             );
             const imgCells = noCrop ? (
                 cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
@@ -337,7 +337,7 @@ function renderAllCellsFixedSize(
             );
             for (let y = 0; y < vCells; y += 1) {
                 for (let x = 0; x < hCells; x += 1) {
-                    cells[y][x].addFrame(imgCells[y][x].getContext('2d'));
+                    cells[y][x].addFrame(imgCells[y][x].getContext("2d"));
                 }
             }
         }
@@ -379,13 +379,13 @@ function renderAllCells(
 
 const data = {
     baseImage: null,
-    resultImages: [['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4Xu3UAQ0AAAyDsM+/6QspcwAh2zXawGj64K8A8AgKoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7ADyAB6SPAIFm19U7AAAAAElFTkSuQmCC']],
-    resultBgClass: 'default',
+    resultImages: [["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4Xu3UAQ0AAAyDsM+/6QspcwAh2zXawGj64K8A8AgKoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7ADyAB6SPAIFm19U7AAAAAElFTkSuQmCC"]],
+    resultBgClass: "default",
     /* ui */
     ui: {
-        mode: 'text',
+        mode: "text",
         showTargetPanel: false,
-        fukumojiTab: 'base',
+        fukumojiTab: "base",
         showTextDetails: false,
         showTargetDetails: false,
     },
@@ -393,33 +393,33 @@ const data = {
     source: {
         file: {
             file: null,
-            filter: '',
+            filter: "",
         },
         text: {
             /* basic */
-            content: '',
-            align: 'left',
-            color: '#ffbf00',
+            content: "",
+            align: "left",
+            color: "#ffbf00",
             gradient: [],
-            outline: '',
-            font: 'normal sans-serif',
+            outline: "",
+            font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05,
         },
         fukumoji: {
-            base: 'assets/void.svg',
-            textures: 'assets/void.svg',
-            eyes: 'assets/void.svg',
-            mouths: 'assets/void.svg',
-            others: 'assets/void.svg',
+            base: "assets/void.svg",
+            textures: "assets/void.svg",
+            eyes: "assets/void.svg",
+            mouths: "assets/void.svg",
+            others: "assets/void.svg",
         },
     },
     target: {
         /* basic */
-        trimming: '',
+        trimming: "",
         hCells: 1,
         vCells: 1,
-        animation: '',
+        animation: "",
         animationInvert: false,
         staticEffects: [],
         effects: [],
@@ -427,12 +427,12 @@ const data = {
         /* advanced */
         offsetLeft: 0,
         offsetTop: 0,
-        hZoom: '1.0',
-        vZoom: '1.0',
+        hZoom: "1.0",
+        vZoom: "1.0",
         noCrop: false,
         framerate: 18,
         framecount: 12,
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
         transparent: false,
     },
 };
@@ -444,24 +444,24 @@ const watch = {
             this.render();
         },
     },
-    'source.file': {
+    "source.file": {
         handler() {
             this.loadFile();
         },
         deep: true,
     },
-    'source.text': {
+    "source.text": {
         handler() {
             this.renderText();
         },
         deep: true,
     },
-    'source.text.color': {
+    "source.text.color": {
         handler() {
             this.source.text.gradient = [];
         },
     },
-    'source.fukumoji': {
+    "source.fukumoji": {
         handler() {
             this.renderFukumoji();
         },
@@ -478,9 +478,9 @@ const watch = {
 const computed = {
     outlineColor() {
         const { color } = this.source.text;
-        if (this.source.text.outline === 'lighter') {
+        if (this.source.text.outline === "lighter") {
             return lighterColor(color);
-        } else if (this.source.text.outline === 'darker') {
+        } else if (this.source.text.outline === "darker") {
             return darkerColor(color);
         } else {
             return this.source.text.outline;
@@ -533,7 +533,7 @@ const methods = {
     },
     initializeGradient() {
         this.source.text.gradient = [
-            { color: '#ffffff', pos: 0 },
+            { color: "#ffffff", pos: 0 },
             { color: this.source.text.color, pos: 45 },
             { color: lighterColor(this.source.text.color), pos: 55 },
             { color: darkerColor(this.source.text.color), pos: 65 },
@@ -555,10 +555,10 @@ const methods = {
         let widthRatio = (EMOJI_SIZE * h) / image.naturalWidth;
         let heightRatio = (EMOJI_SIZE * v) / image.naturalHeight;
 
-        if (this.target.trimming === 'cover') {
+        if (this.target.trimming === "cover") {
             widthRatio = Math.max(widthRatio, heightRatio);
             heightRatio = widthRatio;
-        } else if (this.target.trimming === 'contain') {
+        } else if (this.target.trimming === "contain") {
             widthRatio = Math.min(widthRatio, heightRatio);
             heightRatio = widthRatio;
         }
@@ -570,12 +570,12 @@ const methods = {
     },
     onSetShowTarget(value) {
         this.ui.showTargetPanel = value;
-        ga('send', 'pageview', value ? '/target' : (`/${this.ui.mode}`));
+        ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
     },
     onSelectMode(value) {
         this.ui.mode = value;
         this.ui.showTargetPanel = false;
-        ga('send', 'pageview', `/${value}`);
+        ga("send", "pageview", `/${value}`);
     },
     onSelectFukumojiTab(value) {
         this.ui.fukumojiTab = value;
@@ -585,13 +585,13 @@ const methods = {
     },
     onSelectSpeedPreset(e) {
         const speed = e.target.value;
-        if (speed === '') {
+        if (speed === "") {
             this.target.framerate = 18;
             this.target.framecount = 12;
-        } else if (speed === 'turbo') {
+        } else if (speed === "turbo") {
             this.target.framerate = 60;
             this.target.framecount = 12;
-        } else if (speed === 'super-turbo') {
+        } else if (speed === "super-turbo") {
             this.target.framerate = 60;
             this.target.framecount = 6;
         }
@@ -614,7 +614,7 @@ const methods = {
         const cellWidth = EMOJI_SIZE / this.target.hZoom;
         const cellHeight = EMOJI_SIZE / this.target.vZoom;
 
-        ga('send', 'event', this.ui.mode, 'render');
+        ga("send", "event", this.ui.mode, "render");
 
         const animated = (
             this.target.animation || this.target.effects.length || this.target.postEffects.length
@@ -634,22 +634,22 @@ const methods = {
 };
 
 const vm = new Vue({
-    el: '#app', data, methods, watch, computed,
+    el: "#app", data, methods, watch, computed,
 });
 
 window.onerror = (msg, file, line, col) => {
-    ga('send', 'event', 'error', 'thrown', `${file}:${line}:${col} ${msg}`);
+    ga("send", "event", "error", "thrown", `${file}:${line}:${col} ${msg}`);
 };
 
 const match = window.location.href.match(/\?([^=]+)(=(.*))?$/);
 if (match) {
-    if (match[1] === 'test') {
-        vm.ui.mode = 'text';
+    if (match[1] === "test") {
+        vm.ui.mode = "text";
         vm.ui.showTargetPanel = true;
-        vm.source.text.content = 'あ';
-    } else if (match[1] === 'mode') {
+        vm.source.text.content = "あ";
+    } else if (match[1] === "mode") {
         vm.ui.mode = match[3];
     }
 }
 
-ga('send', 'pageview', '/');
+ga("send", "pageview", "/");

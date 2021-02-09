@@ -1,7 +1,6 @@
 {
     "extends": "stylelint-config-primer",
     "rules": {
-        "string-quotes": "single",
         "plugin/no-unsupported-browser-features": [true, { "severity": "warning" }]
     }
 }

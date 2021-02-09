@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 const POST_EFFECTS = [
     {
-        label: 'エフェクト',
+        label: "エフェクト",
         effects: [
-            { label: '集中線', fn: postEffectFocusLine },
-            { label: 'グリッチ', fn: postEffectGlitch },
-            { label: 'モザイク', fn: postEffectMosaic },
+            { label: "集中線", fn: postEffectFocusLine },
+            { label: "グリッチ", fn: postEffectGlitch },
+            { label: "モザイク", fn: postEffectMosaic },
         ],
     },
 ];
@@ -30,7 +30,7 @@ function postEffectFocusLine(keyframe, ctx, w, h) {
         const pos3 = circumPos((deg1 + deg2) / 2, innerRadius);
         ctx.beginPath();
         ctx.lineWidth = 1;
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = "black";
         ctx.moveTo(pos1.x, pos1.y);
         ctx.lineTo(pos2.x, pos2.y);
         ctx.lineTo(pos3.x, pos3.y);

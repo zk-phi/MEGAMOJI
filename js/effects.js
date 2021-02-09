@@ -13,50 +13,50 @@
 // eslint-disable-next-line no-unused-vars
 const EFFECTS = [
     {
-        label: 'フィルタ (Chrome のみ動作確認)',
+        label: "フィルタ (Chrome のみ動作確認)",
         effects: [
-            { label: 'キラ', fn: effectKira },
-            { label: 'もやもや', fn: effectMoyamoya },
-            { label: 'Foil', fn: effectFoil },
+            { label: "キラ", fn: effectKira },
+            { label: "もやもや", fn: effectMoyamoya },
+            { label: "Foil", fn: effectFoil },
         ],
     }, {
-        label: '変形',
+        label: "変形",
         effects: [
-            { label: 'ガタガタ', fn: effectGatagata },
-            { label: 'びょいんびょいん', fn: effectZoom },
-            { label: 'ルーレット', fn: effectRotate },
-            { label: 'ねるねる', fn: effectKurukuru },
-            { label: 'ゆらゆら', fn: effectYurayura },
-            { label: 'ぱたぱた', fn: effectPatapata },
-            { label: 'ヤッタ', fn: effectYatta },
-            { label: 'ぽよーん', fn: effectPoyon },
-            { label: 'もちもち', fn: effectMotimoti },
-            { label: 'BLINK', fn: effectBlink },
+            { label: "ガタガタ", fn: effectGatagata },
+            { label: "びょいんびょいん", fn: effectZoom },
+            { label: "ルーレット", fn: effectRotate },
+            { label: "ねるねる", fn: effectKurukuru },
+            { label: "ゆらゆら", fn: effectYurayura },
+            { label: "ぱたぱた", fn: effectPatapata },
+            { label: "ヤッタ", fn: effectYatta },
+            { label: "ぽよーん", fn: effectPoyon },
+            { label: "もちもち", fn: effectMotimoti },
+            { label: "BLINK", fn: effectBlink },
         ],
     }, {
-        label: 'シャドウ',
+        label: "シャドウ",
         effects: [
-            { label: 'ぐるぐる', fn: effectShadowRotate },
-            { label: 'ブラー', fn: effectNaturalBlur },
-            { label: 'ネオン', fn: effectNeon },
+            { label: "ぐるぐる", fn: effectShadowRotate },
+            { label: "ブラー", fn: effectNaturalBlur },
+            { label: "ネオン", fn: effectNeon },
         ],
     },
 ];
 
 // eslint-disable-next-line no-unused-vars
 const STATIC_EFFECTS = [
-    { label: '左右を反転', fn: effectFlipHoriz },
-    { label: '上下を反転', fn: effectFlipVert },
+    { label: "左右を反転", fn: effectFlipHoriz },
+    { label: "上下を反転", fn: effectFlipVert },
 ];
 
 // eslint-disable-next-line no-unused-vars
 const PRO_EFFECTS = [
     {
-        label: '背景エフェクト',
+        label: "背景エフェクト",
         effects: [
-            { label: 'チリチリ', fn: effectTiritiri },
-            { label: 'ディスコ', fn: effectPsych },
-            { label: 'サイケ', fn: effectDizzy },
+            { label: "チリチリ", fn: effectTiritiri },
+            { label: "ディスコ", fn: effectPsych },
+            { label: "サイケ", fn: effectDizzy },
         ],
     },
 ];
@@ -106,17 +106,17 @@ function effectFlipVert(keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effectKira(keyframe, ctx) {
-    const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+    const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
     ctx.filter = `${currentFilter}saturate(1000%) hue-rotate(${keyframe * 360}deg)`;
 }
 
 function effectMoyamoya(keyframe, ctx) {
-    const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+    const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
     ctx.filter = `${currentFilter}blur(${6 + 1 * Math.cos(2 * Math.PI * keyframe)}px)`;
 }
 
 function effectFoil(keyframe, ctx) {
-    const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+    const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
     ctx.filter = `${currentFilter}brightness(${120 + Math.floor(20 * Math.sin(2 * Math.PI * keyframe))}%)`;
 }
 
@@ -139,7 +139,7 @@ function effectNeon(keyframe, ctx) {
 }
 
 function effectShadowRotate(keyframe, ctx) {
-    ctx.shadowColor = 'black';
+    ctx.shadowColor = "black";
     ctx.shadowOffsetY = Math.cos(2 * Math.PI * keyframe) * 5;
     ctx.shadowOffsetX = Math.sin(2 * Math.PI * keyframe) * 5;
 }
