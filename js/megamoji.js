@@ -4,7 +4,7 @@ const BINARY_SIZE_LIMIT = 128000;
 
 /* ---- COLOR UTILS */
 
-function _hex2rgb (hex) {
+function _hex2rgb(hex) {
   return {
     r: parseInt(hex.substring(1, 3), 16),
     g: parseInt(hex.substring(3, 5), 16),
@@ -12,7 +12,7 @@ function _hex2rgb (hex) {
   }
 }
 
-function _intToByte (int) {
+function _intToByte(int) {
   const str = Number(int).toString(16);
   if (str.length < 2) {
     return '0' + str;
@@ -21,7 +21,7 @@ function _intToByte (int) {
   }
 }
 
-function _lighterColor (hexColor) {
+function _lighterColor(hexColor) {
   const rgb = _hex2rgb(hexColor);
   const newRgb = {
     r: Math.min(255, rgb.r + 96),
@@ -31,7 +31,7 @@ function _lighterColor (hexColor) {
   return '#' + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
 }
 
-function _darkerColor (hexColor) {
+function _darkerColor(hexColor) {
   const rgb = _hex2rgb(hexColor);
   const newRgb = {
     r: Math.max(0, rgb.r - 64),
@@ -44,10 +44,10 @@ function _darkerColor (hexColor) {
 /* ---- CANVAS UTILS */
 
 /* Create a new canvas and render specified region of the source canvas. */
-function cropCanvas (source, left, top, w, h) {
+function cropCanvas(source, left, top, w, h) {
   const target = document.createElement('canvas');
   const ctx = target.getContext('2d');
-  target.width  = w;
+  target.width = w;
   target.height = h;
 
   ctx.drawImage(source, left, top, w, h, 0, 0, w, h);
@@ -56,7 +56,7 @@ function cropCanvas (source, left, top, w, h) {
 }
 
 /* drop transparent area from canvas and returns a new cropped canvas */
-function shrinkCanvas (source) {
+function shrinkCanvas(source) {
   const ctx = source.getContext('2d');
   const data = ctx.getImageData(0, 0, source.width, source.height).data;
 
@@ -100,7 +100,7 @@ function shrinkCanvas (source) {
 }
 
 /* Split canvas into a 2d-array of canvases */
-function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
+function cutoutCanvasIntoCells(source, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight) {
   const cells = [];
   for (let y = 0; y < vCells; y++) {
     for (var x = 0, row = []; x < hCells; x++) {
@@ -118,7 +118,7 @@ function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWi
 }
 
 /* Merge images into one image and return as a BlobURL. */
-function mergeImages (w, h, srcs, callback) {
+function mergeImages(w, h, srcs, callback) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -141,14 +141,14 @@ function mergeImages (w, h, srcs, callback) {
 }
 
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
-function loadFileAsBlobURL (path, callback) {
+function loadFileAsBlobURL(path, callback) {
   const reader = new FileReader();
   reader.onload = function (e) { callback(e.target.result); };
   reader.readAsDataURL(path);
 }
 
 /* Create an img object, set src attr to the specified url, and return it. */
-function urlToImg (url, cb) {
+function urlToImg(url, cb) {
   const img = document.createElement('img');
   img.src = url;
   img.onload = function () {
@@ -157,7 +157,7 @@ function urlToImg (url, cb) {
 }
 
 /* compute binary size from a dataurl. return 0 if uncomputable. */
-function dataurlSize (str) {
+function dataurlSize(str) {
   const ix = str.indexOf(',');
   if (ix < 0) return 0;
   return Math.ceil((str.length - ix - 1) / 4.0 * 3);
@@ -166,18 +166,18 @@ function dataurlSize (str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor, gradient) {
+function _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient) {
   const canvas = document.createElement('canvas');
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
 
   const ctx = canvas.getContext('2d');
-  ctx.font         = font;
+  ctx.font = font;
   ctx.textBaseline = 'top';
 
   if (outlineColor) {
     ctx.strokeStyle = outlineColor;
-    ctx.lineWidth   = 8;
+    ctx.lineWidth = 8;
     ctx.strokeText(line, 25, 25);
   }
 
@@ -196,7 +196,7 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor, 
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
+function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
   const images = text.split('\n').map(function (line) {
     return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
   });
@@ -207,7 +207,7 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outli
   }, 0);
 
   const canvas = document.createElement('canvas');
-  canvas.width  = maxWidth;
+  canvas.width = maxWidth;
   canvas.height = totalHeight;
 
   const ctx = canvas.getContext('2d');
@@ -235,7 +235,7 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outli
 
 /* ---- CORE */
 
-function _renderFrameUncut (
+function _renderFrameUncut(
   keyframe,
   image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop,
   animation, animationInvert, effects, postEffects, framerate, framecount,
@@ -286,7 +286,7 @@ function _renderFrameUncut (
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
-function _renderAllCellsFixedSize (
+function _renderAllCellsFixedSize(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
   animated, animation, animationInvert, effects, postEffects, framerate, framecount,
   backgroundColor, transparent,
@@ -353,7 +353,7 @@ function _renderAllCellsFixedSize (
 }
 
 /* returns a 2d-array of (possibly animated) images. */
-function renderAllCells (
+function renderAllCells(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
   animated, animation, animationInvert, effects, postEffects, framerate, framecount,
   backgroundColor, transparent,

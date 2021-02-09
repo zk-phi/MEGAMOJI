@@ -11,7 +11,7 @@ const POST_EFFECTS = [
 ];
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
-function postEffectFocusLine (keyframe, ctx, w, h) {
+function postEffectFocusLine(keyframe, ctx, w, h) {
   const circumPos = function (deg, r) {
     return {
       x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
@@ -42,7 +42,7 @@ function postEffectFocusLine (keyframe, ctx, w, h) {
 }
 
 /** the ideas based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79 */
-function postEffectGlitch (keyframe, ctx, w, h) {
+function postEffectGlitch(keyframe, ctx, w, h) {
   // wave
   !function () {
     const lineThickness = h / 25;
@@ -74,7 +74,7 @@ function postEffectGlitch (keyframe, ctx, w, h) {
   }();
 }
 
-function postEffectMosaic (keyframe, ctx, w, h) {
+function postEffectMosaic(keyframe, ctx, w, h) {
   const image = ctx.getImageData(0, 0, w, h);
   const data = image.data;
 

@@ -24,14 +24,14 @@ const ANIMATIONS = [
 
 /* ---- utils */
 
-function _flipContext (ctx, width) {
+function _flipContext(ctx, width) {
   ctx.translate(width, 0);
   ctx.scale(-1, 1);
 }
 
 /* ---- animations */
 
-function animationEkken (
+function animationEkken(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
@@ -46,13 +46,13 @@ function animationEkken (
   ctx.drawImage(
     image,
     offsetH, offsetV, width / 2, height,
-    - ekkenOffset / 2, cellHeight / 4,
+    -ekkenOffset / 2, cellHeight / 4,
     cellWidth / 4, cellHeight / 2,
   );
   ctx.drawImage(
     image,
     offsetH, offsetV, width / 2, height,
-    - ekkenOffset / 2 + cellWidth / 4, cellHeight / 4,
+    -ekkenOffset / 2 + cellWidth / 4, cellHeight / 4,
     cellWidth / 4, cellHeight / 2,
   );
   ctx.drawImage(
@@ -69,7 +69,7 @@ function animationEkken (
   );
 }
 
-function animationEkkenVertical (
+function animationEkkenVertical(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
@@ -84,7 +84,7 @@ function animationEkkenVertical (
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height / 2,
-    cellWidth / 4, - ekkenOffset / 2,
+    cellWidth / 4, -ekkenOffset / 2,
     cellWidth / 2, cellHeight / 4,
   );
   ctx.drawImage(
@@ -107,7 +107,7 @@ function animationEkkenVertical (
   );
 }
 
-function animationKanpai (
+function animationKanpai(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
@@ -125,7 +125,7 @@ function animationKanpai (
   );
 }
 
-function animationKanpaiLefty (
+function animationKanpaiLefty(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
@@ -133,23 +133,23 @@ function animationKanpaiLefty (
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
-    - cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
+    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
   _flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
-    - cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
+    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
 }
 
-function animationScrollHorizontal (
+function animationScrollHorizontal(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
-    - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
+    -cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
   ctx.drawImage(
     image,
@@ -163,7 +163,7 @@ function animationScrollHorizontal (
   );
 }
 
-function animationScrollVertical (
+function animationScrollVertical(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   ctx.drawImage(
@@ -183,7 +183,7 @@ function animationScrollVertical (
   );
 }
 
-function animationPushHorizontal (
+function animationPushHorizontal(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   /*   push: 0 0.5   0.5   1.0
@@ -200,7 +200,7 @@ function animationPushHorizontal (
   );
 }
 
-function animationPushVertical (
+function animationPushVertical(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   keyframe = keyframe < 0.125 ? (
@@ -215,7 +215,7 @@ function animationPushVertical (
   );
 }
 
-function animationXile (
+function animationXile(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
   for (let i = 0; i < 3; i++) {

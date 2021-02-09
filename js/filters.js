@@ -8,10 +8,10 @@ const FILTERS = [
   { fn: filterChromakey, label: 'クロマキー透過 (左上から)' },
 ];
 
-function filterChromakey (image) {
+function filterChromakey(image) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  canvas.width  = image.naturalWidth;
+  canvas.width = image.naturalWidth;
   canvas.height = image.naturalHeight;
 
   ctx.drawImage(image, 0, 0);
@@ -45,12 +45,12 @@ function filterChromakey (image) {
       data[ix + 3] = 0;
       queue.push(
         [item[0] - 1, item[1] - 1],
-        [item[0],     item[1] - 1],
+        [item[0], item[1] - 1],
         [item[0] + 1, item[1] - 1],
         [item[0] - 1, item[1]],
         [item[0] + 1, item[1]],
         [item[0] - 1, item[1] + 1],
-        [item[0],     item[1] + 1],
+        [item[0], item[1] + 1],
         [item[0] + 1, item[1] + 1],
       );
     }
