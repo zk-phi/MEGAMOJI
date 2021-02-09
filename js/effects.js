@@ -216,7 +216,7 @@ function effectZoom(keyframe, ctx, cellWidth, cellHeight) {
 
 function effectTiritiri(keyframe, ctx, cellWidth, cellHeight) {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-  const data = imageData.data;
+  const { data } = imageData;
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
       data[(row * cellWidth + col) * 4 + 3] = parseInt(255 * Math.random());
@@ -227,7 +227,7 @@ function effectTiritiri(keyframe, ctx, cellWidth, cellHeight) {
 
 function effectPsych(keyframe, ctx, cellWidth, cellHeight) {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-  const data = imageData.data;
+  const { data } = imageData;
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
       if (row % 10 <= 5 && col % 10 >= 5) {
@@ -256,7 +256,7 @@ function effectPsych(keyframe, ctx, cellWidth, cellHeight) {
 
 function effectDizzy(keyframe, ctx, cellWidth, cellHeight) {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);
-  const data = imageData.data;
+  const { data } = imageData;
   for (let row = 0; row < (cellHeight * cellWidth * 4); row += 4) {
     if (Math.floor(row / 4 + (keyframe * 40)) % 40 < 40
         && Math.floor(row / 4 + (keyframe * 40)) % 40 > 20) {

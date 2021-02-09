@@ -76,7 +76,7 @@ function postEffectGlitch(keyframe, ctx, w, h) {
 
 function postEffectMosaic(keyframe, ctx, w, h) {
   const image = ctx.getImageData(0, 0, w, h);
-  const data = image.data;
+  const { data } = image;
 
   const cellSize = Math.floor(Math.min(w, h) / 16);
   const cellCountH = Math.ceil(w / cellSize + 1);

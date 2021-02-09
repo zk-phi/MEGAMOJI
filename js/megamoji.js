@@ -58,7 +58,7 @@ function cropCanvas(source, left, top, w, h) {
 /* drop transparent area from canvas and returns a new cropped canvas */
 function shrinkCanvas(source) {
   const ctx = source.getContext('2d');
-  const data = ctx.getImageData(0, 0, source.width, source.height).data;
+  const { data } = ctx.getImageData(0, 0, source.width, source.height);
 
   let top = 0;
   top: for (; top < source.height; top += 1) {
@@ -481,7 +481,7 @@ const watch = {
 
 const computed = {
   outlineColor: function () {
-    const color = vm.source.text.color;
+    const { color } = vm.source.text;
     if (vm.source.text.outline == 'lighter') {
       return lighterColor(color);
     } else if (vm.source.text.outline == 'darker') {
