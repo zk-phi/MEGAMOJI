@@ -219,7 +219,7 @@ function effectTiritiri(keyframe, ctx, cellWidth, cellHeight) {
   const { data } = imageData;
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
-      data[(row * cellWidth + col) * 4 + 3] = parseInt(255 * Math.random());
+      data[(row * cellWidth + col) * 4 + 3] = Math.floor(255 * Math.random());
     }
   }
   ctx.putImageData(imageData, 0, 0);
