@@ -5,9 +5,9 @@ var POST_EFFECTS = [
     effects: [
       { label: '集中線', fn: postEffectFocusLine },
       { label: 'グリッチ', fn: postEffectGlitch },
-      { label: 'モザイク', fn: postEffectMosaic }
-    ]
-  }
+      { label: 'モザイク', fn: postEffectMosaic },
+    ],
+  },
 ];
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
@@ -15,7 +15,7 @@ function postEffectFocusLine (keyframe, ctx, w, h) {
   var circumPos = function (deg, r) {
     return {
       x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
-      y: Math.sin(Math.PI / 180 * deg) * r + h / 2
+      y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
     };
   }
 

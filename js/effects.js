@@ -15,10 +15,10 @@ var EFFECTS = [
   {
     label: 'フィルタ (Chrome のみ動作確認)',
     effects: [
-      { label: 'キラ' , fn: effectKira},
-      { label: 'もやもや' , fn: effectMoyamoya},
-      { label: 'Foil', fn: effectFoil }
-    ]
+      { label: 'キラ' , fn: effectKira },
+      { label: 'もやもや' , fn: effectMoyamoya },
+      { label: 'Foil', fn: effectFoil },
+    ],
   }, {
     label: '変形',
     effects: [
@@ -31,16 +31,16 @@ var EFFECTS = [
       { label: 'ヤッタ', fn: effectYatta },
       { label: 'ぽよーん', fn: effectPoyon },
       { label: 'もちもち', fn: effectMotimoti },
-      { label: 'BLINK', fn: effectBlink }
-    ]
+      { label: 'BLINK', fn: effectBlink },
+    ],
   }, {
     label: 'シャドウ',
     effects: [
       { label: 'ぐるぐる', fn: effectShadowRotate },
       { label: 'ブラー', fn: effectNaturalBlur },
-      { label: 'ネオン', fn: effectNeon }
-    ]
-  }
+      { label: 'ネオン', fn: effectNeon },
+    ],
+  },
 ];
 
 // eslint-disable-next-line no-unused-vars
@@ -56,8 +56,8 @@ var PRO_EFFECTS = [
     effects: [
       { label: 'チリチリ', fn: effectTiritiri },
       { label: 'ディスコ', fn: effectPsych },
-      { label: 'サイケ', fn: effectDizzy }
-    ]
+      { label: 'サイケ', fn: effectDizzy },
+    ],
   }
 ];
 
@@ -89,7 +89,7 @@ function _HSV2RGB (H,S,V) {
   return [
     Math.floor((RGB[0] + m) * 255),
     Math.floor((RGB[1] + m) * 255),
-    Math.floor((RGB[2] + m) * 255)
+    Math.floor((RGB[2] + m) * 255),
   ];
 }
 
@@ -157,7 +157,7 @@ function effectRotate (keyframe, ctx, cellWidth, cellHeight) {
 function effectKurukuru (keyframe, ctx, cellWidth, cellHeight) {
   ctx.translate(
     Math.cos(Math.PI * 2 * keyframe) * 0.05 * cellWidth,
-    Math.sin(Math.PI * 2 * keyframe) * 0.05 * cellHeight
+    Math.sin(Math.PI * 2 * keyframe) * 0.05 * cellHeight,
   );
 }
 

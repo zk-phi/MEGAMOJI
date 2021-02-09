@@ -8,7 +8,7 @@ function _hex2rgb (hex) {
   return {
     r: parseInt(hex.substring(1, 3), 16),
     g: parseInt(hex.substring(3, 5), 16),
-    b: parseInt(hex.substring(5, 7), 16)
+    b: parseInt(hex.substring(5, 7), 16),
   }
 }
 
@@ -108,8 +108,8 @@ function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWi
         cropCanvas(
           source,
           offsetH + x * cellWidth, offsetV + y * cellHeight,
-          cellWidth, cellHeight
-        )
+          cellWidth, cellHeight,
+        ),
       );
     }
     cells.push(row);
@@ -283,7 +283,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
       offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
       targetSize * hCells, targetSize * vCells, noCrop,
       animation, animationInvert, effects, postEffects, framerate, framecount,
-      transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor
+      transparent ? 'rgba(0, 0, 0, 0)' : backgroundColor,
     );
     cells = noCrop ? (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
@@ -315,7 +315,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
         offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
         targetSize * hCells, targetSize * vCells, noCrop,
         animation, animationInvert, effects, postEffects, framerate, framecount,
-        transparent ? '#ffffff' : backgroundColor
+        transparent ? '#ffffff' : backgroundColor,
       );
       var imgCells = noCrop ? (
         cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
@@ -344,7 +344,7 @@ function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cel
     var ret = _renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
       animated, animation, animationInvert, effects, postEffects, framerate, framecount,
-      backgroundColor, transparent
+      backgroundColor, transparent,
     );
     /**
      * If a cell exceeds the limitation, retry with smaller targetSize.
@@ -373,13 +373,13 @@ var store = {
     showTargetPanel: false,
     fukumojiTab: 'base',
     showTextDetails: false,
-    showTargetDetails: false
+    showTargetDetails: false,
   },
   /* form inputs */
   source: {
     file: {
       file: null,
-      filter: ''
+      filter: '',
     },
     text: {
       /* basic */
@@ -390,14 +390,14 @@ var store = {
       outline: '',
       font: 'normal sans-serif',
       /* advanced */
-      lineSpacing: 0.05
+      lineSpacing: 0.05,
     },
     fukumoji: {
       base: 'assets/void.svg',
       textures: 'assets/void.svg',
       eyes: 'assets/void.svg',
       mouths: 'assets/void.svg',
-      others: 'assets/void.svg'
+      others: 'assets/void.svg',
     }
   },
   target: {
@@ -419,7 +419,7 @@ var store = {
     framerate: 18,
     framecount: 12,
     backgroundColor: '#ffffff',
-    transparent: false
+    transparent: false,
   },
 };
 
@@ -432,13 +432,13 @@ var watch = {
     handler: function () {
       vm.loadFile();
     },
-    deep: true
+    deep: true,
   },
   'source.text': {
     handler: function () {
       vm.renderText();
     },
-    deep: true
+    deep: true,
   },
   'source.text.color': function () {
     vm.source.text.gradient = [];
@@ -447,14 +447,14 @@ var watch = {
     handler: function () {
       vm.renderFukumoji();
     },
-    deep: true
+    deep: true,
   },
   target: {
     handler: function () {
       vm.render();
     },
-    deep: true
-  }
+    deep: true,
+  },
 };
 
 var computed = {
@@ -467,7 +467,7 @@ var computed = {
     } else {
       return vm.source.text.outline;
     }
-  }
+  },
 };
 
 var methods = {
@@ -495,7 +495,7 @@ var methods = {
         EMOJI_SIZE,
         vm.source.text.align,
         vm.source.text.lineSpacing * EMOJI_SIZE,
-        vm.outlineColor, vm.source.text.gradient
+        vm.outlineColor, vm.source.text.gradient,
       );
       urlToImg(blobUrl, function (img) { vm.baseImage = img; });
     }
@@ -506,7 +506,7 @@ var methods = {
       vm.source.fukumoji.textures,
       vm.source.fukumoji.mouths,
       vm.source.fukumoji.eyes,
-      vm.source.fukumoji.others
+      vm.source.fukumoji.others,
     ], function (blobUrl) {
       urlToImg(blobUrl, function (img) {
         vm.baseImage = img;
@@ -524,7 +524,7 @@ var methods = {
   addGradientColorStop: function () {
     vm.source.text.gradient.push({
       color: vm.source.text.color,
-      pos: 50
+      pos: 50,
     });
   },
   removeGradientColorStop: function (ix) {
@@ -608,9 +608,9 @@ var methods = {
       animated, vm.target.animation, vm.target.animationInvert,
       vm.target.effects.concat(vm.target.staticEffects),
       vm.target.postEffects, vm.target.framerate, vm.target.framecount,
-      vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT
+      vm.target.backgroundColor, vm.target.transparent, BINARY_SIZE_LIMIT,
     );
-  }
+  },
 };
 
 var vm = new Vue({ el: '#app', data: store, methods: methods, watch: watch, computed: computed });

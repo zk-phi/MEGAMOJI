@@ -5,7 +5,7 @@
 
 // eslint-disable-next-line no-unused-vars
 var FILTERS = [
-  { fn: filterChromakey, label: 'クロマキー透過 (左上から)' }
+  { fn: filterChromakey, label: 'クロマキー透過 (左上から)' },
 ];
 
 function filterChromakey (image) {
@@ -24,7 +24,7 @@ function filterChromakey (image) {
     [0, 0],
     [canvas.width - 1, 0],
     [0, canvas.height - 1],
-    [canvas.width - 1, canvas.height - 1]
+    [canvas.width - 1, canvas.height - 1],
   ];
 
   while (queue.length) {
@@ -39,7 +39,7 @@ function filterChromakey (image) {
     var norm = Math.hypot(
       data[ix] - baseColor[0],
       data[ix + 1] - baseColor[1],
-      data[ix + 2] - baseColor[2]
+      data[ix + 2] - baseColor[2],
     );
     if (norm < 90) {
       data[ix + 3] = 0;
@@ -51,7 +51,7 @@ function filterChromakey (image) {
         [item[0] + 1, item[1]],
         [item[0] - 1, item[1] + 1],
         [item[0],     item[1] + 1],
-        [item[0] + 1, item[1] + 1]
+        [item[0] + 1, item[1] + 1],
       );
     }
   }

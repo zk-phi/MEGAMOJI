@@ -19,7 +19,7 @@ var ANIMATIONS = [
   { label: '謁見バーティカル', fn: animationEkkenVertical },
   { label: '乾杯', fn: animationKanpai },
   { label: '乾杯 (左利き)', fn: animationKanpaiLefty },
-  { label: 'ザイル', fn: animationXile }
+  { label: 'ザイル', fn: animationXile },
 ];
 
 /* ---- utils */
