@@ -561,9 +561,11 @@ const methods = {
     let heightRatio = (EMOJI_SIZE * v) / image.naturalHeight;
 
     if (vm.target.trimming === 'cover') {
-      widthRatio = heightRatio = Math.max(widthRatio, heightRatio);
+      widthRatio = Math.max(widthRatio, heightRatio);
+      heightRatio = widthRatio;
     } else if (vm.target.trimming === 'contain') {
-      widthRatio = heightRatio = Math.min(widthRatio, heightRatio);
+      widthRatio = Math.min(widthRatio, heightRatio);
+      heightRatio = widthRatio;
     }
 
     vm.target.hZoom = `${widthRatio}`;
