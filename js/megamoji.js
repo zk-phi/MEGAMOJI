@@ -15,7 +15,7 @@ function _hex2rgb(hex) {
 function _intToByte(int) {
   const str = Number(int).toString(16);
   if (str.length < 2) {
-    return '0' + str;
+    return `0${str}`;
   } else {
     return str;
   }
@@ -28,7 +28,7 @@ function _lighterColor(hexColor) {
     g: Math.min(255, rgb.g + 96),
     b: Math.min(255, rgb.b + 96),
   };
-  return '#' + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+  return `#${_intToByte(newRgb.r)}${_intToByte(newRgb.g)}${_intToByte(newRgb.b)}`;
 }
 
 function _darkerColor(hexColor) {
@@ -38,7 +38,7 @@ function _darkerColor(hexColor) {
     g: Math.max(0, rgb.g - 64),
     b: Math.max(0, rgb.b - 64),
   };
-  return '#' + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+  return `#${_intToByte(newRgb.r)}${_intToByte(newRgb.g)}${_intToByte(newRgb.b)}`;
 }
 
 /* ---- CANVAS UTILS */
@@ -348,7 +348,7 @@ function _renderAllCellsFixedSize(
     return cells.map(function (row) {
       return row.map(function (cell) {
         cell.finish();
-        return 'data:image/gif;base64,' + encode64(cell.stream().getData());
+        return `data:image/gif;base64,${encode64(cell.stream().getData())}`;
       });
     });
   }
@@ -513,7 +513,7 @@ const methods = {
       const blobUrl = makeTextImage(
         vm.source.text.content,
         vm.source.text.color,
-        vm.source.text.font.replace(/^([^ ]+)/, '$1 ' + EMOJI_SIZE + 'px'),
+        vm.source.text.font.replace(/^([^ ]+)/, `$1 ${EMOJI_SIZE}px`),
         EMOJI_SIZE,
         vm.source.text.align,
         vm.source.text.lineSpacing * EMOJI_SIZE,
@@ -565,19 +565,19 @@ const methods = {
       widthRatio = heightRatio = Math.min(widthRatio, heightRatio);
     }
 
-    vm.target.hZoom      = widthRatio + '';
-    vm.target.vZoom      = heightRatio + '';
-    vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + '';
-    vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + '';
+    vm.target.hZoom = `${widthRatio}`;
+    vm.target.vZoom = `${heightRatio}`;
+    vm.target.offsetLeft = `${(image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2}`;
+    vm.target.offsetTop = `${Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2)}`;
   },
   onSetShowTarget: function (value) {
     vm.ui.showTargetPanel = value;
-    ga('send', 'pageview', value ? '/target' : ('/' + vm.ui.mode));
+    ga('send', 'pageview', value ? '/target' : (`/${vm.ui.mode}`));
   },
   onSelectMode: function (value) {
     vm.ui.mode = value;
     vm.ui.showTargetPanel = false;
-    ga('send', 'pageview', '/' + value);
+    ga('send', 'pageview', `/${value}`);
   },
   onSelectFukumojiTab: function (value) {
     vm.ui.fukumojiTab = value;
@@ -638,7 +638,7 @@ const methods = {
 var vm = new Vue({ el: '#app', data: store, methods: methods, watch: watch, computed: computed });
 
 window.onerror = function (msg, file, line, col) {
-  ga('send', 'event', 'error', 'thrown', file + ':' + line + ':' + col + ' ' + msg);
+  ga('send', 'event', 'error', 'thrown', `${file}:${line}:${col} ${msg}`);
 };
 
 !function () {

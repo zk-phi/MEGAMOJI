@@ -106,18 +106,18 @@ function effectFlipVert(keyframe, ctx, cellWidth, cellHeight) {
 }
 
 function effectKira(keyframe, ctx) {
-  const currentFilter = ctx.filter == 'none' ? '' : ctx.filter + ' ';
-  ctx.filter = currentFilter + 'saturate(1000%) hue-rotate(' + (keyframe * 360) + 'deg)';
+  const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+  ctx.filter = `${currentFilter}saturate(1000%) hue-rotate(${keyframe * 360}deg)`;
 }
 
 function effectMoyamoya(keyframe, ctx) {
-  const currentFilter = ctx.filter == 'none' ? '' : ctx.filter + ' ';
-  ctx.filter = currentFilter + 'blur(' + (6 + 1 * Math.cos(2 * Math.PI * keyframe)) + 'px)';
+  const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+  ctx.filter = `${currentFilter}blur(${6 + 1 * Math.cos(2 * Math.PI * keyframe)}px)`;
 }
 
 function effectFoil(keyframe, ctx) {
-  const currentFilter = ctx.filter == 'none' ? '' : ctx.filter + ' ';
-  ctx.filter = currentFilter + 'brightness(' + (120 + Math.floor(20 * Math.sin(2 * Math.PI * keyframe))) + '%)';
+  const currentFilter = ctx.filter === 'none' ? '' : `${ctx.filter} `;
+  ctx.filter = `${currentFilter}brightness(${120 + Math.floor(20 * Math.sin(2 * Math.PI * keyframe))}%)`;
 }
 
 function effectBlink(keyframe, ctx, cellWidth) {
@@ -128,13 +128,13 @@ function effectBlink(keyframe, ctx, cellWidth) {
 
 function effectNaturalBlur(keyframe, ctx) {
   const HSVColor = _HSV2RGB(0, 0, keyframe);
-  ctx.shadowColor = 'rgb(' + HSVColor[0] + ', ' + HSVColor[1] + ', ' + HSVColor[2] + ')';
+  ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
   ctx.shadowBlur = 50 * keyframe;
 }
 
 function effectNeon(keyframe, ctx) {
   const HSVColor = _HSV2RGB(keyframe * 360 * 4 % 360, 1, 1);
-  ctx.shadowColor = 'rgb(' + HSVColor[0] + ', ' + HSVColor[1] + ', ' + HSVColor[2] + ')';
+  ctx.shadowColor = `rgb(${HSVColor[0]}, ${HSVColor[1]}, ${HSVColor[2]})`;
   ctx.shadowBlur = 10;
 }
 
