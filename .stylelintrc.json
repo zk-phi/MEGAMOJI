@@ -1,6 +1,9 @@
 {
     "extends": "stylelint-config-primer",
     "rules": {
-        "plugin/no-unsupported-browser-features": [true, { "severity": "warning" }]
+        "plugin/no-unsupported-browser-features": [true, {
+            "severity": "error",
+            "ignore": ["css-gradients"]
+        }]
     }
 }
