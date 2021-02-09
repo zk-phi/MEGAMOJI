@@ -34,8 +34,8 @@ function postEffectFocusLine (keyframe, ctx, w, h) {
     ctx.lineWidth = 1;
     ctx.fillStyle = 'black';
     ctx.moveTo(pos1.x, pos1.y);
-    ctx.lineTo(pos2.x,  pos2.y);
-    ctx.lineTo(pos3.x,   pos3.y);
+    ctx.lineTo(pos2.x, pos2.y);
+    ctx.lineTo(pos3.x, pos3.y);
     ctx.fill();
     ctx.closePath();
   }
