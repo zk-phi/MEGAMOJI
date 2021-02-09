@@ -34,9 +34,9 @@ function _flipContext(ctx, width) {
 function animationEkken(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  const size = 1.0 * keyframe + 0.5 * (1 - keyframe);
-  const ekkenOffset = (cellWidth / 2) * keyframe;
+  const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
+  const size = 1.0 * kf + 0.5 * (1 - kf);
+  const ekkenOffset = (cellWidth / 2) * kf;
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -72,9 +72,9 @@ function animationEkken(
 function animationEkkenVertical(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  keyframe = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  const size = 1.0 * keyframe + 0.5 * (1 - keyframe);
-  const ekkenOffset = cellHeight / 2 * keyframe;
+  const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
+  const size = 1.0 * kf + 0.5 * (1 - kf);
+  const ekkenOffset = cellHeight / 2 * kf;
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -188,7 +188,7 @@ function animationPushHorizontal(
 ) {
   /*   push: 0 0.5   0.5   1.0
    * scroll: 0 0.125 0.875 1.0 */
-  keyframe = keyframe < 0.125 ? (
+  const kf = keyframe < 0.125 ? (
     keyframe * 4
   ) : keyframe < 0.875 ? (
     0.5
@@ -196,14 +196,14 @@ function animationPushHorizontal(
     (keyframe - 0.875) * 4 + 0.5
   );
   animationScrollHorizontal(
-    keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
+    kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
   );
 }
 
 function animationPushVertical(
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) {
-  keyframe = keyframe < 0.125 ? (
+  const kf = keyframe < 0.125 ? (
     keyframe * 4
   ) : keyframe < 0.875 ? (
     0.5
@@ -211,7 +211,7 @@ function animationPushVertical(
     (keyframe - 0.875) * 4 + 0.5
   );
   animationScrollVertical(
-    keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
+    kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
   );
 }
 
