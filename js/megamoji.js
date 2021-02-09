@@ -131,7 +131,8 @@ function mergeImages(w, h, srcs, callback) {
 
   img.onload = function () {
     ctx.drawImage(img, 0, 0, w, h);
-    if (++ix == srcs.length) {
+    ix += 1;
+    if (ix === srcs.length) {
       callback(canvas.toDataURL());
     } else {
       img.src = srcs[ix];
