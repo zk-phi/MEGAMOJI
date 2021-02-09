@@ -17,12 +17,16 @@
 }
 
 .result_area.dark {
-  color: #fff;
+  color: #ddd;
   background-color: #333;
 }
 
 .result_area.dark .label {
-  color: #fff;
+  color: #ddd;
+}
+
+.result_area.dark .radio:hover {
+  color: #eee;
 }
 
 .result_area .cell {
