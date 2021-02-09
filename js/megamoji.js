@@ -70,7 +70,7 @@ function shrinkCanvas(source) {
   }
 
   let bottom = source.height - 1;
-  bottom: for (; bottom >= top; bottom--) {
+  bottom: for (; bottom >= top; bottom -= 1) {
     for (x = 0; x < source.width; x += 1) {
       if (data[(bottom * source.width + x) * 4 + 3]) {
         break bottom;
@@ -88,7 +88,7 @@ function shrinkCanvas(source) {
   }
 
   let right = source.width - 1;
-  right: for (; right >= left; right--) {
+  right: for (; right >= left; right -= 1) {
     for (y = top + 1; y < bottom; y += 1) {
       if (data[(y * source.width + right) * 4 + 3]) {
         break right;
