@@ -15,7 +15,7 @@ function _hex2rgb (hex) {
 function _intToByte (int) {
   var str = Number(int).toString(16);
   if (str.length < 2) {
-    return "0" + str;
+    return '0' + str;
   } else {
     return str;
   }
@@ -28,7 +28,7 @@ function _lighterColor (hexColor) {
     g: Math.min(255, rgb.g + 96),
     b: Math.min(255, rgb.b + 96),
   };
-  return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+  return '#' + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
 }
 
 function _darkerColor (hexColor) {
@@ -38,14 +38,14 @@ function _darkerColor (hexColor) {
     g: Math.max(0, rgb.g - 64),
     b: Math.max(0, rgb.b - 64),
   };
-  return "#" + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
+  return '#' + _intToByte(newRgb.r) + _intToByte(newRgb.g) + _intToByte(newRgb.b);
 }
 
 /* ---- CANVAS UTILS */
 
 /* Create a new canvas and render specified region of the source canvas. */
 function cropCanvas (source, left, top, w, h) {
-  var target    = document.createElement("canvas");
+  var target    = document.createElement('canvas');
   var ctx       = target.getContext('2d');
   target.width  = w;
   target.height = h;
@@ -119,14 +119,14 @@ function cutoutCanvasIntoCells (source, offsetH, offsetV, hCells, vCells, cellWi
 
 /* Merge images into one image and return as a BlobURL. */
 function mergeImages (w, h, srcs, callback) {
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
 
   canvas.width = w;
   canvas.height = h;
 
   var ix = 0;
-  var img = document.createElement("img");
+  var img = document.createElement('img');
 
   img.onload = function () {
     ctx.drawImage(img, 0, 0, w, h);
@@ -149,7 +149,7 @@ function loadFileAsBlobURL (path, callback) {
 
 /* Create an img object, set src attr to the specified url, and return it. */
 function urlToImg (url, cb) {
-  var img = document.createElement("img");
+  var img = document.createElement('img');
   img.src = url;
   img.onload = function () {
     cb(img);
@@ -167,13 +167,13 @@ function dataurlSize (str) {
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor, gradient) {
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
 
   var ctx = canvas.getContext('2d');
   ctx.font         = font;
-  ctx.textBaseline = "top";
+  ctx.textBaseline = 'top';
 
   if (outlineColor) {
     ctx.strokeStyle = outlineColor;
@@ -197,7 +197,7 @@ function _makeTextImageSingleLine (line, color, font, fontHeight, outlineColor, 
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
-  var images = text.split("\n").map(function (line) {
+  var images = text.split('\n').map(function (line) {
     return _makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient);
   });
   var lineWidths  = images.map(function (canvas) { return canvas.width; })
@@ -206,7 +206,7 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outli
     return l + r.height;
   }, 0);
 
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   canvas.width  = maxWidth;
   canvas.height = totalHeight;
 
@@ -216,11 +216,11 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outli
   images.forEach(function (image, ix) {
     ctx.save();
 
-    if (align == "right") {
+    if (align == 'right') {
       ctx.translate(maxWidth - lineWidths[ix], 0)
-    } else if (align == "center") {
+    } else if (align == 'center') {
       ctx.translate((maxWidth - lineWidths[ix]) / 2, 0);
-    } else if (align == "stretch") {
+    } else if (align == 'stretch') {
       ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
     }
 
@@ -236,7 +236,7 @@ function makeTextImage (text, color, font, fontHeight, align, lineSpacing, outli
 /* ---- CORE */
 
 function _renderFrameUncut (keyframe, image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop, animation, animationInvert, effects, postEffects, framerate, framecount, fillStyle) {
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
 
   /* use larger canvas, because some effects may translate the canvas */
@@ -331,7 +331,7 @@ function _renderAllCellsFixedSize (image, offsetH, offsetV, hCells, vCells, cell
     return cells.map(function (row) {
       return row.map(function (cell) {
         cell.finish();
-        return "data:image/gif;base64," + encode64(cell.stream().getData());
+        return 'data:image/gif;base64,' + encode64(cell.stream().getData());
       });
     });
   }
@@ -365,13 +365,13 @@ function renderAllCells (image, offsetH, offsetV, hCells, vCells, cellWidth, cel
 
 var store = {
   baseImage: null,
-  resultImages: [["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4Xu3UAQ0AAAyDsM+/6QspcwAh2zXawGj64K8A8AgKoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7ADyAB6SPAIFm19U7AAAAAElFTkSuQmCC"]],
-  resultBgClass: "default",
+  resultImages: [['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB0UlEQVR4Xu3UAQ0AAAyDsM+/6QspcwAh2zXawGj64K8A8AgKoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7gALADeD4PUAB4AZw/B6gAHADOH4PUAC4ARy/BygA3ACO3wMUAG4Ax+8BCgA3gOP3AAWAG8Dxe4ACwA3g+D1AAeAGcPweoABwAzh+D1AAuAEcvwcoANwAjt8DFABuAMfvAQoAN4Dj9wAFgBvA8XuAAsAN4Pg9QAHgBnD8HqAAcAM4fg9QALgBHL8HKADcAI7fAxQAbgDH7wEKADeA4/cABYAbwPF7ADyAB6SPAIFm19U7AAAAAElFTkSuQmCC']],
+  resultBgClass: 'default',
   /* ui */
   ui: {
-    mode: "text",
+    mode: 'text',
     showTargetPanel: false,
-    fukumojiTab: "base",
+    fukumojiTab: 'base',
     showTextDetails: false,
     showTargetDetails: false
   },
@@ -379,33 +379,33 @@ var store = {
   source: {
     file: {
       file: null,
-      filter: ""
+      filter: ''
     },
     text: {
       /* basic */
-      content: "",
-      align: "left",
-      color: "#ffbf00",
+      content: '',
+      align: 'left',
+      color: '#ffbf00',
       gradient: [],
-      outline: "",
-      font: "normal sans-serif",
+      outline: '',
+      font: 'normal sans-serif',
       /* advanced */
       lineSpacing: 0.05
     },
     fukumoji: {
-      base: "assets/void.svg",
-      textures: "assets/void.svg",
-      eyes: "assets/void.svg",
-      mouths: "assets/void.svg",
-      others: "assets/void.svg"
+      base: 'assets/void.svg',
+      textures: 'assets/void.svg',
+      eyes: 'assets/void.svg',
+      mouths: 'assets/void.svg',
+      others: 'assets/void.svg'
     }
   },
   target: {
     /* basic */
-    trimming: "",
+    trimming: '',
     hCells: 1,
     vCells: 1,
-    animation: "",
+    animation: '',
     animationInvert: false,
     staticEffects: [],
     effects: [],
@@ -413,12 +413,12 @@ var store = {
     /* advanced */
     offsetLeft: 0,
     offsetTop: 0,
-    hZoom: "1.0",
-    vZoom: "1.0",
+    hZoom: '1.0',
+    vZoom: '1.0',
     noCrop: false,
     framerate: 18,
     framecount: 12,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     transparent: false
   },
 };
@@ -460,9 +460,9 @@ var watch = {
 var computed = {
   outlineColor: function () {
     var color = vm.source.text.color;
-    if (vm.source.text.outline == "lighter") {
+    if (vm.source.text.outline == 'lighter') {
       return _lighterColor(color);
-    } else if (vm.source.text.outline == "darker") {
+    } else if (vm.source.text.outline == 'darker') {
       return _darkerColor(color);
     } else {
       return vm.source.text.outline;
@@ -491,7 +491,7 @@ var methods = {
       var blobUrl = makeTextImage(
         vm.source.text.content,
         vm.source.text.color,
-        vm.source.text.font.replace(/^([^ ]+)/, "$1 " + EMOJI_SIZE + "px"),
+        vm.source.text.font.replace(/^([^ ]+)/, '$1 ' + EMOJI_SIZE + 'px'),
         EMOJI_SIZE,
         vm.source.text.align,
         vm.source.text.lineSpacing * EMOJI_SIZE,
@@ -515,7 +515,7 @@ var methods = {
   },
   initializeGradient: function () {
     vm.source.text.gradient = [
-      { color: "#ffffff", pos: 0 },
+      { color: '#ffffff', pos: 0 },
       { color: vm.source.text.color, pos: 45 },
       { color: _lighterColor(vm.source.text.color), pos: 55 },
       { color: _darkerColor(vm.source.text.color), pos: 65 },
@@ -537,25 +537,25 @@ var methods = {
     var widthRatio  = (EMOJI_SIZE * h) / image.naturalWidth;
     var heightRatio = (EMOJI_SIZE * v) / image.naturalHeight;
 
-    if (vm.target.trimming == "cover") {
+    if (vm.target.trimming == 'cover') {
       widthRatio = heightRatio = Math.max(widthRatio, heightRatio);
-    } else if (vm.target.trimming == "contain") {
+    } else if (vm.target.trimming == 'contain') {
       widthRatio = heightRatio = Math.min(widthRatio, heightRatio);
     }
 
-    vm.target.hZoom      = widthRatio + "";
-    vm.target.vZoom      = heightRatio + "";
-    vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + "";
-    vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + "";
+    vm.target.hZoom      = widthRatio + '';
+    vm.target.vZoom      = heightRatio + '';
+    vm.target.offsetLeft = (image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2 + '';
+    vm.target.offsetTop  = Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2) + '';
   },
   onSetShowTarget: function (value) {
     vm.ui.showTargetPanel = value;
-    ga('send', 'pageview', value ? "/target" : ("/" + vm.ui.mode));
+    ga('send', 'pageview', value ? '/target' : ('/' + vm.ui.mode));
   },
   onSelectMode: function (value) {
     vm.ui.mode = value;
     vm.ui.showTargetPanel = false;
-    ga('send', 'pageview', "/" + value);
+    ga('send', 'pageview', '/' + value);
   },
   onSelectFukumojiTab: function (value) {
     vm.ui.fukumojiTab = value;
@@ -565,13 +565,13 @@ var methods = {
   },
   onSelectSpeedPreset: function (e) {
     var speed = e.target.value;
-    if (speed == "") {
+    if (speed == '') {
       vm.target.framerate = 18;
       vm.target.framecount = 12;
-    } else if (speed == "turbo") {
+    } else if (speed == 'turbo') {
       vm.target.framerate = 60;
       vm.target.framecount = 12;
-    } else if (speed == "super-turbo") {
+    } else if (speed == 'super-turbo') {
       vm.target.framerate = 60;
       vm.target.framecount = 6;
     }
@@ -594,7 +594,7 @@ var methods = {
     var cellWidth = EMOJI_SIZE / vm.target.hZoom;
     var cellHeight = EMOJI_SIZE / vm.target.vZoom;
 
-    ga("send", "event", vm.ui.mode, "render");
+    ga('send', 'event', vm.ui.mode, 'render');
 
     var animated = (
       vm.target.animation || vm.target.effects.length || vm.target.postEffects.length
@@ -613,22 +613,22 @@ var methods = {
   }
 };
 
-var vm = new Vue({ el: "#app", data: store, methods: methods, watch: watch, computed: computed });
+var vm = new Vue({ el: '#app', data: store, methods: methods, watch: watch, computed: computed });
 
 window.onerror = function (msg, file, line, col) {
-  ga('send', 'event', "error", "thrown", file + ":" + line + ":" + col + " " + msg);
+  ga('send', 'event', 'error', 'thrown', file + ':' + line + ':' + col + ' ' + msg);
 };
 
 !function () {
   var match = location.href.match(/\?([^=]+)(=(.*))?$/);
   if (match) {
-    if (match[1] == "test") {
-      vm.ui.mode = "text";
+    if (match[1] == 'test') {
+      vm.ui.mode = 'text';
       vm.ui.showTargetPanel = true;
-      vm.source.text.content = "あ";
-    } else if (match[1] == "mode") {
+      vm.source.text.content = 'あ';
+    } else if (match[1] == 'mode') {
       vm.ui.mode = match[3];
     }
   }
-  ga('send', 'pageview', "/");
+  ga('send', 'pageview', '/');
 }();

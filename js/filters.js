@@ -5,11 +5,11 @@
 
 // eslint-disable-next-line no-unused-vars
 var FILTERS = [
-  { fn: filterChromakey, label: "クロマキー透過 (左上から)" }
+  { fn: filterChromakey, label: 'クロマキー透過 (左上から)' }
 ];
 
 function filterChromakey (image) {
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   var ctx    = canvas.getContext('2d');
   canvas.width  = image.naturalWidth;
   canvas.height = image.naturalHeight;
@@ -57,5 +57,5 @@ function filterChromakey (image) {
   }
 
   ctx.putImageData(imageData, 0, 0);
-  return canvas.toDataURL("image/png");
+  return canvas.toDataURL('image/png');
 }

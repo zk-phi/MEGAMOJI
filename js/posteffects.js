@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 var POST_EFFECTS = [
   {
-    label: "エフェクト",
+    label: 'エフェクト',
     effects: [
-      { label: "集中線", fn: postEffectFocusLine },
-      { label: "グリッチ", fn: postEffectGlitch },
-      { label: "モザイク", fn: postEffectMosaic }
+      { label: '集中線', fn: postEffectFocusLine },
+      { label: 'グリッチ', fn: postEffectGlitch },
+      { label: 'モザイク', fn: postEffectMosaic }
     ]
   }
 ];
