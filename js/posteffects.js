@@ -17,7 +17,7 @@ function postEffectFocusLine(keyframe, ctx, w, h) {
     y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
   });
 
-  const outerRadius = Math.sqrt(Math.pow(w / 4, 2) + Math.pow(h / 4, 2));
+  const outerRadius = Math.sqrt((w / 4) ** 2 + (h / 4) ** 2);
   const innerRadiusMin = outerRadius * 0.6;
   const innerRadiusMax = outerRadius * 0.8;
 
