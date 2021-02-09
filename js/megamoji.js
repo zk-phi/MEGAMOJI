@@ -219,7 +219,7 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
     ctx.save();
 
     if (align === 'right') {
-      ctx.translate(maxWidth - lineWidths[ix], 0)
+      ctx.translate(maxWidth - lineWidths[ix], 0);
     } else if (align === 'center') {
       ctx.translate((maxWidth - lineWidths[ix]) / 2, 0);
     } else if (align === 'stretch') {
