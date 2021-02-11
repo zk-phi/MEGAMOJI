@@ -398,7 +398,7 @@ const data = {
         text: {
             /* basic */
             content: "",
-            align: "left",
+            align: "stretch",
             color: "#ffbf00",
             gradient: [],
             outline: "",
