@@ -32,6 +32,7 @@ const EFFECTS = [
             { label: "ぽよーん", fn: effectPoyon },
             { label: "もちもち", fn: effectMotimoti },
             { label: "BLINK", fn: effectBlink },
+            { label: "直球", fn: effectStraight },
         ],
     }, {
         label: "シャドウ",
@@ -91,6 +92,17 @@ function HSV2RGB(H, S, V) {
         g: Math.floor((RGB[1] + m) * 255),
         b: Math.floor((RGB[2] + m) * 255),
     };
+}
+
+/* ---- utils */
+
+function scaleCentered(ctx, cellWidth, cellHeight, hScale, vScale) {
+    ctx.transform(
+        hScale,
+        0, 0,
+        vScale,
+        cellWidth * (1 - hScale) / 2, cellHeight * (1 - vScale) / 2,
+    );
 }
 
 /* ---- effects */
@@ -217,6 +229,12 @@ function effectYurayura(keyframe, ctx, cellWidth, cellHeight) {
 function effectZoom(keyframe, ctx, cellWidth, cellHeight) {
     const zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;
     ctx.transform(1 + zoom, 0, 0, 1 + zoom, -cellWidth / 2 * zoom, -cellHeight / 2 * zoom);
+}
+
+function effectStraight(keyframe, ctx, cellWidth, cellHeight) {
+    if (keyframe < 0.5) {
+        scaleCentered(ctx, cellWidth, cellHeight, keyframe * 2, keyframe * 2);
+    }
 }
 
 function effectTiritiri(keyframe, ctx, cellWidth, cellHeight) {
