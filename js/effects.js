@@ -101,7 +101,7 @@ function scaleCentered(ctx, cellWidth, cellHeight, hScale, vScale) {
         hScale,
         0, 0,
         vScale,
-        cellWidth * (1 - hScale) / 2, cellHeight * (1 - vScale) / 2
+        cellWidth * (1 - hScale) / 2, cellHeight * (1 - vScale) / 2,
     );
 }
 
