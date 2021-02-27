@@ -1,0 +1,16 @@
+name: Lint (gh-pages)
+
+on:
+  push:
+    branches:
+      - gh-pages
+
+jobs:
+  run-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: npx stylelint css
+      - run: npx eslint .
