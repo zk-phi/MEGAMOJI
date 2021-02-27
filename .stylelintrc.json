@@ -1,6 +1,9 @@
 {
     "extends": "stylelint-config-primer",
     "rules": {
+        indentation: 2,
+        "string-quotes": "double",
+        "value-list-comma-newline-after": "always-multi-line",
         "plugin/no-unsupported-browser-features": [true, {
             "severity": "error",
             "ignore": ["css-gradients"]
