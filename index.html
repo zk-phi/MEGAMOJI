@@ -328,24 +328,20 @@
                   <div class="field">
                     <label class="label">アウトライン</label>
                     <div class="control">
-                      <label class="radio">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="">
-                        なし
-                      </label>
-                      <label class="radio" style="color: #000000">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="#000000">
+                      <label class="checkbox" style="color: #000000">
+                        <input type="checkbox" name="outline" v-model="source.text.outlines" value="#000000">
                         ◆
                       </label>
-                      <label class="radio" :style="{ color: darkerColor(source.text.color) }">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="darker">
+                      <label class="checkbox" :style="{ color: darkerColor(source.text.color) }">
+                        <input type="checkbox" name="outline" v-model="source.text.outlines" value="darker">
                         ◆
                       </label>
-                      <label class="radio" :style="{ color: lighterColor(source.text.color) }">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="lighter">
+                      <label class="checkbox" :style="{ color: lighterColor(source.text.color) }">
+                        <input type="checkbox" name="outline" v-model="source.text.outlines" value="lighter">
                         ◆
                       </label>
-                      <label class="radio">
-                        <input type="radio" name="outline" v-model="source.text.outline" value="#ffffff">
+                      <label class="checkbox">
+                        <input type="checkbox" name="outline" v-model="source.text.outlines" value="#ffffff">
                         ♢
                       </label>
                     </div>
@@ -359,9 +355,21 @@
                     </div>
                     <div class="field">
                       <label class="label">その他のアウトライン</label>
+                    </div>
+                    <div class="field has-addons" v-for="(color, ix) in outlineColors">
+                      <div class="control is-expanded">
+                        <input class="input" type="color" :value="color"
+                               @change="$set(source.text.outlines, ix, $event.target.value)">
+                      </div>
                       <div class="control">
-                        <input class="input" type="color" :value="outlineColor"
-                               @change="source.text.outline = $event.target.value">
+                        <button class="button" @click="removeOutline(ix)">x</button>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <button class="button" @click="addOutline">
+                          + アウトラインを追加
+                        </button>
                       </div>
                     </div>
                   </div>

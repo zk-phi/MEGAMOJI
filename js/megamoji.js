@@ -166,7 +166,7 @@ function dataurlSize(str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient) {
+function makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient) {
     const canvas = document.createElement("canvas");
     canvas.width = fontHeight * (line.length || 1) * 2;
     canvas.height = fontHeight * 2;
@@ -175,9 +175,9 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gr
     ctx.font = font;
     ctx.textBaseline = "top";
 
-    if (outlineColor) {
-        ctx.strokeStyle = outlineColor;
-        ctx.lineWidth = 8;
+    for (let i = outlineColors.length - 1; i >= 0; i -= 1) {
+        ctx.strokeStyle = outlineColors[i];
+        ctx.lineWidth = (i + 1) * 8;
         ctx.strokeText(line, 25, 25);
     }
 
@@ -196,9 +196,9 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gr
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColor, gradient) {
+function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColors, gradient) {
     const images = text.split("\n").map((line) => (
-        makeTextImageSingleLine(line, color, font, fontHeight, outlineColor, gradient)
+        makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)
     ));
     const lineWidths = images.map((canvas) => canvas.width);
     const maxWidth = Math.max.apply(null, lineWidths);
@@ -401,7 +401,7 @@ const data = {
             align: "stretch",
             color: "#ffbf00",
             gradient: [],
-            outline: "",
+            outlines: [],
             font: "normal sans-serif",
             /* advanced */
             lineSpacing: 0.05,
@@ -476,15 +476,17 @@ const watch = {
 };
 
 const computed = {
-    outlineColor() {
+    outlineColors() {
         const { color } = this.source.text;
-        if (this.source.text.outline === "lighter") {
-            return lighterColor(color);
-        } else if (this.source.text.outline === "darker") {
-            return darkerColor(color);
-        } else {
-            return this.source.text.outline;
-        }
+        return this.source.text.outlines.map((outline) => (
+            outline === "lighter" ? (
+                lighterColor(color)
+            ) : outline === "darker" ? (
+                darkerColor(color)
+            ) : (
+                outline
+            )
+        ));
     },
 };
 
@@ -513,7 +515,7 @@ const methods = {
                 EMOJI_SIZE,
                 this.source.text.align,
                 this.source.text.lineSpacing * EMOJI_SIZE,
-                this.outlineColor, this.source.text.gradient,
+                this.outlineColors, this.source.text.gradient,
             );
             urlToImg(blobUrl, (img) => { this.baseImage = img; });
         }
@@ -547,6 +549,12 @@ const methods = {
     },
     removeGradientColorStop(ix) {
         this.source.text.gradient.splice(ix, 1);
+    },
+    addOutline() {
+        this.source.text.outlines.push(this.source.text.color);
+    },
+    removeOutline(ix) {
+        this.source.text.outlines.splice(ix, 1);
     },
     refreshDefaultSettings() {
         const image = this.baseImage;
