@@ -483,6 +483,8 @@ const computed = {
                 lighterColor(color)
             ) : outline === "darker" ? (
                 darkerColor(color)
+            ) : outline === "identical" ? (
+                color
             ) : (
                 outline
             )

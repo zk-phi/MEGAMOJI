@@ -336,6 +336,10 @@
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="darker">
                         ◆
                       </label>
+                      <label class="checkbox" :style="{ color: source.text.color }">
+                        <input type="checkbox" name="outline" v-model="source.text.outlines" value="identical">
+                        ◆
+                      </label>
                       <label class="checkbox" :style="{ color: lighterColor(source.text.color) }">
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="lighter">
                         ◆
