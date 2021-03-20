@@ -6,32 +6,44 @@ http://zk-phi.github.io/MEGAMOJI
 
 *** 環境構築
 
-ビルド済み Vue + 生 js で書いているので、サーバーを立てたりビルド環境
-を作ったりは特に要りません。 =git clone= して =index.html= を開いてく
-ださい。
+生 js で書いているので、サーバーを立てたりビルド環境を作ったりは特に要りません。 =git clone= して =index.html= を開いてください。
 
-GIF アニメエンコーダーを submodule で使っているので、動く絵文字を試し
-たい場合は =clone= したあとに、 =git submodule update --init= してくだ
-さい。
+GIF アニメエンコーダーを submodule で使っているので、動く絵文字を試したい場合は =clone= したあとに、 =git submodule update --init= もしてください。
 
 ===
 
-「パーツから選ぶ」は =file://= プロトコルだと (CORS できなくて) 動かな
-いことがあるので、上手くいかないときは適当なローカルサーバーを立ち上げ
-てみてください。
+「パーツから選ぶ」は =file://= プロトコルだと (CORS できなくて) 動かないことがあるので、上手くいかないときは適当なローカルサーバーを立ち上げてみてください。
 
-**** コーディングスタイル
+*** ディレクトリ構成
 
-PR を送ると自動でチェックされるので、あまり気にしなくても大丈夫です。
+- ~assets/~ ... 「パーツから選ぶ」で使用するパーツ画像が入っています
+- ~css/~
+- ~fonts/~ ... web font が入っています。読込みは  ~css/fonts.css~ でやっています
+- ~imgs/~ ... ドキュメントで使う画像が入っています
+- ~js/~
+  - ~animations.js~ ... アニメーションの実装が入っています。詳細は以下
+  - ~effects.js~ ... エフェクトの実装が入っています。詳細は以下
+  - ~filters.js~ ... フィルタの実装が入っています。詳細は以下
+  - ~ga.js~ ... google analytics を読み込むやつです
+  - ~megamoji.js~ ... vue.js を使ったコントローラーが入っています
+  - ~parts.js~ ... 「パーツから選ぶ」のパーツ一覧が入っています
+  - ~posteffects.js~ ... ポストエフェクトの実装が入っています。詳細は以下
 
-手元でチェックしてから PR を送りたい場合は、
+以下は各種設定ファイルなので、通常は気にしなくて良いです。
 
-#+begin_src terminal
-npm install # 初回のみ
-npx eslint . && npx stylelint css
-#+end_src
-
-を叩いてみてください。
+- ~.github/~
+  - ~workflows/~ ... github actions の 設定
+    - ~lint-pr.yml~ ... PR を送った時に自動でコーディングスタイルをチェックしてくれる
+    - ~lint.yml~ ... gh-pages に直接 push した場合もチェックを走らせる
+  - ~dependabot.yml~ ... dependabot の設定
+- ~.eslintignore~ ... eslint の設定
+- ~.eslintrc.js~ ... eslint の設定
+- ~.gitignore~ ... git の設定
+- ~.gitmodules~ ... git の設定
+- ~.stylelintignore~ ... stylelint の設定
+- ~.package-lock.json~ ... npm の設定
+- ~.package.json~ ... npm の設定
+- ~stylelint.config.js~ ... stylelint の設定
 
 *** フィルタの追加
 
