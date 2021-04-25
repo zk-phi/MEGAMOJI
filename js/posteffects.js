@@ -80,14 +80,17 @@ function postEffectMosaic(keyframe, ctx, w, h) {
   for (let cellX = 0; cellX < cellCountH; cellX += 1) {
     for (let cellY = 0; cellY < cellCountV; cellY += 1) {
       const cellColor = [0, 0, 0];
+      let count = 0;
       const x = offsetX + cellX * cellSize;
       const y = offsetY + cellY * cellSize;
       for (let dx = 0; dx < cellSize; dx += 1) {
         for (let dy = 0; dy < cellSize; dy += 1) {
           const ix = (y + dy) * w + x + dx;
-          cellColor[0] += data[ix * 4 + 0];
-          cellColor[1] += data[ix * 4 + 1];
-          cellColor[2] += data[ix * 4 + 2];
+          const alpha = data[ix * 4 + 3] / 255;
+          cellColor[0] += alpha * data[ix * 4 + 0] + (1 - alpha) * 255;
+          cellColor[1] += alpha * data[ix * 4 + 1] + (1 - alpha) * 255;
+          cellColor[2] += alpha * data[ix * 4 + 2] + (1 - alpha) * 255;
+          count += alpha > 0 ? 1 : 0;
         }
       }
 
@@ -100,6 +103,7 @@ function postEffectMosaic(keyframe, ctx, w, h) {
           data[ix * 4 + 0] = cellColor[0];
           data[ix * 4 + 1] = cellColor[1];
           data[ix * 4 + 2] = cellColor[2];
+          data[ix * 4 + 3] = count ? 255 : 0;
         }
       }
     }
