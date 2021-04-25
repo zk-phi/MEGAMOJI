@@ -15,8 +15,8 @@ function webglFoil(keyframe, fxCanvas) {
   fxCanvas.brightnessContrast(0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe), -0.1);
 }
 
-function webglBlur(keyframe, fxCanvas) {
-  fxCanvas.triangleBlur((6 + Math.cos(2 * Math.PI * keyframe)));
+function webglBlur(keyframe, fxCanvas, w) {
+  fxCanvas.triangleBlur(w * (0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe)));
 }
 
 function webglZoom(keyframe, fxCanvas, w, h) {
