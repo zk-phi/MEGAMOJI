@@ -8,7 +8,7 @@ const WEBGL_EFFECTS = [
 ];
 
 function webglKira(keyframe, fxCanvas) {
-  fxCanvas.hueSaturation(-1 + 2 * keyframe, 0.5);
+  fxCanvas.brightnessContrast(0.1, -0.1).hueSaturation(-1 + 2 * keyframe, 0);
 }
 
 function webglFoil(keyframe, fxCanvas) {
