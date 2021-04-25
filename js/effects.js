@@ -13,13 +13,6 @@
 // eslint-disable-next-line no-unused-vars
 const EFFECTS = [
   {
-    label: "フィルタ (Chrome のみ動作確認)",
-    effects: [
-      { label: "キラ", fn: effectKira },
-      { label: "もやもや", fn: effectMoyamoya },
-      { label: "Foil", fn: effectFoil },
-    ],
-  }, {
     label: "変形",
     effects: [
       { label: "ガタガタ", fn: effectGatagata },
@@ -115,21 +108,6 @@ function effectFlipHoriz(keyframe, ctx, cellWidth) {
 function effectFlipVert(keyframe, ctx, cellWidth, cellHeight) {
   ctx.translate(0, cellHeight);
   ctx.scale(1, -1);
-}
-
-function effectKira(keyframe, ctx) {
-  const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
-  ctx.filter = `${currentFilter}saturate(1000%) hue-rotate(${keyframe * 360}deg)`;
-}
-
-function effectMoyamoya(keyframe, ctx) {
-  const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
-  ctx.filter = `${currentFilter}blur(${6 + 1 * Math.cos(2 * Math.PI * keyframe)}px)`;
-}
-
-function effectFoil(keyframe, ctx) {
-  const currentFilter = ctx.filter === "none" ? "" : `${ctx.filter} `;
-  ctx.filter = `${currentFilter}brightness(${120 + Math.floor(20 * Math.sin(2 * Math.PI * keyframe))}%)`;
 }
 
 function effectBlink(keyframe, ctx, cellWidth) {

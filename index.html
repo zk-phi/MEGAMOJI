@@ -12,9 +12,11 @@
     <script src="js/jsgif/LZWEncoder.js"></script>
     <script src="js/jsgif/GIFEncoder.js"></script>
     <script src="js/vue-2.5.16.min.js"></script>
+    <script src="js/glfx-0.0.4.min.js"></script>
     <script src="js/ga.js"></script>
     <script src="js/effects.js"></script>
     <script src="js/posteffects.js"></script>
+    <script src="js/webgleffects.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/parts.js"></script>
@@ -484,6 +486,15 @@
                           <option v-for="a in ANIMATIONS" :value="a.fn">{{ a.label }}</option>
                         </select>
                       </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">WebGL (対応ブラウザのみ)</label>
+                    <div class="control">
+                      <label v-for="effect in WEBGL_EFFECTS" class="checkbox">
+                        <input type="checkbox" v-model="target.webglEffects" :value="effect.fn">
+                        {{ effect.label }}
+                      </label>
                     </div>
                   </div>
                   <div v-for="category in EFFECTS" class="field">

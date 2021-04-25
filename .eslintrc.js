@@ -7,6 +7,7 @@ module.exports = {
     GIFEncoder: true,
     encode64: true,
     ga: true,
+    fx: true,
   },
   extends: [
     "airbnb-base",

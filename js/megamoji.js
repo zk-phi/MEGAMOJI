@@ -44,11 +44,17 @@ function darkerColor(hexColor) {
 /* ---- CANVAS UTILS */
 
 /* Create a new canvas and render specified region of the source canvas. */
-function cropCanvas(source, left, top, w, h) {
+function cropCanvas(source, left, top, w, h, fillStyle) {
   const target = document.createElement("canvas");
   const ctx = target.getContext("2d");
+
   target.width = w;
   target.height = h;
+
+  if (fillStyle) {
+    ctx.fillStyle = fillStyle;
+    ctx.fillRect(0, 0, w, h);
+  }
 
   ctx.drawImage(source, left, top, w, h, 0, 0, w, h);
 
@@ -235,13 +241,22 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
 
 /* ---- CORE */
 
+// reuse fxCanvas for performance
+let fxCanvas;
+try {
+  fxCanvas = fx.canvas();
+} catch (e) {
+  /* do nothing */
+}
+
 function renderFrameUncut(
   keyframe,
   image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop,
-  animation, animationInvert, effects, postEffects, framerate, framecount,
+  animation, animationInvert, effects, webglEffects, postEffects,
+  framerate, framecount,
   fillStyle,
 ) {
-  const canvas = document.createElement("canvas");
+  let canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
   /* use larger canvas, because some effects may translate the canvas */
@@ -254,6 +269,7 @@ function renderFrameUncut(
   effects.forEach((effect) => {
     effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
+
   if (animation) {
     animation(
       keyframe,
@@ -276,10 +292,25 @@ function renderFrameUncut(
     postEffect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
 
+  if (webglEffects && fxCanvas) {
+    const texture = fxCanvas.texture(canvas);
+    fxCanvas.draw(texture);
+    webglEffects.forEach((effect) => {
+      effect(keyframe, fxCanvas, targetWidth * 2, targetHeight * 2);
+    });
+    fxCanvas.update();
+    canvas = fxCanvas;
+  }
+
   if (noCrop) {
-    return canvas;
+    // copy fxCanvas content with background
+    return cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
   } else {
-    return cropCanvas(canvas, targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
+    return cropCanvas(
+      canvas,
+      targetWidth / 2, targetHeight / 2, targetWidth, targetHeight,
+      fillStyle,
+    );
   }
 }
 
@@ -289,7 +320,8 @@ function renderFrameUncut(
  */
 function renderAllCellsFixedSize(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
-  animated, animation, animationInvert, effects, postEffects, framerate, framecount,
+  animated, animation, animationInvert, effects, webglEffects, postEffects,
+  framerate, framecount,
   backgroundColor, transparent,
 ) {
   let cells = [];
@@ -298,7 +330,8 @@ function renderAllCellsFixedSize(
       0, image,
       offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
       targetSize * hCells, targetSize * vCells, noCrop,
-      animation, animationInvert, effects, postEffects, framerate, framecount,
+      animation, animationInvert, effects, webglEffects, postEffects,
+      framerate, framecount,
       transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
     );
     cells = noCrop ? (
@@ -327,7 +360,8 @@ function renderAllCellsFixedSize(
         keyframe, image,
         offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
         targetSize * hCells, targetSize * vCells, noCrop,
-        animation, animationInvert, effects, postEffects, framerate, framecount,
+        animation, animationInvert, effects, webglEffects, postEffects,
+        framerate, framecount,
         transparent ? "#ffffff" : backgroundColor,
       );
       const imgCells = noCrop ? (
@@ -351,7 +385,8 @@ function renderAllCellsFixedSize(
 /* returns a 2d-array of (possibly animated) images. */
 function renderAllCells(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
-  animated, animation, animationInvert, effects, postEffects, framerate, framecount,
+  animated, animation, animationInvert, effects, webglEffects, postEffects,
+  framerate, framecount,
   backgroundColor, transparent,
   binarySizeLimit,
 ) {
@@ -359,7 +394,8 @@ function renderAllCells(
   for (;;) {
     const ret = renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
-      animated, animation, animationInvert, effects, postEffects, framerate, framecount,
+      animated, animation, animationInvert, effects, webglEffects, postEffects,
+      framerate, framecount,
       backgroundColor, transparent,
     );
     /**
@@ -423,6 +459,7 @@ const data = {
     animationInvert: false,
     staticEffects: [],
     effects: [],
+    webglEffects: [],
     postEffects: [],
     /* advanced */
     offsetLeft: 0,
@@ -628,7 +665,10 @@ const methods = {
     ga("send", "event", this.ui.mode, "render");
 
     const animated = (
-      this.target.animation || this.target.effects.length || this.target.postEffects.length
+      this.target.animation
+      || this.target.effects.length
+      || this.target.webglEffects.length
+      || this.target.postEffects.length
     );
     const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
     this.resultImages = renderAllCells(
@@ -638,7 +678,8 @@ const methods = {
       maxSize, this.target.noCrop,
       animated, this.target.animation, this.target.animationInvert,
       this.target.effects.concat(this.target.staticEffects),
-      this.target.postEffects, this.target.framerate, this.target.framecount,
+      this.target.webglEffects, this.target.postEffects,
+      this.target.framerate, this.target.framecount,
       this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,
     );
   },
