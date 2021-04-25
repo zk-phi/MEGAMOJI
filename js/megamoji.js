@@ -263,9 +263,6 @@ function renderFrameUncut(
   canvas.width = targetWidth * 2;
   canvas.height = targetHeight * 2;
 
-  ctx.fillStyle = fillStyle;
-  ctx.fillRect(0, 0, targetWidth * 2, targetHeight * 2);
-
   effects.forEach((effect) => {
     effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
