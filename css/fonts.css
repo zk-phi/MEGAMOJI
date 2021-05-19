@@ -53,6 +53,16 @@
     url("../fonts/noto-serif-jp-v7-latin_japanese-900.woff") format("woff");
 }
 
+/* Dela Gothic One */
+@font-face {
+  font-family: "DelaGothicOne-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local("DelaGothicOne-Regular"),
+    url("../fonts/DelaGothicOne-Regular.woff") format("woff");
+}
+
 /* あかずきんポップ */
 @font-face {
   font-family: AkazukiPOP;
