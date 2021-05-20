@@ -665,7 +665,7 @@
                 <div class="field">
                   <label class="label">絵文字 (右クリックで保存)</label>
                   <div v-for="row in resultImages">
-                    <img class="cell" v-for="col in row" :src="col">
+                    <img :class="'cell ' + resultSizeClass" v-for="col in row" :src="col">
                   </div>
                 </div>
                 <div class="field">
@@ -682,6 +682,27 @@
                     <label class="radio">
                       <input type="radio" name="result_bg" v-model="resultBgClass" value="dark">
                       ダーク
+                    </label>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">大きさサンプル</label>
+                  <div class="control">
+                    <label class="radio">
+                      <input type="radio" name="result_size" v-model="resultSizeClass" value="default">
+                      最大
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="result_size" v-model="resultSizeClass" value="large">
+                      単独
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="result_size" v-model="resultSizeClass" value="small">
+                      文中
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="result_size" v-model="resultSizeClass" value="smallest">
+                      リアクション
                     </label>
                   </div>
                 </div>

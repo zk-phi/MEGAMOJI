@@ -33,6 +33,18 @@
   border: 1px solid #ccc;
 }
 
+.result_area .cell.large {
+  width: 32px;
+}
+
+.result_area .cell.small {
+  width: 24px;
+}
+
+.result_area .cell.smallest {
+  width: 19px;
+}
+
 .fukumoji .part {
   width: 48px;
   height: 48px;
