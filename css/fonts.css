@@ -56,11 +56,7 @@
 /* Dela Gothic One */
 @font-face {
   font-family: DelaGothicOne-Regular;
-  font-style: normal;
-  font-weight: 400;
-  src:
-    local("DelaGothicOne-Regular"),
-    url("../fonts/DelaGothicOne-Regular.woff") format("woff");
+  src: url("../fonts/DelaGothicOne-Regular.woff") format("woff");
 }
 
 /* あかずきんポップ */
