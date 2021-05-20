@@ -573,10 +573,10 @@ const methods = {
   initializeGradient() {
     this.source.text.gradient = [
       { color: "#ffffff", pos: 0 },
-      { color: this.source.text.color, pos: 35 },
       { color: this.source.text.color, pos: 45 },
       { color: lighterColor(this.source.text.color), pos: 55 },
       { color: darkerColor(this.source.text.color), pos: 65 },
+      { color: "#ffffff", pos: 100 },
     ];
   },
   addGradientColorStop() {
