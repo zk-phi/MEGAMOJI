@@ -11,6 +11,6 @@
     "eslint-plugin-import": "^2.22.1",
     "stylelint": "^13.13.1",
     "stylelint-config-primer": "^11.0.1",
-    "stylelint-no-unsupported-browser-features": "^4.1.4"
+    "stylelint-no-unsupported-browser-features": "^5.0.1"
   }
 }
