@@ -655,48 +655,42 @@
         <div class="column is-one-third">
           <div class="block">
             <div class="card mb">
-              <div :class="'card-content result_area ' + resultBgClass">
+              <div class="card-content result_area">
                 <div class="field">
                   <label class="label">絵文字 (右クリックで保存)</label>
-                  <div v-for="row in resultImages">
-                    <img :class="'cell ' + resultSizeClass" v-for="col in row" :src="col">
+                  <div v-if="!previewMode" v-for="row in resultImages" class="row">
+                    <img class="cell default" v-for="col in row" :src="col">
+                  </div>
+                  <div v-else v-for="mode in ['light', 'dark']" :class="'preview ' + mode">
+                    <div>
+                      <b>zk-phi</b> <small>1:23 AM</small>
+                    </div>
+                    <div v-for="row in resultImages" class="row">
+                      <img class="cell large" v-for="col in row" :src="col">
+                    </div>
+                    <div>
+                      ほげほげほげほげほげほげほげほげ。
+                    </div>
+                    <div>
+                      文章中で使うとこんな
+                      <span v-for="row in resultImages">
+                        <img class="cell small" v-for="col in row" :src="col">
+                      </span>
+                      感じ。
+                    </div>
+                    <div>
+                      <span v-for="row in resultImages">
+                        <div v-for="col in row" class="reaction">
+                          <img class="cell smallest" :src="col"> 5
+                        </div>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">背景サンプル</label>
                   <div class="control">
-                    <label class="radio">
-                      <input type="radio" name="result_bg" v-model="resultBgClass" value="default">
-                      デフォルト
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="result_bg" v-model="resultBgClass" value="light">
-                      ライト
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="result_bg" v-model="resultBgClass" value="dark">
-                      ダーク
-                    </label>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="label">大きさサンプル</label>
-                  <div class="control">
-                    <label class="radio">
-                      <input type="radio" name="result_size" v-model="resultSizeClass" value="default">
-                      最大
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="result_size" v-model="resultSizeClass" value="large">
-                      単独
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="result_size" v-model="resultSizeClass" value="small">
-                      文中
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="result_size" v-model="resultSizeClass" value="smallest">
-                      リアクション
+                    <label class="checkbox">
+                      <input type="checkbox" v-model="previewMode"> プレビュー
                     </label>
                   </div>
                 </div>

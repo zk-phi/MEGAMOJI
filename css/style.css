@@ -6,30 +6,51 @@
   margin-right: 0.5em;
 }
 
-.result_area.default {
+.result_area {
   background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef), linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 75%, #efefef 75%, #efefef);
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
 
-.result_area.light {
+.result_area .row {
+  line-height: 0;
+}
+
+.preview {
+  border: 1px solid #ccc;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.preview.light {
+  color: #222;
   background-color: #fff;
 }
 
-.result_area.dark {
+.preview.dark {
   color: #ddd;
   background-color: #333;
 }
 
-.result_area.dark .label {
-  color: #ddd;
+.reaction {
+  cursor: pointer;
+  display: inline-block;
+  margin: 2px;
+  font-size: 14px;
+  border-radius: 12px;
+  padding: 3px 6px;
+  line-height: 1;
+  background-color: rgba(128, 128, 128, 0.3);
+  border: 1px solid transparent;
 }
 
-.result_area.dark .radio:hover {
-  color: #eee;
+.reaction:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+  border-color: currentColor;
 }
 
-.result_area .cell {
+.result_area .cell.default {
   border: 1px solid #ccc;
 }
 
@@ -39,10 +60,12 @@
 
 .result_area .cell.small {
   width: 24px;
+  vertical-align: bottom;
 }
 
 .result_area .cell.smallest {
   width: 19px;
+  vertical-align: -5px;
 }
 
 .fukumoji .part {
