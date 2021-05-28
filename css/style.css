@@ -17,10 +17,10 @@
 }
 
 .preview {
-  border: 1px solid #ccc;
   padding: 12px;
   font-size: 16px;
   line-height: 24px;
+  border: 1px solid #ccc;
 }
 
 .preview.light {
@@ -34,15 +34,15 @@
 }
 
 .reaction {
-  cursor: pointer;
   display: inline-block;
+  padding: 3px 6px;
   margin: 2px;
   font-size: 14px;
-  border-radius: 12px;
-  padding: 3px 6px;
   line-height: 1;
+  cursor: pointer;
   background-color: rgba(128, 128, 128, 0.3);
   border: 1px solid transparent;
+  border-radius: 12px;
 }
 
 .reaction:hover {
