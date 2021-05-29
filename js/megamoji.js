@@ -172,10 +172,13 @@ function dataurlSize(str) {
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
-function makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient) {
+function makeTextImageSingleLine(line, color, font, fontHeight, letterSpacing, outlineColors, gradient) {
   const canvas = document.createElement("canvas");
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
+  canvas.style.letterSpacing = letterSpacing;
+  canvas.style.display = "none";
+  document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
   ctx.font = font;
@@ -198,13 +201,15 @@ function makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, g
   }
   ctx.fillText(line, 25, 25);
 
+  document.body.removeChild(canvas);
+  
   return shrinkCanvas(canvas);
 }
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlineColors, gradient) {
+function makeTextImage(text, color, font, fontHeight, align, lineSpacing, letterSpacing, outlineColors, gradient) {
   const images = text.split("\n").map((line) => (
-    makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)
+    makeTextImageSingleLine(line, color, font, fontHeight, letterSpacing, outlineColors, gradient)
   ));
   const lineWidths = images.map((canvas) => canvas.width);
   const maxWidth = Math.max.apply(null, lineWidths);
@@ -438,6 +443,7 @@ const data = {
       font: "normal sans-serif",
       /* advanced */
       lineSpacing: 0.05,
+      letterSpacing: 0,
     },
     fukumoji: {
       base: "assets/void.svg",
@@ -551,6 +557,7 @@ const methods = {
         EMOJI_SIZE,
         this.source.text.align,
         this.source.text.lineSpacing * EMOJI_SIZE,
+        this.source.text.letterSpacing * EMOJI_SIZE + "px",
         this.outlineColors, this.source.text.gradient,
       );
       urlToImg(blobUrl, (img) => { this.baseImage = img; });
