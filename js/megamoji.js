@@ -241,13 +241,7 @@ function makeTextImage(text, color, font, fontHeight, align, lineSpacing, outlin
 
 /* ---- CORE */
 
-// reuse fxCanvas for performance
-let fxCanvas;
-try {
-  fxCanvas = fx.canvas();
-} catch (e) {
-  /* do nothing */
-}
+const webglEnabled = webglInitialize();
 
 function renderFrameUncut(
   keyframe,
@@ -289,18 +283,12 @@ function renderFrameUncut(
     postEffect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
 
-  if (webglEffects && fxCanvas) {
-    const texture = fxCanvas.texture(canvas);
-    fxCanvas.draw(texture);
-    webglEffects.forEach((effect) => {
-      effect(keyframe, fxCanvas, targetWidth * 2, targetHeight * 2);
-    });
-    fxCanvas.update();
-    canvas = fxCanvas;
+  if (webglEffects.length && webglEnabled) {
+    canvas = webglApplyEffects(canvas, keyframe, webglEffects);
   }
 
   if (noCrop) {
-    // copy fxCanvas content with background
+    // copy webglCanvas content with background
     return cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
   } else {
     return cropCanvas(
@@ -675,7 +663,8 @@ const methods = {
       maxSize, this.target.noCrop,
       animated, this.target.animation, this.target.animationInvert,
       this.target.effects.concat(this.target.staticEffects),
-      this.target.webglEffects, this.target.postEffects,
+      this.target.webglEffects.map((name) => window[name]),
+      this.target.postEffects,
       this.target.framerate, this.target.framecount,
       this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,
     );
