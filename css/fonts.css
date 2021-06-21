@@ -59,6 +59,12 @@
   src: url("../fonts/DelaGothicOne-Regular.woff") format("woff");
 }
 
+/* あかずきんポップ */
+@font-face {
+  font-family: AkazukiPOP;
+  src: url("../fonts/AkazukiPOP.woff") format("woff");
+}
+
 /* 零ゴシック */
 @font-face {
   font-family: ZeroGothic;
