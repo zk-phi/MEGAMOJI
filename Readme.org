@@ -218,7 +218,7 @@ var webglZoom = webglEffect(WEBGL_FRAGMENT_<SHADERNAME>, (keyframe, w, h, progra
 1. フォントのライセンスをよく確認する
 
 2. スクリプトで woff を作る
-   (https://github.com/odemiral/woff2sfnt-sfnt2woff など)
+   (https://github.com/zk-phi/woff2sfnt-sfnt2woff など)
 
    : node sfnt2woff.js hoge.ttf hoge.woff
 
