@@ -1,5 +1,14 @@
-type WebGLEffect = (
-  keyframe: number, width: number, height: number, flipY: boolean,
+import shaderAdjust from './shaders/adjust';
+import shaderBlur from './shaders/blur';
+import shaderWarp from './shaders/warp';
+import shaderZoomBlur from './shaders/zoomBlur';
+
+export type VertexShaderArgs = boolean;
+export type Shader = () => WebGLShader;
+export type EffectShader = (args: VertexShaderArgs) => WebGLProgram;
+
+export type WebGLEffect = (
+  keyframe: number, width: number, height: number, args: VertexShaderArgs,
 ) => void;
 
 let webglCanvas;
@@ -113,14 +122,28 @@ function webglShader (source, isVertex?) {
   };
 }
 
+const identityVertexShader = webglShader(`
+  precision highp float;
+  attribute vec2 pos;
+  attribute vec2 uv;
+  varying vec2 vUv;
+  uniform float flipY;
+
+  void main(void) {
+    vUv = uv;
+    gl_Position = vec4(pos.x, -pos.y*flipY, 0.0, 1.);
+  }
+`, true);
+
 // create and initialize program
-function webglProgram (fragmentShader) {
+export function webglEffectShader (fragmentShader) {
+  const shader = webglShader(fragmentShader);
   let program;
   return (flipY) => {
     if (!program) {
       program = gl.createProgram();
-      gl.attachShader(program, WEBGL_VERTEX_IDENTITY());
-      gl.attachShader(program, fragmentShader());
+      gl.attachShader(program, identityVertexShader());
+      gl.attachShader(program, shader());
       gl.linkProgram(program);
       gl.useProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
@@ -207,177 +230,17 @@ export function webglApplyEffects (image, keyframe, effects) {
   return webglCanvas;
 }
 
-/* ---- SHADERS */
-
-// based on glfx.js (by evanw, MIT License)
-const WEBGL_RANDOM = `
-  float random(vec3 scale, float seed) {
-    /* use the fragment position for a different seed per-pixel */
-    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);
-  }
-`;
-
-const WEBGL_VERTEX_IDENTITY = webglShader(`
-  precision highp float;
-  attribute vec2 pos;
-  attribute vec2 uv;
-  varying vec2 vUv;
-  uniform float flipY;
-
-  void main(void) {
-    vUv = uv;
-    gl_Position = vec4(pos.x, -pos.y*flipY, 0.0, 1.);
-  }
-`, true);
-
-// based on glfx.js (by evanw, MIT License)
-const WEBGL_FRAGMENT_ADJUST = webglShader(`
-  precision highp float;
-  uniform sampler2D texture;
-  uniform float hue;
-  uniform float brightness;
-  uniform float contrast;
-  varying vec2 vUv;
-
-  void main(void) {
-    vec4 color = texture2D(texture, vUv);
-
-    /* brightness */
-    color.rgb += brightness;
-
-    /* contrast */
-    if (contrast > 0.0) {
-      color.rgb = (color.rgb - 0.5) / (1.0 - contrast) + 0.5;
-    } else {
-      color.rgb = (color.rgb - 0.5) * (1.0 + contrast) + 0.5;
-    }
-
-    /* hue */
-    if (hue != 0.0) {
-      float angle = hue * 3.14159265;
-      float s = sin(angle), c = cos(angle);
-      vec3 weights = (vec3(2.0 * c, -sqrt(3.0) * s - c, sqrt(3.0) * s - c) + 1.0) / 3.0;
-      float len = length(color.rgb);
-      color.rgb = vec3(
-          dot(color.rgb, weights.xyz),
-          dot(color.rgb, weights.zxy),
-          dot(color.rgb, weights.yzx)
-      );
-    }
-
-    gl_FragColor = color;
-  }
-`);
-
-// based on glfx.js (by evanw, MIT License)
-const WEBGL_FRAGMENT_BLUR = webglShader(`
-  precision highp float;
-  uniform sampler2D texture;
-  uniform vec2 delta;
-  varying vec2 vUv;
-
-  ${WEBGL_RANDOM}
-
-  void main() {
-    vec4 color = vec4(0.0);
-    float total = 0.0;
-
-    /* randomize the lookup values to hide the fixed number of samples */
-    float offset = random(vec3(12.9898, 78.233, 151.7182), 0.0);
-
-    for (float t = -30.0; t <= 30.0; t++) {
-      float percent = (t + offset - 0.5) / 30.0;
-      float weight = 1.0 - abs(percent);
-      vec4 sample = texture2D(texture, vUv + delta * percent);
-
-      /* switch to pre-multiplied alpha to correctly blur transparent images */
-      sample.rgb *= sample.a;
-
-      color += sample * weight;
-      total += weight;
-    }
-
-    gl_FragColor = color / total;
-
-    /* switch back from pre-multiplied alpha */
-    gl_FragColor.rgb /= gl_FragColor.a + 0.00001;
-  }
-`);
-
-// based on glfx.js (by evanw, MIT License)
-const WEBGL_FRAGMENT_ZOOMBLUR = webglShader(`
-  precision highp float;
-  uniform sampler2D texture;
-  uniform vec2 center;
-  uniform float strength;
-  varying vec2 vUv;
-
-  ${WEBGL_RANDOM}
-
-  void main() {
-    vec4 color = vec4(0.0);
-    float total = 0.0;
-    vec2 toCenter = center - vUv;
-
-    /* randomize the lookup values to hide the fixed number of samples */
-    float offset = random(vec3(12.9898, 78.233, 151.7182), 0.0);
-
-    for (float t = 0.0; t <= 40.0; t++) {
-      float percent = (t + offset) / 40.0;
-      float weight = 4.0 * (percent - percent * percent);
-      vec4 sample = texture2D(texture, vUv + toCenter * percent * strength);
-
-      /* switch to pre-multiplied alpha to correctly blur transparent images */
-      sample.rgb *= sample.a;
-
-      color += sample * weight;
-      total += weight;
-    }
-
-    gl_FragColor = color / total;
-
-    /* switch back from pre-multiplied alpha */
-    gl_FragColor.rgb /= gl_FragColor.a + 0.00001;
-  }
-`)
-
-const WEBGL_FRAGMENT_MATRIXWARP = webglShader(`
-  precision highp float;
-  uniform mat3 matrix;
-  uniform sampler2D texture;
-  varying vec2 vUv;
-
-  void main() {
-    vec3 warp = matrix * vec3(vUv, 1.0);
-    vec2 coord = warp.xy / warp.z;
-
-    gl_FragColor = texture2D(texture, coord);
-    vec2 clampedCoord = clamp(coord, vec2(0.0), vec2(1,1));
-    if (coord != clampedCoord) {
-      /* fade to transparent if we are outside the image */
-      gl_FragColor.a *= max(0.0, 1.0 - length(coord - clampedCoord));
-    }
-  }
-`);
-
-/* ---- PROGRAMS */
-
-const WEBGL_PROGRAM_ADJUST = webglProgram(WEBGL_FRAGMENT_ADJUST);
-const WEBGL_PROGRAM_BLUR = webglProgram(WEBGL_FRAGMENT_BLUR);
-const WEBGL_PROGRAM_ZOOMBLUR = webglProgram(WEBGL_FRAGMENT_ZOOMBLUR);
-const WEBGL_PROGRAM_MATRIXWARP = webglProgram(WEBGL_FRAGMENT_MATRIXWARP);
-
 /* ---- EFFECTS */
 
 const webglKira: WebGLEffect = (keyframe, _w, _h, flipY) => {
-  const program = WEBGL_PROGRAM_ADJUST(flipY);
+  const program = shaderAdjust(flipY);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), 0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'hue'), -1 + 2 * keyframe);
 };
 
 const webglFoil: WebGLEffect = (keyframe, _w, _h, flipY) => {
-  const program = WEBGL_PROGRAM_ADJUST(flipY);
+  const program = shaderAdjust(flipY);
   const brightness = 0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), brightness);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
@@ -385,26 +248,26 @@ const webglFoil: WebGLEffect = (keyframe, _w, _h, flipY) => {
 };
 
 const webglBlurH: WebGLEffect = (keyframe, _w, _h, flipY) => {
-  const program = WEBGL_PROGRAM_BLUR(flipY);
+  const program = shaderBlur(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), radius, 0);
 };
 
 const webglBlurV: WebGLEffect = (keyframe, _w, _h, flipY) => {
-  const program = WEBGL_PROGRAM_BLUR(flipY);
+  const program = shaderBlur(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), 0, radius);
 };
 
 const webglZoom: WebGLEffect = (keyframe, _w, _h, flipY) => {
-  const program = WEBGL_PROGRAM_ZOOMBLUR(flipY);
+  const program = shaderZoomBlur(flipY);
   const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
   gl.uniform1f(gl.getUniformLocation(program, 'strength'), strength);
 };
 
 const webglDokaben: WebGLEffect = (keyframe, w, h, flipY) => {
-  const program = WEBGL_PROGRAM_MATRIXWARP(flipY);
+  const program = shaderWarp(flipY);
   const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */
   const diffH = 0.3 * pos / 2;
   const diffV = 1.0 * pos / 2;
