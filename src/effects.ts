@@ -18,20 +18,15 @@ import effectBGTiritiri from "./effects/bgTiritiri";
 import effectBGPsych from "./effects/bgPsych";
 import effectBGDizzy from "./effects/bgDizzy";
 
-/*
- * An effect takes a 2d rendering context and makes modifications to it.
- * These functions are called just before rendering an animation frame.
- * Note that users can enable multiple effects at the same time.
- *
- * [arguments]
- * - keyframe   ... a 0.0 - 1.0 progress of the animation
- * - ctx        ... the rendering context to be modified
- * - cellWidth  ... width of the image to be rendered
- * - cellHeight ... height of the image to be rendered
- */
-
+// An effect takes a 2d rendering context and makes modifications to it.
+// Note that users can enable multiple effects at the same time.
 export type Effect = (
-  keyrame: number, ctx: CanvasRenderingContext2D, width: number, height: number,
+  // a 0.0 - 1.0 progress of the animation
+  keyrame: number,
+  // the rendering context to be modified
+  ctx: CanvasRenderingContext2D,
+  // size of the image to be rendered
+  width: number, height: number,
 ) => void;
 
 export const EFFECTS = [

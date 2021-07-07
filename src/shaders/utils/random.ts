@@ -1,4 +1,5 @@
 // based on glfx.js (by evanw, MIT License)
+
 export default `
   float random(vec3 scale, float seed) {
     /* use the fragment position for a different seed per-pixel */
