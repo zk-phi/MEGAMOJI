@@ -1,6 +1,6 @@
 import { Filter } from "../filters";
 
-const filterChromakey: Filter = (image) => {
+const filterChromakey = (image) => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   canvas.width = image.naturalWidth;
