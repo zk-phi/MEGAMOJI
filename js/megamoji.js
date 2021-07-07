@@ -162,13 +162,6 @@ function urlToImg(url, cb) {
   img.onload = () => cb(img);
 }
 
-/* compute binary size from a dataurl. return 0 if uncomputable. */
-function dataurlSize(str) {
-  const ix = str.indexOf(",");
-  if (ix < 0) return 0;
-  return Math.ceil((str.length - ix - 1) / 4.0 * 3);
-}
-
 /* ---- TEXT IMAGE GENERATOR */
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
@@ -300,6 +293,7 @@ function renderFrameUncut(
 }
 
 /**
+ * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
@@ -324,21 +318,27 @@ function renderAllCellsFixedSize(
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
     );
-    return cells.map((row) => row.map((cell) => cell.toDataURL()));
+    return Promise.all(cells.map(row =>
+      Promise.all(row.map(cell =>
+        new Promise(resolve => cell.toBlob(resolve))
+      ))
+    ));
   } else {
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
-        const encoder = new GIFEncoder();
-        encoder.setRepeat(0);
-        encoder.setFrameRate(framerate);
-        if (transparent) encoder.setTransparent(0xffffff);
-        encoder.start();
+        const encoder = new GIF({
+          workerScript: "./js/gif.js/dist/gif.worker.js",
+          transparent: transparent ? 0xffffff : null,
+          width: targetSize * (noCrop ? 2 : 1),
+          height: targetSize * (noCrop ? 2 : 1),
+        });
         row.push(encoder);
       }
       cells.push(row);
     }
+    const delayPerFrame = 1000 / framerate;
     for (let i = 0; i < framecount; i += 1) {
       const keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
       const frame = renderFrameUncut(
@@ -356,18 +356,22 @@ function renderAllCellsFixedSize(
       );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          cells[y][x].addFrame(imgCells[y][x].getContext("2d"));
+          cells[y][x].addFrame(imgCells[y][x].getContext("2d"), { delay: delayPerFrame });
         }
       }
     }
-    return cells.map((row) => row.map((cell) => {
-      cell.finish();
-      return `data:image/gif;base64,${encode64(cell.stream().getData())}`;
-    }));
+    return Promise.all(cells.map(row =>
+      Promise.all(row.map(cell => (
+        new Promise(resolve => {
+          cell.on('finished', resolve);
+          cell.render();
+        })
+      )))
+    ));
   }
 }
 
-/* returns a 2d-array of (possibly animated) images. */
+/* ASYNC: returns a 2d-array of (possibly animated) images. */
 function renderAllCells(
   image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
   animated, animation, animationInvert, effects, webglEffects, postEffects,
@@ -375,27 +379,33 @@ function renderAllCells(
   backgroundColor, transparent,
   binarySizeLimit,
 ) {
-  let targetSize = maxSize;
-  for (;;) {
-    const ret = renderAllCellsFixedSize(
-      image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
+  return new Promise((resolve) => {
+    renderAllCellsFixedSize(
+      image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
       animated, animation, animationInvert, effects, webglEffects, postEffects,
       framerate, framecount,
       backgroundColor, transparent,
-    );
-    /**
-     * If a cell exceeds the limitation, retry with smaller targetSize.
-     * This does not happen in most cases.
-     */
-    const shouldRetry = ret.some((row) => row.some((cell) => (
-      dataurlSize(cell) >= binarySizeLimit
-    )));
-    if (shouldRetry) {
-      targetSize = Math.floor(targetSize * 0.9);
-    } else {
-      return ret;
-    }
-  }
+    ).then((ret) => {
+      /**
+       * If a cell exceeds the limitation, retry with smaller cell size.
+       * This does not happen in most cases.
+       */
+      const shouldRetry = ret.some((row) => row.some((cell) => (
+        cell.size >= binarySizeLimit
+      )));
+      if (shouldRetry) {
+        renderAllCells(
+          image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize * 0.9, noCrop,
+          animated, animation, animationInvert, effects, webglEffects, postEffects,
+          framerate, framecount,
+          backgroundColor, transparent,
+          binarySizeLimit,
+        ).then(resolve);
+      } else {
+        resolve(ret.map((row) => row.map((cell) => URL.createObjectURL(cell))));
+      }
+    });
+  })
 }
 
 const data = {
@@ -656,7 +666,7 @@ const methods = {
       || this.target.postEffects.length
     );
     const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
-    this.resultImages = renderAllCells(
+    renderAllCells(
       this.baseImage,
       offsetLeft, offsetTop,
       this.target.hCells || 1, this.target.vCells || 1, cellWidth, cellHeight,
@@ -667,7 +677,9 @@ const methods = {
       this.target.postEffects,
       this.target.framerate, this.target.framecount,
       this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,
-    );
+    ).then((res) => {
+      this.resultImages = res;
+    });
   },
 };
 
