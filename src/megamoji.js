@@ -1,11 +1,11 @@
 import GIF from '@dhdbstjr98/gif.js';
 import Vue from 'vue';
-import { ANIMATIONS } from './animations.js';
-import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from './effects.js';
-import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from './webgleffects.js';
-import { POST_EFFECTS } from './posteffects.js';
-import { FILTERS } from './filters.js';
-import { FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS } from './parts.js';
+import { ANIMATIONS } from './animations';
+import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from './effects';
+import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from './webgleffects';
+import { POST_EFFECTS } from './posteffects';
+import { FILTERS } from './filters';
+import { FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS } from './parts';
 
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
