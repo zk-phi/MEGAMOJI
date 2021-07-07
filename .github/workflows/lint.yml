@@ -3,7 +3,7 @@ name: Lint (gh-pages)
 on:
   push:
     branches:
-      - gh-pages
+      - master
 
 jobs:
   run-lint:
