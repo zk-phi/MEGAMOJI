@@ -4,65 +4,83 @@ http://zk-phi.github.io/MEGAMOJI
 
 新しいアイデアや新しいクソアニメを実装したらぜひ PR ください！
 
-*** 環境構築
+*** 開発環境
+**** dev server
 
 : npm install
 : npm run start
 
 するとブラウザが開きます。
 
-===
+ソースをいじるとすぐに反映されます。
 
-「パーツから選ぶ」は =file://= プロトコルだと (CORS できなくて) 動かないことがあるので、上手くいかないときは適当なローカルサーバーを立ち上げてみてください。
+**** ビルド
+
+: npm run build
+
+ビルドすると =dist= 以下に成果物が入ります。
+
+静的サイトとしてデプロイできます。
+
+**** lint
+
+: npm run lint
+
+コーディングスタイルの揺れなどを自動検出します。
+
+PR を送ると自動で走りますが、手元で事前に実行しておきたい場合に使ってください。
+
+*** TODO
+
+- [x] lint 入れる
+- [x] Webpack でバンドル
+- [x] TS 化
+- [ ] リファクタ
+- [ ] Vue テンプレートのコンパイル、コンポーネント化
+- [ ] fabric.js あたりでややこしい絵文字も作れるようにしたい？
 
 *** ディレクトリ構成
 
 - ~dist/~ ... ビルドされたアプリが入る場所です
   - ~ga.js~ ... google analytics を読み込むやつです
   - ~assets/~ ... 「パーツから選ぶ」で使用するパーツ画像が入っています
-  - ~css/~
   - ~fonts/~ ... web font が入っています。読込みは  ~css/fonts.css~ でやっています
-  - ~imgs/~ ... ドキュメントで使う画像が入っています
+  - ~css/~
+    - ~fonts.css~ ... webfont の読み込みをしています
+    - ~style.css~ ... 独自のスタイルが入っています
 - ~src/~
-  - ~animations.js~ ... アニメーションの実装が入っています。詳細は以下
-  - ~effects.js~ ... エフェクトの実装が入っています。詳細は以下
-  - ~filters.js~ ... フィルタの実装が入っています。詳細は以下
-  - ~megamoji.js~ ... 本体です
+  - ~animations.ts~ ... アニメーションの一覧が入っています
+  - ~animations/~ ... 個別のアニメーションの実装が入っています
+  - ~effects.ts~ ... エフェクトの一覧が入っています
+  - ~effects/~ ... エフェクトの実装が入っています
+  - ~filters.ts~ ... フィルタの一覧が入っています
+  - ~filters/~ ... フィルタの実装が入っています
+  - ~posteffects.ts~ ... ポストエフェクトの一覧が入っています
+  - ~posteffects/~ ... ポストエフェクトの実装が入っています
+  - ~webgleffects.ts~ ... WebGL エフェクトの一覧が入っています
+  - ~webgleffects/~ ... WebGL エフェクトの実装が入っています
+  - ~megamoji.ts~ ... 本体です、 Vue のコントローラーが入っています
   - ~parts.js~ ... 「パーツから選ぶ」のパーツ一覧が入っています
-  - ~posteffects.js~ ... ポストエフェクトの実装が入っています。詳細は以下
-  - ~webgleffects.js~ ... WebGL を使ったエフェクトの実装が入っています。詳細は以下
-
-以下は各種設定ファイルなので、通常は気にしなくて良いです。
-
-- ~.github/~
-  - ~workflows/~ ... github actions の 設定
-    - ~lint-pr.yml~ ... PR を送った時に自動でコーディングスタイルをチェックしてくれる
-    - ~lint.yml~ ... gh-pages に直接 push した場合もチェックを走らせる
-  - ~dependabot.yml~ ... dependabot の設定
-- ~.eslintignore~ ... eslint の設定
-- ~.eslintrc.js~ ... eslint の設定
-- ~.gitignore~ ... git の設定
-- ~.gitmodules~ ... git の設定
-- ~.stylelintignore~ ... stylelint の設定
-- ~.package-lock.json~ ... npm の設定
-- ~.package.json~ ... npm の設定
-- ~stylelint.config.js~ ... stylelint の設定
 
 *** フィルタの追加
 
-~filters.js~ に実装されている関数群は、「ファイルから選ぶ」で画像を読
-み込む際、画像に対して行う前処理の実装です。
+「ファイルから選ぶ」で画像を読み込む際、画像に対して行う前処理の実装です。
 
-引数に ~img~ のオブジェクトが渡ってくるので、適宜処理をして、できあがっ
-た画像の BlobURL を返してください。
+~src/filters.js~ に一覧があります。
+
+フィルタの実体は１引数の関数です。
+
+~HTMLImageElement~ が渡ってくるので、適宜画像処理をして、できあがった画像を
+BlobURL で返します。
 
 *** エフェクトの追加
 
-~effects.js~ に実装されている関数群は、「効果をつける」タブで選ぶこと
-のできる特殊効果たちの実装です。ユーザーは複数のエフェクトを組み合わせ
-て使用することができます。
+「効果をつける」タブで選ぶことのできる特殊効果たちの実装です。ユーザーは
+複数のエフェクトを組み合わせて使用することができます。
 
-以下の５引数を受けます:
+~src/effects.js~ に一覧があります。
+
+エフェクトの実体は５引数の関数です：
 
 - ~keyframe~ :: アニメーションの進行具合 (0.0 ~ 1.0 の浮動小数)
 - ~ctx~ :: CanvasRenderingContext2D のオブジェクト
@@ -110,11 +128,12 @@ http://zk-phi.github.io/MEGAMOJI
 
 *** アニメーションの追加
 
-~animations.js~ に実装されている関数群は「効果をつける」タブ内「アニ
-メーション」で選ぶことができる特殊効果たちの実装です。ユーザーは一つし
-か同時に使えません。
+「効果をつける」タブ内「アニメーション」で選ぶことができる特殊効果たち
+の実装です。ユーザーは一つしか同時に使えません。
 
-以下の９引数を受けます:
+~src/animations.js~ に一覧があります。
+
+アニメーションの実体は５引数の関数です：
 
 - ~keyframe~ :: (~effect_~ と同様)
 - ~ctx~ :: (~effect_~ と同様)
@@ -171,7 +190,9 @@ http://zk-phi.github.io/MEGAMOJI
 し、 ポストエフェクトはそれよりも後に呼ばれます。これによって、レンダー
 された画像の上からさらに効果を描き込むことができます。
 
-以下の５引数を受けます:
+~src/posteffects.js~ に一覧があります。
+
+ポストエフェクトの実体は５引数の関数です：
 
 - ~keyframe~
 - ~ctx~
@@ -185,47 +206,58 @@ http://zk-phi.github.io/MEGAMOJI
 
 Canvas の基本的な変形機能などだけでは実装できないエフェクトを WebGL で実装できます。
 
-フラグメントシェーダの追加が必要であれば、以下の形式で記述します：
+~src/webgleffects.js~ に一覧があります。
 
-#+begin_src js
-  const WEBGL_FRAGMENT_<SHADERNAME> = webglShader(`
-    <GLSL code>
-  `);
-  const WEBGL_PROGRAM_<SHADERNAME> = webglProgram(WEBGL_FRAGMENT_<SHADERNAME>);
-#+end_src
-
-WebGL エフェクトは以下の４引数を受け取る関数です：
+WebGL エフェクトの実体は４引数の関数です：
 
 - ~keyframe~
-- ~cell~
+- ~cellWidth~
 - ~cellHeight~
-- ~flipY~ ... そのまま =WEBGL_PROGRAM_<SHADERNAME>= に渡してください
+- ~args~ ... そのままシェーダに渡してください
 
-=WEBGL_PROGRAM_<SHADERNAME>= を呼ぶと WebGLProgram が返ってくるので、適切なパラメータを渡してください。
+シェーダを関数として呼ぶと ~WebGLProgram~ が返ってくるので、 uniform 変数を適切にセットしてください。
 
 #+begin_src js
   // 例
-  function webglZoom (keyframe, _w, _h, flipY) {
-    const program = WEBGL_PROGRAM_ZOOMBLUR(flipY);
-    const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
-    gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
-    gl.uniform1f(gl.getUniformLocation(program, 'strength'), strength);
+  import fooShader from '../shaders/foo.ts';
+  function webglZoom (keyframe, _w, _h, args) {
+    const program = fooShader(args);
+    gl.uniform2f(gl.getUniformLocation(program, 'center'), keyframe, 0.5);
   }
 #+end_src
 
 画像は例によって４倍サイズでレンダーされます。
 
+フラグメントシェーダ自体の追加が必要であれば、 ~src/shaders~ に追加します。
+
+~webglEffectShader~ という色々いい感じにしてくれる関数があるので、これにシェーダーのコードを投げてください。
+
+よく使う関数 (疑似乱数など) は ~src/shaders/utils~ にあります。
+
+#+begin_src js
+  const myShader = webglEffectShader(`
+    <GLSL code>
+  `);
+#+end_src
+
 *** フォントの追加
 
 読み込みが遅くなるので慎重に。
 
-どれだけ面白くても、アイコンサイズに縮小して読めないようなフォントは入れない。
+以下のフォントは入れないようにしています：
+- アイコンサイズに縮小すると読めない
+- 収録漢字が少ない
+- 他のフォントと使いたい場面が被る
 
 1. フォントのライセンスをよく確認する
+
+   再配布、改変 (woff 化) 可能か、など
 
 2. スクリプトで woff を作る
    (https://github.com/zk-phi/woff2sfnt-sfnt2woff など)
 
    : node sfnt2woff.js hoge.ttf hoge.woff
 
-3. fonts に woff を入れて、 fonts.css から参照
+3. fonts に woff を入れて、 ~dist/css/fonts.css~ から参照
+
+4. LICENSE.markdown に追記
