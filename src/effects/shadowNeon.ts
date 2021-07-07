@@ -1,5 +1,5 @@
-import { Effect } from '../effects';
-import { HSV2RGB } from '../utils/color';
+import { Effect } from "../effects";
+import { HSV2RGB } from "../utils/color";
 
 const effectShadowNeon: Effect = (keyframe, ctx) => {
   const HSVColor = HSV2RGB({ h: Math.floor(keyframe * 360 * 4) % 360, s: 1, v: 1 });

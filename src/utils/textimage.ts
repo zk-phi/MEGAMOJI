@@ -1,4 +1,4 @@
-import { shrinkCanvas } from './canvas';
+import { shrinkCanvas } from "./canvas";
 
 type GradientColorStop = { color: string, pos: number };
 
@@ -38,7 +38,7 @@ const makeTextImageSingleLine = (
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 export const makeTextImage = (
   text: string, color: string, font: string, fontHeight: number,
-  align: string, lineSpacing: number, outlineColors: string[], gradient: GradientColorStop[]
+  align: string, lineSpacing: number, outlineColors: string[], gradient: GradientColorStop[],
 ): string => {
   const images = text.split("\n").map((line) => (
     makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)

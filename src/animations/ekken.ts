@@ -1,4 +1,4 @@
-import { Animation } from '../animations';
+import { Animation } from "../animations";
 
 const animationEkken: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,

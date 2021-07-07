@@ -1,4 +1,4 @@
-import { EffectShader, webglEffectShader } from '../webgleffects';
+import { EffectShader, webglEffectShader } from "../webgleffects";
 
 // based on glfx.js (by evanw, MIT License)
 

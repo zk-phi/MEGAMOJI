@@ -1,13 +1,13 @@
-import { flipContext } from './utils/canvas';
-import animationEkken from './animations/ekken';
-import animationEkkenVertical from './animations/ekkenVertical';
-import animationKanpai from './animations/kanpai';
-import animationKanpaiLefty from './animations/kanpaiLefty';
-import animationScroll from './animations/scroll';
-import animationScrollVertical from './animations/scrollVertical';
-import animationPush from './animations/push';
-import animationPushVertical from './animations/pushVertical';
-import animationXile from './animations/xile';
+import { flipContext } from "./utils/canvas";
+import animationEkken from "./animations/ekken";
+import animationEkkenVertical from "./animations/ekkenVertical";
+import animationKanpai from "./animations/kanpai";
+import animationKanpaiLefty from "./animations/kanpaiLefty";
+import animationScroll from "./animations/scroll";
+import animationScrollVertical from "./animations/scrollVertical";
+import animationPush from "./animations/push";
+import animationPushVertical from "./animations/pushVertical";
+import animationXile from "./animations/xile";
 
 /*
  * An animation is a function which actually renders each animation frames.

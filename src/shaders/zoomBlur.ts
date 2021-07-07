@@ -1,5 +1,5 @@
-import { EffectShader, webglEffectShader } from '../webgleffects';
-import random from './utils/random';
+import { EffectShader, webglEffectShader } from "../webgleffects";
+import random from "./utils/random";
 
 // based on glfx.js (by evanw, MIT License)
 
@@ -37,6 +37,6 @@ const shaderZoomBlur: EffectShader = webglEffectShader(`
     /* switch back from pre-multiplied alpha */
     gl_FragColor.rgb /= gl_FragColor.a + 0.00001;
   }
-`)
+`);
 
 export default shaderZoomBlur;

@@ -1,5 +1,5 @@
-import { Effect } from '../effects';
-import { scaleCentered } from '../utils/canvas';
+import { Effect } from "../effects";
+import { scaleCentered } from "../utils/canvas";
 
 const effectStraight: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   if (keyframe < 0.5) {

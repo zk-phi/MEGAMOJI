@@ -10,8 +10,8 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
   ],
   settings: {
-    'import/resolver': {
-      webpack: { config: 'webpack.config.js' },
+    "import/resolver": {
+      webpack: { config: "webpack.config.js" },
     },
   },
   rules: {

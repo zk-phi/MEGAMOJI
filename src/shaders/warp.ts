@@ -1,4 +1,4 @@
-import { EffectShader, webglEffectShader } from '../webgleffects';
+import { EffectShader, webglEffectShader } from "../webgleffects";
 
 const shaderWarp: EffectShader = webglEffectShader(`
   precision highp float;

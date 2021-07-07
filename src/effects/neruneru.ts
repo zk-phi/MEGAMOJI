@@ -1,4 +1,4 @@
-import { Effect } from '../effects';
+import { Effect } from "../effects";
 
 const effectNeruneru: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   ctx.translate(

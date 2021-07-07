@@ -1,5 +1,5 @@
-import { Effect } from '../effects';
-import { HSV2RGB } from '../utils/color';
+import { Effect } from "../effects";
+import { HSV2RGB } from "../utils/color";
 
 const effectShadowBlur: Effect = (keyframe, ctx) => {
   const HSVColor = HSV2RGB({ h: 0, s: 0, v: keyframe });

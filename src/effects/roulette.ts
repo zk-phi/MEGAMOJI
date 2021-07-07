@@ -1,4 +1,4 @@
-import { Effect } from '../effects';
+import { Effect } from "../effects";
 
 const effectRoulette: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   ctx.translate(cellWidth / 2, cellHeight / 2);

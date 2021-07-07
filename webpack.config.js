@@ -1,8 +1,8 @@
 module.exports = {
   entry: "./src/megamoji.ts",
   devServer: {
-    contentBase: 'dist',
-    open: true
+    contentBase: "dist",
+    open: true,
   },
   output: {
     path: `${__dirname}/dist`,
@@ -10,11 +10,11 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.ts$/, use: 'ts-loader' },
+      { test: /\.ts$/, use: "ts-loader" },
     ],
   },
   resolve: {
-    extensions: [ '.ts', '.js' ],
+    extensions: [".ts", ".js"],
     alias: {
       vue$: "vue/dist/vue.esm.js",
     },

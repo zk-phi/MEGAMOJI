@@ -1,27 +1,31 @@
+import GIF from "@dhdbstjr98/gif.js";
+import Vue from "vue";
+import { ANIMATIONS } from "./animations";
+import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from "./effects";
+import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from "./webgleffects";
+import { POST_EFFECTS } from "./posteffects";
+import { FILTERS } from "./filters";
+import {
+  FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS,
+} from "./parts";
+import { lighterColor, darkerColor } from "./utils/color";
+import {
+  cropCanvas, shrinkCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg,
+} from "./utils/canvas";
+import { makeTextImage } from "./utils/textimage";
+
 /* global ga */
 declare const ga: (
   command: string, type: string, category?: string, label?: string, value?: string
 ) => void;
 
-import GIF from '@dhdbstjr98/gif.js';
-import Vue from 'vue';
-import { ANIMATIONS } from './animations';
-import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from './effects';
-import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from './webgleffects';
-import { POST_EFFECTS } from './posteffects';
-import { FILTERS } from './filters';
-import { FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS } from './parts';
-import { lighterColor, darkerColor } from './utils/color';
-import { cropCanvas, shrinkCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg } from './utils/canvas';
-import { makeTextImage } from './utils/textimage';
-
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
 const BINARY_SIZE_LIMIT = 128000;
 
-/* ---- CORE */
-
 const webglEnabled = webglInitialize();
+
+/* ---- CORE */
 
 function renderFrameUncut(
   keyframe,
@@ -105,11 +109,7 @@ function renderAllCellsFixedSize(
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
     );
-    return Promise.all(cells.map(row =>
-      Promise.all(row.map(cell =>
-        new Promise(resolve => cell.toBlob(resolve))
-      ))
-    ));
+    return Promise.all(cells.map((row) => Promise.all(row.map((cell) => new Promise((resolve) => cell.toBlob(resolve))))));
   } else {
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
@@ -147,14 +147,12 @@ function renderAllCellsFixedSize(
         }
       }
     }
-    return Promise.all(cells.map(row =>
-      Promise.all(row.map(cell => (
-        new Promise(resolve => {
-          cell.on('finished', resolve);
-          cell.render();
-        })
-      )))
-    ));
+    return Promise.all(cells.map((row) => Promise.all(row.map((cell) => (
+      new Promise((resolve) => {
+        cell.on("finished", resolve);
+        cell.render();
+      })
+    )))));
   }
 }
 
@@ -192,7 +190,7 @@ function renderAllCells(
         resolve(ret.map((row) => row.map((cell) => URL.createObjectURL(cell))));
       }
     });
-  })
+  });
 }
 
 const constants = {
@@ -208,7 +206,7 @@ const constants = {
   FUKUMOJI_MOUTHS,
   FUKUMOJI_TEXTURES,
   FUKUMOJI_OTHERS,
-}
+};
 
 const data = {
   ...constants,
@@ -500,7 +498,7 @@ window.onerror = (msg, file, line, col) => {
   ga("send", "event", "error", "thrown", `${file}:${line}:${col} ${msg}`);
 };
 
-const match = window.location.href.match(/\?([^=]+)(=(.*))?$/);
+const match = /\?([^=]+)(=(.*))?$/.exec(window.location.href);
 if (match) {
   if (match[1] === "test") {
     vm.ui.mode = "text";

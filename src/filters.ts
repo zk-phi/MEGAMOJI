@@ -1,4 +1,4 @@
-import filterChromakey from './filters/chromakey';
+import filterChromakey from "./filters/chromakey";
 
 export type Filter = (image: HTMLImageElement) => string;
 

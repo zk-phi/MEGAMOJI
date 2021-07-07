@@ -1,6 +1,6 @@
-import postEffectFocusLine from './posteffects/focusLine';
-import postEffectGlitch from './posteffects/glitch';
-import postEffectMosaic from './posteffects/mosaic';
+import postEffectFocusLine from "./posteffects/focusLine";
+import postEffectGlitch from "./posteffects/glitch";
+import postEffectMosaic from "./posteffects/mosaic";
 
 export type PostEffect = (
   keyframe: number, ctx: CanvasRenderingContext2D, width: number, height: number,

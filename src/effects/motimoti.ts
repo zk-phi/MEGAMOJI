@@ -1,4 +1,4 @@
-import { Effect } from '../effects';
+import { Effect } from "../effects";
 
 const effectMotimoti: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   const ratio = Math.sin(Math.PI * Math.abs(keyframe - 0.5) / 0.5) / 4;

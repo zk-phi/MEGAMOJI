@@ -1,5 +1,5 @@
-import { Animation } from '../animations';
-import { flipContext } from '../utils/canvas';
+import { Animation } from "../animations";
+import { flipContext } from "../utils/canvas";
 
 const animationKanpai: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,

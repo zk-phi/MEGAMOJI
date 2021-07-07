@@ -1,9 +1,9 @@
-import webglKira from './webgleffects/kira';
-import webglFoil from './webgleffects/foil';
-import webglBlur from './webgleffects/blur';
-import webglBlurVertical from './webgleffects/blurVertical';
-import webglZoom from './webgleffects/zoom';
-import webglDokaben from './webgleffects/dokaben';
+import webglKira from "./webgleffects/kira";
+import webglFoil from "./webgleffects/foil";
+import webglBlur from "./webgleffects/blur";
+import webglBlurVertical from "./webgleffects/blurVertical";
+import webglZoom from "./webgleffects/zoom";
+import webglDokaben from "./webgleffects/dokaben";
 
 export type VertexShaderArgs = { flipY: boolean };
 export type Shader = () => WebGLShader;
@@ -27,8 +27,8 @@ export let gl;
 
 // initialize webgl rendering context and returns a canvas which result image will be rendered in.
 // if the browser does not support webgl, just return null.
-export function webglInitialize () {
-  webglCanvas = document.createElement('canvas');
+export function webglInitialize() {
+  webglCanvas = document.createElement("canvas");
 
   try {
     gl = webglCanvas.getContext("experimental-webgl", { premultipliedAlpha: false });
@@ -44,12 +44,12 @@ export function webglInitialize () {
   const vertices = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, vertices);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-  -1, -1, 0, 1,
-    1,  -1, 1, 1,
-  -1, 1,  0, 0,
-  -1, 1,  0, 0,
-    1, -1,  1, 1,
-    1,  1,  1, 0
+    -1, -1, 0, 1,
+    1, -1, 1, 1,
+    -1, 1, 0, 0,
+    -1, 1, 0, 0,
+    1, -1, 1, 1,
+    1, 1, 1, 0,
   ]), gl.STATIC_DRAW);
 
   return webglCanvas;
@@ -58,7 +58,7 @@ export function webglInitialize () {
 /* ---- WEBGL UTILS */
 
 // compile and return shader (memoized)
-function webglShader (source, isVertex?) {
+function webglShader(source, isVertex?) {
   let shader;
   return () => {
     if (!shader) {
@@ -88,7 +88,7 @@ const identityVertexShader = webglShader(`
 `, true);
 
 // create and initialize program
-export function webglEffectShader (fragmentShader) {
+export function webglEffectShader(fragmentShader) {
   const shader = webglShader(fragmentShader);
   let program;
   return (args) => {
@@ -103,22 +103,22 @@ export function webglEffectShader (fragmentShader) {
         throw "link error";
       }
       const u = Float32Array.BYTES_PER_ELEMENT;
-      const pos = gl.getAttribLocation(program, 'pos');
+      const pos = gl.getAttribLocation(program, "pos");
       gl.enableVertexAttribArray(pos);
-      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 4 * u , 0 * u);
-      const uv = gl.getAttribLocation(program, 'uv');
+      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 4 * u, 0 * u);
+      const uv = gl.getAttribLocation(program, "uv");
       gl.enableVertexAttribArray(uv);
       gl.vertexAttribPointer(uv, 2, gl.FLOAT, false, 4 * u, 2 * u);
     } else {
       gl.useProgram(program);
     }
-    gl.uniform1f(gl.getUniformLocation(program, 'flipY'), args.flipY ? -1 : 1);
+    gl.uniform1f(gl.getUniformLocation(program, "flipY"), args.flipY ? -1 : 1);
     return program;
   };
 }
 
 // create, initialize and bind a texture
-function webglTexture () {
+function webglTexture() {
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -129,23 +129,23 @@ function webglTexture () {
 }
 
 // create, initialize and bind a frame buffer (with texture)
-function webglFrameBuffer (w, h) {
+function webglFrameBuffer(w, h) {
   const frame = gl.createFramebuffer();
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   const texture = webglTexture();
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
   gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
-  return { frame: frame, texture: texture };
+  return { frame, texture };
 }
 
 // delete framebuffer created with webglFrameBuffer
-function webglDeleteFrameBuffer (buf) {
+function webglDeleteFrameBuffer(buf) {
   gl.deleteTexture(buf.texture);
   gl.deleteFramebuffer(buf.frame);
 }
 
 // render texture in framebuffer (or webglCanvas if frame=null)
-function draw (texture, frame) {
+function draw(texture, frame) {
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -154,7 +154,7 @@ function draw (texture, frame) {
 /* ---- CORE */
 
 // apply effects on image and render in webglCanvas
-export function webglApplyEffects (image, keyframe, effects) {
+export function webglApplyEffects(image, keyframe, effects) {
   const w = image.width;
   const h = image.height;
   webglCanvas.height = h;

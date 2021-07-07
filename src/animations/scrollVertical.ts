@@ -1,4 +1,4 @@
-import { Animation } from '../animations';
+import { Animation } from "../animations";
 
 const animationScrollVertical: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,

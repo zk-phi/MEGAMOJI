@@ -1,5 +1,5 @@
-import { Animation } from '../animations';
-import animationScrollVertical from './scrollVertical';
+import { Animation } from "../animations";
+import animationScrollVertical from "./scrollVertical";
 
 const animationPushVertical: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,

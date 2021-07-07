@@ -1,7 +1,7 @@
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number, cellHeight: number,
-  hScale: number, vScale: number
+  hScale: number, vScale: number,
 ): void => {
   ctx.transform(
     hScale,
@@ -20,7 +20,7 @@ export const flipContext = (ctx: CanvasRenderingContext2D, width: number): void 
 export const cropCanvas = (
   source: HTMLCanvasElement,
   left: number, top: number, w: number, h: number,
-  fillStyle?: string
+  fillStyle?: string,
 ): HTMLCanvasElement => {
   const target = document.createElement("canvas");
   const ctx = target.getContext("2d");
@@ -134,7 +134,7 @@ export const mergeImages = (
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
 export const loadFileAsBlobURL = (
   path: File,
-  callback: (bloburl: string) => void
+  callback: (bloburl: string) => void,
 ): void => {
   const reader = new FileReader();
   reader.onload = (e) => callback(e.target.result as string);

@@ -1,5 +1,5 @@
-import { Animation } from '../animations';
-import animationScroll from './scroll';
+import { Animation } from "../animations";
+import animationScroll from "./scroll";
 
 const animationPush: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,

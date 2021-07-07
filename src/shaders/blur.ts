@@ -1,5 +1,5 @@
-import { EffectShader, webglEffectShader } from '../webgleffects';
-import random from './utils/random';
+import { EffectShader, webglEffectShader } from "../webgleffects";
+import random from "./utils/random";
 
 // based on glfx.js (by evanw, MIT License)
 

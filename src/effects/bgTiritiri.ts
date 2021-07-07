@@ -1,4 +1,4 @@
-import { Effect } from '../effects';
+import { Effect } from "../effects";
 
 const effectBGTiritiri: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);

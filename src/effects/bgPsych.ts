@@ -1,5 +1,5 @@
-import { Effect } from '../effects';
-import { HSV2RGB } from '../utils/color';
+import { Effect } from "../effects";
+import { HSV2RGB } from "../utils/color";
 
 const effectBGPsych: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   const imageData = ctx.getImageData(0, 0, cellWidth, cellHeight);

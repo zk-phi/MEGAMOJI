@@ -30,13 +30,11 @@ export const HSV2RGB = (hsv: HSV): RGB => {
   };
 };
 
-const HEX2RGB = (hex: string): RGB => {
-  return {
-    r: parseInt(hex.substring(1, 3), 16),
-    g: parseInt(hex.substring(3, 5), 16),
-    b: parseInt(hex.substring(5, 7), 16),
-  };
-};
+const HEX2RGB = (hex: string): RGB => ({
+  r: parseInt(hex.substring(1, 3), 16),
+  g: parseInt(hex.substring(3, 5), 16),
+  b: parseInt(hex.substring(5, 7), 16),
+});
 
 const intToByte = (int: number): string => {
   const str = Number(int).toString(16);
