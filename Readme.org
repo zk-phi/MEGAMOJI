@@ -185,27 +185,31 @@ Canvas の基本的な変形機能などだけでは実装できないエフェ�
 
 フラグメントシェーダの追加が必要であれば、以下の形式で記述します：
 
-```
-const WEBGL_FRAGMENT_<SHADERNAME> = webglShader(`
-  <GLSL code>
-`);
-```
+#+begin_src js
+  const WEBGL_FRAGMENT_<SHADERNAME> = webglShader(`
+    <GLSL code>
+  `);
+  const WEBGL_PROGRAM_<SHADERNAME> = webglProgram(WEBGL_FRAGMENT_<SHADERNAME>);
+#+end_src
 
-WebGL エフェクトはフラグメントシェーダと、フラグメントシェーダに渡すパラメータを決定する関数の組で定義します。
-
-関数は以下の引数を受けます：
+WebGL エフェクトは以下の４引数を受け取る関数です：
 
 - ~keyframe~
-- ~cellWidth~
+- ~cell~
 - ~cellHeight~
-- ~program~ ... WebGLProgram のオブジェクト、こいつに適切なパラメータを投げてください
+- ~flipY~ ... そのまま =WEBGL_PROGRAM_<SHADERNAME>= に渡してください
 
-```
-// 例
-var webglZoom = webglEffect(WEBGL_FRAGMENT_<SHADERNAME>, (keyframe, w, h, program) => {
-  gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
-});
-```
+=WEBGL_PROGRAM_<SHADERNAME>= を呼ぶと WebGLProgram が返ってくるので、適切なパラメータを渡してください。
+
+#+begin_src js
+  // 例
+  function webglZoom (keyframe, _w, _h, flipY) {
+    const program = WEBGL_PROGRAM_ZOOMBLUR(flipY);
+    const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
+    gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
+    gl.uniform1f(gl.getUniformLocation(program, 'strength'), strength);
+  }
+#+end_src
 
 画像は例によって４倍サイズでレンダーされます。
 
