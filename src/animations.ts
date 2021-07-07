@@ -1,4 +1,13 @@
 import { flipContext } from './utils/canvas';
+import animationEkken from './animations/ekken';
+import animationEkkenVertical from './animations/ekkenVertical';
+import animationKanpai from './animations/kanpai';
+import animationKanpaiLefty from './animations/kanpaiLefty';
+import animationScroll from './animations/scroll';
+import animationScrollVertical from './animations/scrollVertical';
+import animationPush from './animations/push';
+import animationPushVertical from './animations/pushVertical';
+import animationXile from './animations/xile';
 
 /*
  * An animation is a function which actually renders each animation frames.
@@ -11,220 +20,16 @@ import { flipContext } from './utils/canvas';
  * - cellWidth, cellHeight ... size of the image to be rendered
  */
 
-type Animation = (
+export type Animation = (
   keyframe: number, ctx: CanvasRenderingContext2D, image: HTMLImageElement,
   offsetH: number, offsetV: number, width: number, height: number,
   cellWidth: number, cellHeight: number,
 ) => void;
 
-/* ---- animations */
-
-const animationEkken: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  const size = 1.0 * kf + 0.5 * (1 - kf);
-  const ekkenOffset = (cellWidth / 2) * kf;
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth * (2 - size) / 4, cellHeight * (2 - size) / 4,
-    cellWidth / 2 * size, cellHeight / 2 * size,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width / 2, height,
-    -ekkenOffset / 2, cellHeight / 4,
-    cellWidth / 4, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width / 2, height,
-    -ekkenOffset / 2 + cellWidth / 4, cellHeight / 4,
-    cellWidth / 4, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH + width / 2, offsetV, width / 2, height,
-    cellWidth / 2 + ekkenOffset / 2, cellHeight / 4,
-    cellWidth / 4, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH + width / 2, offsetV, width / 2, height,
-    cellWidth * 3 / 4 + ekkenOffset / 2, cellHeight / 4,
-    cellWidth / 4, cellHeight / 2,
-  );
-};
-
-const animationEkkenVertical: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
-  const size = 1.0 * kf + 0.5 * (1 - kf);
-  const ekkenOffset = cellHeight / 2 * kf;
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth * (2 - size) / 4, cellHeight * (2 - size) / 4,
-    cellWidth * size / 2, cellHeight * size / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height / 2,
-    cellWidth / 4, -ekkenOffset / 2,
-    cellWidth / 2, cellHeight / 4,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height / 2,
-    cellWidth / 4, cellWidth / 4 - ekkenOffset / 2,
-    cellWidth / 2, cellHeight / 4,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV + height / 2, width, height / 2,
-    cellWidth / 4, cellHeight / 2 + ekkenOffset / 2,
-    cellWidth / 2, cellHeight / 4,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV + height / 2, width, height / 2,
-    cellWidth / 4, cellHeight * 3 / 4 + ekkenOffset / 2,
-    cellWidth / 2, cellHeight / 4,
-  );
-};
-
-const animationKanpai: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
-  flipContext(ctx, cellWidth);
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-  flipContext(ctx, cellWidth);
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-};
-
-const animationKanpaiLefty: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
-  flipContext(ctx, cellWidth);
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-  flipContext(ctx, cellWidth);
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-};
-
-const animationScrollHorizontal: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    -cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 2 - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
-  );
-};
-
-const animationScrollVertical: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 4, -cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 4, cellHeight / 2 - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2,
-  );
-  ctx.drawImage(
-    image,
-    offsetH, offsetV, width, height,
-    cellWidth / 4, cellHeight - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2,
-  );
-};
-
-const animationPushHorizontal: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  /*   push: 0 0.5   0.5   1.0
-   * scroll: 0 0.125 0.875 1.0 */
-  const kf = keyframe < 0.125 ? (
-    keyframe * 4
-  ) : keyframe < 0.875 ? (
-    0.5
-  ) : (
-    (keyframe - 0.875) * 4 + 0.5
-  );
-  animationScrollHorizontal(
-    kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-  );
-};
-
-const animationPushVertical: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  const kf = keyframe < 0.125 ? (
-    keyframe * 4
-  ) : keyframe < 0.875 ? (
-    0.5
-  ) : (
-    (keyframe - 0.875) * 4 + 0.5
-  );
-  animationScrollVertical(
-    kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-  );
-};
-
-const animationXile: Animation = (
-  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) => {
-  for (let i = 0; i < 3; i += 1) {
-    const x = (
-      Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth / 2 + cellWidth / 4
-    );
-    const y = (
-      Math.sin(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellHeight / 2 + cellHeight / 4
-    );
-    ctx.drawImage(
-      image,
-      offsetH, offsetV, width, height,
-      x, y, cellWidth / 2 * 0.8, cellHeight / 2 * 0.8,
-    );
-  }
-};
-
 export const ANIMATIONS = [
-  { label: "スクロール（水平）", fn: animationScrollHorizontal },
+  { label: "スクロール（水平）", fn: animationScroll },
   { label: "スクロール（垂直）", fn: animationScrollVertical },
-  { label: "押し出し（水平）", fn: animationPushHorizontal },
+  { label: "押し出し（水平）", fn: animationPush },
   { label: "押し出し（垂直）", fn: animationPushVertical },
   { label: "謁見", fn: animationEkken },
   { label: "謁見バーティカル", fn: animationEkkenVertical },

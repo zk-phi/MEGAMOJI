@@ -1,0 +1,22 @@
+import { Animation } from '../animations';
+import { flipContext } from '../utils/canvas';
+
+const animationKanpaiLefty: Animation = (
+  keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
+) => {
+  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+  flipContext(ctx, cellWidth);
+  ctx.drawImage(
+    image,
+    offsetH, offsetV, width, height,
+    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
+  );
+  flipContext(ctx, cellWidth);
+  ctx.drawImage(
+    image,
+    offsetH, offsetV, width, height,
+    -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
+  );
+};
+
+export default animationKanpaiLefty;
