@@ -1,7 +1,13 @@
 {
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:css": "stylelint css",
+    "lint:js": "eslint .",
+    "fix": "npm run fix:css && npm run fix:js",
+    "fix:css": "stylelint --fix css",
+    "fix:js": "eslint --fix ."
   },
   "browserslist": [
     ">1% in JP",
