@@ -8,7 +8,7 @@ export const HSV2RGB = (hsv: HSV): RGB => {
   const Hp = (hsv.h % 360) / 60;
   const X = C * (1 - Math.abs(Hp % 2 - 1));
 
-  const RGB = Hp < 1 ? (
+  const rgb = Hp < 1 ? (
     [C, X, 0]
   ) : Hp < 2 ? (
     [X, C, 0]
@@ -24,9 +24,9 @@ export const HSV2RGB = (hsv: HSV): RGB => {
 
   const m = hsv.v - C;
   return {
-    r: Math.floor((RGB[0] + m) * 255),
-    g: Math.floor((RGB[1] + m) * 255),
-    b: Math.floor((RGB[2] + m) * 255),
+    r: Math.floor((rgb[0] + m) * 255),
+    g: Math.floor((rgb[1] + m) * 255),
+    b: Math.floor((rgb[2] + m) * 255),
   };
 };
 

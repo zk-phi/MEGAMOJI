@@ -23,11 +23,13 @@ export const WEBGL_EFFECTS = [
 ];
 
 let webglCanvas;
+
+// eslint-disable-next-line import/no-mutable-exports
 export let gl;
 
 // initialize webgl rendering context and returns a canvas which result image will be rendered in.
 // if the browser does not support webgl, just return null.
-export function webglInitialize() {
+export function webglInitialize(): boolean {
   webglCanvas = document.createElement("canvas");
 
   try {
@@ -52,7 +54,7 @@ export function webglInitialize() {
     1, 1, 1, 0,
   ]), gl.STATIC_DRAW);
 
-  return webglCanvas;
+  return !!webglCanvas;
 }
 
 /* ---- WEBGL UTILS */
@@ -66,8 +68,7 @@ function webglShader(source, isVertex?) {
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.log(gl.getShaderInfoLog(shader));
-        throw "compile error";
+        throw new Error("compile error");
       }
     }
     return shader;
@@ -88,7 +89,7 @@ const identityVertexShader = webglShader(`
 `, true);
 
 // create and initialize program
-export function webglEffectShader(fragmentShader) {
+export function webglEffectShader(fragmentShader: string): EffectShader {
   const shader = webglShader(fragmentShader);
   let program;
   return (args) => {
@@ -99,8 +100,7 @@ export function webglEffectShader(fragmentShader) {
       gl.linkProgram(program);
       gl.useProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        gl.getProgramInfoLog(program);
-        throw "link error";
+        throw new Error("link error");
       }
       const u = Float32Array.BYTES_PER_ELEMENT;
       const pos = gl.getAttribLocation(program, "pos");
@@ -154,7 +154,9 @@ function draw(texture, frame) {
 /* ---- CORE */
 
 // apply effects on image and render in webglCanvas
-export function webglApplyEffects(image, keyframe, effects) {
+export function webglApplyEffects(
+  image: HTMLCanvasElement, keyframe: number, effects: WebGLEffect[],
+): HTMLCanvasElement {
   const w = image.width;
   const h = image.height;
   webglCanvas.height = h;
@@ -168,8 +170,8 @@ export function webglApplyEffects(image, keyframe, effects) {
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
   effects.forEach((effect, ix) => {
-    const initialp = ix == 0;
-    const lastp = ix == effects.length - 1;
+    const initialp = ix === 0;
+    const lastp = ix === effects.length - 1;
     effect(keyframe, w, h, { flipY: lastp });
     draw(initialp ? texture : ring.car.texture, lastp ? null : ring.cdr.car.frame);
     ring = ring.cdr;

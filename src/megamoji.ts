@@ -10,11 +10,10 @@ import {
 } from "./parts";
 import { lighterColor, darkerColor } from "./utils/color";
 import {
-  cropCanvas, shrinkCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg,
+  cropCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg,
 } from "./utils/canvas";
 import { makeTextImage } from "./utils/textimage";
 
-/* global ga */
 declare const ga: (
   command: string, type: string, category?: string, label?: string, value?: string
 ) => void;
@@ -109,14 +108,15 @@ function renderAllCellsFixedSize(
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
     );
-    return Promise.all(cells.map((row) => Promise.all(row.map((cell) => new Promise((resolve) => cell.toBlob(resolve))))));
+    return Promise.all(cells.map((row) => (
+      Promise.all(row.map((cell) => new Promise((resolve) => cell.toBlob(resolve))))
+    )));
   } else {
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
         const encoder = new GIF({
-          workerScript: "./js/gif.js/dist/gif.worker.js",
           transparent: transparent ? 0xffffff : null,
           width: targetSize * (noCrop ? 2 : 1),
           height: targetSize * (noCrop ? 2 : 1),

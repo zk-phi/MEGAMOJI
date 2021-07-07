@@ -1,4 +1,3 @@
-import { flipContext } from "./utils/canvas";
 import animationEkken from "./animations/ekken";
 import animationEkkenVertical from "./animations/ekkenVertical";
 import animationKanpai from "./animations/kanpai";

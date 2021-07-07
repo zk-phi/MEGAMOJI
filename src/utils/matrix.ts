@@ -1,5 +1,5 @@
 // taken from glfx.js (by evanw, MIT License)
-export const matrixSquareToQuad = (x0, y0, x1, y1, x2, y2, x3, y3) => {
+export const matrixSquareToQuad = ([x0, y0, x1, y1, x2, y2, x3, y3]: number[]): number[] => {
   const dx1 = x1 - x2;
   const dy1 = y1 - y2;
   const dx2 = x3 - x2;
@@ -17,7 +17,7 @@ export const matrixSquareToQuad = (x0, y0, x1, y1, x2, y2, x3, y3) => {
 };
 
 // taken from glfx.js (by evanw, MIT License)
-export const matrixInverse = (m) => {
+export const matrixInverse = (m: number[]): number[] => {
   const a = m[0]; const b = m[1]; const
     c = m[2];
   const d = m[3]; const e = m[4]; const
@@ -33,7 +33,7 @@ export const matrixInverse = (m) => {
 };
 
 // taken from glfx.js (by evanw, MIT License)
-export const matrixMultiply = (a, b) => [
+export const matrixMultiply = (a: number[], b: number[]): number[] => [
   a[0] * b[0] + a[1] * b[3] + a[2] * b[6],
   a[0] * b[1] + a[1] * b[4] + a[2] * b[7],
   a[0] * b[2] + a[1] * b[5] + a[2] * b[8],
@@ -46,10 +46,12 @@ export const matrixMultiply = (a, b) => [
 ];
 
 // taken from glfx.js (by evanw, MIT License)
-export const matrixPerspective = (before, after) => {
-  const a = matrixSquareToQuad.apply(null, after);
-  const b = matrixSquareToQuad.apply(null, before);
+export const matrixPerspective = (before: number[], after: number[]): number[] => {
+  const a = matrixSquareToQuad(after);
+  const b = matrixSquareToQuad(before);
   return matrixMultiply(matrixInverse(a), b);
 };
 
-export const matrixFlatten = (matrix) => Array.prototype.concat.apply([], matrix);
+export const matrixFlatten = (matrix: number[]): number[] => (
+  Array.prototype.concat.apply([], matrix)
+);
