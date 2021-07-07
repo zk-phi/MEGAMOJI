@@ -3,8 +3,7 @@
  * Intended to be used as a preprocessor for input images.
  */
 
-// eslint-disable-next-line no-unused-vars
-const FILTERS = [
+export const FILTERS = [
   { fn: filterChromakey, label: "クロマキー透過 (左上から)" },
 ];
 

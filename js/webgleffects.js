@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const WEBGL_EFFECTS = [
+export const WEBGL_EFFECTS = [
   { label: "キラ", fn: webglKira },
   { label: "横もや", fn: webglBlurH },
   { label: "縦もや", fn: webglBlurV },
@@ -13,7 +12,7 @@ let gl;
 
 // initialize webgl rendering context and returns a canvas which result image will be rendered in.
 // if the browser does not support webgl, just return null.
-function webglInitialize () {
+export function webglInitialize () {
   webglCanvas = document.createElement('canvas');
 
   try {
@@ -185,7 +184,7 @@ function draw (texture, frame) {
 /* ---- CORE */
 
 // apply effects on image and render in webglCanvas
-function webglApplyEffects (image, keyframe, effects) {
+export function webglApplyEffects (image, keyframe, effects) {
   const w = image.width;
   const h = image.height;
   webglCanvas.height = h;

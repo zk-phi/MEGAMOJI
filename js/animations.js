@@ -9,8 +9,7 @@
  * - cellWidth, cellHeight ... size of the image to be rendered
  */
 
-// eslint-disable-next-line no-unused-vars
-const ANIMATIONS = [
+export const ANIMATIONS = [
   { label: "スクロール（水平）", fn: animationScrollHorizontal },
   { label: "スクロール（垂直）", fn: animationScrollVertical },
   { label: "押し出し（水平）", fn: animationPushHorizontal },

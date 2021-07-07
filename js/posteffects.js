@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const POST_EFFECTS = [
+export const POST_EFFECTS = [
   {
     label: "エフェクト",
     effects: [

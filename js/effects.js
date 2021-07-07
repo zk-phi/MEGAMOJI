@@ -10,8 +10,7 @@
  * - cellHeight ... height of the image to be rendered
  */
 
-// eslint-disable-next-line no-unused-vars
-const EFFECTS = [
+export const EFFECTS = [
   {
     label: "変形",
     effects: [
@@ -37,14 +36,12 @@ const EFFECTS = [
   },
 ];
 
-// eslint-disable-next-line no-unused-vars
-const STATIC_EFFECTS = [
+export const STATIC_EFFECTS = [
   { label: "左右を反転", fn: effectFlipHoriz },
   { label: "上下を反転", fn: effectFlipVert },
 ];
 
-// eslint-disable-next-line no-unused-vars
-const PRO_EFFECTS = [
+export const PRO_EFFECTS = [
   {
     label: "背景エフェクト",
     effects: [

@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const FUKUMOJI_BASES = [
+export const FUKUMOJI_BASES = [
   "assets/void.svg",
 
   "assets/base/common.svg",
@@ -52,8 +51,7 @@ const FUKUMOJI_BASES = [
   // 'assets/base/1f92c.svg',
 ];
 
-// eslint-disable-next-line no-unused-vars
-const FUKUMOJI_EYES = [
+export const FUKUMOJI_EYES = [
   "assets/void.svg",
 
   "assets/eyes/1f425.svg",
@@ -191,8 +189,7 @@ const FUKUMOJI_EYES = [
   // 'assets/eyes/1f63d.svg',
 ];
 
-// eslint-disable-next-line no-unused-vars
-const FUKUMOJI_MOUTHS = [
+export const FUKUMOJI_MOUTHS = [
   "assets/void.svg",
 
   "assets/mouths/1f917.svg",
@@ -320,8 +317,7 @@ const FUKUMOJI_MOUTHS = [
   // 'assets/mouths/1f928.svg',
 ];
 
-// eslint-disable-next-line no-unused-vars
-const FUKUMOJI_TEXTURES = [
+export const FUKUMOJI_TEXTURES = [
   "assets/void.svg",
 
   "assets/textures/1f428.svg",
@@ -342,8 +338,7 @@ const FUKUMOJI_TEXTURES = [
   // 'assets/textures/1f425.svg',
 ];
 
-// eslint-disable-next-line no-unused-vars
-const FUKUMOJI_OTHERS = [
+export const FUKUMOJI_OTHERS = [
   "assets/void.svg",
 
   "assets/others/1f607.svg",
