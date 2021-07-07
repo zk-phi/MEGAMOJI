@@ -2,8 +2,8 @@ import { gl, WebGLEffect } from '../webgleffects';
 import shaderWarp from '../shaders/warp';
 import { matrixPerspective, matrixFlatten } from '../utils/matrix';
 
-const webglDokaben: WebGLEffect = (keyframe, w, h, flipY) => {
-  const program = shaderWarp(flipY);
+const webglDokaben: WebGLEffect = (keyframe, w, h, args) => {
+  const program = shaderWarp(args);
   const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */
   const diffH = 0.3 * pos / 2;
   const diffV = 1.0 * pos / 2;

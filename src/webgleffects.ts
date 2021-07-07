@@ -5,7 +5,7 @@ import webglBlurVertical from './webgleffects/blurVertical';
 import webglZoom from './webgleffects/zoom';
 import webglDokaben from './webgleffects/dokaben';
 
-export type VertexShaderArgs = boolean;
+export type VertexShaderArgs = { flipY: boolean };
 export type Shader = () => WebGLShader;
 export type EffectShader = (args: VertexShaderArgs) => WebGLProgram;
 
@@ -91,7 +91,7 @@ const identityVertexShader = webglShader(`
 export function webglEffectShader (fragmentShader) {
   const shader = webglShader(fragmentShader);
   let program;
-  return (flipY) => {
+  return (args) => {
     if (!program) {
       program = gl.createProgram();
       gl.attachShader(program, identityVertexShader());
@@ -112,7 +112,7 @@ export function webglEffectShader (fragmentShader) {
     } else {
       gl.useProgram(program);
     }
-    gl.uniform1f(gl.getUniformLocation(program, 'flipY'), flipY ? -1 : 1);
+    gl.uniform1f(gl.getUniformLocation(program, 'flipY'), args.flipY ? -1 : 1);
     return program;
   };
 }
@@ -170,7 +170,7 @@ export function webglApplyEffects (image, keyframe, effects) {
   effects.forEach((effect, ix) => {
     const initialp = ix == 0;
     const lastp = ix == effects.length - 1;
-    effect(keyframe, w, h, lastp);
+    effect(keyframe, w, h, { flipY: lastp });
     draw(initialp ? texture : ring.car.texture, lastp ? null : ring.cdr.car.frame);
     ring = ring.cdr;
   });

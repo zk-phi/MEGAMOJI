@@ -1,5 +1,3 @@
-import { HSV2RGB } from './utils/color';
-import { scaleCentered } from './utils/canvas';
 import effectFlip from './effects/flip';
 import effectFlipVertical from './effects/flipVertical';
 import effectBlink from './effects/blink';
