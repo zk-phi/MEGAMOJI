@@ -7,15 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bulmaswatch-lumen-0.8.1.min.css">
     <link rel="stylesheet"  href="css/fonts.css">
-    <script src="js/gif.js/dist/gif.js"></script>
-    <script src="js/vue-2.5.16.min.js"></script>
-    <script src="js/ga.js"></script>
-    <script src="js/effects.js"></script>
-    <script src="js/posteffects.js"></script>
-    <script src="js/webgleffects.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/parts.js"></script>
+    <script src="ga.js"></script>
     <title>MEGAMOJI - 簡単アニメ絵文字メーカー</title>
   </head>
 
@@ -336,7 +328,7 @@
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="#000000">
                         ◆
                       </label>
-                      <label class="checkbox" :style="{ color: darkerColor(source.text.color) }">
+                      <label class="checkbox" :style="{ color: darkerColor }">
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="darker">
                         ◆
                       </label>
@@ -344,7 +336,7 @@
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="identical">
                         ◆
                       </label>
-                      <label class="checkbox" :style="{ color: lighterColor(source.text.color) }">
+                      <label class="checkbox" :style="{ color: lighterColor }">
                         <input type="checkbox" name="outline" v-model="source.text.outlines" value="lighter">
                         ◆
                       </label>
@@ -722,7 +714,7 @@
       </p>
     </footer>
 
-    <script src="js/megamoji.js"></script>
+    <script src="bundle.js"></script>
   </body>
 
 </html>
