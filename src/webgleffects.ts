@@ -1,11 +1,6 @@
-export const WEBGL_EFFECTS = [
-  { label: "キラ", fn: webglKira },
-  { label: "横もや", fn: webglBlurH },
-  { label: "縦もや", fn: webglBlurV },
-  { label: "Foil", fn: webglFoil },
-  { label: "カベドン", fn: webglDokaben },
-  { label: "残像", fn: webglZoom },
-];
+type WebGLEffect = (
+  keyframe: number, width: number, height: number, flipY: boolean,
+) => void;
 
 let webglCanvas;
 let gl;
@@ -102,7 +97,7 @@ function matrixFlatten (matrix) {
 /* ---- WEBGL UTILS */
 
 // compile and return shader (memoized)
-function webglShader (source, isVertex) {
+function webglShader (source, isVertex?) {
   let shader;
   return () => {
     if (!shader) {
@@ -191,7 +186,7 @@ export function webglApplyEffects (image, keyframe, effects) {
   webglCanvas.width = w;
   gl.viewport(0, 0, w, h);
 
-  let ring = { car: webglFrameBuffer(w, h), cdr: { car: webglFrameBuffer(w, h) } };
+  let ring = { car: webglFrameBuffer(w, h), cdr: { car: webglFrameBuffer(w, h), cdr: null } };
   ring.cdr.cdr = ring;
 
   const texture = webglTexture();
@@ -374,41 +369,41 @@ const WEBGL_PROGRAM_MATRIXWARP = webglProgram(WEBGL_FRAGMENT_MATRIXWARP);
 
 /* ---- EFFECTS */
 
-function webglKira (keyframe, _w, _h, flipY) {
+const webglKira: WebGLEffect = (keyframe, _w, _h, flipY) => {
   const program = WEBGL_PROGRAM_ADJUST(flipY);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), 0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'hue'), -1 + 2 * keyframe);
-}
+};
 
-function webglFoil (keyframe, _w, _h, flipY) {
+const webglFoil: WebGLEffect = (keyframe, _w, _h, flipY) => {
   const program = WEBGL_PROGRAM_ADJUST(flipY);
   const brightness = 0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), brightness);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'hue'), 0);
-}
+};
 
-function webglBlurH (keyframe, _w, _h, flipY) {
+const webglBlurH: WebGLEffect = (keyframe, _w, _h, flipY) => {
   const program = WEBGL_PROGRAM_BLUR(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), radius, 0);
-}
+};
 
-function webglBlurV (keyframe, _w, _h, flipY) {
+const webglBlurV: WebGLEffect = (keyframe, _w, _h, flipY) => {
   const program = WEBGL_PROGRAM_BLUR(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), 0, radius);
-}
+};
 
-function webglZoom (keyframe, _w, _h, flipY) {
+const webglZoom: WebGLEffect = (keyframe, _w, _h, flipY) => {
   const program = WEBGL_PROGRAM_ZOOMBLUR(flipY);
   const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
   gl.uniform1f(gl.getUniformLocation(program, 'strength'), strength);
-}
+};
 
-function webglDokaben (keyframe, w, h, flipY) {
+const webglDokaben: WebGLEffect = (keyframe, w, h, flipY) => {
   const program = WEBGL_PROGRAM_MATRIXWARP(flipY);
   const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */
   const diffH = 0.3 * pos / 2;
@@ -418,4 +413,13 @@ function webglDokaben (keyframe, w, h, flipY) {
     [0.25 + diffH, 0.25 + diffV, 0.75 - diffH, 0.25 + diffV, 0.25, 0.75, 0.75, 0.75],
   );
   gl.uniformMatrix3fv(gl.getUniformLocation(program, 'matrix'), false, matrixFlatten(m));
-}
+};
+
+export const WEBGL_EFFECTS = [
+  { label: "キラ", fn: webglKira },
+  { label: "横もや", fn: webglBlurH },
+  { label: "縦もや", fn: webglBlurV },
+  { label: "Foil", fn: webglFoil },
+  { label: "カベドン", fn: webglDokaben },
+  { label: "残像", fn: webglZoom },
+];

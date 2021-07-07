@@ -9,17 +9,11 @@
  * - cellWidth, cellHeight ... size of the image to be rendered
  */
 
-export const ANIMATIONS = [
-  { label: "スクロール（水平）", fn: animationScrollHorizontal },
-  { label: "スクロール（垂直）", fn: animationScrollVertical },
-  { label: "押し出し（水平）", fn: animationPushHorizontal },
-  { label: "押し出し（垂直）", fn: animationPushVertical },
-  { label: "謁見", fn: animationEkken },
-  { label: "謁見バーティカル", fn: animationEkkenVertical },
-  { label: "乾杯", fn: animationKanpai },
-  { label: "乾杯 (左利き)", fn: animationKanpaiLefty },
-  { label: "ザイル", fn: animationXile },
-];
+type Animation = (
+  keyframe: number, ctx: CanvasRenderingContext2D, image: HTMLImageElement,
+  offsetH: number, offsetV: number, width: number, height: number,
+  cellWidth: number, cellHeight: number,
+) => void;
 
 /* ---- utils */
 
@@ -30,9 +24,9 @@ function flipContext(ctx, width) {
 
 /* ---- animations */
 
-function animationEkken(
+const animationEkken: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
   const size = 1.0 * kf + 0.5 * (1 - kf);
   const ekkenOffset = (cellWidth / 2) * kf;
@@ -66,11 +60,11 @@ function animationEkken(
     cellWidth * 3 / 4 + ekkenOffset / 2, cellHeight / 4,
     cellWidth / 4, cellHeight / 2,
   );
-}
+};
 
-function animationEkkenVertical(
+const animationEkkenVertical: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   const kf = keyframe < 0.5 ? 1 : (keyframe - 0.5) * 2;
   const size = 1.0 * kf + 0.5 * (1 - kf);
   const ekkenOffset = cellHeight / 2 * kf;
@@ -104,11 +98,11 @@ function animationEkkenVertical(
     cellWidth / 4, cellHeight * 3 / 4 + ekkenOffset / 2,
     cellWidth / 2, cellHeight / 4,
   );
-}
+};
 
-function animationKanpai(
+const animationKanpai: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
   flipContext(ctx, cellWidth);
   ctx.drawImage(
@@ -122,11 +116,11 @@ function animationKanpai(
     offsetH, offsetV, width, height,
     cellWidth / 2 * (1.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
-}
+};
 
-function animationKanpaiLefty(
+const animationKanpaiLefty: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
   flipContext(ctx, cellWidth);
   ctx.drawImage(
@@ -140,11 +134,11 @@ function animationKanpaiLefty(
     offsetH, offsetV, width, height,
     -cellWidth / 2 * (0.5 - size), cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
-}
+};
 
-function animationScrollHorizontal(
+const animationScrollHorizontal: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -160,11 +154,11 @@ function animationScrollHorizontal(
     offsetH, offsetV, width, height,
     cellWidth - cellWidth / 2 * keyframe, cellHeight / 4, cellWidth / 2, cellHeight / 2,
   );
-}
+};
 
-function animationScrollVertical(
+const animationScrollVertical: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   ctx.drawImage(
     image,
     offsetH, offsetV, width, height,
@@ -180,11 +174,11 @@ function animationScrollVertical(
     offsetH, offsetV, width, height,
     cellWidth / 4, cellHeight - cellHeight / 2 * keyframe, cellWidth / 2, cellHeight / 2,
   );
-}
+};
 
-function animationPushHorizontal(
+const animationPushHorizontal: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   /*   push: 0 0.5   0.5   1.0
    * scroll: 0 0.125 0.875 1.0 */
   const kf = keyframe < 0.125 ? (
@@ -197,11 +191,11 @@ function animationPushHorizontal(
   animationScrollHorizontal(
     kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
   );
-}
+};
 
-function animationPushVertical(
+const animationPushVertical: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   const kf = keyframe < 0.125 ? (
     keyframe * 4
   ) : keyframe < 0.875 ? (
@@ -212,11 +206,11 @@ function animationPushVertical(
   animationScrollVertical(
     kf, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
   );
-}
+};
 
-function animationXile(
+const animationXile: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
-) {
+) => {
   for (let i = 0; i < 3; i += 1) {
     const x = (
       Math.cos(Math.PI * 2 * (keyframe + i * 0.2)) * 0.3 * cellWidth / 2 + cellWidth / 4
@@ -230,4 +224,16 @@ function animationXile(
       x, y, cellWidth / 2 * 0.8, cellHeight / 2 * 0.8,
     );
   }
-}
+};
+
+export const ANIMATIONS = [
+  { label: "スクロール（水平）", fn: animationScrollHorizontal },
+  { label: "スクロール（垂直）", fn: animationScrollVertical },
+  { label: "押し出し（水平）", fn: animationPushHorizontal },
+  { label: "押し出し（垂直）", fn: animationPushVertical },
+  { label: "謁見", fn: animationEkken },
+  { label: "謁見バーティカル", fn: animationEkkenVertical },
+  { label: "乾杯", fn: animationKanpai },
+  { label: "乾杯 (左利き)", fn: animationKanpaiLefty },
+  { label: "ザイル", fn: animationXile },
+];

@@ -1,13 +1,6 @@
-/*
- * A filter takes a source img object and returns a BlobURL of the filtered image.
- * Intended to be used as a preprocessor for input images.
- */
+export type Filter = (image: HTMLImageElement) => string;
 
-export const FILTERS = [
-  { fn: filterChromakey, label: "クロマキー透過 (左上から)" },
-];
-
-function filterChromakey(image) {
+export const filterChromakey: Filter = (image) => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   canvas.width = image.naturalWidth;
@@ -57,4 +50,8 @@ function filterChromakey(image) {
 
   ctx.putImageData(imageData, 0, 0);
   return canvas.toDataURL("image/png");
-}
+};
+
+export const FILTERS = [
+  { fn: filterChromakey, label: "クロマキー透過 (左上から)" },
+];

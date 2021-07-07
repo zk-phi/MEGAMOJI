@@ -1,16 +1,9 @@
-export const POST_EFFECTS = [
-  {
-    label: "エフェクト",
-    effects: [
-      { label: "集中線", fn: postEffectFocusLine },
-      { label: "グリッチ", fn: postEffectGlitch },
-      { label: "モザイク", fn: postEffectMosaic },
-    ],
-  },
-];
+type PostEffect = (
+  keyframe: number, ctx: CanvasRenderingContext2D, width: number, height: number,
+) => void;
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
-function postEffectFocusLine(keyframe, ctx, w, h) {
+const postEffectFocusLine: PostEffect = (keyframe, ctx, w, h) => {
   const circumPos = (deg, r) => ({
     x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
     y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
@@ -36,10 +29,10 @@ function postEffectFocusLine(keyframe, ctx, w, h) {
     ctx.fill();
     ctx.closePath();
   }
-}
+};
 
 /** the ideas based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79 */
-function postEffectGlitch(keyframe, ctx, w, h) {
+const postEffectGlitch: PostEffect = (keyframe, ctx, w, h) => {
   // wave
   {
     const lineThickness = h / 25;
@@ -64,9 +57,9 @@ function postEffectGlitch(keyframe, ctx, w, h) {
     const image = ctx.getImageData(0, y, w, 1);
     ctx.putImageData(image, Math.random() * 6 - 3, y);
   }
-}
+};
 
-function postEffectMosaic(keyframe, ctx, w, h) {
+const postEffectMosaic: PostEffect = (keyframe, ctx, w, h) => {
   const image = ctx.getImageData(0, 0, w, h);
   const { data } = image;
 
@@ -108,4 +101,15 @@ function postEffectMosaic(keyframe, ctx, w, h) {
   }
 
   ctx.putImageData(image, 0, 0);
-}
+};
+
+export const POST_EFFECTS = [
+  {
+    label: "エフェクト",
+    effects: [
+      { label: "集中線", fn: postEffectFocusLine },
+      { label: "グリッチ", fn: postEffectGlitch },
+      { label: "モザイク", fn: postEffectMosaic },
+    ],
+  },
+];
