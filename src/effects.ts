@@ -1,3 +1,6 @@
+import { HSV2RGB } from './utils/color';
+import { scaleCentered } from './utils/canvas';
+
 /*
  * An effect takes a 2d rendering context and makes modifications to it.
  * These functions are called just before rendering an animation frame.
@@ -13,49 +16,6 @@
 type Effect = (
   keyrame: number, ctx: CanvasRenderingContext2D, width: number, height: number,
 ) => void;
-
-/* ---- utils */
-
-// taken from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
-function HSV2RGB(H, S, V) {
-  // see also: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
-
-  const C = V * S;
-  const Hp = (H % 360) / 60;
-  const X = C * (1 - Math.abs(Hp % 2 - 1));
-
-  const RGB = Hp < 1 ? (
-    [C, X, 0]
-  ) : Hp < 2 ? (
-    [X, C, 0]
-  ) : Hp < 3 ? (
-    [0, C, X]
-  ) : Hp < 4 ? (
-    [0, X, C]
-  ) : Hp < 5 ? (
-    [X, 0, C]
-  ) : (
-    [C, 0, X]
-  );
-
-  const m = V - C;
-  return {
-    r: Math.floor((RGB[0] + m) * 255),
-    g: Math.floor((RGB[1] + m) * 255),
-    b: Math.floor((RGB[2] + m) * 255),
-  };
-}
-
-/* ---- utils */
-
-function scaleCentered(ctx, cellWidth, cellHeight, hScale, vScale) {
-  ctx.transform(
-    hScale,
-    0, 0,
-    vScale,
-    cellWidth * (1 - hScale) / 2, cellHeight * (1 - vScale) / 2,
-  );
-}
 
 /* ---- effects */
 
@@ -76,13 +36,13 @@ const effectBlink: Effect = (keyframe, ctx, cellWidth) => {
 };
 
 const effectNaturalBlur: Effect = (keyframe, ctx) => {
-  const HSVColor = HSV2RGB(0, 0, keyframe);
+  const HSVColor = HSV2RGB({ h: 0, s: 0, v: keyframe });
   ctx.shadowColor = `rgb(${HSVColor.r}, ${HSVColor.g}, ${HSVColor.b})`;
   ctx.shadowBlur = 50 * keyframe;
 };
 
 const effectNeon: Effect = (keyframe, ctx) => {
-  const HSVColor = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360, 1, 1);
+  const HSVColor = HSV2RGB({ h: Math.floor(keyframe * 360 * 4) % 360, s: 1, v: 1 });
   ctx.shadowColor = `rgb(${HSVColor.r}, ${HSVColor.g}, ${HSVColor.b})`;
   ctx.shadowBlur = 10;
 };
@@ -191,19 +151,19 @@ const effectPsych: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   for (let row = 0; row < cellHeight; row += 1) {
     for (let col = 0; col < cellWidth; col += 1) {
       if (row % 10 <= 5 && col % 10 >= 5) {
-        const color = HSV2RGB(Math.floor(keyframe * 360 * 4 + 180) % 360, 1, 1);
+        const color = HSV2RGB({ h: Math.floor(keyframe * 360 * 4 + 180) % 360, s: 1, v: 1 });
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else if (row % 10 < 5 !== col % 10 < 5) {
-        const color = HSV2RGB(Math.floor(keyframe * 360 * 4 + 90) % 360, 1, 1);
+        const color = HSV2RGB({ h: Math.floor(keyframe * 360 * 4 + 90) % 360, s: 1, v: 1 });
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
         data[(row * cellWidth + col) * 4 + 3] = 255;
       } else {
-        const color = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360, 1, 1);
+        const color = HSV2RGB({ h: Math.floor(keyframe * 360 * 4) % 360, s: 1, v: 1 });
         data[(row * cellWidth + col) * 4] = color.r;
         data[(row * cellWidth + col) * 4 + 1] = color.g;
         data[(row * cellWidth + col) * 4 + 2] = color.b;
@@ -220,7 +180,7 @@ const effectDizzy: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   for (let row = 0; row < (cellHeight * cellWidth * 4); row += 4) {
     if (Math.floor(row / 4 + (keyframe * 40)) % 40 < 40
         && Math.floor(row / 4 + (keyframe * 40)) % 40 > 20) {
-      const color = HSV2RGB(Math.floor(keyframe * 360 * 4) % 360 + 180, 1, 1);
+      const color = HSV2RGB({ h: Math.floor(keyframe * 360 * 4) % 360 + 180, s: 1, v: 1 });
       data[row] = color.r;
       data[row + 1] = color.g;
       data[row + 2] = color.b;

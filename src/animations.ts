@@ -1,3 +1,5 @@
+import { flipContext } from './utils/canvas';
+
 /*
  * An animation is a function which actually renders each animation frames.
  *
@@ -14,13 +16,6 @@ type Animation = (
   offsetH: number, offsetV: number, width: number, height: number,
   cellWidth: number, cellHeight: number,
 ) => void;
-
-/* ---- utils */
-
-function flipContext(ctx, width) {
-  ctx.translate(width, 0);
-  ctx.scale(-1, 1);
-}
 
 /* ---- animations */
 
