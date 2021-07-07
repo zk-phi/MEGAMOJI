@@ -679,7 +679,7 @@ const methods = {
       maxSize, this.target.noCrop,
       animated, this.target.animation, this.target.animationInvert,
       this.target.effects.concat(this.target.staticEffects),
-      this.target.webglEffects.map((name) => window[name]),
+      this.target.webglEffects,
       this.target.postEffects,
       this.target.framerate, this.target.framecount,
       this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,

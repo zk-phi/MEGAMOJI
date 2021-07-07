@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 const WEBGL_EFFECTS = [
-  { label: "キラ", fn: 'webglKira' },
-  { label: "横もや", fn: 'webglBlurH' },
-  { label: "縦もや", fn: 'webglBlurV' },
-  { label: "Foil", fn: 'webglFoil' },
-  { label: "カベドン", fn: 'webglDokaben' },
-  { label: "残像", fn: 'webglZoom' },
+  { label: "キラ", fn: webglKira },
+  { label: "横もや", fn: webglBlurH },
+  { label: "縦もや", fn: webglBlurV },
+  { label: "Foil", fn: webglFoil },
+  { label: "カベドン", fn: webglDokaben },
+  { label: "残像", fn: webglZoom },
 ];
 
 let webglCanvas;
@@ -119,10 +119,10 @@ function webglShader (source, isVertex) {
   };
 }
 
-// link, initialize and use program (memoized)
-function webglEffect (fragmentShader, setParamsFn) {
+// create and initialize program
+function webglProgram (fragmentShader) {
   let program;
-  return (keyframe, w, h, flipY) => {
+  return (flipY) => {
     if (!program) {
       program = gl.createProgram();
       gl.attachShader(program, WEBGL_VERTEX_IDENTITY());
@@ -143,11 +143,7 @@ function webglEffect (fragmentShader, setParamsFn) {
     } else {
       gl.useProgram(program);
     }
-
-    // set params
     gl.uniform1f(gl.getUniformLocation(program, 'flipY'), flipY ? -1 : 1);
-    setParamsFn(keyframe, w, h, program);
-
     return program;
   };
 }
@@ -370,37 +366,51 @@ const WEBGL_FRAGMENT_MATRIXWARP = webglShader(`
   }
 `);
 
+/* ---- PROGRAMS */
+
+const WEBGL_PROGRAM_ADJUST = webglProgram(WEBGL_FRAGMENT_ADJUST);
+const WEBGL_PROGRAM_BLUR = webglProgram(WEBGL_FRAGMENT_BLUR);
+const WEBGL_PROGRAM_ZOOMBLUR = webglProgram(WEBGL_FRAGMENT_ZOOMBLUR);
+const WEBGL_PROGRAM_MATRIXWARP = webglProgram(WEBGL_FRAGMENT_MATRIXWARP);
+
 /* ---- EFFECTS */
 
-var webglKira = webglEffect(WEBGL_FRAGMENT_ADJUST, (keyframe, _w, _h, program) => {
+function webglKira (keyframe, _w, _h, flipY) {
+  const program = WEBGL_PROGRAM_ADJUST(flipY);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), 0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
   gl.uniform1f(gl.getUniformLocation(program, 'hue'), -1 + 2 * keyframe);
-});
+}
 
-var webglFoil = webglEffect(WEBGL_FRAGMENT_ADJUST, (keyframe, _w, _h, program) => {
+function webglFoil (keyframe, _w, _h, flipY) {
+  const program = WEBGL_PROGRAM_ADJUST(flipY);
   const brightness = 0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform1f(gl.getUniformLocation(program, 'brightness'), brightness);
   gl.uniform1f(gl.getUniformLocation(program, 'contrast'), -0.1);
-});
+  gl.uniform1f(gl.getUniformLocation(program, 'hue'), 0);
+}
 
-var webglBlurH = webglEffect(WEBGL_FRAGMENT_BLUR, (keyframe, _w, _h, program) => {
+function webglBlurH (keyframe, _w, _h, flipY) {
+  const program = WEBGL_PROGRAM_BLUR(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), radius, 0);
-});
+}
 
-var webglBlurV = webglEffect(WEBGL_FRAGMENT_BLUR, (keyframe, _w, _h, program) => {
+function webglBlurV (keyframe, _w, _h, flipY) {
+  const program = WEBGL_PROGRAM_BLUR(flipY);
   const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'delta'), 0, radius);
-});
+}
 
-var webglZoom = webglEffect(WEBGL_FRAGMENT_ZOOMBLUR, (keyframe, _w, _h, program) => {
+function webglZoom (keyframe, _w, _h, flipY) {
+  const program = WEBGL_PROGRAM_ZOOMBLUR(flipY);
   const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
   gl.uniform2f(gl.getUniformLocation(program, 'center'), 0.5, 0.5);
   gl.uniform1f(gl.getUniformLocation(program, 'strength'), strength);
-});
+}
 
-var webglDokaben = webglEffect(WEBGL_FRAGMENT_MATRIXWARP, (keyframe, w, h, program) => {
+function webglDokaben (keyframe, w, h, flipY) {
+  const program = WEBGL_PROGRAM_MATRIXWARP(flipY);
   const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */
   const diffH = 0.3 * pos / 2;
   const diffV = 1.0 * pos / 2;
@@ -409,4 +419,4 @@ var webglDokaben = webglEffect(WEBGL_FRAGMENT_MATRIXWARP, (keyframe, w, h, progr
     [0.25 + diffH, 0.25 + diffV, 0.75 - diffH, 0.25 + diffV, 0.25, 0.75, 0.75, 0.75],
   );
   gl.uniformMatrix3fv(gl.getUniformLocation(program, 'matrix'), false, matrixFlatten(m));
-});
+}
