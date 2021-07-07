@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack --watch --mode development",
+    "start": "webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint css",
     "lint:js": "eslint .",

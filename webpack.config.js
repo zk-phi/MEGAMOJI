@@ -1,7 +1,11 @@
 module.exports = {
-  entry: "./js/megamoji.js",
+  entry: "./src/megamoji.js",
+  devServer: {
+    contentBase: 'dist',
+    open: true
+  },
   output: {
-    path: `${__dirname}/js`,
+    path: `${__dirname}/dist`,
     filename: "bundle.js",
   },
   resolve: {
