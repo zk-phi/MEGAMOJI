@@ -3,11 +3,11 @@
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
-    "lint:css": "stylelint css",
-    "lint:js": "eslint .",
+    "lint:css": "stylelint dist/css",
+    "lint:js": "eslint '**/*.{js,ts}'",
     "fix": "npm run fix:css && npm run fix:js",
-    "fix:css": "stylelint --fix css",
-    "fix:js": "eslint --fix ."
+    "fix:css": "stylelint --fix dist/css",
+    "fix:js": "eslint --fix '**/*.{js,ts}'"
   },
   "browserslist": [
     ">1% in JP",

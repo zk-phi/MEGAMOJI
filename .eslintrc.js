@@ -1,18 +1,19 @@
 module.exports = {
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
   env: {
     browser: true,
-  },
-  globals: {
-    Vue: true,
-    GIFEncoder: true,
-    encode64: true,
-    ga: true,
-    fx: true,
   },
   extends: [
     "airbnb-base",
     "plugin:compat/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
+  settings: {
+    'import/resolver': {
+      webpack: { config: 'webpack.config.js' },
+    },
+  },
   rules: {
 
     // basic style modifications
@@ -30,6 +31,9 @@ module.exports = {
 
     // "continue" can help readablity as like "early-return"
     "no-continue": "off",
+
+    // allow named export
+    "import/prefer-default-export": "off",
 
     // fns and classes can be referred before defined
     "no-use-before-define": ["error", {
@@ -83,6 +87,12 @@ module.exports = {
       // allowLoop: false,
       allowLoop: true,
       allowSwitch: false,
+    }],
+
+    // omit extensions
+    "import/extensions": ["error", {
+      js: "never",
+      ts: "never",
     }],
 
   },
