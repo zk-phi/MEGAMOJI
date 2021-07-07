@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./src/megamoji.js",
+  entry: "./src/megamoji.ts",
   devServer: {
     contentBase: 'dist',
     open: true

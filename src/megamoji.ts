@@ -1,3 +1,8 @@
+/* global ga */
+declare const ga: (
+  command: string, type: string, category?: string, label?: string, value?: string
+) => void;
+
 import GIF from '@dhdbstjr98/gif.js';
 import Vue from 'vue';
 import { ANIMATIONS } from './animations';
@@ -53,7 +58,7 @@ function darkerColor(hexColor) {
 /* ---- CANVAS UTILS */
 
 /* Create a new canvas and render specified region of the source canvas. */
-function cropCanvas(source, left, top, w, h, fillStyle) {
+function cropCanvas(source, left, top, w, h, fillStyle?) {
   const target = document.createElement("canvas");
   const ctx = target.getContext("2d");
 
@@ -399,7 +404,7 @@ function renderAllCells(
        * If a cell exceeds the limitation, retry with smaller cell size.
        * This does not happen in most cases.
        */
-      const shouldRetry = ret.some((row) => row.some((cell) => (
+      const shouldRetry = ret.some((row) => row.some((cell: Blob) => (
         cell.size >= binarySizeLimit
       )));
       if (shouldRetry) {
