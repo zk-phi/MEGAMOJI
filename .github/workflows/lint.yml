@@ -1,4 +1,4 @@
-name: Lint (gh-pages)
+name: Lint (master)
 
 on:
   push:
