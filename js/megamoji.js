@@ -522,6 +522,12 @@ const computed = {
       )
     ));
   },
+  darkerColor() {
+    return darkerColor(this.source.text.color);
+  },
+  lighterColor() {
+    return lighterColor(this.source.text.color);
+  },
 };
 
 const methods = {
