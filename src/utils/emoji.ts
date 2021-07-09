@@ -1,6 +1,6 @@
 import GIF from "@dhdbstjr98/gif.js";
-import { webglApplyEffects, webglInitialize } from "../webgleffects";
-import { cropCanvas, cutoutCanvasIntoCells } from "../utils/canvas";
+import { webglApplyEffects, webglInitialize } from "./webgl";
+import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
 
 const webglEnabled = webglInitialize();
 

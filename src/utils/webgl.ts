@@ -1,4 +1,4 @@
-import { WebGLEffect } from "./types";
+import { WebGLEffect } from "../types";
 
 type RawShader = () => WebGLShader;
 export type EffectShader = () => WebGLProgram;

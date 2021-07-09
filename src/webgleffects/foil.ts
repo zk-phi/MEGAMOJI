@@ -1,5 +1,5 @@
 import { WebGLEffect } from "../types";
-import { webglLoadEffectShader, webglSetFloat } from "../webgleffects";
+import { webglLoadEffectShader, webglSetFloat } from "../utils/webgl";
 import shaderAdjust from "../shaders/adjust";
 
 const webglFoil: WebGLEffect = (keyframe, _w, _h) => {
