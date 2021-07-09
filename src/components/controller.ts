@@ -286,8 +286,10 @@ function mounted(): void {
 const watch = {
   baseImage: {
     handler(): void {
-      this.refreshDefaultSettings();
-      this.render();
+      if (this.baseImage) {
+        this.refreshDefaultSettings();
+        this.render();
+      }
     },
   },
   "source.file": {
@@ -482,6 +484,9 @@ const methods = {
     ).then((res) => {
       this.resultImages = res;
     });
+  },
+  reset(): void {
+    Object.assign(this.$data, data());
   },
 };
 

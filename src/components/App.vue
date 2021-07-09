@@ -430,7 +430,7 @@ export default {
               {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
             </button>
             <button v-if="baseImage" class="button is-light is-danger is-rounded"
-                    onClick="window.location.reload()">
+                    @click="reset">
               新規作成
             </button>
           </div>
