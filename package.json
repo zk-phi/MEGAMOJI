@@ -4,10 +4,10 @@
     "start": "webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint dist/css",
-    "lint:js": "eslint '**/*.{js,ts}'",
+    "lint:js": "eslint '**/*.{js,ts,vue}'",
     "fix": "npm run fix:css && npm run fix:js",
     "fix:css": "stylelint --fix dist/css",
-    "fix:js": "eslint --fix '**/*.{js,ts}'"
+    "fix:js": "eslint --fix '**/*.{js,ts,vue}'"
   },
   "browserslist": [
     ">1% in JP",

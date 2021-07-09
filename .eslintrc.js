@@ -1,5 +1,8 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+  },
   plugins: ["@typescript-eslint"],
   env: {
     browser: true,
@@ -7,6 +10,7 @@ module.exports = {
   extends: [
     "airbnb-base",
     "plugin:compat/recommended",
+    "plugin:vue/recommended",
     "plugin:@typescript-eslint/recommended",
   ],
   settings: {
@@ -34,6 +38,12 @@ module.exports = {
 
     // allow named export
     "import/prefer-default-export": "off",
+
+    // allow multiple attrs per line
+    "vue/max-attributes-per-line": "off",
+
+    // TEMPORARILY allow empty line around html tags
+    "vue/multiline-html-element-content-newline": "off",
 
     // fns and classes can be referred before defined
     "no-use-before-define": ["error", {
