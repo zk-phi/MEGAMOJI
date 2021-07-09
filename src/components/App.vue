@@ -2,13 +2,14 @@
 import Tabs from "./Tabs.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import ColorBlock from "./formblocks/ColorBlock.vue";
-import TextSource from "./cards/TextSource.vue";
+import TextSource from "./columns/TextSource.vue";
+import FileSource from "./columns/FileSource.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, TextBlock, ColorBlock, TextSource,
+    Tabs, TextBlock, ColorBlock, TextSource, FileSource,
   },
 };
 </script>
@@ -34,34 +35,7 @@ export default {
     <div class="columns">
 
       <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
-
-      <div v-if="ui.mode == 'file' && !ui.showTargetPanel" class="column">
-        <div class="card">
-          <div class="card-content">
-            <div class="field">
-              <label class="label">ファイル</label>
-              <div class="control">
-                <input class="input" type="file" @change="onChangeFile">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">前処理</label>
-              <div class="control">
-                <div class="select">
-                  <select v-model="source.file.filter">
-                    <option value="">
-                      なし
-                    </option>
-                    <option v-for="filter in FILTERS" :value="filter.fn">
-                      {{ filter.label }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
 
       <div v-if="ui.mode == 'fukumoji' && !ui.showTargetPanel" class="column">
         <div class="card">

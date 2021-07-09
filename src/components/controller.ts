@@ -3,13 +3,10 @@ import { ANIMATIONS } from "../animations";
 import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from "../effects";
 import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from "../webgleffects";
 import { POST_EFFECTS } from "../posteffects";
-import { FILTERS } from "../filters";
 import {
   FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS,
 } from "../parts";
-import {
-  cropCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg,
-} from "../utils/canvas";
+import { cropCanvas, cutoutCanvasIntoCells, mergeImages, urlToImg } from "../utils/canvas";
 
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
@@ -198,7 +195,6 @@ const constants = {
   PRO_EFFECTS,
   WEBGL_EFFECTS,
   POST_EFFECTS,
-  FILTERS,
   FUKUMOJI_BASES,
   FUKUMOJI_EYES,
   FUKUMOJI_MOUTHS,
@@ -220,10 +216,6 @@ const data = (): Record<string, unknown> => ({
   },
   /* form inputs */
   source: {
-    file: {
-      file: null,
-      filter: "",
-    },
     fukumoji: {
       base: "assets/void.svg",
       textures: "assets/void.svg",
@@ -278,12 +270,6 @@ const watch = {
       }
     },
   },
-  "source.file": {
-    handler(): void {
-      this.loadFile();
-    },
-    deep: true,
-  },
   "source.fukumoji": {
     handler(): void {
       this.renderFukumoji();
@@ -299,21 +285,6 @@ const watch = {
 };
 
 const methods = {
-  loadFile(): void {
-    if (this.source.file.file) {
-      loadFileAsBlobURL(this.source.file.file, (blobUrl) => {
-        urlToImg(blobUrl, (originalImg) => {
-          if (this.source.file.filter) {
-            urlToImg(this.source.file.filter(originalImg), (filteredImg) => {
-              this.baseImage = filteredImg;
-            });
-          } else {
-            this.baseImage = originalImg;
-          }
-        });
-      });
-    }
-  },
   renderFukumoji(): void {
     mergeImages(128, 128, [
       this.source.fukumoji.base,
@@ -377,9 +348,6 @@ const methods = {
   },
   onToggleTargetDetails(): void {
     this.ui.showTargetDetails = !this.ui.showTargetDetails;
-  },
-  onChangeFile(e: { target: { files: File[] } }): void {
-    this.source.file.file = e.target.files[0];
   },
   render(): void {
     if (!this.baseImage) return;
