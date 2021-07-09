@@ -1,25 +1,16 @@
 <script>
 import Nav from "./Nav.vue";
-import TextBlock from "./formblocks/TextBlock.vue";
-import ColorBlock from "./formblocks/ColorBlock.vue";
 import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";
-import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
-import EffectBlock from "./formblocks/EffectBlock.vue";
-import RangeBlock from "./formblocks/RangeBlock.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
-import TrimmingSelectBlock from "./formblocks/TrimmingSelectBlock.vue";
-import AnimationSpeedSelectBlock from "./formblocks/AnimationSpeedSelectBlock.vue";
-import NumberBlock from "./formblocks/NumberBlock.vue";
+import Target from "./columns/Target.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
-    AnimationSelectBlock, EffectBlock, RangeBlock, CheckboxBlock, TrimmingSelectBlock,
-    AnimationSpeedSelectBlock, NumberBlock,
+    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target,
   },
 };
 </script>
@@ -47,75 +38,7 @@ export default {
       <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
       <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
       <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
-
-      <div v-if="ui.showTargetPanel" class="column">
-        <div class="card">
-          <div class="card-content">
-            <div class="columns">
-              <div class="column">
-                <AnimationSelectBlock v-model="target.animation" />
-                <EffectBlock v-model="target.webglEffects" :effects="webgleffects" />
-                <EffectBlock v-model="target.effects" :effects="effects" />
-                <EffectBlock v-model="target.postEffects" :effects="posteffects" />
-                <div v-if="ui.showTargetDetails">
-                  <EffectBlock v-model="target.effects" :effects="bgeffects" />
-                  <RangeBlock
-                      v-model="target.framerate"
-                      :label="`アニメ速度 (フレームレート): ${target.framerate}`"
-                      :min="1"
-                      :max="60" />
-                  <RangeBlock
-                      v-model="target.framecount"
-                      :label="`フレーム数: ${target.framecount}`"
-                      :min="1"
-                      :max="12" />
-                  <CheckboxBlock v-model="target.noCrop" label="開発者用">
-                    余白を切らない
-                  </CheckboxBlock>
-                </div>
-              </div>
-              <div class="column">
-                <TrimmingSelectBlock
-                    v-model="target.trimming"
-                    @update:model-value="refreshDefaultSettings" />
-                <EffectBlock v-model="target.staticEffects" :effects="staticeffects" />
-                <AnimationSpeedSelectBlock @update:model-value="onSelectSpeedPreset" />
-                <CheckboxBlock v-model="target.animationInvert">
-                  進行方向を反転
-                </CheckboxBlock>
-                <ColorBlock
-                    v-model="target.backgroundColor"
-                    label="背景色"
-                    :disabled="target.transparent" />
-                <CheckboxBlock v-model="target.transparent">
-                  背景を塗らない (アニメ gif は非推奨)
-                </CheckboxBlock>
-                <div v-if="ui.showTargetDetails">
-                  <NumberBlock
-                      v-model="target.hCells"
-                      :min="1"
-                      label="分割 横"
-                      @update:model-value="refreshDefaultSettings" />
-                  <NumberBlock
-                      v-model="target.vCells"
-                      :min="1"
-                      label="分割 縦"
-                      @update:model-value="refreshDefaultSettings" />
-                  <TextBlock v-model="target.offsetLeft" label="オフセット左 (px)" />
-                  <TextBlock v-model="target.offsetTop" label="オフセット上 (px)" />
-                  <TextBlock v-model="target.hZoom" label="拡大率 (横)" />
-                  <TextBlock v-model="target.vZoom" label="拡大率 (縦)" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a class="card-footer-item" @click="onToggleTargetDetails">
-              {{ ui.showTargetDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-            </a>
-          </div>
-        </div>
-      </div>
+      <Target :show="ui.showTargetPanel" :base-image="baseImage" @render="onRenderTarget" />
 
       <div class="column is-one-third">
         <div class="block">
