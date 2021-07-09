@@ -204,16 +204,16 @@ WebGL エフェクトの実体は４引数の関数です：
 - ~keyframe~
 - ~cellWidth~
 - ~cellHeight~
-- ~args~ ... そのままシェーダに渡してください
 
-シェーダを関数として呼ぶと ~WebGLProgram~ が返ってくるので、 uniform 変数を適切にセットしてください。
+シェーダを関数として呼ぶと WebGL プログラムがロードされるので、適切なパラメータをセットして返してください。
 
 #+begin_src js
   // 例
   import fooShader from '../shaders/foo.ts';
   function webglZoom (keyframe, _w, _h, args) {
     const program = fooShader(args);
-    gl.uniform2f(gl.getUniformLocation(program, 'center'), keyframe, 0.5);
+    webglSetVec2(program, 'center', keyframe, 0.5);
+    return program;
   }
 #+end_src
 
