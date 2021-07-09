@@ -189,6 +189,11 @@ function renderAllCells(
 }
 
 const constants = {
+  MODES: [
+    { value: "text", label: "テキストから作る" },
+    { value: "file", label: "画像から作る" },
+    { value: "fukumoji", label: "パーツを選んで作る" },
+  ],
   ANIMATIONS,
   EFFECTS,
   STATIC_EFFECTS,

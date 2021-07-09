@@ -1,6 +1,12 @@
 <script>
+import Tabs from "./Tabs.vue";
 import controller from "./controller.ts";
-export default controller;
+export default {
+  ...controller,
+  components: {
+    Tabs
+  },
+};
 </script>
 
 <template>
@@ -14,19 +20,7 @@ export default controller;
       </a>
     </h2>
 
-    <div class="block tabs is-toggle is-toggle-rounded">
-      <ul>
-        <li :class="ui.mode == 'text' && !ui.showTargetPanel ? 'is-active' : ''">
-          <a @click="onSelectMode('text')">テキストから作る</a>
-        </li>
-        <li :class="ui.mode == 'file' && !ui.showTargetPanel ? 'is-active' : ''">
-          <a @click="onSelectMode('file')">ファイルから選ぶ</a>
-        </li>
-        <li :class="ui.mode == 'fukumoji' && !ui.showTargetPanel ? 'is-active' : ''">
-          <a @click="onSelectMode('fukumoji')">パーツから選ぶ</a>
-        </li>
-      </ul>
-    </div>
+    <Tabs :value="ui.showTargetPanel ? '' : ui.mode" @input="onSelectMode" :tabs="MODES" />
 
     <div class="columns">
 
