@@ -1,3 +1,8 @@
+.checkbox > *:first-child,
+.radio > *:first-child {
+  margin-right: 0.3em;
+}
+
 .input[type=color] {
   min-width: 64px !important;
 }
