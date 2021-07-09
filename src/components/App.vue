@@ -83,13 +83,9 @@ export default {
         </div>
         <div class="block">
           <div class="buttons">
-            <button v-if="baseImage" class="button is-light is-link is-rounded"
+            <button v-if="baseImage" class="button is-light is-link is-rounded is-fullwidth"
                     @click="onSetShowTarget(!ui.showTargetPanel)">
               {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
-            </button>
-            <button v-if="baseImage" class="button is-light is-danger is-rounded"
-                    @click="reset">
-              新規作成
             </button>
           </div>
         </div>

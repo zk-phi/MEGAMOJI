@@ -1,4 +1,3 @@
-
 const data = (): Record<string, unknown> => ({
   MODES: [
     { value: "text", label: "テキストから作る" },
@@ -46,9 +45,6 @@ const methods = {
   },
   onRender(img): void {
     this.baseImage = img;
-  },
-  reset(): void {
-    Object.assign(this.$data, data());
   },
 };
 
