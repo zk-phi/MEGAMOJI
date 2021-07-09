@@ -1,12 +1,12 @@
 <script>
 import Tabs from "./Tabs.vue";
 import FontSelectBlock from "./formblocks/FontSelectBlock.vue";
-import FontColorOption from "./inputs/FontColorOption.vue";
 import TextAreaBlock from "./formblocks/TextAreaBlock.vue";
 import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
 import GradientBlock from "./formblocks/GradientBlock.vue";
+import FontColorSelectBlock from "./formblocks/FontColorSelectBlock.vue";
 import ColorBlock from "./formblocks/ColorBlock.vue";
 import controller from "./controller";
 
@@ -14,7 +14,7 @@ export default {
   ...controller,
   components: {
     Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
-    TextAreaBlock, FontColorOption, ButtonBlock, GradientBlock, ColorBlock,
+    TextAreaBlock, ButtonBlock, GradientBlock, FontColorSelectBlock, ColorBlock,
   },
 };
 </script>
@@ -59,46 +59,9 @@ export default {
                     :rows="3" />
                 <TextAlignSelectBlock
                     v-model="source.text.align" />
-                <div class="field">
-                  <label class="label">色</label>
-                  <div class="control">
-                    <FontColorOption v-model="source.text.color" color="#000000" />
-                    <FontColorOption v-model="source.text.color" color="#3f3f3f" />
-                    <FontColorOption v-model="source.text.color" color="#7f7f7f" />
-                    <FontColorOption v-model="source.text.color" color="#bfbfbf" />
-                    <FontColorOption v-model="source.text.color" color="#ffffff" />
-                  </div>
-                  <div class="control">
-                    <FontColorOption v-model="source.text.color" color="#7f0000" />
-                    <FontColorOption v-model="source.text.color" color="#7f5f00" />
-                    <FontColorOption v-model="source.text.color" color="#3f7f00" />
-                    <FontColorOption v-model="source.text.color" color="#007f1f" />
-                    <FontColorOption v-model="source.text.color" color="#007f7f" />
-                    <FontColorOption v-model="source.text.color" color="#001f7f" />
-                    <FontColorOption v-model="source.text.color" color="#3f007f" />
-                    <FontColorOption v-model="source.text.color" color="#7f005f" />
-                  </div>
-                  <div class="control">
-                    <FontColorOption v-model="source.text.color" color="#ff0000" />
-                    <FontColorOption v-model="source.text.color" color="#ffbf00" />
-                    <FontColorOption v-model="source.text.color" color="#7fff00" />
-                    <FontColorOption v-model="source.text.color" color="#00ff3f" />
-                    <FontColorOption v-model="source.text.color" color="#00ffff" />
-                    <FontColorOption v-model="source.text.color" color="#003fff" />
-                    <FontColorOption v-model="source.text.color" color="#7f00ff" />
-                    <FontColorOption v-model="source.text.color" color="#ff00bf" />
-                  </div>
-                  <div class="control">
-                    <FontColorOption v-model="source.text.color" color="#ff7f7f" />
-                    <FontColorOption v-model="source.text.color" color="#ffdf7f" />
-                    <FontColorOption v-model="source.text.color" color="#bfff7f" />
-                    <FontColorOption v-model="source.text.color" color="#7fff9f" />
-                    <FontColorOption v-model="source.text.color" color="#7fffff" />
-                    <FontColorOption v-model="source.text.color" color="#7f9fff" />
-                    <FontColorOption v-model="source.text.color" color="#bf7fff" />
-                    <FontColorOption v-model="source.text.color" color="#ff7fdf" />
-                  </div>
-                </div>
+                <FontColorSelectBlock
+                    v-model="source.text.color"
+                    :show-details="ui.showTextDetails" />
                 <GradientBlock
                     v-model="source.text.gradient"
                     :base-color="source.text.color" />
@@ -128,9 +91,6 @@ export default {
                   </div>
                 </div>
                 <div v-if="ui.showTextDetails">
-                  <ColorBlock
-                      v-model="source.text.color"
-                      label="その他の色" />
                   <div class="field">
                     <label class="label">その他のアウトライン</label>
                   </div>
