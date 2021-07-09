@@ -1,4 +1,4 @@
-import { Animation } from "../animations";
+import { Animation } from "../types";
 import { flipContext } from "../utils/canvas";
 
 const animationKanpai: Animation = (

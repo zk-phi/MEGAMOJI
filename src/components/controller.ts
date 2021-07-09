@@ -1,5 +1,4 @@
 import GIF from "@dhdbstjr98/gif.js";
-import { ANIMATIONS } from "../animations";
 import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from "../effects";
 import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from "../webgleffects";
 import { POST_EFFECTS } from "../posteffects";
@@ -186,7 +185,6 @@ const constants = {
     { value: "file", label: "画像から作る" },
     { value: "fukumoji", label: "パーツを選んで作る" },
   ],
-  ANIMATIONS,
   EFFECTS,
   STATIC_EFFECTS,
   PRO_EFFECTS,
@@ -211,7 +209,7 @@ const data = (): Record<string, unknown> => ({
     trimming: "",
     hCells: 1,
     vCells: 1,
-    animation: "",
+    animation: null,
     animationInvert: false,
     staticEffects: [],
     effects: [],
@@ -329,7 +327,9 @@ const methods = {
       offsetLeft, offsetTop,
       this.target.hCells || 1, this.target.vCells || 1, cellWidth, cellHeight,
       maxSize, this.target.noCrop,
-      animated, this.target.animation, this.target.animationInvert,
+      animated,
+      this.target.animation ? this.target.animation.fn : null,
+      this.target.animationInvert,
       this.target.effects.concat(this.target.staticEffects),
       this.target.webglEffects,
       this.target.postEffects,

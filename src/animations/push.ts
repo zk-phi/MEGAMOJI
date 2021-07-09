@@ -1,4 +1,4 @@
-import { Animation } from "../animations";
+import { Animation } from "../types";
 import animationScroll from "./scroll";
 
 const animationPush: Animation = (

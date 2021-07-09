@@ -5,12 +5,14 @@ import ColorBlock from "./formblocks/ColorBlock.vue";
 import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";
+import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
+    AnimationSelectBlock,
   },
 };
 </script>
@@ -44,21 +46,7 @@ export default {
           <div class="card-content">
             <div class="columns">
               <div class="column">
-                <div class="field">
-                  <label class="label">アニメーション</label>
-                  <div class="control">
-                    <div class="select">
-                      <select v-model="target.animation">
-                        <option value="">
-                          なし
-                        </option>
-                        <option v-for="a in ANIMATIONS" :value="a.fn">
-                          {{ a.label }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+                <AnimationSelectBlock v-model="target.animation" />
                 <div class="field">
                   <label class="label">WebGL 対応ブラウザのみ</label>
                   <div class="control">
