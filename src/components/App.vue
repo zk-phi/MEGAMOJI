@@ -1,6 +1,7 @@
 <script>
 import Tabs from "./Tabs.vue";
 import FontOption from "./inputs/FontOption.vue";
+import FontColorOption from "./inputs/FontColorOption.vue";
 import TextInput from "./inputs/TextInput.vue";
 import TextArea from "./inputs/TextArea.vue";
 import controller from "./controller";
@@ -8,7 +9,7 @@ import controller from "./controller";
 export default {
   ...controller,
   components: {
-    Tabs, FontOption, TextInput, TextArea,
+    Tabs, FontOption, TextInput, TextArea, FontColorOption,
   },
 };
 </script>
@@ -126,128 +127,41 @@ export default {
                 <div class="field">
                   <label class="label">色</label>
                   <div class="control">
-                    <label class="radio" style="color: #000000">
-                      <input v-model="source.text.color" type="radio" name="color" value="#000000">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #3f3f3f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#3f3f3f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7f7f7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f7f7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #bfbfbf">
-                      <input v-model="source.text.color" type="radio" name="color" value="#bfbfbf">
-                      ◆
-                    </label>
-                    <label class="radio">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ffffff">
-                      ♢
-                    </label>
+                    <FontColorOption v-model="source.text.color" color="#000000" />
+                    <FontColorOption v-model="source.text.color" color="#3f3f3f" />
+                    <FontColorOption v-model="source.text.color" color="#7f7f7f" />
+                    <FontColorOption v-model="source.text.color" color="#bfbfbf" />
+                    <FontColorOption v-model="source.text.color" color="#ffffff" />
                   </div>
                   <div class="control">
-                    <label class="radio" style="color: #7f0000">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f0000">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7f5f00">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f5f00">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #3f7f00">
-                      <input v-model="source.text.color" type="radio" name="color" value="#3f7f00">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #007f1f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#007f1f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #007f7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#007f7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #001f7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#001f7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #3f007f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#3f007f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7f005f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f005f">
-                      ◆
-                    </label>
+                    <FontColorOption color="#7f0000" v-model="source.text.color" />
+                    <FontColorOption color="#7f5f00" v-model="source.text.color" />
+                    <FontColorOption color="#3f7f00" v-model="source.text.color" />
+                    <FontColorOption color="#007f1f" v-model="source.text.color" />
+                    <FontColorOption color="#007f7f" v-model="source.text.color" />
+                    <FontColorOption color="#001f7f" v-model="source.text.color" />
+                    <FontColorOption color="#3f007f" v-model="source.text.color" />
+                    <FontColorOption color="#7f005f" v-model="source.text.color" />
                   </div>
                   <div class="control">
-                    <label class="radio" style="color: #ff0000">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ff0000">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #ffbf00">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ffbf00">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7fff00">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7fff00">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #00ff3f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#00ff3f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #00ffff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#00ffff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #003fff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#003fff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7f00ff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f00ff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #ff00bf">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ff00bf">
-                      ◆
-                    </label>
+                    <FontColorOption color="#ff0000" v-model="source.text.color" />
+                    <FontColorOption color="#ffbf00" v-model="source.text.color" />
+                    <FontColorOption color="#7fff00" v-model="source.text.color" />
+                    <FontColorOption color="#00ff3f" v-model="source.text.color" />
+                    <FontColorOption color="#00ffff" v-model="source.text.color" />
+                    <FontColorOption color="#003fff" v-model="source.text.color" />
+                    <FontColorOption color="#7f00ff" v-model="source.text.color" />
+                    <FontColorOption color="#ff00bf" v-model="source.text.color" />
                   </div>
                   <div class="control">
-                    <label class="radio" style="color: #ff7f7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ff7f7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #ffdf7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ffdf7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #bfff7f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#bfff7f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7fff9f">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7fff9f">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7fffff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7fffff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #7f9fff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#7f9fff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #bf7fff">
-                      <input v-model="source.text.color" type="radio" name="color" value="#bf7fff">
-                      ◆
-                    </label>
-                    <label class="radio" style="color: #ff7fdf">
-                      <input v-model="source.text.color" type="radio" name="color" value="#ff7fdf">
-                      ◆
-                    </label>
+                    <FontColorOption color="#ff7f7f" v-model="source.text.color" />
+                    <FontColorOption color="#ffdf7f" v-model="source.text.color" />
+                    <FontColorOption color="#bfff7f" v-model="source.text.color" />
+                    <FontColorOption color="#7fff9f" v-model="source.text.color" />
+                    <FontColorOption color="#7fffff" v-model="source.text.color" />
+                    <FontColorOption color="#7f9fff" v-model="source.text.color" />
+                    <FontColorOption color="#bf7fff" v-model="source.text.color" />
+                    <FontColorOption color="#ff7fdf" v-model="source.text.color" />
                   </div>
                 </div>
                 <div v-if="source.text.gradient.length == 0" class="field">
