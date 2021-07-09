@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import controller from "./components/controller";
+import App from "./components/App.vue";
 
-const vm = new Vue(controller).$mount("#app");
+const vm = new Vue(App).$mount("#app");
 
 window.onerror = (msg, file, line, col) => {
   ga("send", "event", "error", "thrown", `${file}:${line}:${col} ${msg}`);
