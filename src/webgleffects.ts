@@ -1,6 +1,6 @@
-import { WebGLEffect, VertexShaderArgs } from "./types";
+import { WebGLEffect } from "./types";
 
-export type EffectShader = (args: VertexShaderArgs) => WebGLProgram;
+export type EffectShader = () => WebGLProgram;
 
 let webglCanvas;
 let gl;
@@ -70,7 +70,7 @@ const identityVertexShader = webglShader(`
 export function webglEffectShader(fragmentShader: string): EffectShader {
   const shader = webglShader(fragmentShader);
   let program;
-  return (args) => {
+  return () => {
     if (!program) {
       program = gl.createProgram();
       gl.attachShader(program, identityVertexShader());
@@ -90,7 +90,6 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
     } else {
       gl.useProgram(program);
     }
-    gl.uniform1f(gl.getUniformLocation(program, "flipY"), args.flipY ? -1 : 1);
     return program;
   };
 }
@@ -173,7 +172,8 @@ export function webglApplyEffects(
   effects.forEach((effect, ix) => {
     const initialp = ix === 0;
     const lastp = ix === effects.length - 1;
-    effect(keyframe, w, h, { flipY: lastp });
+    const program = effect(keyframe, w, h);
+    webglSetFloat(program, "flipY", lastp ? -1 : 1); // set vertex shader arg
     draw(initialp ? texture : ring.car.texture, lastp ? null : ring.cdr.car.frame);
     ring = ring.cdr;
   });

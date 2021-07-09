@@ -28,8 +28,4 @@ export type PostEffect = (
   keyframe: number, ctx: CanvasRenderingContext2D, width: number, height: number,
 ) => void;
 
-export type VertexShaderArgs = { flipY: boolean };
-
-export type WebGLEffect = (
-  keyframe: number, width: number, height: number, args: VertexShaderArgs,
-) => void;
+export type WebGLEffect = (keyframe: number, width: number, height: number) => WebGLProgram;
