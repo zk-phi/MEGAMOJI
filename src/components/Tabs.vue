@@ -1,14 +1,15 @@
 <script>
 export default {
-  props: ["tabs", "value"],
+  props: ["modelValue", "tabs"],
+  emits: ["update:modelValue"],
 };
 </script>
 
 <template>
   <div class="block tabs is-toggle is-toggle-rounded">
     <ul>
-      <li v-for="tab in tabs" :class="value === tab.value ? 'is-active' : ''">
-        <a @click="$emit('input', tab.value)">{{ tab.label }}</a>
+      <li v-for="tab in tabs" :class="modelValue === tab.value ? 'is-active' : ''">
+        <a @click="$emit('update:modelValue', tab.value)">{{ tab.label }}</a>
       </li>
     </ul>
   </div>

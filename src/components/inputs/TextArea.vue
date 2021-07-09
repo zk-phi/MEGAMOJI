@@ -1,15 +1,16 @@
 <script>
 export default {
-  props: ["value", "rows"],
+  props: ["modelValue", "rows"],
+  emits: ["update:modelValue"],
 };
 </script>
 
 <template>
   <div class="control">
     <textarea
-        :value="value"
+        :value="modelValue"
         class="textarea"
         :rows="rows"
-        @input="$emit('input', $event.target.value)" />
+        @input="$emit('update:modelValue', $event.target.value)" />
   </div>
 </template>

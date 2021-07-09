@@ -28,7 +28,10 @@ export default {
       </a>
     </h2>
 
-    <Tabs :value="ui.showTargetPanel ? '' : ui.mode" :tabs="MODES" @input="onSelectMode" />
+    <Tabs
+        :model-value="ui.showTargetPanel ? '' : ui.mode"
+        :tabs="MODES"
+        @update:modelValue="onSelectMode" />
 
     <div class="columns">
 
@@ -222,7 +225,7 @@ export default {
                   <div v-for="(color, ix) in outlineColors" class="field has-addons">
                     <div class="control is-expanded">
                       <input class="input" type="color" :value="color"
-                             @change="$set(source.text.outlines, ix, $event.target.value)">
+                             @change="source.text.outlines[ix] = $event.target.value">
                     </div>
                     <div class="control">
                       <button class="button" @click="removeOutline(ix)">

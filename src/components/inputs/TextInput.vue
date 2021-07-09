@@ -1,15 +1,16 @@
 <script>
 export default {
-  props: ["value"],
+  props: ["modelValue"],
+  emits: ["update:modelValue"],
 };
 </script>
 
 <template>
   <div class="control">
     <input
-        :value="value"
+        :value="modelValue"
         class="input"
         type="text"
-        @input="$emit('input', $event.target.value)" />
+        @input="$emit('update:modelValue', $event.target.value)" />
   </div>
 </template>

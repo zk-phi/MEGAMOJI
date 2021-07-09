@@ -1,13 +1,17 @@
 <script>
 export default {
-  props: ["value", "font", "label"],
+  props: ["modelValue", "font", "label"],
+  emits: ["update:modelValue"],
 };
 </script>
 
 <template>
   <div class="control">
     <label class="radio" :style="{ font: font }">
-      <input type="radio" :checked="value === font" @change="$emit('input', font)">
+      <input
+          type="radio"
+          :checked="modelValue === font"
+          @change="$emit('update:modelValue', font)">
       <slot />
     </label>
   </div>

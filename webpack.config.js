@@ -13,8 +13,16 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.ts$/, use: "ts-loader" },
-      { test: /\.vue$/, use: "vue-loader" },
+      {
+        test: /\.ts$/,
+        loader: "ts-loader",
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        },
+      }, {
+        test: /\.vue$/,
+        use: "vue-loader",
+      },
     ],
   },
   resolve: {
