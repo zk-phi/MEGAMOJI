@@ -292,8 +292,7 @@ const methods = {
     this.ui.showTargetPanel = false;
     ga("send", "pageview", `/${value}`);
   },
-  onSelectSpeedPreset(e: { target: { value: string } }): void {
-    const speed = e.target.value;
+  onSelectSpeedPreset(speed: string): void {
     if (speed === "") {
       this.target.framerate = 18;
       this.target.framecount = 12;

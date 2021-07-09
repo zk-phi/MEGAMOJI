@@ -9,13 +9,16 @@ import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "./formblocks/EffectBlock.vue";
 import RangeBlock from "./formblocks/RangeBlock.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
+import TrimmingSelectBlock from "./formblocks/TrimmingSelectBlock.vue";
+import AnimationSpeedSelectBlock from "./formblocks/AnimationSpeedSelectBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
-    AnimationSelectBlock, EffectBlock, RangeBlock, CheckboxBlock,
+    AnimationSelectBlock, EffectBlock, RangeBlock, CheckboxBlock, TrimmingSelectBlock,
+    AnimationSpeedSelectBlock,
   },
 };
 </script>
@@ -71,43 +74,11 @@ export default {
                 </div>
               </div>
               <div class="column">
-                <div class="field">
-                  <label class="label">拡大縮小</label>
-                  <div class="control">
-                    <div class="select">
-                      <select v-model="target.trimming" @change="refreshDefaultSettings">
-                        <option value="">
-                          ぴっちり
-                        </option>
-                        <option value="cover">
-                          はみだす (アス比維持)
-                        </option>
-                        <option value="contain">
-                          おさめる (アス比維持)
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+                <TrimmingSelectBlock
+                    v-model="target.trimming"
+                    @update:model-value="refreshDefaultSettings" />
                 <EffectBlock v-model="target.staticEffects" :effects="staticeffects" />
-                <div class="field">
-                  <label class="label">スピード</label>
-                  <div class="control">
-                    <div class="select">
-                      <select @change="onSelectSpeedPreset">
-                        <option value="">
-                          普通
-                        </option>
-                        <option value="turbo">
-                          速い
-                        </option>
-                        <option value="super-turbo">
-                          爆速
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+                <AnimationSpeedSelectBlock @update:model-value="onSelectSpeedPreset" />
                 <CheckboxBlock v-model="target.animationInvert">
                   進行方向を反転
                 </CheckboxBlock>
