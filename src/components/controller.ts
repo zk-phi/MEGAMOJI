@@ -234,7 +234,7 @@ const data = {
       color: "#ffbf00",
       gradient: [],
       outlines: [],
-      font: "normal sans-serif",
+      font: "normal 1em sans-serif",
       /* advanced */
       lineSpacing: 0.05,
     },
@@ -365,7 +365,7 @@ const methods = {
       const blobUrl = makeTextImage(
         this.source.text.content,
         this.source.text.color,
-        this.source.text.font.replace(/^([^ ]+)/, `$1 ${EMOJI_SIZE}px`),
+        this.source.text.font.replace(/1em/, `${EMOJI_SIZE}px`),
         EMOJI_SIZE,
         this.source.text.align,
         this.source.text.lineSpacing * EMOJI_SIZE,

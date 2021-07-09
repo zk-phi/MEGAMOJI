@@ -1,10 +1,11 @@
 <script>
 import Tabs from "./Tabs.vue";
+import FontOption from './FontOption.vue';
 import controller from "./controller.ts";
 export default {
   ...controller,
   components: {
-    Tabs
+    Tabs, FontOption
   },
 };
 </script>
@@ -31,96 +32,54 @@ export default {
               <div class="column">
                 <div class="field">
                   <label class="label">システムフォント</label>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em sans-serif">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal sans-serif">
-                      ゴシック
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em serif">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal serif">
-                      明朝
-                    </label>
-                  </div>
+                  <FontOption value="normal 1em sans-serif" v-model="source.text.font">
+                    ゴシック
+                  </FontOption>
+                  <FontOption value="normal 1em serif" v-model="source.text.font">
+                    明朝
+                  </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">スタンダード</label>
-                  <div class="control">
-                    <label class="radio" style="font: bold 1em 'Noto Sans JP'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="bold 'Noto Sans JP'">
-                      ゴシック (太)
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: 900 1em 'Noto Sans JP'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Sans JP'">
-                      ゴシック (極太)
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: bold 1em 'M PLUS Rounded 1c'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="bold 'M PLUS Rounded 1c'">
-                      丸ゴ (太)
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: 900 1em 'M PLUS Rounded 1c'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="900 'M PLUS Rounded 1c'">
-                      丸ゴ (極太)
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: 900 1em 'Noto Serif JP'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="900 'Noto Serif JP'">
-                      明朝 (太)
-                    </label>
-                  </div>
+                  <FontOption value="bold 1em 'Noto Sans JP'" v-model="source.text.font">
+                    ゴシック (太)
+                  </FontOption>
+                  <FontOption value="900 1em 'Noto Sans JP'" v-model="source.text.font">
+                    ゴシック (極太)
+                  </FontOption>
+                  <FontOption value="bold 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                    丸ゴ (太)
+                  </FontOption>
+                  <FontOption value="900 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                    丸ゴ (極太)
+                  </FontOption>
+                  <FontOption value="900 1em 'Noto Serif JP'" v-model="source.text.font">
+                    明朝 (太)
+                  </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">デザイン</label>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'DelaGothicOne-Regular'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="400 'DelaGothicOne-Regular'">
-                      Dela Gothic One
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'AkazukiPOP'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'AkazukiPOP'">
-                      あかずきんポップ
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'Potta'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'Potta'">
-                      ポッタ
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'ZeroGothic'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'ZeroGothic'">
-                      零ゴシック
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'PixelMplus'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'PixelMplus'">
-                      PixelMplus, bold
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'Reggae'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'Reggae'">
-                      レゲエ
-                    </label>
-                  </div>
-                  <div class="control">
-                    <label class="radio" style="font: normal 1em 'Rampart'">
-                      <input type="radio" name="text_font" v-model="source.text.font" value="normal 'Rampart'">
-                      ランパート
-                    </label>
-                  </div>
+                  <FontOption value="normal 1em 'DelaGothicOne-Regular'" v-model="source.text.font">
+                    Dela Gothic One
+                  </FontOption>
+                  <FontOption value="normal 1em 'AkazukiPOP'" v-model="source.text.font">
+                    あかずきんポップ
+                  </FontOption>
+                  <FontOption value="normal 1em 'Potta'" v-model="source.text.font">
+                    ポッタ
+                  </FontOption>
+                  <FontOption value="normal 1em 'ZeroGothic'" v-model="source.text.font">
+                    零ゴシック
+                  </FontOption>
+                  <FontOption value="normal 1em 'PixelMplus'" v-model="source.text.font">
+                    PixelMplus, bold
+                  </FontOption>
+                  <FontOption value="normal 1em 'Reggae'" v-model="source.text.font">
+                    レゲエ
+                  </FontOption>
+                  <FontOption value="normal 1em 'Rampart'" v-model="source.text.font">
+                    ランパート
+                  </FontOption>
                 </div>
                 <div v-if="ui.showTextDetails">
                   <div class="field">
