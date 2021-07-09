@@ -1,6 +1,6 @@
 <script>
 import Tabs from "./Tabs.vue";
-import FontOption from "./inputs/FontOption.vue";
+import FontSelectBlock from "./formblocks/FontSelectBlock.vue";
 import FontColorOption from "./inputs/FontColorOption.vue";
 import TextInput from "./inputs/TextInput.vue";
 import TextArea from "./inputs/TextArea.vue";
@@ -10,7 +10,7 @@ import controller from "./controller";
 export default {
   ...controller,
   components: {
-    Tabs, FontOption, TextInput, TextArea, FontColorOption, ButtonBlock,
+    Tabs, FontSelectBlock, TextInput, TextArea, FontColorOption, ButtonBlock,
   },
 };
 </script>
@@ -40,66 +40,10 @@ export default {
           <div class="card-content">
             <div class="columns">
               <div class="column">
-                <div class="field">
-                  <label class="label">システムフォント</label>
-                  <FontOption v-model="source.text.font" font="normal 1em sans-serif">
-                    ゴシック
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em serif">
-                    明朝
-                  </FontOption>
-                </div>
-                <div class="field">
-                  <label class="label">スタンダード</label>
-                  <FontOption v-model="source.text.font" font="bold 1em 'Noto Sans JP'">
-                    ゴシック (太)
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="900 1em 'Noto Sans JP'">
-                    ゴシック (極太)
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="bold 1em 'M PLUS Rounded 1c'">
-                    丸ゴ (太)
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="900 1em 'M PLUS Rounded 1c'">
-                    丸ゴ (極太)
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="900 1em 'Noto Serif JP'">
-                    明朝 (太)
-                  </FontOption>
-                </div>
-                <div class="field">
-                  <label class="label">デザイン</label>
-                  <FontOption v-model="source.text.font" font="normal 1em 'DelaGothicOne-Regular'">
-                    Dela Gothic One
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'AkazukiPOP'">
-                    あかずきんポップ
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'Potta'">
-                    ポッタ
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'ZeroGothic'">
-                    零ゴシック
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'PixelMplus'">
-                    PixelMplus, bold
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'Reggae'">
-                    レゲエ
-                  </FontOption>
-                  <FontOption v-model="source.text.font" font="normal 1em 'Rampart'">
-                    ランパート
-                  </FontOption>
-                </div>
-                <div v-if="ui.showTextDetails">
-                  <div class="field">
-                    <label class="label">その他のフォント</label>
-                    <TextInput v-model="source.text.font" />
-                  </div>
-                  <div class="field">
-                    <label class="label">行間 (文字分)</label>
-                    <TextInput v-model="source.text.lineSpacing" />
-                  </div>
+                <FontSelectBlock v-model="source.text.font" :showDetails="ui.showTextDetails" />
+                <div v-if="ui.showTextDetails" class="field">
+                  <label class="label">行間 (文字分)</label>
+                  <TextInput v-model="source.text.lineSpacing" />
                 </div>
               </div>
               <div class="column">
