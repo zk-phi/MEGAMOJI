@@ -5,8 +5,7 @@ export type EffectShader = () => WebGLProgram;
 let webglCanvas;
 let gl;
 
-// initialize webgl rendering context and returns a canvas which result image will be rendered in.
-// if the browser does not support webgl, just return null.
+// initialize webgl rendering context and return true iff succeeded.
 export function webglInitialize(): boolean {
   webglCanvas = document.createElement("canvas");
 
