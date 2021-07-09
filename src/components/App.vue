@@ -27,7 +27,7 @@ export default {
     </h1>
     <h2 class="subtitle">
       Slack (など) の絵文字をサクッと作成できるジェネレータです
-      <a target="_blank" href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">
+      <a target="_blank" href="https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown">
         更新履歴
       </a>
     </h2>
