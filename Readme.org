@@ -40,24 +40,24 @@ PR を送ると自動で走りますが、手元で事前に実行しておき�
     - ~fonts.css~ ... webfont の読み込みをしています
     - ~style.css~ ... 独自のスタイルが入っています
 - ~src/~
-  - ~animations.ts~ ... アニメーションの一覧が入っています
   - ~animations/~ ... 個別のアニメーションの実装が入っています
-  - ~effects.ts~ ... エフェクトの一覧が入っています
+  - ~components/~ ... UI 部品が入っています
+  - ~constants/~ ... 定数類が入っています
   - ~effects/~ ... エフェクトの実装が入っています
-  - ~filters.ts~ ... フィルタの一覧が入っています
   - ~filters/~ ... フィルタの実装が入っています
-  - ~posteffects.ts~ ... ポストエフェクトの一覧が入っています
   - ~posteffects/~ ... ポストエフェクトの実装が入っています
-  - ~webgleffects.ts~ ... WebGL エフェクトの一覧が入っています
+  - ~shaders/~ ... WebGL エフェクトで使うフラグメントシェーダーが入っています
+  - ~utils/~ ... 便利関数たちが入っています
   - ~webgleffects/~ ... WebGL エフェクトの実装が入っています
-  - ~megamoji.ts~ ... 本体です、 Vue のコントローラーが入っています
-  - ~parts.js~ ... 「パーツから選ぶ」のパーツ一覧が入っています
+  - ~megamoji.js~ ... エントリポイントです
+  - ~types.js~ ... エフェクトなどの型定義が入っています
+
 
 *** フィルタの追加
 
 「ファイルから選ぶ」で画像を読み込む際、画像に対して行う前処理の実装です。
 
-~src/filters.js~ に一覧があります。
+~src/constants/filters.js~ に一覧があります。
 
 フィルタの実体は１引数の関数です。
 
@@ -69,7 +69,7 @@ BlobURL で返します。
 「効果をつける」タブで選ぶことのできる特殊効果たちの実装です。ユーザーは
 複数のエフェクトを組み合わせて使用することができます。
 
-~src/effects.js~ に一覧があります。
+~src/constants/effects.js~ に一覧があります。
 
 エフェクトの実体は５引数の関数です：
 
@@ -122,7 +122,7 @@ BlobURL で返します。
 「効果をつける」タブ内「アニメーション」で選ぶことができる特殊効果たち
 の実装です。ユーザーは一つしか同時に使えません。
 
-~src/animations.js~ に一覧があります。
+~src/constants/animations.js~ に一覧があります。
 
 アニメーションの実体は５引数の関数です：
 
@@ -181,7 +181,7 @@ BlobURL で返します。
 し、 ポストエフェクトはそれよりも後に呼ばれます。これによって、レンダー
 された画像の上からさらに効果を描き込むことができます。
 
-~src/posteffects.js~ に一覧があります。
+~src/constants/posteffects.js~ に一覧があります。
 
 ポストエフェクトの実体は５引数の関数です：
 
@@ -197,7 +197,7 @@ BlobURL で返します。
 
 Canvas の基本的な変形機能などだけでは実装できないエフェクトを WebGL で実装できます。
 
-~src/webgleffects.js~ に一覧があります。
+~src/constants/webgleffects.js~ に一覧があります。
 
 WebGL エフェクトの実体は４引数の関数です：
 
@@ -250,5 +250,7 @@ WebGL エフェクトの実体は４引数の関数です：
    : node sfnt2woff.js hoge.ttf hoge.woff
 
 3. fonts に woff を入れて、 ~dist/css/fonts.css~ から参照
+
+4. ~src/constants/fonts.ts~ にフォントを追加
 
 4. LICENSE.markdown に追記
