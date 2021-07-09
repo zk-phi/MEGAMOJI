@@ -32,52 +32,52 @@ export default {
               <div class="column">
                 <div class="field">
                   <label class="label">システムフォント</label>
-                  <FontOption value="normal 1em sans-serif" v-model="source.text.font">
+                  <FontOption font="normal 1em sans-serif" v-model="source.text.font">
                     ゴシック
                   </FontOption>
-                  <FontOption value="normal 1em serif" v-model="source.text.font">
+                  <FontOption font="normal 1em serif" v-model="source.text.font">
                     明朝
                   </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">スタンダード</label>
-                  <FontOption value="bold 1em 'Noto Sans JP'" v-model="source.text.font">
+                  <FontOption font="bold 1em 'Noto Sans JP'" v-model="source.text.font">
                     ゴシック (太)
                   </FontOption>
-                  <FontOption value="900 1em 'Noto Sans JP'" v-model="source.text.font">
+                  <FontOption font="900 1em 'Noto Sans JP'" v-model="source.text.font">
                     ゴシック (極太)
                   </FontOption>
-                  <FontOption value="bold 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                  <FontOption font="bold 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
                     丸ゴ (太)
                   </FontOption>
-                  <FontOption value="900 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                  <FontOption font="900 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
                     丸ゴ (極太)
                   </FontOption>
-                  <FontOption value="900 1em 'Noto Serif JP'" v-model="source.text.font">
+                  <FontOption font="900 1em 'Noto Serif JP'" v-model="source.text.font">
                     明朝 (太)
                   </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">デザイン</label>
-                  <FontOption value="normal 1em 'DelaGothicOne-Regular'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'DelaGothicOne-Regular'" v-model="source.text.font">
                     Dela Gothic One
                   </FontOption>
-                  <FontOption value="normal 1em 'AkazukiPOP'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'AkazukiPOP'" v-model="source.text.font">
                     あかずきんポップ
                   </FontOption>
-                  <FontOption value="normal 1em 'Potta'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'Potta'" v-model="source.text.font">
                     ポッタ
                   </FontOption>
-                  <FontOption value="normal 1em 'ZeroGothic'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'ZeroGothic'" v-model="source.text.font">
                     零ゴシック
                   </FontOption>
-                  <FontOption value="normal 1em 'PixelMplus'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'PixelMplus'" v-model="source.text.font">
                     PixelMplus, bold
                   </FontOption>
-                  <FontOption value="normal 1em 'Reggae'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'Reggae'" v-model="source.text.font">
                     レゲエ
                   </FontOption>
-                  <FontOption value="normal 1em 'Rampart'" v-model="source.text.font">
+                  <FontOption font="normal 1em 'Rampart'" v-model="source.text.font">
                     ランパート
                   </FontOption>
                 </div>
