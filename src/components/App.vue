@@ -2,12 +2,13 @@
 import Tabs from "./Tabs.vue";
 import FontOption from "./inputs/FontOption.vue";
 import TextInput from "./inputs/TextInput.vue";
+import TextArea from "./inputs/TextArea.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontOption, TextInput,
+    Tabs, FontOption, TextInput, TextArea,
   },
 };
 </script>
@@ -99,9 +100,7 @@ export default {
               <div class="column">
                 <div class="field">
                   <label class="label">テキスト (改行可)</label>
-                  <div class="control">
-                    <textarea v-model="source.text.content" class="textarea" rows="3" />
-                  </div>
+                  <TextArea v-model="source.text.content" rows="3" />
                 </div>
                 <div class="field">
                   <label class="label">揃え</label>
