@@ -270,7 +270,7 @@ const data = {
   },
 };
 
-function mounted () {
+function mounted(): void {
   const match = /\?([^=]+)(=(.*))?$/.exec(window.location.href);
   if (match) {
     if (match[1] === "test") {
@@ -285,36 +285,36 @@ function mounted () {
 
 const watch = {
   baseImage: {
-    handler() {
+    handler(): void {
       this.refreshDefaultSettings();
       this.render();
     },
   },
   "source.file": {
-    handler() {
+    handler(): void {
       this.loadFile();
     },
     deep: true,
   },
   "source.text": {
-    handler() {
+    handler(): void {
       this.renderText();
     },
     deep: true,
   },
   "source.text.color": {
-    handler() {
+    handler(): void {
       this.source.text.gradient = [];
     },
   },
   "source.fukumoji": {
-    handler() {
+    handler(): void {
       this.renderFukumoji();
     },
     deep: true,
   },
   target: {
-    handler() {
+    handler(): void {
       this.render();
     },
     deep: true,
@@ -322,7 +322,7 @@ const watch = {
 };
 
 const computed = {
-  outlineColors() {
+  outlineColors(): string {
     const { color } = this.source.text;
     return this.source.text.outlines.map((outline) => (
       outline === "lighter" ? (
@@ -336,16 +336,16 @@ const computed = {
       )
     ));
   },
-  darkerColor() {
+  darkerColor(): string {
     return darkerColor(this.source.text.color);
   },
-  lighterColor() {
+  lighterColor(): string {
     return lighterColor(this.source.text.color);
   },
 };
 
 const methods = {
-  loadFile() {
+  loadFile(): void {
     if (this.source.file.file) {
       loadFileAsBlobURL(this.source.file.file, (blobUrl) => {
         urlToImg(blobUrl, (originalImg) => {
@@ -360,7 +360,7 @@ const methods = {
       });
     }
   },
-  renderText() {
+  renderText(): void {
     if (this.source.text.content || this.baseImage) {
       const blobUrl = makeTextImage(
         this.source.text.content,
@@ -374,7 +374,7 @@ const methods = {
       urlToImg(blobUrl, (img) => { this.baseImage = img; });
     }
   },
-  renderFukumoji() {
+  renderFukumoji(): void {
     mergeImages(128, 128, [
       this.source.fukumoji.base,
       this.source.fukumoji.textures,
@@ -387,7 +387,7 @@ const methods = {
       });
     });
   },
-  initializeGradient() {
+  initializeGradient(): void {
     this.source.text.gradient = [
       { color: "#ffffff", pos: 0 },
       { color: this.source.text.color, pos: 45 },
@@ -396,22 +396,22 @@ const methods = {
       { color: "#ffffff", pos: 100 },
     ];
   },
-  addGradientColorStop() {
+  addGradientColorStop(): void {
     this.source.text.gradient.push({
       color: this.source.text.color,
       pos: 50,
     });
   },
-  removeGradientColorStop(ix) {
+  removeGradientColorStop(ix: number): void {
     this.source.text.gradient.splice(ix, 1);
   },
-  addOutline() {
+  addOutline(): void {
     this.source.text.outlines.push(this.source.text.color);
   },
-  removeOutline(ix) {
+  removeOutline(ix: number): void {
     this.source.text.outlines.splice(ix, 1);
   },
-  refreshDefaultSettings() {
+  refreshDefaultSettings(): void {
     const image = this.baseImage;
     const v = this.target.vCells;
     const h = this.target.hCells;
@@ -431,22 +431,22 @@ const methods = {
     this.target.offsetLeft = `${(image.naturalWidth - EMOJI_SIZE / widthRatio * h) / 2}`;
     this.target.offsetTop = `${Math.min(0, (image.naturalHeight - EMOJI_SIZE / heightRatio * v) / 2)}`;
   },
-  onSetShowTarget(value) {
+  onSetShowTarget(value: boolean): void {
     this.ui.showTargetPanel = value;
     ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
   },
-  onSelectMode(value) {
+  onSelectMode(value: string): void {
     this.ui.mode = value;
     this.ui.showTargetPanel = false;
     ga("send", "pageview", `/${value}`);
   },
-  onSelectFukumojiTab(value) {
+  onSelectFukumojiTab(value: string): void {
     this.ui.fukumojiTab = value;
   },
-  onSelectFukumojiPart(key, value) {
+  onSelectFukumojiPart(key: string, value: string): void {
     this.source.fukumoji[key] = value;
   },
-  onSelectSpeedPreset(e) {
+  onSelectSpeedPreset(e: { target: { value: string } }): void {
     const speed = e.target.value;
     if (speed === "") {
       this.target.framerate = 18;
@@ -459,16 +459,16 @@ const methods = {
       this.target.framecount = 6;
     }
   },
-  onToggleTextDetails() {
+  onToggleTextDetails(): void {
     this.ui.showTextDetails = !this.ui.showTextDetails;
   },
-  onToggleTargetDetails() {
+  onToggleTargetDetails(): void {
     this.ui.showTargetDetails = !this.ui.showTargetDetails;
   },
-  onChangeFile(e) {
+  onChangeFile(e: { target: { files: File[] } }): void {
     this.source.file.file = e.target.files[0];
   },
-  render() {
+  render(): void {
     if (!this.baseImage) return;
 
     const offsetLeft = Math.floor(Number(this.target.offsetLeft));
@@ -503,4 +503,6 @@ const methods = {
   },
 };
 
-export default { data, methods, mounted, watch, computed };
+export default {
+  data, methods, mounted, watch, computed,
+};
