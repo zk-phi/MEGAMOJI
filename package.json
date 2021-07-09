@@ -16,6 +16,8 @@
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
     "@types/google.analytics": "^0.0.42",
+    "naive-ui": "^2.15.4",
+    "vfonts": "^0.1.0",
     "vue": "^3.1.4"
   },
   "devDependencies": {
