@@ -338,12 +338,6 @@ const computed = {
       )
     ));
   },
-  darkerColor(): string {
-    return darkerColor(this.source.text.color);
-  },
-  lighterColor(): string {
-    return lighterColor(this.source.text.color);
-  },
 };
 
 const methods = {
@@ -388,12 +382,6 @@ const methods = {
         this.baseImage = img;
       });
     });
-  },
-  addOutline(): void {
-    this.source.text.outlines.push(this.source.text.color);
-  },
-  removeOutline(ix: number): void {
-    this.source.text.outlines.splice(ix, 1);
   },
   refreshDefaultSettings(): void {
     const image = this.baseImage;

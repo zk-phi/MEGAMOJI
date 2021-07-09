@@ -8,6 +8,7 @@ import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
 import GradientBlock from "./formblocks/GradientBlock.vue";
 import FontColorSelectBlock from "./formblocks/FontColorSelectBlock.vue";
 import ColorBlock from "./formblocks/ColorBlock.vue";
+import OutlineBlock from "./formblocks/OutlineBlock.vue";
 import controller from "./controller";
 
 export default {
@@ -15,6 +16,7 @@ export default {
   components: {
     Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
     TextAreaBlock, ButtonBlock, GradientBlock, FontColorSelectBlock, ColorBlock,
+    OutlineBlock,
   },
 };
 </script>
@@ -65,50 +67,10 @@ export default {
                 <GradientBlock
                     v-model="source.text.gradient"
                     :base-color="source.text.color" />
-                <div class="field">
-                  <label class="label">アウトライン</label>
-                  <div class="control">
-                    <label class="checkbox" style="color: #000000">
-                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="#000000">
-                      ◆
-                    </label>
-                    <label class="checkbox" :style="{ color: darkerColor }">
-                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="darker">
-                      ◆
-                    </label>
-                    <label class="checkbox" :style="{ color: source.text.color }">
-                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="identical">
-                      ◆
-                    </label>
-                    <label class="checkbox" :style="{ color: lighterColor }">
-                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="lighter">
-                      ◆
-                    </label>
-                    <label class="checkbox">
-                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="#ffffff">
-                      ♢
-                    </label>
-                  </div>
-                </div>
-                <div v-if="ui.showTextDetails">
-                  <div class="field">
-                    <label class="label">その他のアウトライン</label>
-                  </div>
-                  <div v-for="(color, ix) in outlineColors" class="field has-addons">
-                    <div class="control is-expanded">
-                      <input class="input" type="color" :value="color"
-                             @change="source.text.outlines[ix] = $event.target.value">
-                    </div>
-                    <div class="control">
-                      <button class="button" @click="removeOutline(ix)">
-                        x
-                      </button>
-                    </div>
-                  </div>
-                  <ButtonBlock :click="addOutline">
-                    + アウトラインを追加
-                  </ButtonBlock>
-                </div>
+                <OutlineBlock
+                    v-model="source.text.outlines"
+                    :base-color="source.text.color"
+                    :show-details="ui.showTextDetails" />
               </div>
             </div>
           </div>
