@@ -4,12 +4,13 @@ import FontOption from "./inputs/FontOption.vue";
 import FontColorOption from "./inputs/FontColorOption.vue";
 import TextInput from "./inputs/TextInput.vue";
 import TextArea from "./inputs/TextArea.vue";
+import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontOption, TextInput, TextArea, FontColorOption,
+    Tabs, FontOption, TextInput, TextArea, FontColorOption, ButtonBlock,
   },
 };
 </script>
@@ -164,11 +165,9 @@ export default {
                     <FontColorOption color="#ff7fdf" v-model="source.text.color" />
                   </div>
                 </div>
-                <div v-if="source.text.gradient.length == 0" class="field">
-                  <button class="button" @click="initializeGradient">
-                    グラデーションを追加
-                  </button>
-                </div>
+                <ButtonBlock v-if="source.text.gradient.length == 0" :click="initializeGradient">
+                  グラデーションを追加
+                </ButtonBlock>
                 <div v-for="(colorstop, ix) in source.text.gradient" class="field has-addons">
                   <div class="control">
                     <input v-model="source.text.gradient[ix].color" type="color" class="input">
@@ -182,13 +181,9 @@ export default {
                     </button>
                   </div>
                 </div>
-                <div v-if="source.text.gradient.length > 0" class="field">
-                  <div class="control">
-                    <button class="button" @click="addGradientColorStop">
-                      + 色を追加
-                    </button>
-                  </div>
-                </div>
+                <ButtonBlock v-if="source.text.gradient.length > 0" :click="addGradientColorStop">
+                  + 色を追加
+                </ButtonBlock>
                 <div class="field">
                   <label class="label">アウトライン</label>
                   <div class="control">
@@ -235,13 +230,9 @@ export default {
                       </button>
                     </div>
                   </div>
-                  <div class="field">
-                    <div class="control">
-                      <button class="button" @click="addOutline">
-                        + アウトラインを追加
-                      </button>
-                    </div>
-                  </div>
+                  <ButtonBlock :click="addOutline">
+                    + アウトラインを追加
+                  </ButtonBlock>
                 </div>
               </div>
             </div>
