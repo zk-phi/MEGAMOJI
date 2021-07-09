@@ -8,13 +8,14 @@ import FukumojiSource from "./columns/FukumojiSource.vue";
 import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "./formblocks/EffectBlock.vue";
 import RangeBlock from "./formblocks/RangeBlock.vue";
+import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
-    AnimationSelectBlock, EffectBlock, RangeBlock,
+    AnimationSelectBlock, EffectBlock, RangeBlock, CheckboxBlock,
   },
 };
 </script>
@@ -64,15 +65,9 @@ export default {
                       :label="`フレーム数: ${target.framecount}`"
                       :min="1"
                       :max="12" />
-                  <div class="field">
-                    <label class="label">開発者用</label>
-                    <div class="control">
-                      <label class="checkbox">
-                        <input v-model="target.noCrop" type="checkbox">
-                        余白を切らない
-                      </label>
-                    </div>
-                  </div>
+                  <CheckboxBlock v-model="target.noCrop" label="開発者用">
+                    余白を切らない
+                  </CheckboxBlock>
                 </div>
               </div>
               <div class="column">
@@ -113,26 +108,16 @@ export default {
                     </div>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control">
-                    <label class="checkbox">
-                      <input v-model="target.animationInvert" type="checkbox">
-                      進行方向を反転
-                    </label>
-                  </div>
-                </div>
+                <CheckboxBlock v-model="target.animationInvert">
+                  進行方向を反転
+                </CheckboxBlock>
                 <ColorBlock
                     v-model="target.backgroundColor"
                     label="背景色"
                     :disabled="target.transparent" />
-                <div class="field">
-                  <div class="control">
-                    <label class="checkbox">
-                      <input v-model="target.transparent" type="checkbox">
-                      背景を塗らない (アニメ gif は非推奨)
-                    </label>
-                  </div>
-                </div>
+                <CheckboxBlock v-model="target.transparent">
+                  背景を塗らない (アニメ gif は非推奨)
+                </CheckboxBlock>
                 <div v-if="ui.showTargetDetails">
                   <div class="field">
                     <label class="label">分割 横</label>
@@ -197,13 +182,9 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="field">
-                <div class="control">
-                  <label class="checkbox">
-                    <input v-model="previewMode" type="checkbox"> プレビュー
-                  </label>
-                </div>
-              </div>
+              <CheckboxBlock v-model="previewMode">
+                プレビュー
+              </CheckboxBlock>
             </div>
           </div>
         </div>
