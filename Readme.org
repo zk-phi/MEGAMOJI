@@ -205,13 +205,14 @@ WebGL エフェクトの実体は４引数の関数です：
 - ~cellWidth~
 - ~cellHeight~
 
-シェーダを関数として呼ぶと WebGL プログラムがロードされるので、適切なパラメータをセットして返してください。
+シェーダをロード、適切なパラメータをセットして返してください。
 
 #+begin_src js
   // 例
-  import fooShader from '../shaders/foo.ts';
+  import { webglLoadEffectShader, webglSetVec2 } from '../utils/webgl';
+  import fooShader from '../shaders/foo';
   function webglZoom (keyframe, _w, _h, args) {
-    const program = fooShader(args);
+    const program = webglLoadEffectShader(fooShader);
     webglSetVec2(program, 'center', keyframe, 0.5);
     return program;
   }
