@@ -11,6 +11,7 @@ import RangeBlock from "./formblocks/RangeBlock.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import TrimmingSelectBlock from "./formblocks/TrimmingSelectBlock.vue";
 import AnimationSpeedSelectBlock from "./formblocks/AnimationSpeedSelectBlock.vue";
+import NumberBlock from "./formblocks/NumberBlock.vue";
 import controller from "./controller";
 
 export default {
@@ -18,7 +19,7 @@ export default {
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
     AnimationSelectBlock, EffectBlock, RangeBlock, CheckboxBlock, TrimmingSelectBlock,
-    AnimationSpeedSelectBlock,
+    AnimationSpeedSelectBlock, NumberBlock,
   },
 };
 </script>
@@ -90,18 +91,16 @@ export default {
                   背景を塗らない (アニメ gif は非推奨)
                 </CheckboxBlock>
                 <div v-if="ui.showTargetDetails">
-                  <div class="field">
-                    <label class="label">分割 横</label>
-                    <div class="control">
-                      <input v-model="target.hCells" class="input" type="number" min="1" @change="refreshDefaultSettings">
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">分割 縦</label>
-                    <div class="control">
-                      <input v-model="target.vCells" class="input" type="number" min="1" @change="refreshDefaultSettings">
-                    </div>
-                  </div>
+                  <NumberBlock
+                      v-model="target.hCells"
+                      :min="1"
+                      label="分割 横"
+                      @update:model-value="refreshDefaultSettings" />
+                  <NumberBlock
+                      v-model="target.vCells"
+                      :min="1"
+                      label="分割 縦"
+                      @update:model-value="refreshDefaultSettings" />
                   <TextBlock v-model="target.offsetLeft" label="オフセット左 (px)" />
                   <TextBlock v-model="target.offsetTop" label="オフセット上 (px)" />
                   <TextBlock v-model="target.hZoom" label="拡大率 (横)" />
