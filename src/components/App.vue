@@ -5,12 +5,14 @@ import FontColorOption from "./inputs/FontColorOption.vue";
 import TextAreaBlock from "./formblocks/TextAreaBlock.vue";
 import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
+import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontSelectBlock, TextBlock, TextAreaBlock, FontColorOption, ButtonBlock,
+    Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
+    TextAreaBlock, FontColorOption, ButtonBlock,
   },
 };
 </script>
@@ -53,27 +55,8 @@ export default {
                     v-model="source.text.content"
                     label="テキスト (改行可)"
                     :rows="3" />
-                <div class="field">
-                  <label class="label">揃え</label>
-                  <div class="control">
-                    <div class="select">
-                      <select v-model="source.text.align">
-                        <option value="stretch">
-                          両端
-                        </option>
-                        <option value="left">
-                          左
-                        </option>
-                        <option value="center">
-                          中央
-                        </option>
-                        <option value="right">
-                          右
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+                <TextAlignSelectBlock
+                    v-model="source.text.align" />
                 <div class="field">
                   <label class="label">色</label>
                   <div class="control">
