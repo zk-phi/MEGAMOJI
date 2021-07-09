@@ -6,10 +6,11 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
+import FullWidthButton from "./navigation/FullWidthButton.vue";
 
 export default {
   components: {
-    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target, Result,
+    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target, Result, FullWidthButton,
   },
   data: (): Record<string, unknown> => ({
     MODES: [
@@ -51,7 +52,6 @@ export default {
 
 <template>
   <section class="section">
-
     <h1 class="title">
       MEGAMOJI - 簡単アニメ絵文字メーカー
     </h1>
@@ -68,29 +68,22 @@ export default {
         @update:modelValue="onSelectMode" />
 
     <div class="columns">
-
       <div class="column">
         <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
         <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
         <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
         <Target :show="ui.showTargetPanel" :base-image="baseImage" @render="onRenderTarget" />
       </div>
-
       <div class="column is-one-third">
         <div class="block">
           <Result :images="resultImages" />
         </div>
         <div class="block">
-          <div class="buttons">
-            <button v-if="baseImage" class="button is-light is-link is-rounded is-fullwidth"
-                    @click="onSetShowTarget(!ui.showTargetPanel)">
-              {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
-            </button>
-          </div>
+          <FullWidthButton v-if="baseImage" @click="onSetShowTarget(!ui.showTargetPanel)">
+            {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
+          </FullWidthButton>
         </div>
       </div>
-
     </div>
-
   </section>
 </template>
