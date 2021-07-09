@@ -1,5 +1,5 @@
 <script lang="ts">
-import Nav from "./Nav.vue";
+import Nav from "./navigation/Nav.vue";
 import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";

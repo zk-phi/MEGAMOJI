@@ -1,5 +1,5 @@
 <script lang="ts">
-import Tabs from "../Tabs.vue";
+import Tabs from "../navigation/Tabs.vue";
 import PartSelect from "../formblocks/PartSelect.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
