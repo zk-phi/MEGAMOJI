@@ -1,16 +1,49 @@
-<script>
+<script lang="ts">
 import Nav from "./Nav.vue";
 import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import Target from "./columns/Target.vue";
-import controller from "./controller";
 
 export default {
-  ...controller,
   components: {
     Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target,
+  },
+  data: (): Record<string, unknown> => ({
+    MODES: [
+      { value: "text", label: "テキストから作る" },
+      { value: "file", label: "画像から作る" },
+      { value: "fukumoji", label: "パーツを選んで作る" },
+    ],
+    baseImage: null,
+    resultImages: [[]],
+    previewMode: false,
+    /* ui */
+    ui: {
+      mode: "text",
+      showTargetPanel: false,
+      fukumojiTab: "base",
+      showTargetDetails: false,
+    },
+  }),
+  methods: {
+    onSetShowTarget(value: boolean): void {
+      this.ui.showTargetPanel = value;
+      ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
+    },
+    onSelectMode(value: string): void {
+      this.ui.mode = value;
+      this.ui.showTargetPanel = false;
+      ga("send", "pageview", `/${value}`);
+    },
+    onRenderTarget(imgs): void {
+      this.resultImages = imgs;
+      ga("send", "event", this.ui.mode, "render");
+    },
+    onRender(img): void {
+      this.baseImage = img;
+    },
   },
 };
 </script>
