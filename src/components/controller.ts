@@ -16,19 +16,6 @@ const data = (): Record<string, unknown> => ({
   },
 });
 
-function mounted(): void {
-  const match = /\?([^=]+)(=(.*))?$/.exec(window.location.href);
-  if (match) {
-    if (match[1] === "test") {
-      this.ui.mode = "text";
-      this.ui.showTargetPanel = true;
-      this.source.text.content = "あ";
-    } else if (match[1] === "mode") {
-      this.ui.mode = match[3];
-    }
-  }
-}
-
 const methods = {
   onSetShowTarget(value: boolean): void {
     this.ui.showTargetPanel = value;
@@ -49,5 +36,5 @@ const methods = {
 };
 
 export default {
-  data, methods, mounted,
+  data, methods,
 };
