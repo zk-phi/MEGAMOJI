@@ -1,3 +1,5 @@
+const { VueLoaderPlugin } = require('vue-loader');
+
 module.exports = {
   entry: "./src/megamoji.ts",
   devServer: {
@@ -11,6 +13,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ts$/, use: "ts-loader" },
+      { test: /\.vue$/, use: "vue-loader" },
     ],
   },
   resolve: {
@@ -19,4 +22,7 @@ module.exports = {
       vue$: "vue/dist/vue.esm.js",
     },
   },
+  plugins: [
+    new VueLoaderPlugin(),
+  ]
 };
