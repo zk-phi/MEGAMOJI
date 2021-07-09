@@ -86,4 +86,10 @@ export default {
       </div>
     </div>
   </section>
+
+  <footer class="footer">
+    <p class="content">
+      「パーツを選んで作る」の素材は Twemoji ((C) Twitter, CC-BY) を加工して作成しており、同じく CC-BY のもと自由に使用できます。このページではアクセス数などの集計に Google Analytics (cookie) を使用しています。オプトアウトアドオンで拒否することができます。<a href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/LICENSE.org">権利表示</a>
+    </p>
+  </footer>
 </template>
