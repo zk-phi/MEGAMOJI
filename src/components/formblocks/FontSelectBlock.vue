@@ -1,11 +1,11 @@
 <script lang="ts">
+import TextBlock from "./TextBlock.vue";
 import FontOption from "../inputs/FontOption.vue";
-import TextInput from "../inputs/TextInput.vue";
 import fonts from "../../constants/fonts";
 
 export default {
   components: {
-    FontOption, TextInput,
+    FontOption, TextBlock,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -32,10 +32,9 @@ export default {
       {{ font.label }}
     </FontOption>
   </div>
-  <div v-if="showDetails" class="field">
-    <label class="label">その他のフォント</label>
-    <TextInput
-        :model-value="modelValue"
-        @update:model-value="$emit('update:modelValue', $event)" />
-  </div>
+  <TextBlock
+      v-if="showDetails"
+      label="その他のフォント"
+      :model-value="modelValue"
+      @update:model-value="$emit('update:modelValue', $event)" />
 </template>

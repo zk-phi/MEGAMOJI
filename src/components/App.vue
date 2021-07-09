@@ -2,15 +2,15 @@
 import Tabs from "./Tabs.vue";
 import FontSelectBlock from "./formblocks/FontSelectBlock.vue";
 import FontColorOption from "./inputs/FontColorOption.vue";
-import TextInput from "./inputs/TextInput.vue";
 import TextArea from "./inputs/TextArea.vue";
 import ButtonBlock from "./formblocks/ButtonBlock.vue";
+import TextBlock from "./formblocks/TextBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontSelectBlock, TextInput, TextArea, FontColorOption, ButtonBlock,
+    Tabs, FontSelectBlock, TextBlock, TextArea, FontColorOption, ButtonBlock,
   },
 };
 </script>
@@ -40,11 +40,13 @@ export default {
           <div class="card-content">
             <div class="columns">
               <div class="column">
-                <FontSelectBlock v-model="source.text.font" :show-details="ui.showTextDetails" />
-                <div v-if="ui.showTextDetails" class="field">
-                  <label class="label">行間 (文字分)</label>
-                  <TextInput v-model="source.text.lineSpacing" />
-                </div>
+                <FontSelectBlock
+                    v-model="source.text.font"
+                    :show-details="ui.showTextDetails" />
+                <TextBlock
+                    v-if="ui.showTextDetails"
+                    v-model="source.text.lineSpacing"
+                    label="行間 (文字分)" />
               </div>
               <div class="column">
                 <div class="field">
@@ -436,22 +438,10 @@ export default {
                       <input v-model="target.vCells" class="input" type="number" min="1" @change="refreshDefaultSettings">
                     </div>
                   </div>
-                  <div class="field">
-                    <label class="label">オフセット左 (px)</label>
-                    <TextInput v-model="target.offsetLeft" />
-                  </div>
-                  <div class="field">
-                    <label class="label">オフセット上 (px)</label>
-                    <TextInput v-model="target.offsetTop" />
-                  </div>
-                  <div class="field">
-                    <label class="label">拡大率 (横)</label>
-                    <TextInput v-model="target.hZoom" />
-                  </div>
-                  <div class="field">
-                    <label class="label">拡大率 (縦)</label>
-                    <TextInput v-model="target.vZoom" />
-                  </div>
+                  <TextBlock v-model="target.offsetLeft" label="オフセット左 (px)" />
+                  <TextBlock v-model="target.offsetTop" label="オフセット上 (px)" />
+                  <TextBlock v-model="target.hZoom" label="拡大率 (横)" />
+                  <TextBlock v-model="target.vZoom" label="拡大率 (縦)" />
                 </div>
               </div>
             </div>
