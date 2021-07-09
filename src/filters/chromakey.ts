@@ -1,4 +1,4 @@
-import { Filter } from "../filters";
+import { Filter } from "../types";
 
 const filterChromakey: Filter = (image) => {
   const canvas = document.createElement("canvas");
