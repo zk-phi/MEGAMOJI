@@ -1,5 +1,6 @@
 import { WebGLEffect } from "./types";
 
+type RawShader = () => WebGLShader;
 export type EffectShader = () => WebGLProgram;
 
 let webglCanvas;
@@ -37,7 +38,7 @@ export function webglInitialize(): boolean {
 /* ---- WEBGL UTILS */
 
 // compile and return shader (memoized)
-function webglShader(source, isVertex?) {
+function webglRawShader(source, isVertex?): RawShader {
   let shader;
   return () => {
     if (!shader) {
@@ -52,7 +53,11 @@ function webglShader(source, isVertex?) {
   };
 }
 
-const identityVertexShader = webglShader(`
+function webglLoadRawShader(rawShader: RawShader): WebGLShader {
+  return rawShader();
+}
+
+const identityVertexShader = webglRawShader(`
   precision highp float;
   attribute vec2 pos;
   attribute vec2 uv;
@@ -67,13 +72,13 @@ const identityVertexShader = webglShader(`
 
 // create and initialize program
 export function webglEffectShader(fragmentShader: string): EffectShader {
-  const shader = webglShader(fragmentShader);
+  const shader = webglRawShader(fragmentShader);
   let program;
   return () => {
     if (!program) {
       program = gl.createProgram();
-      gl.attachShader(program, identityVertexShader());
-      gl.attachShader(program, shader());
+      gl.attachShader(program, webglLoadRawShader(identityVertexShader));
+      gl.attachShader(program, webglLoadRawShader(shader));
       gl.linkProgram(program);
       gl.useProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
@@ -91,6 +96,10 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
     }
     return program;
   };
+}
+
+export function webglLoadEffectShader(effectShader: EffectShader): WebGLProgram {
+  return effectShader();
 }
 
 // set uniform
