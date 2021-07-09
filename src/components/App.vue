@@ -2,7 +2,7 @@
 import Tabs from "./Tabs.vue";
 import FontSelectBlock from "./formblocks/FontSelectBlock.vue";
 import FontColorOption from "./inputs/FontColorOption.vue";
-import TextArea from "./inputs/TextArea.vue";
+import TextAreaBlock from "./formblocks/TextAreaBlock.vue";
 import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import controller from "./controller";
@@ -10,7 +10,7 @@ import controller from "./controller";
 export default {
   ...controller,
   components: {
-    Tabs, FontSelectBlock, TextBlock, TextArea, FontColorOption, ButtonBlock,
+    Tabs, FontSelectBlock, TextBlock, TextAreaBlock, FontColorOption, ButtonBlock,
   },
 };
 </script>
@@ -49,10 +49,10 @@ export default {
                     label="行間 (文字分)" />
               </div>
               <div class="column">
-                <div class="field">
-                  <label class="label">テキスト (改行可)</label>
-                  <TextArea v-model="source.text.content" :rows="3" />
-                </div>
+                <TextAreaBlock
+                    v-model="source.text.content"
+                    label="テキスト (改行可)"
+                    :rows="3" />
                 <div class="field">
                   <label class="label">揃え</label>
                   <div class="control">
