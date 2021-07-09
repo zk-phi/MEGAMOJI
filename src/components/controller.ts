@@ -7,11 +7,9 @@ import { FILTERS } from "../filters";
 import {
   FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS,
 } from "../parts";
-import { lighterColor, darkerColor } from "../utils/color";
 import {
   cropCanvas, cutoutCanvasIntoCells, mergeImages, loadFileAsBlobURL, urlToImg,
 } from "../utils/canvas";
-import { makeTextImage } from "../utils/textimage";
 
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
@@ -218,7 +216,6 @@ const data = (): Record<string, unknown> => ({
     mode: "text",
     showTargetPanel: false,
     fukumojiTab: "base",
-    showTextDetails: false,
     showTargetDetails: false,
   },
   /* form inputs */
@@ -226,17 +223,6 @@ const data = (): Record<string, unknown> => ({
     file: {
       file: null,
       filter: "",
-    },
-    text: {
-      /* basic */
-      content: "",
-      align: "stretch",
-      color: "#ffbf00",
-      gradient: [],
-      outlines: [],
-      font: "normal 1em sans-serif",
-      /* advanced */
-      lineSpacing: "0.05",
     },
     fukumoji: {
       base: "assets/void.svg",
@@ -298,17 +284,6 @@ const watch = {
     },
     deep: true,
   },
-  "source.text": {
-    handler(): void {
-      this.renderText();
-    },
-    deep: true,
-  },
-  "source.text.color": {
-    handler(): void {
-      this.source.text.gradient = [];
-    },
-  },
   "source.fukumoji": {
     handler(): void {
       this.renderFukumoji();
@@ -320,23 +295,6 @@ const watch = {
       this.render();
     },
     deep: true,
-  },
-};
-
-const computed = {
-  outlineColors(): string {
-    const { color } = this.source.text;
-    return this.source.text.outlines.map((outline) => (
-      outline === "lighter" ? (
-        lighterColor(color)
-      ) : outline === "darker" ? (
-        darkerColor(color)
-      ) : outline === "identical" ? (
-        color
-      ) : (
-        outline
-      )
-    ));
   },
 };
 
@@ -354,20 +312,6 @@ const methods = {
           }
         });
       });
-    }
-  },
-  renderText(): void {
-    if (this.source.text.content || this.baseImage) {
-      const blobUrl = makeTextImage(
-        this.source.text.content,
-        this.source.text.color,
-        this.source.text.font.replace(/1em/, `${EMOJI_SIZE}px`),
-        EMOJI_SIZE,
-        this.source.text.align,
-        this.source.text.lineSpacing * EMOJI_SIZE,
-        this.outlineColors, this.source.text.gradient,
-      );
-      urlToImg(blobUrl, (img) => { this.baseImage = img; });
     }
   },
   renderFukumoji(): void {
@@ -431,9 +375,6 @@ const methods = {
       this.target.framecount = 6;
     }
   },
-  onToggleTextDetails(): void {
-    this.ui.showTextDetails = !this.ui.showTextDetails;
-  },
   onToggleTargetDetails(): void {
     this.ui.showTargetDetails = !this.ui.showTargetDetails;
   },
@@ -473,11 +414,14 @@ const methods = {
       this.resultImages = res;
     });
   },
+  onRender(img): void {
+    this.baseImage = img;
+  },
   reset(): void {
     Object.assign(this.$data, data());
   },
 };
 
 export default {
-  data, methods, mounted, watch, computed,
+  data, methods, mounted, watch,
 };

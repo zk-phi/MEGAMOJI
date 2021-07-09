@@ -1,22 +1,14 @@
 <script>
 import Tabs from "./Tabs.vue";
-import FontSelectBlock from "./formblocks/FontSelectBlock.vue";
-import TextAreaBlock from "./formblocks/TextAreaBlock.vue";
-import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
-import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
-import GradientBlock from "./formblocks/GradientBlock.vue";
-import FontColorSelectBlock from "./formblocks/FontColorSelectBlock.vue";
 import ColorBlock from "./formblocks/ColorBlock.vue";
-import OutlineBlock from "./formblocks/OutlineBlock.vue";
+import TextSource from "./cards/TextSource.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
-    TextAreaBlock, ButtonBlock, GradientBlock, FontColorSelectBlock, ColorBlock,
-    OutlineBlock,
+    Tabs, TextBlock, ColorBlock, TextSource,
   },
 };
 </script>
@@ -41,46 +33,7 @@ export default {
 
     <div class="columns">
 
-      <div v-if="ui.mode == 'text' && !ui.showTargetPanel" class="column">
-        <div class="card">
-          <div class="card-content">
-            <div class="columns">
-              <div class="column">
-                <FontSelectBlock
-                    v-model="source.text.font"
-                    :show-details="ui.showTextDetails" />
-                <TextBlock
-                    v-if="ui.showTextDetails"
-                    v-model="source.text.lineSpacing"
-                    label="行間 (文字分)" />
-              </div>
-              <div class="column">
-                <TextAreaBlock
-                    v-model="source.text.content"
-                    label="テキスト (改行可)"
-                    :rows="3" />
-                <TextAlignSelectBlock
-                    v-model="source.text.align" />
-                <FontColorSelectBlock
-                    v-model="source.text.color"
-                    :show-details="ui.showTextDetails" />
-                <GradientBlock
-                    v-model="source.text.gradient"
-                    :base-color="source.text.color" />
-                <OutlineBlock
-                    v-model="source.text.outlines"
-                    :base-color="source.text.color"
-                    :show-details="ui.showTextDetails" />
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a class="card-footer-item" @click="onToggleTextDetails">
-              {{ ui.showTextDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-            </a>
-          </div>
-        </div>
-      </div>
+      <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
 
       <div v-if="ui.mode == 'file' && !ui.showTargetPanel" class="column">
         <div class="card">
