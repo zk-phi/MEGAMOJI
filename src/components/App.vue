@@ -5,10 +5,11 @@ import FileSource from "./cards/FileSource.vue";
 import FukumojiSource from "./cards/FukumojiSource.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import Target from "./cards/Target.vue";
+import Result from "./cards/Result.vue";
 
 export default {
   components: {
-    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target,
+    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target, Result,
   },
   data: (): Record<string, unknown> => ({
     MODES: [
@@ -77,44 +78,7 @@ export default {
 
       <div class="column is-one-third">
         <div class="block">
-          <div class="card mb">
-            <div class="card-content result_area">
-              <div class="field">
-                <label class="label">絵文字 (右クリックで保存)</label>
-                <div v-for="row in resultImages" v-if="!previewMode" class="row">
-                  <img v-for="col in row" class="cell default" :src="col">
-                </div>
-                <div v-for="mode in ['light', 'dark']" v-else :class="'preview ' + mode">
-                  <div>
-                    <b>zk-phi</b> <small>1:23 AM</small>
-                  </div>
-                  <div v-for="row in resultImages" class="row">
-                    <img v-for="col in row" class="cell large" :src="col">
-                  </div>
-                  <div>
-                    ほげほげほげほげほげほげほげほげ。
-                  </div>
-                  <div>
-                    文章中で使うとこんな
-                    <span v-for="row in resultImages">
-                      <img v-for="col in row" class="cell small" :src="col">
-                    </span>
-                    感じ。
-                  </div>
-                  <div>
-                    <span v-for="row in resultImages">
-                      <div v-for="col in row" class="reaction">
-                        <img class="cell smallest" :src="col"> 5
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <CheckboxBlock v-model="previewMode">
-                プレビュー
-              </CheckboxBlock>
-            </div>
-          </div>
+          <Result :images="resultImages" />
         </div>
         <div class="block">
           <div class="buttons">
