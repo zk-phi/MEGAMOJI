@@ -10,7 +10,7 @@ module.exports = {
   extends: [
     "airbnb-base",
     "plugin:compat/recommended",
-    "plugin:vue/recommended",
+    "plugin:vue/vue3-recommended",
     "plugin:@typescript-eslint/recommended",
   ],
   settings: {
@@ -23,6 +23,17 @@ module.exports = {
     // basic style modifications
     indent: ["error", 2],
     quotes: ["error", "double"],
+
+    // vue template styles
+    "vue/html-indent": ["error", 2, {
+      "attribute": 2,
+      "baseIndent": 1,
+      "alignAttributesVertically": true,
+    }],
+    "vue/html-closing-bracket-newline": ["error", {
+      "singleline": "never",
+      "multiline": "never",
+    }],
 
     // redundant "else" can help readablity
     "no-else-return": "off",
