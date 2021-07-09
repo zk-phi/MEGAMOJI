@@ -1,4 +1,12 @@
-export const FUKUMOJI_BASES = [
+export const categories = [
+  { value: "base", label: "ベース" },
+  { value: "eyes", label: "目" },
+  { value: "mouths", label: "口" },
+  { value: "others", label: "飾り" },
+  { value: "textures", label: "その他" },
+];
+
+export const base = [
   "assets/void.svg",
 
   "assets/base/common.svg",
@@ -51,7 +59,7 @@ export const FUKUMOJI_BASES = [
   // 'assets/base/1f92c.svg',
 ];
 
-export const FUKUMOJI_EYES = [
+export const eyes = [
   "assets/void.svg",
 
   "assets/eyes/1f425.svg",
@@ -189,7 +197,7 @@ export const FUKUMOJI_EYES = [
   // 'assets/eyes/1f63d.svg',
 ];
 
-export const FUKUMOJI_MOUTHS = [
+export const mouths = [
   "assets/void.svg",
 
   "assets/mouths/1f917.svg",
@@ -317,7 +325,7 @@ export const FUKUMOJI_MOUTHS = [
   // 'assets/mouths/1f928.svg',
 ];
 
-export const FUKUMOJI_TEXTURES = [
+export const textures = [
   "assets/void.svg",
 
   "assets/textures/1f428.svg",
@@ -338,7 +346,7 @@ export const FUKUMOJI_TEXTURES = [
   // 'assets/textures/1f425.svg',
 ];
 
-export const FUKUMOJI_OTHERS = [
+export const others = [
   "assets/void.svg",
 
   "assets/others/1f607.svg",

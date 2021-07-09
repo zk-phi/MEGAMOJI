@@ -1,15 +1,16 @@
 <script>
-import Tabs from "./Tabs.vue";
+import Nav from "./Nav.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import ColorBlock from "./formblocks/ColorBlock.vue";
 import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
+import FukumojiSource from "./columns/FukumojiSource.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, TextBlock, ColorBlock, TextSource, FileSource,
+    Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
   },
 };
 </script>
@@ -27,71 +28,16 @@ export default {
       </a>
     </h2>
 
-    <Tabs
+    <Nav
         :model-value="ui.showTargetPanel ? '' : ui.mode"
-        :tabs="MODES"
+        :pages="MODES"
         @update:modelValue="onSelectMode" />
 
     <div class="columns">
 
       <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
       <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
-
-      <div v-if="ui.mode == 'fukumoji' && !ui.showTargetPanel" class="column">
-        <div class="card">
-          <div class="card-content">
-            <div class="tabs is-toggle">
-              <ul>
-                <li :class="ui.fukumojiTab == 'base' ? 'is-active' : ''">
-                  <a @click="onSelectFukumojiTab('base')">ベース</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'eyes' ? 'is-active' : ''">
-                  <a @click="onSelectFukumojiTab('eyes')">目</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'mouths' ? 'is-active' : ''">
-                  <a @click="onSelectFukumojiTab('mouths')">口</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'others' ? 'is-active' : ''">
-                  <a @click="onSelectFukumojiTab('others')">飾り</a>
-                </li>
-                <li :class="ui.fukumojiTab == 'textures' ? 'is-active' : ''">
-                  <a @click="onSelectFukumojiTab('textures')">その他</a>
-                </li>
-              </ul>
-            </div>
-            <div v-if="ui.fukumojiTab == 'base'" class="fukumoji">
-              <img v-for="e in FUKUMOJI_BASES"
-                   :class="'part' + (source.fukumoji.base == e ? ' selected' : '')"
-                   :src="e"
-                   @click="onSelectFukumojiPart('base', e);">
-            </div>
-            <div v-if="ui.fukumojiTab == 'eyes'" class="fukumoji">
-              <img v-for="e in FUKUMOJI_EYES"
-                   :class="'part' + (source.fukumoji.eyes == e ? ' selected' : '')"
-                   :src="e"
-                   @click="onSelectFukumojiPart('eyes', e);">
-            </div>
-            <div v-if="ui.fukumojiTab == 'textures'" class="fukumoji">
-              <img v-for="e in FUKUMOJI_TEXTURES"
-                   :class="'part' + (source.fukumoji.textures == e ? ' selected' : '')"
-                   :src="e"
-                   @click="onSelectFukumojiPart('textures', e);">
-            </div>
-            <div v-if="ui.fukumojiTab == 'mouths'" class="fukumoji">
-              <img v-for="e in FUKUMOJI_MOUTHS"
-                   :class="'part' + (source.fukumoji.mouths == e ? ' selected' : '')"
-                   :src="e"
-                   @click="onSelectFukumojiPart('mouths', e);">
-            </div>
-            <div v-if="ui.fukumojiTab == 'others'" class="fukumoji">
-              <img v-for="e in FUKUMOJI_OTHERS"
-                   :class="'part' + (source.fukumoji.others == e ? ' selected' : '')"
-                   :src="e"
-                   @click="onSelectFukumojiPart('others', e);">
-            </div>
-          </div>
-        </div>
-      </div>
+      <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
 
       <div v-if="ui.showTargetPanel" class="column">
         <div class="card">

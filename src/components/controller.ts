@@ -3,10 +3,7 @@ import { ANIMATIONS } from "../animations";
 import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from "../effects";
 import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from "../webgleffects";
 import { POST_EFFECTS } from "../posteffects";
-import {
-  FUKUMOJI_BASES, FUKUMOJI_EYES, FUKUMOJI_MOUTHS, FUKUMOJI_TEXTURES, FUKUMOJI_OTHERS,
-} from "../parts";
-import { cropCanvas, cutoutCanvasIntoCells, mergeImages, urlToImg } from "../utils/canvas";
+import { cropCanvas, cutoutCanvasIntoCells } from "../utils/canvas";
 
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
@@ -195,11 +192,6 @@ const constants = {
   PRO_EFFECTS,
   WEBGL_EFFECTS,
   POST_EFFECTS,
-  FUKUMOJI_BASES,
-  FUKUMOJI_EYES,
-  FUKUMOJI_MOUTHS,
-  FUKUMOJI_TEXTURES,
-  FUKUMOJI_OTHERS,
 };
 
 const data = (): Record<string, unknown> => ({
@@ -213,16 +205,6 @@ const data = (): Record<string, unknown> => ({
     showTargetPanel: false,
     fukumojiTab: "base",
     showTargetDetails: false,
-  },
-  /* form inputs */
-  source: {
-    fukumoji: {
-      base: "assets/void.svg",
-      textures: "assets/void.svg",
-      eyes: "assets/void.svg",
-      mouths: "assets/void.svg",
-      others: "assets/void.svg",
-    },
   },
   target: {
     /* basic */
@@ -270,12 +252,6 @@ const watch = {
       }
     },
   },
-  "source.fukumoji": {
-    handler(): void {
-      this.renderFukumoji();
-    },
-    deep: true,
-  },
   target: {
     handler(): void {
       this.render();
@@ -285,19 +261,6 @@ const watch = {
 };
 
 const methods = {
-  renderFukumoji(): void {
-    mergeImages(128, 128, [
-      this.source.fukumoji.base,
-      this.source.fukumoji.textures,
-      this.source.fukumoji.mouths,
-      this.source.fukumoji.eyes,
-      this.source.fukumoji.others,
-    ], (blobUrl) => {
-      urlToImg(blobUrl, (img) => {
-        this.baseImage = img;
-      });
-    });
-  },
   refreshDefaultSettings(): void {
     const image = this.baseImage;
     const v = this.target.vCells;
@@ -326,12 +289,6 @@ const methods = {
     this.ui.mode = value;
     this.ui.showTargetPanel = false;
     ga("send", "pageview", `/${value}`);
-  },
-  onSelectFukumojiTab(value: string): void {
-    this.ui.fukumojiTab = value;
-  },
-  onSelectFukumojiPart(key: string, value: string): void {
-    this.source.fukumoji[key] = value;
   },
   onSelectSpeedPreset(e: { target: { value: string } }): void {
     const speed = e.target.value;
