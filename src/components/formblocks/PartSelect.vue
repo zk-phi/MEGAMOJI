@@ -12,10 +12,12 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="fukumoji">
-    <img v-for="p in parts"
-        :class="'part' + (modelValue == p ? ' selected' : '')"
-        :src="p"
-        @click="$emit('update:modelValue', p)">
+  <div v-if="show" class="field">
+    <div class="fukumoji">
+      <img v-for="p in parts"
+          :class="'part' + (modelValue == p ? ' selected' : '')"
+          :src="p"
+          @click="$emit('update:modelValue', p)">
+    </div>
   </div>
 </template>
