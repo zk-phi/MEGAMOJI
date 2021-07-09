@@ -7,13 +7,14 @@ import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
 import GradientBlock from "./formblocks/GradientBlock.vue";
+import ColorBlock from "./formblocks/ColorBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
-    TextAreaBlock, FontColorOption, ButtonBlock, GradientBlock,
+    TextAreaBlock, FontColorOption, ButtonBlock, GradientBlock, ColorBlock,
   },
 };
 </script>
@@ -127,12 +128,9 @@ export default {
                   </div>
                 </div>
                 <div v-if="ui.showTextDetails">
-                  <div class="field">
-                    <label class="label">その他の色</label>
-                    <div class="control">
-                      <input v-model="source.text.color" class="input" type="color">
-                    </div>
-                  </div>
+                  <ColorBlock
+                      v-model="source.text.color"
+                      label="その他の色" />
                   <div class="field">
                     <label class="label">その他のアウトライン</label>
                   </div>
@@ -379,12 +377,10 @@ export default {
                     </label>
                   </div>
                 </div>
-                <div class="field">
-                  <label class="label">背景色</label>
-                  <div class="control">
-                    <input v-model="target.backgroundColor" :disabled="target.transparent" class="input" type="color">
-                  </div>
-                </div>
+                <ColorBlock
+                    v-model="target.backgroundColor"
+                    label="背景色"
+                    :disabled="target.transparent" />
                 <div class="field">
                   <div class="control">
                     <label class="checkbox">
