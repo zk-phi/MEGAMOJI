@@ -1,6 +1,6 @@
 <script>
 import Tabs from "./Tabs.vue";
-import FontOption from "./FontOption.vue";
+import FontOption from "./inputs/FontOption.vue";
 import controller from "./controller";
 
 export default {
