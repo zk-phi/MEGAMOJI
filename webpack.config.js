@@ -18,9 +18,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-    alias: {
-      vue$: "vue/dist/vue.esm.js",
-    },
   },
   plugins: [
     new VueLoaderPlugin(),
