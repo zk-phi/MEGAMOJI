@@ -1,16 +1,22 @@
-<script>
+<script lang="ts">
 import FontOption from "../inputs/FontOption.vue";
 import TextInput from "../inputs/TextInput.vue";
 import fonts from "../../constants/fonts";
+
 export default {
-  props: ["modelValue", "showDetails"],
-  emits: ["update:modelValue"],
-  data: () => ({
-    fonts,
-  }),
   components: {
     FontOption, TextInput,
   },
+  props: {
+    modelValue: { type: String, required: true },
+    showDetails: { type: Boolean, required: true },
+  },
+  emits: [
+    "update:modelValue",
+  ],
+  data: (): Record<string, unknown> => ({
+    fonts,
+  }),
 };
 </script>
 
@@ -19,8 +25,8 @@ export default {
     <label class="label">{{ category.label }}</label>
     <FontOption
         v-for="font in category.fonts"
-        :model-value="modelValue"
         :key="font.label"
+        :model-value="modelValue"
         :font="font.value"
         @update:model-value="$emit('update:modelValue', $event)">
       {{ font.label }}

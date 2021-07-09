@@ -26,13 +26,13 @@ module.exports = {
 
     // vue template styles
     "vue/html-indent": ["error", 2, {
-      "attribute": 2,
-      "baseIndent": 1,
-      "alignAttributesVertically": true,
+      attribute: 2,
+      baseIndent: 1,
+      alignAttributesVertically: true,
     }],
     "vue/html-closing-bracket-newline": ["error", {
-      "singleline": "never",
-      "multiline": "never",
+      singleline: "never",
+      multiline: "never",
     }],
 
     // redundant "else" can help readablity

@@ -15,7 +15,8 @@
   ],
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
-    "@types/google.analytics": "^0.0.42"
+    "@types/google.analytics": "^0.0.42",
+    "vue": "^3.1.4"
   },
   "devDependencies": {
     "@primer/css": "^17.2.1",
@@ -33,7 +34,6 @@
     "stylelint-no-unsupported-browser-features": "^5.0.1",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.5",
-    "vue": "^3.1.4",
     "vue-loader": "^16.2.0",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^5.43.0",

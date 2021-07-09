@@ -40,7 +40,7 @@ export default {
           <div class="card-content">
             <div class="columns">
               <div class="column">
-                <FontSelectBlock v-model="source.text.font" :showDetails="ui.showTextDetails" />
+                <FontSelectBlock v-model="source.text.font" :show-details="ui.showTextDetails" />
                 <div v-if="ui.showTextDetails" class="field">
                   <label class="label">行間 (文字分)</label>
                   <TextInput v-model="source.text.lineSpacing" />
@@ -49,7 +49,7 @@ export default {
               <div class="column">
                 <div class="field">
                   <label class="label">テキスト (改行可)</label>
-                  <TextArea v-model="source.text.content" rows="3" />
+                  <TextArea v-model="source.text.content" :rows="3" />
                 </div>
                 <div class="field">
                   <label class="label">揃え</label>
@@ -82,34 +82,34 @@ export default {
                     <FontColorOption v-model="source.text.color" color="#ffffff" />
                   </div>
                   <div class="control">
-                    <FontColorOption color="#7f0000" v-model="source.text.color" />
-                    <FontColorOption color="#7f5f00" v-model="source.text.color" />
-                    <FontColorOption color="#3f7f00" v-model="source.text.color" />
-                    <FontColorOption color="#007f1f" v-model="source.text.color" />
-                    <FontColorOption color="#007f7f" v-model="source.text.color" />
-                    <FontColorOption color="#001f7f" v-model="source.text.color" />
-                    <FontColorOption color="#3f007f" v-model="source.text.color" />
-                    <FontColorOption color="#7f005f" v-model="source.text.color" />
+                    <FontColorOption v-model="source.text.color" color="#7f0000" />
+                    <FontColorOption v-model="source.text.color" color="#7f5f00" />
+                    <FontColorOption v-model="source.text.color" color="#3f7f00" />
+                    <FontColorOption v-model="source.text.color" color="#007f1f" />
+                    <FontColorOption v-model="source.text.color" color="#007f7f" />
+                    <FontColorOption v-model="source.text.color" color="#001f7f" />
+                    <FontColorOption v-model="source.text.color" color="#3f007f" />
+                    <FontColorOption v-model="source.text.color" color="#7f005f" />
                   </div>
                   <div class="control">
-                    <FontColorOption color="#ff0000" v-model="source.text.color" />
-                    <FontColorOption color="#ffbf00" v-model="source.text.color" />
-                    <FontColorOption color="#7fff00" v-model="source.text.color" />
-                    <FontColorOption color="#00ff3f" v-model="source.text.color" />
-                    <FontColorOption color="#00ffff" v-model="source.text.color" />
-                    <FontColorOption color="#003fff" v-model="source.text.color" />
-                    <FontColorOption color="#7f00ff" v-model="source.text.color" />
-                    <FontColorOption color="#ff00bf" v-model="source.text.color" />
+                    <FontColorOption v-model="source.text.color" color="#ff0000" />
+                    <FontColorOption v-model="source.text.color" color="#ffbf00" />
+                    <FontColorOption v-model="source.text.color" color="#7fff00" />
+                    <FontColorOption v-model="source.text.color" color="#00ff3f" />
+                    <FontColorOption v-model="source.text.color" color="#00ffff" />
+                    <FontColorOption v-model="source.text.color" color="#003fff" />
+                    <FontColorOption v-model="source.text.color" color="#7f00ff" />
+                    <FontColorOption v-model="source.text.color" color="#ff00bf" />
                   </div>
                   <div class="control">
-                    <FontColorOption color="#ff7f7f" v-model="source.text.color" />
-                    <FontColorOption color="#ffdf7f" v-model="source.text.color" />
-                    <FontColorOption color="#bfff7f" v-model="source.text.color" />
-                    <FontColorOption color="#7fff9f" v-model="source.text.color" />
-                    <FontColorOption color="#7fffff" v-model="source.text.color" />
-                    <FontColorOption color="#7f9fff" v-model="source.text.color" />
-                    <FontColorOption color="#bf7fff" v-model="source.text.color" />
-                    <FontColorOption color="#ff7fdf" v-model="source.text.color" />
+                    <FontColorOption v-model="source.text.color" color="#ff7f7f" />
+                    <FontColorOption v-model="source.text.color" color="#ffdf7f" />
+                    <FontColorOption v-model="source.text.color" color="#bfff7f" />
+                    <FontColorOption v-model="source.text.color" color="#7fff9f" />
+                    <FontColorOption v-model="source.text.color" color="#7fffff" />
+                    <FontColorOption v-model="source.text.color" color="#7f9fff" />
+                    <FontColorOption v-model="source.text.color" color="#bf7fff" />
+                    <FontColorOption v-model="source.text.color" color="#ff7fdf" />
                   </div>
                 </div>
                 <ButtonBlock v-if="source.text.gradient.length == 0" :click="initializeGradient">
@@ -246,31 +246,31 @@ export default {
               <img v-for="e in FUKUMOJI_BASES"
                    :class="'part' + (source.fukumoji.base == e ? ' selected' : '')"
                    :src="e"
-                   @click="onSelectFukumojiPart('base', e);" />
+                   @click="onSelectFukumojiPart('base', e);">
             </div>
             <div v-if="ui.fukumojiTab == 'eyes'" class="fukumoji">
               <img v-for="e in FUKUMOJI_EYES"
                    :class="'part' + (source.fukumoji.eyes == e ? ' selected' : '')"
                    :src="e"
-                   @click="onSelectFukumojiPart('eyes', e);" />
+                   @click="onSelectFukumojiPart('eyes', e);">
             </div>
             <div v-if="ui.fukumojiTab == 'textures'" class="fukumoji">
               <img v-for="e in FUKUMOJI_TEXTURES"
                    :class="'part' + (source.fukumoji.textures == e ? ' selected' : '')"
                    :src="e"
-                   @click="onSelectFukumojiPart('textures', e);" />
+                   @click="onSelectFukumojiPart('textures', e);">
             </div>
             <div v-if="ui.fukumojiTab == 'mouths'" class="fukumoji">
               <img v-for="e in FUKUMOJI_MOUTHS"
                    :class="'part' + (source.fukumoji.mouths == e ? ' selected' : '')"
                    :src="e"
-                   @click="onSelectFukumojiPart('mouths', e);" />
+                   @click="onSelectFukumojiPart('mouths', e);">
             </div>
             <div v-if="ui.fukumojiTab == 'others'" class="fukumoji">
               <img v-for="e in FUKUMOJI_OTHERS"
                    :class="'part' + (source.fukumoji.others == e ? ' selected' : '')"
                    :src="e"
-                   @click="onSelectFukumojiPart('others', e);" />
+                   @click="onSelectFukumojiPart('others', e);">
             </div>
           </div>
         </div>

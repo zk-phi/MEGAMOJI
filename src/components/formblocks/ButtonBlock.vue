@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
 export default {
-  props: ["click"]
+  props: {
+    click: { type: Function, required: true },
+  },
 };
 </script>
 

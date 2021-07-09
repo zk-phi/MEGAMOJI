@@ -1,7 +1,11 @@
-<script>
+<script lang="ts">
 export default {
-  props: ["modelValue"],
-  emits: ["update:modelValue"],
+  props: {
+    modelValue: { type: String, required: true },
+  },
+  emits: [
+    "update:modelValue",
+  ],
 };
 </script>
 
@@ -11,6 +15,6 @@ export default {
         :value="modelValue"
         class="input"
         type="text"
-        @input="$emit('update:modelValue', $event.target.value)" />
+        @input="$emit('update:modelValue', $event.target.value)">
   </div>
 </template>

@@ -1,7 +1,12 @@
-<script>
+<script lang="ts">
 export default {
-  props: ["modelValue", "font", "label"],
-  emits: ["update:modelValue"],
+  props: {
+    modelValue: { type: String, required: true },
+    font: { type: String, required: true },
+  },
+  emits: [
+    "update:modelValue",
+  ],
 };
 </script>
 

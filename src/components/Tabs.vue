@@ -1,7 +1,12 @@
 <script>
 export default {
-  props: ["modelValue", "tabs"],
-  emits: ["update:modelValue"],
+  props: {
+    modelValue: { type: String, required: true },
+    tabs: { type: Array, required: true },
+  },
+  emits: [
+    "update:modelValue",
+  ],
 };
 </script>
 

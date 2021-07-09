@@ -26,5 +26,5 @@ export default [
       { label: "ランパート", value: "normal 1em 'Rampart'" },
     ],
   }, {
-  }
+  },
 ];
