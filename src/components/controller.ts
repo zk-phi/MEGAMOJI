@@ -387,24 +387,6 @@ const methods = {
       });
     });
   },
-  initializeGradient(): void {
-    this.source.text.gradient = [
-      { color: "#ffffff", pos: 0 },
-      { color: this.source.text.color, pos: 45 },
-      { color: lighterColor(this.source.text.color), pos: 55 },
-      { color: darkerColor(this.source.text.color), pos: 65 },
-      { color: "#ffffff", pos: 100 },
-    ];
-  },
-  addGradientColorStop(): void {
-    this.source.text.gradient.push({
-      color: this.source.text.color,
-      pos: 50,
-    });
-  },
-  removeGradientColorStop(ix: number): void {
-    this.source.text.gradient.splice(ix, 1);
-  },
   addOutline(): void {
     this.source.text.outlines.push(this.source.text.color);
   },

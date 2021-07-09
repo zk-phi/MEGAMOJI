@@ -6,13 +6,14 @@ import TextAreaBlock from "./formblocks/TextAreaBlock.vue";
 import ButtonBlock from "./formblocks/ButtonBlock.vue";
 import TextBlock from "./formblocks/TextBlock.vue";
 import TextAlignSelectBlock from "./formblocks/TextAlignSelectBlock.vue";
+import GradientBlock from "./formblocks/GradientBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Tabs, FontSelectBlock, TextAlignSelectBlock, TextBlock,
-    TextAreaBlock, FontColorOption, ButtonBlock,
+    TextAreaBlock, FontColorOption, ButtonBlock, GradientBlock,
   },
 };
 </script>
@@ -97,25 +98,9 @@ export default {
                     <FontColorOption v-model="source.text.color" color="#ff7fdf" />
                   </div>
                 </div>
-                <ButtonBlock v-if="source.text.gradient.length == 0" :click="initializeGradient">
-                  グラデーションを追加
-                </ButtonBlock>
-                <div v-for="(colorstop, ix) in source.text.gradient" class="field has-addons">
-                  <div class="control">
-                    <input v-model="source.text.gradient[ix].color" type="color" class="input">
-                  </div>
-                  <div class="control is-expanded">
-                    <input v-model="source.text.gradient[ix].pos" class="input" type="range" min="1" max="100">
-                  </div>
-                  <div class="control">
-                    <button class="button" @click="removeGradientColorStop(ix)">
-                      x
-                    </button>
-                  </div>
-                </div>
-                <ButtonBlock v-if="source.text.gradient.length > 0" :click="addGradientColorStop">
-                  + 色を追加
-                </ButtonBlock>
+                <GradientBlock
+                    v-model="source.text.gradient"
+                    :base-color="source.text.color" />
                 <div class="field">
                   <label class="label">アウトライン</label>
                   <div class="control">
