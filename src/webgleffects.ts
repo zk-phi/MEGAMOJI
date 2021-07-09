@@ -1,12 +1,9 @@
 import { WebGLEffect, VertexShaderArgs } from "./types";
 
-export type Shader = () => WebGLShader;
 export type EffectShader = (args: VertexShaderArgs) => WebGLProgram;
 
 let webglCanvas;
-
-// eslint-disable-next-line import/no-mutable-exports
-export let gl;
+let gl;
 
 // initialize webgl rendering context and returns a canvas which result image will be rendered in.
 // if the browser does not support webgl, just return null.
@@ -96,6 +93,29 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
     gl.uniform1f(gl.getUniformLocation(program, "flipY"), args.flipY ? -1 : 1);
     return program;
   };
+}
+
+// set uniform
+export function webglSetFloat(program: WebGLProgram, varName: string, value: number) {
+  gl.uniform1f(gl.getUniformLocation(program, varName), value);
+}
+export function webglSetVec2(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniform2fv(gl.getUniformLocation(program, varName), value);
+}
+export function webglSetVec3(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniform3fv(gl.getUniformLocation(program, varName), value);
+}
+export function webglSetVec4(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniform4fv(gl.getUniformLocation(program, varName), value);
+}
+export function webglSetMat2(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniformMatrix2fv(gl.getUniformLocation(program, varName), false, value);
+}
+export function webglSetMat3(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniformMatrix3fv(gl.getUniformLocation(program, varName), false, value);
+}
+export function webglSetMat4(program: WebGLProgram, varName: string, value: number[]) {
+  gl.uniformMatrix4fv(gl.getUniformLocation(program, varName), false, value);
 }
 
 // create, initialize and bind a texture

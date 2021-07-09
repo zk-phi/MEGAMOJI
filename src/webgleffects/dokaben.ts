@@ -1,5 +1,5 @@
 import { WebGLEffect } from "../types";
-import { gl } from "../webgleffects";
+import { webglSetMat3 } from "../webgleffects";
 import shaderWarp from "../shaders/warp";
 import { matrixPerspective, matrixFlatten } from "../utils/matrix";
 
@@ -12,7 +12,7 @@ const webglDokaben: WebGLEffect = (keyframe, w, h, args) => {
     [0.25, 0.25, 0.75, 0.25, 0.25, 0.75, 0.75, 0.75],
     [0.25 + diffH, 0.25 + diffV, 0.75 - diffH, 0.25 + diffV, 0.25, 0.75, 0.75, 0.75],
   );
-  gl.uniformMatrix3fv(gl.getUniformLocation(program, "matrix"), false, matrixFlatten(m));
+  webglSetMat3(program, "matrix", matrixFlatten(m));
 };
 
 export default webglDokaben;

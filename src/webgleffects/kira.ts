@@ -1,12 +1,12 @@
 import { WebGLEffect } from "../types";
-import { gl } from "../webgleffects";
+import { webglSetFloat } from "../webgleffects";
 import shaderAdjust from "../shaders/adjust";
 
 const webglKira: WebGLEffect = (keyframe, _w, _h, args) => {
   const program = shaderAdjust(args);
-  gl.uniform1f(gl.getUniformLocation(program, "brightness"), 0.1);
-  gl.uniform1f(gl.getUniformLocation(program, "contrast"), -0.1);
-  gl.uniform1f(gl.getUniformLocation(program, "hue"), -1 + 2 * keyframe);
+  webglSetFloat(program, "brightness", 0.1);
+  webglSetFloat(program, "contrast", -0.1);
+  webglSetFloat(program, "hue", -1 + 2 * keyframe);
 };
 
 export default webglKira;
