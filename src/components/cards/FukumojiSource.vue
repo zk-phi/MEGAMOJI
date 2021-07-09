@@ -51,16 +51,14 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="column">
-    <div class="card">
-      <div class="card-content">
-        <Tabs v-model="tab" :tabs="parts.categories" />
-        <PartSelect
-            v-for="category in parts.categories"
-            :show="tab === category.value"
-            v-model="conf[category.value]"
-            :parts="parts[category.value]" />
-      </div>
+  <div v-if="show" class="card">
+    <div class="card-content">
+      <Tabs v-model="tab" :tabs="parts.categories" />
+      <PartSelect
+          v-for="category in parts.categories"
+          :show="tab === category.value"
+          v-model="conf[category.value]"
+          :parts="parts[category.value]" />
     </div>
   </div>
 </template>

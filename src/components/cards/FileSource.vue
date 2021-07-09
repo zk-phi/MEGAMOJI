@@ -44,12 +44,10 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="column">
-    <div class="card">
-      <div class="card-content">
-        <FileBlock label="ファイル" @load="conf.img = $event" />
-        <FilterSelectBlock v-model="conf.filter" />
-      </div>
+  <div v-if="show" class="card">
+    <div class="card-content">
+      <FileBlock label="ファイル" @load="conf.img = $event" />
+      <FilterSelectBlock v-model="conf.filter" />
     </div>
   </div>
 </template>

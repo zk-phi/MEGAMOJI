@@ -84,44 +84,42 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="column">
-    <div class="card">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column">
-            <FontSelectBlock
-                v-model="conf.font"
-                :show-details="showDetails" />
-            <TextBlock
-                v-if="showDetails"
-                v-model="conf.lineSpacing"
-                label="行間 (文字分)" />
-          </div>
-          <div class="column">
-            <TextAreaBlock
-                v-model="conf.content"
-                label="テキスト (改行可)"
-                :rows="3" />
-            <TextAlignSelectBlock
-                v-model="conf.align" />
-            <FontColorSelectBlock
-                v-model="conf.color"
-                :show-details="showDetails" />
-            <GradientBlock
-                v-model="conf.gradient"
-                :base-color="conf.color" />
-            <OutlineBlock
-                v-model="conf.outlines"
-                :base-color="conf.color"
-                :show-details="showDetails" />
-          </div>
+  <div v-if="show" class="card">
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <FontSelectBlock
+              v-model="conf.font"
+              :show-details="showDetails" />
+          <TextBlock
+              v-if="showDetails"
+              v-model="conf.lineSpacing"
+              label="行間 (文字分)" />
+        </div>
+        <div class="column">
+          <TextAreaBlock
+              v-model="conf.content"
+              label="テキスト (改行可)"
+              :rows="3" />
+          <TextAlignSelectBlock
+              v-model="conf.align" />
+          <FontColorSelectBlock
+              v-model="conf.color"
+              :show-details="showDetails" />
+          <GradientBlock
+              v-model="conf.gradient"
+              :base-color="conf.color" />
+          <OutlineBlock
+              v-model="conf.outlines"
+              :base-color="conf.color"
+              :show-details="showDetails" />
         </div>
       </div>
-      <div class="card-footer">
-        <a class="card-footer-item" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </a>
-      </div>
+    </div>
+    <div class="card-footer">
+      <a class="card-footer-item" @click="showDetails = !showDetails">
+        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+      </a>
     </div>
   </div>
 </template>

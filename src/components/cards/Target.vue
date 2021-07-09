@@ -150,84 +150,82 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="column">
-    <div class="card">
-      <div class="card-content">
-        <div class="columns">
-          <div class="column">
-            <AnimationSelectBlock v-model="conf.animation" />
-            <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
-            <EffectBlock v-model="conf.effects" :effects="effects" />
-            <EffectBlock v-model="conf.postEffects" :effects="posteffects" />
-            <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-            <RangeBlock
-                v-if="showDetails"
-                v-model="conf.framerate"
-                :label="`アニメ速度 (フレームレート): ${conf.framerate}`"
-                :min="1"
-                :max="60" />
-            <RangeBlock
-                v-if="showDetails"
-                v-model="conf.framecount"
-                :label="`フレーム数: ${conf.framecount}`"
-                :min="1"
-                :max="12" />
-            <CheckboxBlock v-if="showDetails" v-model="conf.noCrop" label="開発者用">
-              余白を切らない
-            </CheckboxBlock>
-          </div>
-          <div class="column">
-            <TrimmingSelectBlock
-                v-model="conf.trimming"
-                @update:model-value="refreshDefaultSettings" />
-            <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-            <AnimationSpeedSelectBlock @update:model-value="selectSpeedPreset" />
-            <CheckboxBlock v-model="conf.animationInvert">
-              進行方向を反転
-            </CheckboxBlock>
-            <ColorBlock
-                v-model="conf.backgroundColor"
-                label="背景色"
-                :disabled="conf.transparent" />
-            <CheckboxBlock v-model="conf.transparent">
-              背景を塗らない (アニメ gif は非推奨)
-            </CheckboxBlock>
-            <NumberBlock
-                v-if="showDetails"
-                v-model="conf.hCells"
-                :min="1"
-                label="分割 横"
-                @update:model-value="refreshDefaultSettings" />
-            <NumberBlock
-                v-if="showDetails"
-                v-model="conf.vCells"
-                :min="1"
-                label="分割 縦"
-                @update:model-value="refreshDefaultSettings" />
-            <TextBlock
-                v-if="showDetails"
-                v-model="conf.offsetLeft"
-                label="オフセット左 (px)" />
-            <TextBlock
-                v-if="showDetails"
-                v-model="conf.offsetTop"
-                label="オフセット上 (px)" />
-            <TextBlock
-                v-if="showDetails"
-                v-model="conf.hZoom"
-                label="拡大率 (横)" />
-            <TextBlock
-                v-if="showDetails"
-                v-model="conf.vZoom"
-                label="拡大率 (縦)" />
-          </div>
+  <div v-if="show" class="card">
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <AnimationSelectBlock v-model="conf.animation" />
+          <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
+          <EffectBlock v-model="conf.effects" :effects="effects" />
+          <EffectBlock v-model="conf.postEffects" :effects="posteffects" />
+          <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
+          <RangeBlock
+              v-if="showDetails"
+              v-model="conf.framerate"
+              :label="`アニメ速度 (フレームレート): ${conf.framerate}`"
+              :min="1"
+              :max="60" />
+          <RangeBlock
+              v-if="showDetails"
+              v-model="conf.framecount"
+              :label="`フレーム数: ${conf.framecount}`"
+              :min="1"
+              :max="12" />
+          <CheckboxBlock v-if="showDetails" v-model="conf.noCrop" label="開発者用">
+            余白を切らない
+          </CheckboxBlock>
+        </div>
+        <div class="column">
+          <TrimmingSelectBlock
+              v-model="conf.trimming"
+              @update:model-value="refreshDefaultSettings" />
+          <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
+          <AnimationSpeedSelectBlock @update:model-value="selectSpeedPreset" />
+          <CheckboxBlock v-model="conf.animationInvert">
+            進行方向を反転
+          </CheckboxBlock>
+          <ColorBlock
+              v-model="conf.backgroundColor"
+              label="背景色"
+              :disabled="conf.transparent" />
+          <CheckboxBlock v-model="conf.transparent">
+            背景を塗らない (アニメ gif は非推奨)
+          </CheckboxBlock>
+          <NumberBlock
+              v-if="showDetails"
+              v-model="conf.hCells"
+              :min="1"
+              label="分割 横"
+              @update:model-value="refreshDefaultSettings" />
+          <NumberBlock
+              v-if="showDetails"
+              v-model="conf.vCells"
+              :min="1"
+              label="分割 縦"
+              @update:model-value="refreshDefaultSettings" />
+          <TextBlock
+              v-if="showDetails"
+              v-model="conf.offsetLeft"
+              label="オフセット左 (px)" />
+          <TextBlock
+              v-if="showDetails"
+              v-model="conf.offsetTop"
+              label="オフセット上 (px)" />
+          <TextBlock
+              v-if="showDetails"
+              v-model="conf.hZoom"
+              label="拡大率 (横)" />
+          <TextBlock
+              v-if="showDetails"
+              v-model="conf.vZoom"
+              label="拡大率 (縦)" />
         </div>
       </div>
-      <div class="card-footer">
-        <a class="card-footer-item" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </a>
-      </div>
+    </div>
+    <div class="card-footer">
+      <a class="card-footer-item" @click="showDetails = !showDetails">
+        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+      </a>
     </div>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <script lang="ts">
 import Nav from "./navigation/Nav.vue";
-import TextSource from "./columns/TextSource.vue";
-import FileSource from "./columns/FileSource.vue";
-import FukumojiSource from "./columns/FukumojiSource.vue";
+import TextSource from "./cards/TextSource.vue";
+import FileSource from "./cards/FileSource.vue";
+import FukumojiSource from "./cards/FukumojiSource.vue";
 import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
-import Target from "./columns/Target.vue";
+import Target from "./cards/Target.vue";
 
 export default {
   components: {
@@ -68,10 +68,12 @@ export default {
 
     <div class="columns">
 
-      <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
-      <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
-      <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
-      <Target :show="ui.showTargetPanel" :base-image="baseImage" @render="onRenderTarget" />
+      <div class="column">
+        <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
+        <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
+        <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
+        <Target :show="ui.showTargetPanel" :base-image="baseImage" @render="onRenderTarget" />
+      </div>
 
       <div class="column is-one-third">
         <div class="block">
