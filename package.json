@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
+    "@types/google.analytics": "^0.0.42",
     "vue": "^2.6.14"
   },
   "devDependencies": {
