@@ -7,13 +7,14 @@ import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";
 import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "./formblocks/EffectBlock.vue";
+import RangeBlock from "./formblocks/RangeBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
-    AnimationSelectBlock, EffectBlock,
+    AnimationSelectBlock, EffectBlock, RangeBlock,
   },
 };
 </script>
@@ -53,18 +54,16 @@ export default {
                 <EffectBlock v-model="target.postEffects" :effects="posteffects" />
                 <div v-if="ui.showTargetDetails">
                   <EffectBlock v-model="target.effects" :effects="bgeffects" />
-                  <div class="field">
-                    <label class="label">アニメ速度 (フレームレート): {{ target.framerate }}</label>
-                    <div class="control">
-                      <input v-model="target.framerate" type="range" min="1" max="60">
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">フレーム数: {{ target.framecount }}</label>
-                    <div class="control">
-                      <input v-model="target.framecount" type="range" min="1" max="12">
-                    </div>
-                  </div>
+                  <RangeBlock
+                      v-model="target.framerate"
+                      :label="`アニメ速度 (フレームレート): ${target.framerate}`"
+                      :min="1"
+                      :max="60" />
+                  <RangeBlock
+                      v-model="target.framecount"
+                      :label="`フレーム数: ${target.framecount}`"
+                      :min="1"
+                      :max="12" />
                   <div class="field">
                     <label class="label">開発者用</label>
                     <div class="control">
