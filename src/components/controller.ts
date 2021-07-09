@@ -236,7 +236,7 @@ const data = (): Record<string, unknown> => ({
       outlines: [],
       font: "normal 1em sans-serif",
       /* advanced */
-      lineSpacing: 0.05,
+      lineSpacing: "0.05",
     },
     fukumoji: {
       base: "assets/void.svg",
