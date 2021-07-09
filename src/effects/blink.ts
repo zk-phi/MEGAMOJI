@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectBlink: Effect = (keyframe, ctx, cellWidth) => {
   if (keyframe >= 0.5) {

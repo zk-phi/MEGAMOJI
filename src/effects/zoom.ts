@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectZoom: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   const zoom = Math.abs(keyframe - 0.5) * 2 - 0.5;

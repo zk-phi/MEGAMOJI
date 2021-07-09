@@ -1,4 +1,4 @@
-import { PostEffect } from "../posteffects";
+import { PostEffect } from "../types";
 
 const postEffectMosaic: PostEffect = (keyframe, ctx, w, h) => {
   const image = ctx.getImageData(0, 0, w, h);

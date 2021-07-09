@@ -12,3 +12,24 @@ export type Animation = (
 // size of the image to be rendered
   cellWidth: number, cellHeight: number,
 ) => void;
+
+// An effect takes a 2d rendering context and makes modifications to it.
+// Note that users can enable multiple effects at the same time.
+export type Effect = (
+  // a 0.0 - 1.0 progress of the animation
+  keyrame: number,
+  // the rendering context to be modified
+  ctx: CanvasRenderingContext2D,
+  // size of the image to be rendered
+  width: number, height: number,
+) => void;
+
+export type PostEffect = (
+  keyframe: number, ctx: CanvasRenderingContext2D, width: number, height: number,
+) => void;
+
+export type VertexShaderArgs = { flipY: boolean };
+
+export type WebGLEffect = (
+  keyframe: number, width: number, height: number, args: VertexShaderArgs,
+) => void;

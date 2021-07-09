@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectShadowRotate: Effect = (keyframe, ctx) => {
   ctx.shadowColor = "black";

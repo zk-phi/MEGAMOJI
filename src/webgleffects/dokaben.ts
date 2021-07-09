@@ -1,4 +1,5 @@
-import { gl, WebGLEffect } from "../webgleffects";
+import { WebGLEffect } from "../types";
+import { gl } from "../webgleffects";
 import shaderWarp from "../shaders/warp";
 import { matrixPerspective, matrixFlatten } from "../utils/matrix";
 

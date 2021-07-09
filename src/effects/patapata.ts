@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectPatapata: Effect = (keyframe, ctx, cellWidth) => {
   ctx.transform(

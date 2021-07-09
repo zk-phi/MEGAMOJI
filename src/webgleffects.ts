@@ -1,26 +1,7 @@
-import webglKira from "./webgleffects/kira";
-import webglFoil from "./webgleffects/foil";
-import webglBlur from "./webgleffects/blur";
-import webglBlurVertical from "./webgleffects/blurVertical";
-import webglZoom from "./webgleffects/zoom";
-import webglDokaben from "./webgleffects/dokaben";
+import { WebGLEffect, VertexShaderArgs } from "./types";
 
-export type VertexShaderArgs = { flipY: boolean };
 export type Shader = () => WebGLShader;
 export type EffectShader = (args: VertexShaderArgs) => WebGLProgram;
-
-export type WebGLEffect = (
-  keyframe: number, width: number, height: number, args: VertexShaderArgs,
-) => void;
-
-export const WEBGL_EFFECTS = [
-  { label: "キラ", fn: webglKira },
-  { label: "横もや", fn: webglBlur },
-  { label: "縦もや", fn: webglBlurVertical },
-  { label: "Foil", fn: webglFoil },
-  { label: "カベドン", fn: webglDokaben },
-  { label: "残像", fn: webglZoom },
-];
 
 let webglCanvas;
 

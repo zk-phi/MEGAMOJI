@@ -6,13 +6,14 @@ import TextSource from "./columns/TextSource.vue";
 import FileSource from "./columns/FileSource.vue";
 import FukumojiSource from "./columns/FukumojiSource.vue";
 import AnimationSelectBlock from "./formblocks/AnimationSelectBlock.vue";
+import EffectBlock from "./formblocks/EffectBlock.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
     Nav, TextBlock, ColorBlock, TextSource, FileSource, FukumojiSource,
-    AnimationSelectBlock,
+    AnimationSelectBlock, EffectBlock,
   },
 };
 </script>
@@ -47,43 +48,11 @@ export default {
             <div class="columns">
               <div class="column">
                 <AnimationSelectBlock v-model="target.animation" />
-                <div class="field">
-                  <label class="label">WebGL 対応ブラウザのみ</label>
-                  <div class="control">
-                    <label v-for="effect in WEBGL_EFFECTS" class="checkbox">
-                      <input v-model="target.webglEffects" type="checkbox" :value="effect.fn">
-                      {{ effect.label }}
-                    </label>
-                  </div>
-                </div>
-                <div v-for="category in EFFECTS" class="field">
-                  <label class="label">{{ category.label }}</label>
-                  <div class="control">
-                    <label v-for="effect in category.effects" class="checkbox">
-                      <input v-model="target.effects" type="checkbox" :value="effect.fn">
-                      {{ effect.label }}
-                    </label>
-                  </div>
-                </div>
-                <div v-for="category in POST_EFFECTS" class="field">
-                  <label class="label">{{ category.label }}</label>
-                  <div class="control">
-                    <label v-for="effect in category.effects" class="checkbox">
-                      <input v-model="target.postEffects" type="checkbox" :value="effect.fn">
-                      {{ effect.label }}
-                    </label>
-                  </div>
-                </div>
+                <EffectBlock v-model="target.webglEffects" :effects="webgleffects" />
+                <EffectBlock v-model="target.effects" :effects="effects" />
+                <EffectBlock v-model="target.postEffects" :effects="posteffects" />
                 <div v-if="ui.showTargetDetails">
-                  <div v-for="category in PRO_EFFECTS" class="field">
-                    <label class="label">{{ category.label }}</label>
-                    <div class="control">
-                      <label v-for="effect in category.effects" class="checkbox">
-                        <input v-model="target.effects" type="checkbox" :value="effect.fn">
-                        {{ effect.label }}
-                      </label>
-                    </div>
-                  </div>
+                  <EffectBlock v-model="target.effects" :effects="bgeffects" />
                   <div class="field">
                     <label class="label">アニメ速度 (フレームレート): {{ target.framerate }}</label>
                     <div class="control">
@@ -126,14 +95,7 @@ export default {
                     </div>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="control">
-                    <label v-for="effect in STATIC_EFFECTS" class="checkbox">
-                      <input v-model="target.staticEffects" type="checkbox" :value="effect.fn">
-                      {{ effect.label }}
-                    </label>
-                  </div>
-                </div>
+                <EffectBlock v-model="target.staticEffects" :effects="staticeffects" />
                 <div class="field">
                   <label class="label">スピード</label>
                   <div class="control">

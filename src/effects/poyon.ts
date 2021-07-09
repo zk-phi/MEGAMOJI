@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectPoyon: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   if (keyframe < 0.6) {

@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 import { scaleCentered } from "../utils/canvas";
 
 const effectStraight: Effect = (keyframe, ctx, cellWidth, cellHeight) => {

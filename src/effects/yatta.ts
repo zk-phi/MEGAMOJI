@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectYatta: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   if (keyframe >= 0.5) {

@@ -1,4 +1,5 @@
-import { gl, WebGLEffect } from "../webgleffects";
+import { WebGLEffect } from "../types";
+import { gl } from "../webgleffects";
 import shaderBlur from "../shaders/blur";
 
 const webglBlurVertical: WebGLEffect = (keyframe, _w, _h, args) => {

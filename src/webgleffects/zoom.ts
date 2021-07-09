@@ -1,4 +1,5 @@
-import { gl, WebGLEffect } from "../webgleffects";
+import { WebGLEffect } from "../types";
+import { gl } from "../webgleffects";
 import shaderZoomBlur from "../shaders/zoomBlur";
 
 const webglZoom: WebGLEffect = (keyframe, _w, _h, args) => {

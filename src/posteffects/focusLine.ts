@@ -1,4 +1,4 @@
-import { PostEffect } from "../posteffects";
+import { PostEffect } from "../types";
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
 const postEffectFocusLine: PostEffect = (keyframe, ctx, w, h) => {

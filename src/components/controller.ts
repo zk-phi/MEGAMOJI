@@ -1,8 +1,12 @@
 import GIF from "@dhdbstjr98/gif.js";
-import { EFFECTS, STATIC_EFFECTS, PRO_EFFECTS } from "../effects";
-import { webglApplyEffects, webglInitialize, WEBGL_EFFECTS } from "../webgleffects";
-import { POST_EFFECTS } from "../posteffects";
+import { webglApplyEffects, webglInitialize } from "../webgleffects";
 import { cropCanvas, cutoutCanvasIntoCells } from "../utils/canvas";
+
+import effects from "../constants/effects";
+import bgeffects from "../constants/bgeffects";
+import staticeffects from "../constants/staticeffects";
+import webgleffects from "../constants/webgleffects";
+import posteffects from "../constants/posteffects";
 
 const EMOJI_SIZE = 128;
 const ANIMATED_EMOJI_SIZE = 96;
@@ -185,11 +189,11 @@ const constants = {
     { value: "file", label: "画像から作る" },
     { value: "fukumoji", label: "パーツを選んで作る" },
   ],
-  EFFECTS,
-  STATIC_EFFECTS,
-  PRO_EFFECTS,
-  WEBGL_EFFECTS,
-  POST_EFFECTS,
+  effects,
+  staticeffects,
+  bgeffects,
+  webgleffects,
+  posteffects,
 };
 
 const data = (): Record<string, unknown> => ({
@@ -330,9 +334,9 @@ const methods = {
       animated,
       this.target.animation ? this.target.animation.fn : null,
       this.target.animationInvert,
-      this.target.effects.concat(this.target.staticEffects),
-      this.target.webglEffects,
-      this.target.postEffects,
+      this.target.effects.concat(this.target.staticEffects).map((eff) => eff.fn),
+      this.target.webglEffects.map((eff) => eff.fn),
+      this.target.postEffects.map((eff) => eff.fn),
       this.target.framerate, this.target.framecount,
       this.target.backgroundColor, this.target.transparent, BINARY_SIZE_LIMIT,
     ).then((res) => {

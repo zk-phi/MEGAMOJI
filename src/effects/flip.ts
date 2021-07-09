@@ -1,4 +1,4 @@
-import { Effect } from "../effects";
+import { Effect } from "../types";
 
 const effectFlip: Effect = (keyframe, ctx, cellWidth) => {
   ctx.translate(cellWidth, 0);
