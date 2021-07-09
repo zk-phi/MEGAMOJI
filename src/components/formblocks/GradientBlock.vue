@@ -3,6 +3,8 @@ import ButtonBlock from "./ButtonBlock.vue";
 import ColorStopBlock from "./ColorStopBlock.vue";
 import { lighterColor, darkerColor } from "../../utils/color";
 
+type ColorStop = { color: string, pos: number };
+
 export default {
   components: {
     ButtonBlock, ColorStopBlock,
@@ -11,6 +13,9 @@ export default {
     modelValue: { type: Array, required: true },
     baseColor: { type: String, required: true },
   },
+  emits: [
+    "update:modelValue",
+  ],
   methods: {
     initializeGradient(): void {
       this.$emit("update:modelValue", [
@@ -21,12 +26,12 @@ export default {
         { color: "#ffffff", pos: 100 },
       ]);
     },
-    update(ix, value): void {
+    update(ix: number, value: ColorStop): void {
       this.$emit("update:modelValue", this.modelValue.map((origVal, i) => (
-        i === ix ? value: origVal
+        i === ix ? value : origVal
       )));
     },
-    remove(ix): void {
+    remove(ix: number): void {
       this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
     },
     add(): void {
@@ -36,9 +41,6 @@ export default {
       ]);
     },
   },
-  emits: [
-    "update:modelValue",
-  ],
 };
 </script>
 

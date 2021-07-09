@@ -31,7 +31,7 @@ export default {
     },
   },
   methods: {
-    update(ix, value): void {
+    update(ix: number, value: string): void {
       this.$emit("update:modelValue", this.modelValue.map((origVal, i) => (
         ix === i ? value : origVal
       )));
@@ -39,7 +39,7 @@ export default {
     add(): void {
       this.$emit("update:modelValue", [...this.modelValue, this.baseColor]);
     },
-    remove(ix): void {
+    remove(ix: number): void {
       this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
     },
   },
@@ -81,7 +81,7 @@ export default {
     <div class="field">
       <label class="label">その他のアウトライン</label>
     </div>
-    <div v-for="(color, ix) in modelValue" class="field has-addons">
+    <div v-for="(color, ix) in modelValue" :key="color" class="field has-addons">
       <div class="control is-expanded">
         <input
             class="input"

@@ -5,8 +5,8 @@ export default {
     modelValue: { type: String, required: true },
     parts: { type: Array, required: true },
   },
-  emit: [
-    "update:modelValue"
+  emits: [
+    "update:modelValue",
   ],
 };
 </script>
@@ -14,7 +14,9 @@ export default {
 <template>
   <div v-if="show" class="field">
     <div class="fukumoji">
-      <img v-for="p in parts"
+      <img
+          v-for="p in parts"
+          :key="p"
           :class="'part' + (modelValue == p ? ' selected' : '')"
           :src="p"
           @click="$emit('update:modelValue', p)">

@@ -11,12 +11,12 @@ export default {
     modelValue: { type: String, required: true },
     showDetails: { type: Boolean, required: true },
   },
-  data: () => ({
-    fontcolors,
-  }),
   emits: [
     "update:modelValue",
   ],
+  data: (): Record<string, unknown> => ({
+    fontcolors,
+  }),
 };
 </script>
 
@@ -26,7 +26,7 @@ export default {
     <div v-for="row in fontcolors" :key="row[0]" class="control">
       <FontColorOption
           v-for="color in row"
-          :ix="color"
+          :key="color"
           :model-value="modelValue"
           :color="color"
           @update:model-value="$emit('update:modelValue', $event)" />
@@ -35,6 +35,6 @@ export default {
   <ColorBlock
       v-if="showDetails"
       :model-value="modelValue"
-      @update:model-value="$emit('update:modelValue', $event)"
-      label="その他の色" />
+      label="その他の色"
+      @update:model-value="$emit('update:modelValue', $event)" />
 </template>

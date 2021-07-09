@@ -103,25 +103,25 @@ export function webglLoadEffectShader(effectShader: EffectShader): WebGLProgram 
 }
 
 // set uniform
-export function webglSetFloat(program: WebGLProgram, varName: string, value: number) {
+export function webglSetFloat(program: WebGLProgram, varName: string, value: number): void {
   gl.uniform1f(gl.getUniformLocation(program, varName), value);
 }
-export function webglSetVec2(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetVec2(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniform2fv(gl.getUniformLocation(program, varName), value);
 }
-export function webglSetVec3(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetVec3(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniform3fv(gl.getUniformLocation(program, varName), value);
 }
-export function webglSetVec4(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetVec4(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniform4fv(gl.getUniformLocation(program, varName), value);
 }
-export function webglSetMat2(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetMat2(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniformMatrix2fv(gl.getUniformLocation(program, varName), false, value);
 }
-export function webglSetMat3(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetMat3(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniformMatrix3fv(gl.getUniformLocation(program, varName), false, value);
 }
-export function webglSetMat4(program: WebGLProgram, varName: string, value: number[]) {
+export function webglSetMat4(program: WebGLProgram, varName: string, value: number[]): void {
   gl.uniformMatrix4fv(gl.getUniformLocation(program, varName), false, value);
 }
 

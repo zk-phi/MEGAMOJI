@@ -16,10 +16,11 @@ export default {
 </script>
 
 <template>
-  <div v-for="category in effects" class="field">
+  <div v-for="category in effects" :key="category.label" class="field">
     <label class="label">{{ category.label }}</label>
     <EffectOption
         v-for="effect in category.effects"
+        :key="effect.label"
         :effect="effect"
         :model-value="modelValue"
         @update:model-value="$emit('update:modelValue', $event)" />

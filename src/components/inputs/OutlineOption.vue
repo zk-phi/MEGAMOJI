@@ -23,11 +23,13 @@ export default {
         return darkerColor(this.baseColor);
       } else if (this.color === "lighter") {
         return lighterColor(this.baseColor);
+      } else {
+        return this.color;
       }
     },
   },
   methods: {
-    onToggle(color): void {
+    onToggle(color: string): void {
       if (this.checked) {
         this.$emit("update:modelValue", this.modelValue.filter((c) => c !== color));
       } else {

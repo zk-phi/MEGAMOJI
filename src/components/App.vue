@@ -3,14 +3,13 @@ import Nav from "./navigation/Nav.vue";
 import TextSource from "./cards/TextSource.vue";
 import FileSource from "./cards/FileSource.vue";
 import FukumojiSource from "./cards/FukumojiSource.vue";
-import CheckboxBlock from "./formblocks/CheckboxBlock.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import FullWidthButton from "./navigation/FullWidthButton.vue";
 
 export default {
   components: {
-    Nav, TextSource, FileSource, FukumojiSource, CheckboxBlock, Target, Result, FullWidthButton,
+    Nav, TextSource, FileSource, FukumojiSource, Target, Result, FullWidthButton,
   },
   data: (): Record<string, unknown> => ({
     MODES: [
@@ -39,11 +38,11 @@ export default {
       this.ui.showTargetPanel = false;
       ga("send", "pageview", `/${value}`);
     },
-    onRenderTarget(imgs): void {
+    onRenderTarget(imgs: HTMLImageElement[]): void {
       this.resultImages = imgs;
       ga("send", "event", this.ui.mode, "render");
     },
-    onRender(img): void {
+    onRender(img: HTMLImageElement): void {
       this.baseImage = img;
     },
   },

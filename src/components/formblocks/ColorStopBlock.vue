@@ -4,18 +4,18 @@ export default {
     modelValue: { type: Object, required: true },
     onRemove: { type: Function, required: true },
   },
-  methods: {
-    changeColor (e) {
-      this.$emit('update:modelValue', { color: e.target.value, pos: this.modelValue.pos });
-    },
-    changePos (e) {
-      this.$emit('update:modelValue', { color: this.modelValue.color, pos: e.target.value });
-    },
-  },
   emits: [
     "update:modelValue",
-    "remove"
+    "remove",
   ],
+  methods: {
+    changeColor(val: string): void {
+      this.$emit("update:modelValue", { color: val, pos: this.modelValue.pos });
+    },
+    changePos(val: string): void {
+      this.$emit("update:modelValue", { color: this.modelValue.color, pos: Number(val) });
+    },
+  },
 };
 </script>
 
@@ -26,7 +26,7 @@ export default {
           :value="modelValue.color"
           type="color"
           class="input"
-          @change="changeColor">
+          @change="changeColor($event.target.value)">
     </div>
     <div class="control is-expanded">
       <input
@@ -35,7 +35,7 @@ export default {
           type="range"
           min="1"
           max="100"
-          @change="changePos">
+          @change="changePos($event.target.value)">
     </div>
     <div class="control">
       <button class="button" @click="$emit('remove')">

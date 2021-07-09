@@ -4,34 +4,34 @@ import filters from "../../constants/filters";
 
 export default {
   components: {
-    SelectBlock
+    SelectBlock,
   },
   props: {
     modelValue: { type: Object, default: null },
   },
-  data: (): Record<string, unknown> => ({
-    filters
-  }),
-  methods: {
-    onChange(label): void {
-      this.$emit('update:modelValue', filters.find((filter) => filter.label === label) || null);
-    },
-  },
   emits: [
     "update:modelValue",
   ],
+  data: (): Record<string, unknown> => ({
+    filters,
+  }),
+  methods: {
+    onChange(label: string): void {
+      this.$emit("update:modelValue", filters.find((filter) => filter.label === label) || null);
+    },
+  },
 };
 </script>
 
 <template>
   <SelectBlock
       :model-value="modelValue ? modelValue.label : ''"
-      @update:model-value="onChange"
-      label="前処理">
+      label="前処理"
+      @update:model-value="onChange">
     <option value="">
       なし
     </option>
-    <option v-for="(filter, ix) in filters" :value="filter.label">
+    <option v-for="filter in filters" :key="filter.label" :value="filter.label">
       {{ filter.label }}
     </option>
   </SelectBlock>

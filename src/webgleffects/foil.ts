@@ -2,7 +2,7 @@ import { WebGLEffect } from "../types";
 import { webglLoadEffectShader, webglSetFloat } from "../utils/webgl";
 import shaderAdjust from "../shaders/adjust";
 
-const webglFoil: WebGLEffect = (keyframe, _w, _h) => {
+const webglFoil: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shaderAdjust);
 
   const brightness = 0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe);

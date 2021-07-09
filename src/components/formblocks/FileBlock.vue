@@ -6,7 +6,7 @@ export default {
     label: { type: String, default: undefined },
   },
   emits: [
-    "load"
+    "load",
   ],
   methods: {
     onChange(e: { target: { files: File[]} }): void {

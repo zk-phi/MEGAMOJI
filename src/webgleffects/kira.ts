@@ -2,7 +2,7 @@ import { WebGLEffect } from "../types";
 import { webglLoadEffectShader, webglSetFloat } from "../utils/webgl";
 import shaderAdjust from "../shaders/adjust";
 
-const webglKira: WebGLEffect = (keyframe, _w, _h) => {
+const webglKira: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shaderAdjust);
 
   webglSetFloat(program, "brightness", 0.1);

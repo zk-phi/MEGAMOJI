@@ -22,8 +22,8 @@ export default {
       <div class="field">
         <label class="label">絵文字 (右クリックで保存)</label>
         <RawResult v-if="!previewMode" :images="images" />
-        <Preview v-if="previewMode" :images="images" :darkMode="false" />
-        <Preview v-if="previewMode" :images="images" :darkMode="true" />
+        <Preview v-if="previewMode" :images="images" :dark-mode="false" />
+        <Preview v-if="previewMode" :images="images" :dark-mode="true" />
       </div>
       <CheckboxBlock v-model="previewMode">
         プレビュー

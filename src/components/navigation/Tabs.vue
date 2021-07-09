@@ -13,8 +13,8 @@ export default {
 <template>
   <div class="tabs is-toggle">
     <ul>
-      <li v-for="tab in tabs" :class="modelValue === tab.value ? 'is-active' : ''">
-        <a @click="$emit('update:modelValue', tab.value)">{{ tab.label }}</a>
+      <li v-for="t in tabs" :key="t.label" :class="modelValue === t.value ? 'is-active' : ''">
+        <a @click="$emit('update:modelValue', t.value)">{{ t.label }}</a>
       </li>
     </ul>
   </div>

@@ -3,7 +3,7 @@ import { webglLoadEffectShader, webglSetMat3 } from "../utils/webgl";
 import shaderWarp from "../shaders/warp";
 import { matrixPerspective, matrixFlatten } from "../utils/matrix";
 
-const webglDokaben: WebGLEffect = (keyframe, w, h) => {
+const webglDokaben: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shaderWarp);
 
   const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */

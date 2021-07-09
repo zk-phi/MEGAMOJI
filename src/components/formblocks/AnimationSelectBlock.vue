@@ -4,35 +4,41 @@ import animations from "../../constants/animations";
 
 export default {
   components: {
-    SelectBlock
+    SelectBlock,
   },
   props: {
     modelValue: { type: Object, default: null },
   },
-  data: (): Record<string, unknown> => ({
-    animations
-  }),
-  methods: {
-    onChange(label): void {
-      this.$emit('update:modelValue', animations.find((anime) => anime.label === label) || null);
-    },
-  },
   emits: [
     "update:modelValue",
   ],
+  data: (): Record<string, unknown> => ({
+    animations,
+  }),
+  methods: {
+    onChange(label: string): void {
+      this.$emit(
+        "update:modelValue",
+        animations.find((animation) => animation.label === label) || null,
+      );
+    },
+  },
 };
 </script>
 
 <template>
   <SelectBlock
       :model-value="modelValue ? modelValue.label : ''"
-      @update:model-value="onChange"
-      label="アニメーション">
+      label="アニメーション"
+      @update:model-value="onChange">
     <option value="">
       なし
     </option>
-    <option v-for="(anime, ix) in animations" :value="anime.label">
-      {{ anime.label }}
+    <option
+        v-for="animation in animations"
+        :key="animation.label"
+        :value="animation.label">
+      {{ animation.label }}
     </option>
   </SelectBlock>
 </template>

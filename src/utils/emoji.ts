@@ -1,4 +1,5 @@
 import GIF from "@dhdbstjr98/gif.js";
+import { Animation, Effect, WebGLEffect, PostEffect } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
 import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
 
@@ -136,12 +137,27 @@ function renderAllCellsFixedSize(
 
 /* ASYNC: returns a 2d-array of (possibly animated) images. */
 export function renderAllCells(
-  image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
-  animated, animation, animationInvert, effects, webglEffects, postEffects,
-  framerate, framecount,
-  backgroundColor, transparent,
-  binarySizeLimit,
-) {
+  image: HTMLImageElement,
+  offsetH: number,
+  offsetV: number,
+  hCells: number,
+  vCells: number,
+  cellWidth: number,
+  cellHeight: number,
+  maxSize: number,
+  noCrop: boolean,
+  animated: boolean,
+  animation: Animation[] | null,
+  animationInvert: boolean,
+  effects: Effect[],
+  webglEffects: WebGLEffect[],
+  postEffects: PostEffect[],
+  framerate: number,
+  framecount: number,
+  backgroundColor: string,
+  transparent: boolean,
+  binarySizeLimit: number,
+): Promise<string[][]> {
   return new Promise((resolve) => {
     renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,

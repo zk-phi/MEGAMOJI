@@ -12,6 +12,9 @@ export default {
   props: {
     show: { type: Boolean, required: true },
   },
+  emits: [
+    "render",
+  ],
   data: (): Record<string, unknown> => ({
     parts,
     tab: "base",
@@ -29,7 +32,7 @@ export default {
         this.render();
       },
       deep: true,
-    }
+    },
   },
   methods: {
     render(): void {
@@ -42,11 +45,8 @@ export default {
       ], (blobUrl) => {
         urlToImg(blobUrl, (img) => this.$emit("render", img));
       });
-    }
+    },
   },
-  emits: [
-    "render",
-  ],
 };
 </script>
 
@@ -56,8 +56,9 @@ export default {
       <Tabs v-model="tab" :tabs="parts.categories" />
       <PartSelect
           v-for="category in parts.categories"
-          :show="tab === category.value"
+          :key="category.value"
           v-model="conf[category.value]"
+          :show="tab === category.value"
           :parts="parts[category.value]" />
     </div>
   </div>

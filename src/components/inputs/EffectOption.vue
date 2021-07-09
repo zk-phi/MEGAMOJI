@@ -1,4 +1,8 @@
 <script lang="ts">
+import { Effect } from "../../types";
+
+type EffectOption = { label: string, fn: Effect };
+
 export default {
   props: {
     modelValue: { type: Array, required: true },
@@ -13,7 +17,7 @@ export default {
     },
   },
   methods: {
-    onToggle(effect): void {
+    onToggle(effect: EffectOption): void {
       if (this.checked) {
         this.$emit("update:modelValue", this.modelValue.filter((eff) => (
           eff.label !== effect.label

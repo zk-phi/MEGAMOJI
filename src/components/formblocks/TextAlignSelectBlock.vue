@@ -3,7 +3,7 @@ import SelectBlock from "./SelectBlock.vue";
 
 export default {
   components: {
-    SelectBlock
+    SelectBlock,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -17,8 +17,8 @@ export default {
 <template>
   <SelectBlock
       :model-value="modelValue"
-      @update:model-value="$emit('update:modelValue', $event)"
-      label="揃え">
+      label="揃え"
+      @update:model-value="$emit('update:modelValue', $event)">
     <option value="stretch">
       両端
     </option>

@@ -20,13 +20,23 @@ import { ANIMATED_EMOJI_SIZE, EMOJI_SIZE, BINARY_SIZE_LIMIT } from "../../consta
 
 export default {
   components: {
-    TextBlock, ColorBlock, AnimationSelectBlock, EffectBlock, RangeBlock,
-    CheckboxBlock, TrimmingSelectBlock, AnimationSpeedSelectBlock, NumberBlock,
+    TextBlock,
+    ColorBlock,
+    AnimationSelectBlock,
+    EffectBlock,
+    RangeBlock,
+    CheckboxBlock,
+    TrimmingSelectBlock,
+    AnimationSpeedSelectBlock,
+    NumberBlock,
   },
   props: {
     baseImage: { type: Object, default: null },
     show: { type: Boolean, required: true },
   },
+  emits: [
+    "render",
+  ],
   data: (): Record<string, unknown> => ({
     effects,
     bgeffects,
@@ -141,11 +151,8 @@ export default {
           this.$emit("render", res);
         });
       }
-    }
+    },
   },
-  emits: [
-    "render",
-  ],
 };
 </script>
 

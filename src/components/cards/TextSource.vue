@@ -14,12 +14,20 @@ import { EMOJI_SIZE } from "../../constants/emoji";
 
 export default {
   components: {
-    FontSelectBlock, TextBlock, TextAreaBlock, TextAlignSelectBlock,
-    FontColorSelectBlock, GradientBlock, OutlineBlock,
+    FontSelectBlock,
+    TextBlock,
+    TextAreaBlock,
+    TextAlignSelectBlock,
+    FontColorSelectBlock,
+    GradientBlock,
+    OutlineBlock,
   },
   props: {
     show: { type: Boolean, required: true },
   },
+  emits: [
+    "render",
+  ],
   data: (): Record<string, unknown> => ({
     conf: {
       /* basic */
@@ -56,8 +64,10 @@ export default {
       },
       deep: true,
     },
-    "conf.color"(): void {
-      this.conf.gradient = [];
+    "conf.color": {
+      handler(): void {
+        this.conf.gradient = [];
+      },
     },
   },
   methods: {
@@ -77,9 +87,6 @@ export default {
       }
     },
   },
-  emits: [
-    "render"
-  ],
 };
 </script>
 

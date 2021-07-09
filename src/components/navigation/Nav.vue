@@ -13,8 +13,8 @@ export default {
 <template>
   <div class="block tabs is-toggle is-toggle-rounded">
     <ul>
-      <li v-for="page in pages" :class="modelValue === page.value ? 'is-active' : ''">
-        <a @click="$emit('update:modelValue', page.value)">{{ page.label }}</a>
+      <li v-for="p in pages" :key="p.label" :class="modelValue === p.value ? 'is-active' : ''">
+        <a @click="$emit('update:modelValue', p.value)">{{ p.label }}</a>
       </li>
     </ul>
   </div>

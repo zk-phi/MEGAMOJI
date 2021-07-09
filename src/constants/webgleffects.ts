@@ -16,5 +16,5 @@ export default [
       { label: "カベドン", fn: webglDokaben },
       { label: "残像", fn: webglZoom },
     ],
-  }
+  },
 ];

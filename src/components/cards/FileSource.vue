@@ -10,6 +10,9 @@ export default {
   props: {
     show: { type: Boolean, required: true },
   },
+  emits: [
+    "render",
+  ],
   data: (): Record<string, unknown> => ({
     conf: {
       img: null,
@@ -22,7 +25,7 @@ export default {
         this.render();
       },
       deep: true,
-    }
+    },
   },
   methods: {
     render(): void {
@@ -35,11 +38,8 @@ export default {
           this.$emit("render", this.conf.img);
         }
       }
-    }
+    },
   },
-  emits: [
-    "render",
-  ],
 };
 </script>
 

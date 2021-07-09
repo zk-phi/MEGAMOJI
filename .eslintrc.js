@@ -7,6 +7,9 @@ module.exports = {
   env: {
     browser: true,
   },
+  globals: {
+    ga: false,
+  },
   extends: [
     "airbnb-base",
     "plugin:compat/recommended",
@@ -116,5 +119,12 @@ module.exports = {
       ts: "never",
     }],
 
+    // newline around curly braces can be omitted as long as they are consistent
+    "object-curly-newline": ["error", {
+      ObjectExpression: { consistent: true },
+      ObjectPattern: { consistent: true },
+      ImportDeclaration: { consistent: true },
+      ExportDeclaration: { consistent: true },
+    }],
   },
 };
