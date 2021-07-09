@@ -1,11 +1,12 @@
 <script>
 import Tabs from "./Tabs.vue";
-import FontOption from './FontOption.vue';
-import controller from "./controller.ts";
+import FontOption from "./FontOption.vue";
+import controller from "./controller";
+
 export default {
   ...controller,
   components: {
-    Tabs, FontOption
+    Tabs, FontOption,
   },
 };
 </script>
@@ -13,7 +14,9 @@ export default {
 <template>
   <section class="section">
 
-    <h1 class="title">MEGAMOJI - 簡単アニメ絵文字メーカー</h1>
+    <h1 class="title">
+      MEGAMOJI - 簡単アニメ絵文字メーカー
+    </h1>
     <h2 class="subtitle">
       Slack (など) の絵文字をサクッと作成できるジェネレータです
       <a target="_blank" href="https://github.com/zk-phi/MEGAMOJI/blob/gh-pages/NEWS.markdown">
@@ -21,7 +24,7 @@ export default {
       </a>
     </h2>
 
-    <Tabs :value="ui.showTargetPanel ? '' : ui.mode" @input="onSelectMode" :tabs="MODES" />
+    <Tabs :value="ui.showTargetPanel ? '' : ui.mode" :tabs="MODES" @input="onSelectMode" />
 
     <div class="columns">
 
@@ -32,52 +35,52 @@ export default {
               <div class="column">
                 <div class="field">
                   <label class="label">システムフォント</label>
-                  <FontOption font="normal 1em sans-serif" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em sans-serif">
                     ゴシック
                   </FontOption>
-                  <FontOption font="normal 1em serif" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em serif">
                     明朝
                   </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">スタンダード</label>
-                  <FontOption font="bold 1em 'Noto Sans JP'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="bold 1em 'Noto Sans JP'">
                     ゴシック (太)
                   </FontOption>
-                  <FontOption font="900 1em 'Noto Sans JP'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="900 1em 'Noto Sans JP'">
                     ゴシック (極太)
                   </FontOption>
-                  <FontOption font="bold 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="bold 1em 'M PLUS Rounded 1c'">
                     丸ゴ (太)
                   </FontOption>
-                  <FontOption font="900 1em 'M PLUS Rounded 1c'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="900 1em 'M PLUS Rounded 1c'">
                     丸ゴ (極太)
                   </FontOption>
-                  <FontOption font="900 1em 'Noto Serif JP'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="900 1em 'Noto Serif JP'">
                     明朝 (太)
                   </FontOption>
                 </div>
                 <div class="field">
                   <label class="label">デザイン</label>
-                  <FontOption font="normal 1em 'DelaGothicOne-Regular'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'DelaGothicOne-Regular'">
                     Dela Gothic One
                   </FontOption>
-                  <FontOption font="normal 1em 'AkazukiPOP'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'AkazukiPOP'">
                     あかずきんポップ
                   </FontOption>
-                  <FontOption font="normal 1em 'Potta'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'Potta'">
                     ポッタ
                   </FontOption>
-                  <FontOption font="normal 1em 'ZeroGothic'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'ZeroGothic'">
                     零ゴシック
                   </FontOption>
-                  <FontOption font="normal 1em 'PixelMplus'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'PixelMplus'">
                     PixelMplus, bold
                   </FontOption>
-                  <FontOption font="normal 1em 'Reggae'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'Reggae'">
                     レゲエ
                   </FontOption>
-                  <FontOption font="normal 1em 'Rampart'" v-model="source.text.font">
+                  <FontOption v-model="source.text.font" font="normal 1em 'Rampart'">
                     ランパート
                   </FontOption>
                 </div>
@@ -85,13 +88,13 @@ export default {
                   <div class="field">
                     <label class="label">その他のフォント</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="source.text.font">
+                      <input v-model="source.text.font" class="input" type="text">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">行間 (文字分)</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="source.text.lineSpacing">
+                      <input v-model="source.text.lineSpacing" class="input" type="text">
                     </div>
                   </div>
                 </div>
@@ -100,7 +103,7 @@ export default {
                 <div class="field">
                   <label class="label">テキスト (改行可)</label>
                   <div class="control">
-                    <textarea class="textarea" rows=3 v-model="source.text.content"></textarea>
+                    <textarea v-model="source.text.content" class="textarea" rows="3" />
                   </div>
                 </div>
                 <div class="field">
@@ -108,10 +111,18 @@ export default {
                   <div class="control">
                     <div class="select">
                       <select v-model="source.text.align">
-                        <option value="stretch">両端</option>
-                        <option value="left">左</option>
-                        <option value="center">中央</option>
-                        <option value="right">右</option>
+                        <option value="stretch">
+                          両端
+                        </option>
+                        <option value="left">
+                          左
+                        </option>
+                        <option value="center">
+                          中央
+                        </option>
+                        <option value="right">
+                          右
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -120,146 +131,148 @@ export default {
                   <label class="label">色</label>
                   <div class="control">
                     <label class="radio" style="color: #000000">
-                      <input type="radio" name="color" v-model="source.text.color" value="#000000">
+                      <input v-model="source.text.color" type="radio" name="color" value="#000000">
                       ◆
                     </label>
                     <label class="radio" style="color: #3f3f3f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#3f3f3f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#3f3f3f">
                       ◆
                     </label>
                     <label class="radio" style="color: #7f7f7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f7f7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f7f7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #bfbfbf">
-                      <input type="radio" name="color" v-model="source.text.color" value="#bfbfbf">
+                      <input v-model="source.text.color" type="radio" name="color" value="#bfbfbf">
                       ◆
                     </label>
                     <label class="radio">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ffffff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ffffff">
                       ♢
                     </label>
                   </div>
                   <div class="control">
                     <label class="radio" style="color: #7f0000">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f0000">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f0000">
                       ◆
                     </label>
                     <label class="radio" style="color: #7f5f00">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f5f00">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f5f00">
                       ◆
                     </label>
                     <label class="radio" style="color: #3f7f00">
-                      <input type="radio" name="color" v-model="source.text.color" value="#3f7f00">
+                      <input v-model="source.text.color" type="radio" name="color" value="#3f7f00">
                       ◆
                     </label>
                     <label class="radio" style="color: #007f1f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#007f1f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#007f1f">
                       ◆
                     </label>
                     <label class="radio" style="color: #007f7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#007f7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#007f7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #001f7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#001f7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#001f7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #3f007f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#3f007f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#3f007f">
                       ◆
                     </label>
                     <label class="radio" style="color: #7f005f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f005f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f005f">
                       ◆
                     </label>
                   </div>
                   <div class="control">
                     <label class="radio" style="color: #ff0000">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ff0000">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ff0000">
                       ◆
                     </label>
                     <label class="radio" style="color: #ffbf00">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ffbf00">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ffbf00">
                       ◆
                     </label>
                     <label class="radio" style="color: #7fff00">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7fff00">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7fff00">
                       ◆
                     </label>
                     <label class="radio" style="color: #00ff3f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#00ff3f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#00ff3f">
                       ◆
                     </label>
                     <label class="radio" style="color: #00ffff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#00ffff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#00ffff">
                       ◆
                     </label>
                     <label class="radio" style="color: #003fff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#003fff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#003fff">
                       ◆
                     </label>
                     <label class="radio" style="color: #7f00ff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f00ff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f00ff">
                       ◆
                     </label>
                     <label class="radio" style="color: #ff00bf">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ff00bf">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ff00bf">
                       ◆
                     </label>
                   </div>
                   <div class="control">
                     <label class="radio" style="color: #ff7f7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ff7f7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ff7f7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #ffdf7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ffdf7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ffdf7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #bfff7f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#bfff7f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#bfff7f">
                       ◆
                     </label>
                     <label class="radio" style="color: #7fff9f">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7fff9f">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7fff9f">
                       ◆
                     </label>
                     <label class="radio" style="color: #7fffff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7fffff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7fffff">
                       ◆
                     </label>
                     <label class="radio" style="color: #7f9fff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#7f9fff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#7f9fff">
                       ◆
                     </label>
                     <label class="radio" style="color: #bf7fff">
-                      <input type="radio" name="color" v-model="source.text.color" value="#bf7fff">
+                      <input v-model="source.text.color" type="radio" name="color" value="#bf7fff">
                       ◆
                     </label>
                     <label class="radio" style="color: #ff7fdf">
-                      <input type="radio" name="color" v-model="source.text.color" value="#ff7fdf">
+                      <input v-model="source.text.color" type="radio" name="color" value="#ff7fdf">
                       ◆
                     </label>
                   </div>
                 </div>
-                <div class="field" v-if="source.text.gradient.length == 0">
+                <div v-if="source.text.gradient.length == 0" class="field">
                   <button class="button" @click="initializeGradient">
                     グラデーションを追加
                   </button>
                 </div>
-                <div class="field has-addons" v-for="(colorstop, ix) in source.text.gradient">
+                <div v-for="(colorstop, ix) in source.text.gradient" class="field has-addons">
                   <div class="control">
-                    <input type="color" class="input" v-model="source.text.gradient[ix].color">
+                    <input v-model="source.text.gradient[ix].color" type="color" class="input">
                   </div>
                   <div class="control is-expanded">
-                    <input class="input" type="range" min="1" max="100" v-model="source.text.gradient[ix].pos">
+                    <input v-model="source.text.gradient[ix].pos" class="input" type="range" min="1" max="100">
                   </div>
                   <div class="control">
-                    <button class="button" @click="removeGradientColorStop(ix)">x</button>
+                    <button class="button" @click="removeGradientColorStop(ix)">
+                      x
+                    </button>
                   </div>
                 </div>
-                <div class="field" v-if="source.text.gradient.length > 0">
+                <div v-if="source.text.gradient.length > 0" class="field">
                   <div class="control">
                     <button class="button" @click="addGradientColorStop">
                       + 色を追加
@@ -270,23 +283,23 @@ export default {
                   <label class="label">アウトライン</label>
                   <div class="control">
                     <label class="checkbox" style="color: #000000">
-                      <input type="checkbox" name="outline" v-model="source.text.outlines" value="#000000">
+                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="#000000">
                       ◆
                     </label>
                     <label class="checkbox" :style="{ color: darkerColor }">
-                      <input type="checkbox" name="outline" v-model="source.text.outlines" value="darker">
+                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="darker">
                       ◆
                     </label>
                     <label class="checkbox" :style="{ color: source.text.color }">
-                      <input type="checkbox" name="outline" v-model="source.text.outlines" value="identical">
+                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="identical">
                       ◆
                     </label>
                     <label class="checkbox" :style="{ color: lighterColor }">
-                      <input type="checkbox" name="outline" v-model="source.text.outlines" value="lighter">
+                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="lighter">
                       ◆
                     </label>
                     <label class="checkbox">
-                      <input type="checkbox" name="outline" v-model="source.text.outlines" value="#ffffff">
+                      <input v-model="source.text.outlines" type="checkbox" name="outline" value="#ffffff">
                       ♢
                     </label>
                   </div>
@@ -295,19 +308,21 @@ export default {
                   <div class="field">
                     <label class="label">その他の色</label>
                     <div class="control">
-                      <input class="input" type="color" v-model="source.text.color">
+                      <input v-model="source.text.color" class="input" type="color">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">その他のアウトライン</label>
                   </div>
-                  <div class="field has-addons" v-for="(color, ix) in outlineColors">
+                  <div v-for="(color, ix) in outlineColors" class="field has-addons">
                     <div class="control is-expanded">
                       <input class="input" type="color" :value="color"
                              @change="$set(source.text.outlines, ix, $event.target.value)">
                     </div>
                     <div class="control">
-                      <button class="button" @click="removeOutline(ix)">x</button>
+                      <button class="button" @click="removeOutline(ix)">
+                        x
+                      </button>
                     </div>
                   </div>
                   <div class="field">
@@ -343,7 +358,9 @@ export default {
               <div class="control">
                 <div class="select">
                   <select v-model="source.file.filter">
-                    <option value="">なし</option>
+                    <option value="">
+                      なし
+                    </option>
                     <option v-for="filter in FILTERS" :value="filter.fn">
                       {{ filter.label }}
                     </option>
@@ -421,8 +438,12 @@ export default {
                   <div class="control">
                     <div class="select">
                       <select v-model="target.animation">
-                        <option value="">なし</option>
-                        <option v-for="a in ANIMATIONS" :value="a.fn">{{ a.label }}</option>
+                        <option value="">
+                          なし
+                        </option>
+                        <option v-for="a in ANIMATIONS" :value="a.fn">
+                          {{ a.label }}
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -431,7 +452,7 @@ export default {
                   <label class="label">WebGL 対応ブラウザのみ</label>
                   <div class="control">
                     <label v-for="effect in WEBGL_EFFECTS" class="checkbox">
-                      <input type="checkbox" v-model="target.webglEffects" :value="effect.fn">
+                      <input v-model="target.webglEffects" type="checkbox" :value="effect.fn">
                       {{ effect.label }}
                     </label>
                   </div>
@@ -440,7 +461,7 @@ export default {
                   <label class="label">{{ category.label }}</label>
                   <div class="control">
                     <label v-for="effect in category.effects" class="checkbox">
-                      <input type="checkbox" v-model="target.effects" :value="effect.fn">
+                      <input v-model="target.effects" type="checkbox" :value="effect.fn">
                       {{ effect.label }}
                     </label>
                   </div>
@@ -449,29 +470,29 @@ export default {
                   <label class="label">{{ category.label }}</label>
                   <div class="control">
                     <label v-for="effect in category.effects" class="checkbox">
-                      <input type="checkbox" v-model="target.postEffects" :value="effect.fn">
+                      <input v-model="target.postEffects" type="checkbox" :value="effect.fn">
                       {{ effect.label }}
                     </label>
                   </div>
                 </div>
                 <div v-if="ui.showTargetDetails">
-                  <div class="field" v-for="category in PRO_EFFECTS">
+                  <div v-for="category in PRO_EFFECTS" class="field">
                     <label class="label">{{ category.label }}</label>
                     <div class="control">
                       <label v-for="effect in category.effects" class="checkbox">
-                        <input type="checkbox" v-model="target.effects" :value="effect.fn">
+                        <input v-model="target.effects" type="checkbox" :value="effect.fn">
                         {{ effect.label }}
                       </label>
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">アニメ速度 (フレームレート): {{target.framerate}}</label>
+                    <label class="label">アニメ速度 (フレームレート): {{ target.framerate }}</label>
                     <div class="control">
                       <input v-model="target.framerate" type="range" min="1" max="60">
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label">フレーム数: {{target.framecount}}</label>
+                    <label class="label">フレーム数: {{ target.framecount }}</label>
                     <div class="control">
                       <input v-model="target.framecount" type="range" min="1" max="12">
                     </div>
@@ -480,7 +501,7 @@ export default {
                     <label class="label">開発者用</label>
                     <div class="control">
                       <label class="checkbox">
-                        <input type="checkbox" v-model="target.noCrop">
+                        <input v-model="target.noCrop" type="checkbox">
                         余白を切らない
                       </label>
                     </div>
@@ -493,9 +514,15 @@ export default {
                   <div class="control">
                     <div class="select">
                       <select v-model="target.trimming" @change="refreshDefaultSettings">
-                        <option value="">ぴっちり</option>
-                        <option value="cover">はみだす (アス比維持)</option>
-                        <option value="contain">おさめる (アス比維持)</option>
+                        <option value="">
+                          ぴっちり
+                        </option>
+                        <option value="cover">
+                          はみだす (アス比維持)
+                        </option>
+                        <option value="contain">
+                          おさめる (アス比維持)
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -503,7 +530,7 @@ export default {
                 <div class="field">
                   <div class="control">
                     <label v-for="effect in STATIC_EFFECTS" class="checkbox">
-                      <input type="checkbox" v-model="target.staticEffects" :value="effect.fn">
+                      <input v-model="target.staticEffects" type="checkbox" :value="effect.fn">
                       {{ effect.label }}
                     </label>
                   </div>
@@ -513,9 +540,15 @@ export default {
                   <div class="control">
                     <div class="select">
                       <select @change="onSelectSpeedPreset">
-                        <option value="">普通</option>
-                        <option value="turbo">速い</option>
-                        <option value="super-turbo">爆速</option>
+                        <option value="">
+                          普通
+                        </option>
+                        <option value="turbo">
+                          速い
+                        </option>
+                        <option value="super-turbo">
+                          爆速
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -523,7 +556,7 @@ export default {
                 <div class="field">
                   <div class="control">
                     <label class="checkbox">
-                      <input type="checkbox" v-model="target.animationInvert">
+                      <input v-model="target.animationInvert" type="checkbox">
                       進行方向を反転
                     </label>
                   </div>
@@ -531,13 +564,13 @@ export default {
                 <div class="field">
                   <label class="label">背景色</label>
                   <div class="control">
-                    <input :disabled="target.transparent" class="input" type="color" v-model="target.backgroundColor">
+                    <input v-model="target.backgroundColor" :disabled="target.transparent" class="input" type="color">
                   </div>
                 </div>
                 <div class="field">
                   <div class="control">
                     <label class="checkbox">
-                      <input type="checkbox" v-model="target.transparent">
+                      <input v-model="target.transparent" type="checkbox">
                       背景を塗らない (アニメ gif は非推奨)
                     </label>
                   </div>
@@ -546,37 +579,37 @@ export default {
                   <div class="field">
                     <label class="label">分割 横</label>
                     <div class="control">
-                      <input class="input" type="number" v-model="target.hCells" @change="refreshDefaultSettings" min="1">
+                      <input v-model="target.hCells" class="input" type="number" min="1" @change="refreshDefaultSettings">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">分割 縦</label>
                     <div class="control">
-                      <input class="input" type="number" v-model="target.vCells" @change="refreshDefaultSettings" min="1">
+                      <input v-model="target.vCells" class="input" type="number" min="1" @change="refreshDefaultSettings">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">オフセット左 (px)</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="target.offsetLeft">
+                      <input v-model="target.offsetLeft" class="input" type="text">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">オフセット上 (px)</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="target.offsetTop">
+                      <input v-model="target.offsetTop" class="input" type="text">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">拡大率 (横)</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="target.hZoom">
+                      <input v-model="target.hZoom" class="input" type="text">
                     </div>
                   </div>
                   <div class="field">
                     <label class="label">拡大率 (縦)</label>
                     <div class="control">
-                      <input class="input" type="text" v-model="target.vZoom">
+                      <input v-model="target.vZoom" class="input" type="text">
                     </div>
                   </div>
                 </div>
@@ -597,15 +630,15 @@ export default {
             <div class="card-content result_area">
               <div class="field">
                 <label class="label">絵文字 (右クリックで保存)</label>
-                <div v-if="!previewMode" v-for="row in resultImages" class="row">
-                  <img class="cell default" v-for="col in row" :src="col">
+                <div v-for="row in resultImages" v-if="!previewMode" class="row">
+                  <img v-for="col in row" class="cell default" :src="col">
                 </div>
-                <div v-else v-for="mode in ['light', 'dark']" :class="'preview ' + mode">
+                <div v-for="mode in ['light', 'dark']" v-else :class="'preview ' + mode">
                   <div>
                     <b>zk-phi</b> <small>1:23 AM</small>
                   </div>
                   <div v-for="row in resultImages" class="row">
-                    <img class="cell large" v-for="col in row" :src="col">
+                    <img v-for="col in row" class="cell large" :src="col">
                   </div>
                   <div>
                     ほげほげほげほげほげほげほげほげ。
@@ -613,7 +646,7 @@ export default {
                   <div>
                     文章中で使うとこんな
                     <span v-for="row in resultImages">
-                      <img class="cell small" v-for="col in row" :src="col">
+                      <img v-for="col in row" class="cell small" :src="col">
                     </span>
                     感じ。
                   </div>
@@ -629,7 +662,7 @@ export default {
               <div class="field">
                 <div class="control">
                   <label class="checkbox">
-                    <input type="checkbox" v-model="previewMode"> プレビュー
+                    <input v-model="previewMode" type="checkbox"> プレビュー
                   </label>
                 </div>
               </div>
