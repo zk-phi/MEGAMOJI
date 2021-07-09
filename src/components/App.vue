@@ -1,12 +1,13 @@
 <script>
 import Tabs from "./Tabs.vue";
 import FontOption from "./inputs/FontOption.vue";
+import TextInput from "./inputs/TextInput.vue";
 import controller from "./controller";
 
 export default {
   ...controller,
   components: {
-    Tabs, FontOption,
+    Tabs, FontOption, TextInput,
   },
 };
 </script>
@@ -87,15 +88,11 @@ export default {
                 <div v-if="ui.showTextDetails">
                   <div class="field">
                     <label class="label">その他のフォント</label>
-                    <div class="control">
-                      <input v-model="source.text.font" class="input" type="text">
-                    </div>
+                    <TextInput v-model="source.text.font" />
                   </div>
                   <div class="field">
                     <label class="label">行間 (文字分)</label>
-                    <div class="control">
-                      <input v-model="source.text.lineSpacing" class="input" type="text">
-                    </div>
+                    <TextInput v-model="source.text.lineSpacing" />
                   </div>
                 </div>
               </div>
@@ -590,27 +587,19 @@ export default {
                   </div>
                   <div class="field">
                     <label class="label">オフセット左 (px)</label>
-                    <div class="control">
-                      <input v-model="target.offsetLeft" class="input" type="text">
-                    </div>
+                    <TextInput v-model="target.offsetLeft" />
                   </div>
                   <div class="field">
                     <label class="label">オフセット上 (px)</label>
-                    <div class="control">
-                      <input v-model="target.offsetTop" class="input" type="text">
-                    </div>
+                    <TextInput v-model="target.offsetTop" />
                   </div>
                   <div class="field">
                     <label class="label">拡大率 (横)</label>
-                    <div class="control">
-                      <input v-model="target.hZoom" class="input" type="text">
-                    </div>
+                    <TextInput v-model="target.hZoom" />
                   </div>
                   <div class="field">
                     <label class="label">拡大率 (縦)</label>
-                    <div class="control">
-                      <input v-model="target.vZoom" class="input" type="text">
-                    </div>
+                    <TextInput v-model="target.vZoom" />
                   </div>
                 </div>
               </div>
