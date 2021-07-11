@@ -78,7 +78,7 @@ export default {
           <NTabPane name="file" tab="画像絵文字" />
           <NTabPane name="fukumoji" tab="キメラ絵文字" />
         </NTabs>
-        <NGrid cols="1 800:3" :x-gap="16" :y-gap="16">
+        <NGrid cols="1 1080:3" :x-gap="16" :y-gap="16">
           <NGridItem span="2">
             <TextSource
                 :show="ui.mode == 'text' && !ui.showTargetPanel"
