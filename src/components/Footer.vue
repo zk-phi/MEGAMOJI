@@ -14,7 +14,7 @@ export default {
     <NButton
         text
         tag="a"
-        href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.org"
+        href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown"
         target="_blank">
       ライセンス表示
     </NButton>
