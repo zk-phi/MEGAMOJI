@@ -78,7 +78,7 @@ export default {
           <NTabPane name="file" tab="画像絵文字" />
           <NTabPane name="fukumoji" tab="キメラ絵文字" />
         </NTabs>
-        <NGrid cols="1 1080:3" :x-gap="16" :y-gap="16">
+        <NGrid cols="1 840:3" :x-gap="16" :y-gap="16">
           <NGridItem span="2">
             <TextSource
                 :show="ui.mode == 'text' && !ui.showTargetPanel"
@@ -94,7 +94,7 @@ export default {
                 :base-image="baseImage"
                 @render="onRenderTarget" />
           </NGridItem>
-          <NGridItem>
+          <NGridItem span="1">
             <Tutorial v-if="!baseImage" />
             <NSpace v-else vertical>
               <Result :images="resultImages" />

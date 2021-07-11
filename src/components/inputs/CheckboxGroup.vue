@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <NSpace item-style="display: flex">
+  <div item-style="display: flex">
     <slot />
-  </NSpace>
+  </div>
 </template>

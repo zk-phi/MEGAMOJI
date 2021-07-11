@@ -103,7 +103,7 @@ export default {
 
 <template>
   <NCard v-if="show" segmented>
-    <NGrid cols="1 610:3" :x-gap="24">
+    <NGrid cols="1 500:3" :x-gap="24">
       <NGridItem>
         <FontSelectBlock
             v-model="conf.font"

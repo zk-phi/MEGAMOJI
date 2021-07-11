@@ -167,7 +167,7 @@ export default {
 
 <template>
   <NCard v-if="show" segmented>
-    <NGrid cols="1 600:2" :x-gap="24">
+    <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
         <AnimationSelectBlock v-model="conf.animation" />
         <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
