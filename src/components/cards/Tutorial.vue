@@ -19,7 +19,7 @@ export default {
           テキスト絵文字
         </template>
         <template #description>
-          好きな文字からスタンプを作れます。← の「テキスト」欄に何か入力してみてください。
+          文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
         </template>
       </NThing>
       <NThing>
@@ -30,7 +30,7 @@ export default {
           画像絵文字
         </template>
         <template #description>
-          好きな画像を正方形にトリミングしてスタンプにできます。
+          好きな画像を正方形にトリミングしてスタンプにします。
         </template>
       </NThing>
       <NThing>
@@ -41,7 +41,7 @@ export default {
           キメラ絵文字
         </template>
         <template #description>
-          既存の絵文字のパーツを合成して怪しいスタンプを作れます。パーツのライセンスは CC-BY ((C) Twitter) です。
+          既存の絵文字を合成してスタンプを作ります。パーツは Twemoji (CC-BY (C) Twitter) から作っています。
         </template>
       </NThing>
     </NSpace>

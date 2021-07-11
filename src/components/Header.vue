@@ -21,6 +21,13 @@ export default {
             target="_blank">
           更新履歴
         </NButton>
+        <NButton
+            text
+            tag="a"
+            href="https://note.com/zk_phi/n/n3a199c99d6d6"
+            target="_blank">
+          投げ銭箱
+        </NButton>
       </NSpace>
     </template>
   </NPageHeader>

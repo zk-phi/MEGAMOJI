@@ -16,7 +16,7 @@ export default {
         tag="a"
         href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.org"
         target="_blank">
-      権利表示
+      ライセンス表示
     </NButton>
   </NP>
 </template>
