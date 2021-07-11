@@ -13,7 +13,7 @@ export default {
     <NSpace vertical>
       <NThing>
         <template #avatar>
-          <NAvatar src="/assets/samples/text.png" />
+          <NAvatar src="assets/samples/text.png" />
         </template>
         <template #header>
           テキスト絵文字
@@ -24,7 +24,7 @@ export default {
       </NThing>
       <NThing>
         <template #avatar>
-          <NAvatar src="/assets/samples/image.png" />
+          <NAvatar src="assets/samples/image.png" />
         </template>
         <template #header>
           画像絵文字
@@ -35,7 +35,7 @@ export default {
       </NThing>
       <NThing>
         <template #avatar>
-          <NAvatar src="/assets/samples/fukumoji.png" />
+          <NAvatar src="assets/samples/fukumoji.png" />
         </template>
         <template #header>
           キメラ絵文字
