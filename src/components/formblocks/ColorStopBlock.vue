@@ -24,20 +24,20 @@ export default {
 </script>
 
 <template>
-  <div style="display: flex; align-items: center; width: 100%">
+  <div style="display: flex; align-items: center; width: 100%;">
     <NColorPicker
         :modes="['hex']"
         :value="modelValue.color"
         :show-alpha="false"
-        style="width: 128px; margin-right: 8px"
+        style="width: 128px; margin-right: 8px;"
         @update:value="changeColor($event)" />
     <NSlider
         :value="modelValue.pos"
         :min="1"
         :max="100"
-        style="margin-right: 8px"
+        style="margin-right: 8px;"
         @update:value="changePos($event)" />
-    <NButton ghost type="error" style="width: 16px" @click="$emit('remove')">
+    <NButton ghost type="error" style="width: 16px;" @click="$emit('remove')">
       x
     </NButton>
   </div>

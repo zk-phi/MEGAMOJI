@@ -68,7 +68,7 @@ export default {
 <template>
   <NConfigProvider :theme-overrides="theme">
     <NLayout>
-      <NLayoutHeader bordered style="padding: 16px">
+      <NLayoutHeader bordered style="padding: 16px;">
         <Header />
       </NLayoutHeader>
 
@@ -106,7 +106,7 @@ export default {
         </NGrid>
       </NLayout>
 
-      <NLayoutFooter style="padding: 16px">
+      <NLayoutFooter style="padding: 16px;">
         <Footer />
       </NLayoutFooter>
     </NLayout>

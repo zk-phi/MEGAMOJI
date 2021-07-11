@@ -233,7 +233,7 @@ export default {
       </NGridItem>
     </NGrid>
     <template #footer>
-      <div style="text-align: center">
+      <div style="text-align: center;">
         <NButton text @click="showDetails = !showDetails">
           {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
         </NButton>

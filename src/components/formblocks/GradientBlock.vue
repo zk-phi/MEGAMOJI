@@ -49,7 +49,7 @@ export default {
     <NButton v-if="modelValue.length == 0" dashed block @click="initializeGradient">
       グラデーションを追加
     </NButton>
-    <NSpace v-else vertical style="width: 100%">
+    <NSpace v-else vertical style="width: 100%;">
       <ColorStopBlock
           v-for="(colorstop, ix) in modelValue"
           :key="ix"

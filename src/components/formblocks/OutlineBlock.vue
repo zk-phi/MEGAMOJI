@@ -79,7 +79,7 @@ export default {
     </CheckboxGroup>
   </NFormItem>
   <NFormItem v-else label="アウトライン">
-    <NSpace vertical style="width: 100%">
+    <NSpace vertical style="width: 100%;">
       <OutlineItemBlock
           v-for="(color, ix) in modelValue"
           :key="ix"
