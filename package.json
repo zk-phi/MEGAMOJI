@@ -15,13 +15,12 @@
   ],
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
-    "@types/google.analytics": "^0.0.42",
     "naive-ui": "^2.15.4",
-    "vfonts": "^0.1.0",
     "vue": "^3.1.4"
   },
   "devDependencies": {
     "@primer/css": "^17.2.1",
+    "@types/google.analytics": "^0.0.42",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "@vue/compiler-sfc": "^3.1.4",
