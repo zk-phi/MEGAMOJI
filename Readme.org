@@ -42,7 +42,7 @@ http://zk-phi.github.io/MEGAMOJI
   - ~fonts/~ ... web font が入っています。読込みは  ~css/fonts.css~ でやっています
   - ~css/~
     - ~fonts.css~ ... webfont の読み込みをしています
-    - ~style.css~ ... 独自のスタイルが入っています
+
 - ~src/~
   - ~animations/~ ... 個別のアニメーションの実装が入っています
   - ~components/~ ... UI 部品が入っています
@@ -56,10 +56,7 @@ http://zk-phi.github.io/MEGAMOJI
   - ~megamoji.js~ ... エントリポイントです
   - ~types.js~ ... エフェクトなどの型定義が入っています
 
-
 *** フィルタの追加
-
-「ファイルから選ぶ」で画像を読み込む際、画像に対して行う前処理の実装です。
 
 ~src/constants/filters.js~ に一覧があります。
 
@@ -69,9 +66,6 @@ http://zk-phi.github.io/MEGAMOJI
 BlobURL で返します。
 
 *** エフェクトの追加
-
-「効果をつける」タブで選ぶことのできる特殊効果たちの実装です。ユーザーは
-複数のエフェクトを組み合わせて使用することができます。
 
 ~src/constants/effects.js~ に一覧があります。
 
@@ -105,8 +99,8 @@ BlobURL で返します。
 たとえば絵文字を上にスライドアウトさせたい場合、 ~cellHeight / 2~ だけ
 (~cellHeight~ ではなく) 上に ~translate~ してあげれば十分です
 
-余白をトリミングする前の canvas の様子が見たい場合は、「整形方法を選ぶ」
-の「その他」にある「余白を切らない」を有効にしてください。
+余白をトリミングする前の canvas の様子が見たい場合は、「効果をつける」
+の「詳細オプション」にある「余白を切らない」を有効にしてください。
 
 ===
 
@@ -123,9 +117,6 @@ BlobURL で返します。
 
 *** アニメーションの追加
 
-「効果をつける」タブ内「アニメーション」で選ぶことができる特殊効果たち
-の実装です。ユーザーは一つしか同時に使えません。
-
 ~src/constants/animations.js~ に一覧があります。
 
 アニメーションの実体は５引数の関数です：
@@ -140,13 +131,11 @@ BlobURL で返します。
 - ~cellWidth~ :: (~effect_~ と同様)
 - ~cellHeight~ :: (~effect_~ と同様)
 
-エフェクトに比べて、元画像に関する引数が増えています。
-
 アニメーションは、渡ってきた canvas に対して、 ~ctx.drawImage~ などを
-使って実際に画像 ~image~ をレンダリングすることが期待されます。ユーザー
-の設定したトリミング範囲が ~offsetH, offsetV, width, height~ として渡っ
-てくるので、通常、 canvas に対するレンダリングは以下の形になります (効
-果の一環としてあえてそうしないことは可能です)：
+使って実際に画像 ~image~ をレンダリングするします。ユーザーの設定した
+トリミング範囲が ~offsetH, offsetV, width, height~ として渡ってくるので、
+通常、 canvas に対するレンダリングは以下の形になります (効果の一環
+として、あえてそうしないことは可能です)：
 
 #+begin_src javascript
   ctx.drawImage(image, offsetH, offsetV, width, height, ...);
@@ -181,11 +170,11 @@ BlobURL で返します。
 
 *** ポストエフェクトの追加
 
+~src/constants/posteffects.js~ に一覧があります。
+
 エフェクトが ~drawImage~ (~animation_~ 関数群) より前に呼ばれるのに対
 し、 ポストエフェクトはそれよりも後に呼ばれます。これによって、レンダー
 された画像の上からさらに効果を描き込むことができます。
-
-~src/constants/posteffects.js~ に一覧があります。
 
 ポストエフェクトの実体は５引数の関数です：
 
@@ -195,13 +184,14 @@ BlobURL で返します。
 - ~cellHeight~
 
 それぞれの引数の意味はエフェクトと同様です。最終的にレンダーされる絵文
-字の４倍の大きさの canvas が渡ってくるところも同様です。
+字の４倍の大きさの canvas が渡ってくるところも同様です。 ~ctx~ によしなに
+落書きをしてください。
 
 *** WebGL エフェクトの追加
 
-Canvas の基本的な変形機能などだけでは実装できないエフェクトを WebGL で実装できます。
-
 ~src/constants/webgleffects.js~ に一覧があります。
+
+Canvas の基本的な変形機能だけでは実装できないエフェクトを WebGL で実装できます。
 
 WebGL エフェクトの実体は４引数の関数です：
 
@@ -209,7 +199,7 @@ WebGL エフェクトの実体は４引数の関数です：
 - ~cellWidth~
 - ~cellHeight~
 
-シェーダをロード、適切なパラメータをセットして返してください。
+シェーダをロードして、適切なパラメータをセットして返してください。
 
 #+begin_src js
   // 例
@@ -222,13 +212,10 @@ WebGL エフェクトの実体は４引数の関数です：
   }
 #+end_src
 
-画像は例によって４倍サイズでレンダーされます。
+シェーダーは ~src/shaders~ にあります (追加しても OK です)。
 
-フラグメントシェーダ自体の追加が必要であれば、 ~src/shaders~ に追加します。
-
-~webglEffectShader~ という色々いい感じにしてくれる関数があるので、これにシェーダーのコードを投げてください。
-
-よく使う関数 (疑似乱数など) は ~src/shaders/utils~ にあります。
+追加する場合は ~webglEffectShader~ というラッパー関数があるので、これに
+生の GLSL コードを投げつけてください。
 
 #+begin_src js
   const myShader = webglEffectShader(`
@@ -236,26 +223,29 @@ WebGL エフェクトの実体は４引数の関数です：
   `);
 #+end_src
 
+よく使う関数 (疑似乱数など) は ~src/shaders/utils~ にあります。
+
+画像は例によって４倍サイズでレンダーされます。
+
 *** フォントの追加
 
 読み込みが遅くなるので慎重に。
 
-以下のフォントは入れないようにしています：
+以下のフォントは入れないことにしています：
+
 - アイコンサイズに縮小すると読めない
 - 収録漢字が少ない
 - 他のフォントと使いたい場面が被る
 
-1. フォントのライセンスをよく確認する
+フォントのライセンスをよく確認 (再配布可？改変 (woff 化) 可？) した上で、
+woff 化したフォントを ~dist/fonts~ に入れてください。
 
-   再配布、改変 (woff 化) 可能か、など
+自分はこれ https://github.com/zk-phi/woff2sfnt-sfnt2woff を使っています。
 
-2. スクリプトで woff を作る
-   (https://github.com/zk-phi/woff2sfnt-sfnt2woff など)
+: node sfnt2woff.js hoge.ttf hoge.woff
 
-   : node sfnt2woff.js hoge.ttf hoge.woff
+フォントを入れたら３つのファイルを更新してください。
 
-3. fonts に woff を入れて、 ~dist/css/fonts.css~ から参照
-
-4. ~src/constants/fonts.ts~ にフォントを追加
-
-4. LICENSE.markdown に追記
+- ~dist/css/fonts.css~
+- ~src/constants/fonts.ts~
+- ~LICENSE.markdown~
