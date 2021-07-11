@@ -1,8 +1,8 @@
 <script lang="ts">
+import { NFormItem, NButton, NSpace } from "naive-ui";
 import OutlineOption from "../inputs/OutlineOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
-import { NFormItem, NButton, NSpace } from "naive-ui";
 import { darkerColor, lighterColor } from "../../utils/color";
 
 export default {
@@ -85,7 +85,7 @@ export default {
           :key="ix"
           :model-value="colors[ix]"
           @update:model-value="update(ix, $event)"
-          @remove="remove(ix) "/>
+          @remove="remove(ix) " />
       <NButton dashed block @click="add">
         + アウトラインを追加
       </NButton>

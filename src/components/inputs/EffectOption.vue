@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Effect } from "../../types";
 import { NCheckbox } from "naive-ui";
+import { Effect } from "../../types";
 
 type EffectOption = { label: string, fn: Effect };
 

@@ -1,14 +1,13 @@
 <script lang="ts">
+import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 import ColorBlock from "../formblocks/ColorBlock.vue";
 import AnimationSelectBlock from "../formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import RangeBlock from "../formblocks/RangeBlock.vue";
 import CheckboxBlock from "../formblocks/CheckboxBlock.vue";
-import NumberBlock from "../formblocks/NumberBlock.vue";
 import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
-import { NFormItem, NInputNumber, NSpace, NCard, NButton, NGrid, NGridItem } from "naive-ui";
 
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
@@ -26,7 +25,6 @@ export default {
     EffectBlock,
     RangeBlock,
     CheckboxBlock,
-    NumberBlock,
     SelectBlock,
     SwitchBlock,
     CellcountBlock,
@@ -34,7 +32,6 @@ export default {
     NButton,
     NGrid,
     NGridItem,
-    NFormItem, NSpace, NInputNumber,
   },
   props: {
     baseImage: { type: Object, default: null },
@@ -169,11 +166,11 @@ export default {
 </script>
 
 <template>
-  <NCard segmented v-if="show">
+  <NCard v-if="show" segmented>
     <NGrid cols="1 600:2" :x-gap="24">
       <NGridItem>
         <AnimationSelectBlock v-model="conf.animation" />
-        <SwitchBlock v-if="showDetails" label="逆再生" v-model="conf.animationInvert" />
+        <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
         <EffectBlock v-model="conf.postEffects" :effects="posteffects" />
@@ -185,8 +182,8 @@ export default {
       <NGridItem>
         <SelectBlock
             v-if="!showDetails"
-            label="切りぬき"
             v-model="conf.trimming"
+            label="切りぬき"
             :options="TRIMMING_OPTIONS"
             @update:model-value="refreshDefaultSettings" />
         <CellcountBlock
@@ -232,7 +229,7 @@ export default {
             v-model="conf.backgroundColor"
             label="背景色"
             :disabled="conf.transparent" />
-        <SwitchBlock label="透過 (アニメ gif は非推奨)" v-model="conf.transparent" />
+        <SwitchBlock v-model="conf.transparent" label="透過 (アニメ gif は非推奨)" />
       </NGridItem>
     </NGrid>
     <template #footer>

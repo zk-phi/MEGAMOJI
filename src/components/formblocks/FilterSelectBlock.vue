@@ -15,7 +15,7 @@ export default {
   data: (): Record<string, unknown> => ({
     options: [
       { label: "なし", value: "" },
-      ...filters.map((filter, ix) => ({ label: filter.label, value: filter.label })),
+      ...filters.map((filter) => ({ label: filter.label, value: filter.label })),
     ],
   }),
   methods: {

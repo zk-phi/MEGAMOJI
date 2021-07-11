@@ -10,7 +10,7 @@ export default {
   },
   emits: [
     "update:modelValue",
-    "remove"
+    "remove",
   ],
   methods: {
     changeColor(val: string): void {
@@ -29,15 +29,15 @@ export default {
         :modes="['hex']"
         :value="modelValue.color"
         :show-alpha="false"
-        @update:value="changeColor($event)"
-        style="width: 128px; margin-right: 8px" />
+        style="width: 128px; margin-right: 8px"
+        @update:value="changeColor($event)" />
     <NSlider
         :value="modelValue.pos"
         :min="1"
         :max="100"
-        @update:value="changePos($event)"
-        style="margin-right: 8px" />
-    <NButton ghost type="error" @click="$emit('remove')" style="width: 16px">
+        style="margin-right: 8px"
+        @update:value="changePos($event)" />
+    <NButton ghost type="error" style="width: 16px" @click="$emit('remove')">
       x
     </NButton>
   </div>

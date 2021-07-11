@@ -1,8 +1,8 @@
 <script lang="ts">
+import { NSpace, NFormItem } from "naive-ui";
 import FontColorOption from "../inputs/FontColorOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import ColorBlock from "./ColorBlock.vue";
-import { NSpace, NFormItem } from "naive-ui";
 import fontcolors from "../../constants/fontcolors";
 
 export default {

@@ -1,7 +1,6 @@
 <script lang="ts">
-import Tabs from "../navigation/Tabs.vue";
-import PartSelect from "../formblocks/PartSelect.vue";
 import { NCard, NTabs, NTabPane } from "naive-ui";
+import PartSelect from "../formblocks/PartSelect.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";

@@ -3,7 +3,7 @@ import { NSpace } from "naive-ui";
 
 export default {
   components: {
-    NSpace
+    NSpace,
   },
 };
 </script>

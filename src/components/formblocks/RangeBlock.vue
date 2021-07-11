@@ -27,6 +27,6 @@ export default {
         :max="max"
         :range="range"
         :marks="marks"
-        @update:value="$emit('update:modelValue', $event) "/>
+        @update:value="$emit('update:modelValue', $event) " />
   </NFormItem>
 </template>

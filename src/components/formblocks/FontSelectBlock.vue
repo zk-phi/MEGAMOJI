@@ -1,12 +1,12 @@
 <script lang="ts">
+import { NSpace, NFormItem } from "naive-ui";
 import TextBlock from "./TextBlock.vue";
 import FontOption from "../inputs/FontOption.vue";
 import fonts from "../../constants/fonts";
-import { NSpace, NFormItem } from "naive-ui";
 
 export default {
   components: {
-    FontOption, TextBlock, NSpace, NFormItem
+    FontOption, TextBlock, NSpace, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },

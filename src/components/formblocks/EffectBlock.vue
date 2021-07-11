@@ -1,7 +1,7 @@
 <script lang="ts">
+import { NFormItem } from "naive-ui";
 import EffectOption from "../inputs/EffectOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
-import { NFormItem } from "naive-ui";
 
 export default {
   components: {
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <NFormItem v-for="category in effects" :label="category.label">
+  <NFormItem v-for="category in effects" :key="category.label" :label="category.label">
     <CheckboxGroup>
       <EffectOption
           v-for="effect in category.effects"

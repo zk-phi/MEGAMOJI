@@ -15,7 +15,7 @@ export default {
   data: (): Record<string, unknown> => ({
     options: [
       { label: "なし", value: "" },
-      ...animations.map((animation, ix) => ({ label: animation.label, value: animation.label })),
+      ...animations.map((animation) => ({ label: animation.label, value: animation.label })),
     ],
   }),
   methods: {

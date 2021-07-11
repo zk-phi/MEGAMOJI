@@ -1,8 +1,7 @@
 <script lang="ts">
+import { NCard, NSpace, NSwitch } from "naive-ui";
 import RawResult from "../emoji/RawResult.vue";
 import Preview from "../emoji/Preview.vue";
-import SwitchBlock from "../formblocks/SwitchBlock.vue";
-import { NFormItem, NCard, NSpace, NSwitch } from "naive-ui";
 
 const transparentBg = {
   backgroundPosition: "0 0, 10px 10px",
@@ -15,7 +14,7 @@ const transparentBg = {
 
 export default {
   components: {
-    RawResult, Preview, SwitchBlock, NFormItem, NCard, NSpace, NSwitch,
+    RawResult, Preview, NCard, NSpace, NSwitch,
   },
   props: {
     images: { type: Array, required: true },

@@ -6,6 +6,12 @@ export default {
 };
 </script>
 
+<template>
+  <div class="reaction">
+    <img class="reaction_icon" :src="src"> 5
+  </div>
+</template>
+
 <style scoped>
 .reaction {
   display: inline-block;
@@ -29,9 +35,3 @@ export default {
   vertical-align: -5px;
 }
 </style>
-
-<template>
-  <div class="reaction">
-    <img class="reaction_icon" :src="src"> 5
-  </div>
-</template>

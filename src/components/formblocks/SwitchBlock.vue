@@ -9,6 +9,9 @@ export default {
     modelValue: { type: Boolean, required: true },
     label: { type: String, required: true },
   },
+  emits: [
+    "update:modelValue",
+  ],
 };
 </script>
 

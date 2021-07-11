@@ -10,6 +10,17 @@ export default {
 };
 </script>
 
+<template>
+  <div class="field">
+    <img
+        v-for="p in parts"
+        :key="p"
+        :class="'part' + (modelValue == p ? ' selected' : '')"
+        :src="p"
+        @click="$emit('update:modelValue', p)">
+  </div>
+</template>
+
 <style scoped>
 .part {
   width: 48px;
@@ -31,14 +42,3 @@ export default {
   border: 1px solid #18a058;
 }
 </style>
-
-<template>
-  <div class="field">
-    <img
-        v-for="p in parts"
-        :key="p"
-        :class="'part' + (modelValue == p ? ' selected' : '')"
-        :src="p"
-        @click="$emit('update:modelValue', p)">
-  </div>
-</template>

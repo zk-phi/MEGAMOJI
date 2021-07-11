@@ -1,4 +1,5 @@
 <script lang="ts">
+import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
@@ -6,7 +7,6 @@ import SelectBlock from "../formblocks/SelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
-import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 
 import { darkerColor, lighterColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
@@ -102,7 +102,7 @@ export default {
 </script>
 
 <template>
-  <NCard segmented v-if="show">
+  <NCard v-if="show" segmented>
     <NGrid cols="1 600:3" :x-gap="24">
       <NGridItem>
         <FontSelectBlock

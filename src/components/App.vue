@@ -1,4 +1,5 @@
 <script lang="ts">
+import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem, NButton } from "naive-ui";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import TextSource from "./cards/TextSource.vue";
@@ -7,14 +8,27 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
-import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem, NButton } from "naive-ui";
 import theme from "../constants/theme";
 
 export default {
   components: {
-    TextSource, FileSource, FukumojiSource, Target, Result, Tutorial, Header, Footer,
+    TextSource,
+    FileSource,
+    FukumojiSource,
+    Target,
+    Result,
+    Tutorial,
+    Header,
+    Footer,
     NConfigProvider,
-    NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem,
+    NTabs,
+    NTabPane,
+    NLayout,
+    NLayoutHeader,
+    NLayoutFooter,
+    NSpace,
+    NGrid,
+    NGridItem,
     NButton,
   },
   data: (): Record<string, unknown> => ({
@@ -66,10 +80,19 @@ export default {
         </NTabs>
         <NGrid cols="1 800:3" :x-gap="16" :y-gap="16">
           <NGridItem span="2">
-            <TextSource :show="ui.mode == 'text' && !ui.showTargetPanel" @render="onRender" />
-            <FileSource :show="ui.mode == 'file' && !ui.showTargetPanel" @render="onRender" />
-            <FukumojiSource :show="ui.mode == 'fukumoji' && !ui.showTargetPanel" @render="onRender" />
-            <Target :show="ui.showTargetPanel" :base-image="baseImage" @render="onRenderTarget" />
+            <TextSource
+                :show="ui.mode == 'text' && !ui.showTargetPanel"
+                @render="onRender" />
+            <FileSource
+                :show="ui.mode == 'file' && !ui.showTargetPanel"
+                @render="onRender" />
+            <FukumojiSource
+                :show="ui.mode == 'fukumoji' && !ui.showTargetPanel"
+                @render="onRender" />
+            <Target
+                :show="ui.showTargetPanel"
+                :base-image="baseImage"
+                @render="onRenderTarget" />
           </NGridItem>
           <NGridItem>
             <Tutorial v-if="!baseImage" />

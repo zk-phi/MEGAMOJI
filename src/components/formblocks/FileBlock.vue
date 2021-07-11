@@ -4,7 +4,7 @@ import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
 
 export default {
   components: {
-    NFormItem, NUpload, NButton
+    NFormItem, NUpload, NButton,
   },
   props: {
     label: { type: String, default: undefined },

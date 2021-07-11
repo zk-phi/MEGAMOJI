@@ -1,7 +1,7 @@
 <script lang="ts">
+import { NCard } from "naive-ui";
 import FileBlock from "../formblocks/FileBlock.vue";
 import FilterSelectBlock from "../formblocks/FilterSelectBlock.vue";
-import { NCard } from "naive-ui";
 import { urlToImg } from "../../utils/canvas";
 
 export default {

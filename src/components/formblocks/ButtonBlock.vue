@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <NButton @click="click" :block="true">
+  <NButton :block="true" @click="click">
     <slot />
   </NButton>
 </template>

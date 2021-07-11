@@ -1,13 +1,13 @@
 <script lang="ts">
-import ColorStopBlock from "./ColorStopBlock.vue";
 import { NButton, NFormItem, NSpace } from "naive-ui";
+import ColorStopBlock from "./ColorStopBlock.vue";
 import { lighterColor, darkerColor } from "../../utils/color";
 
 type ColorStop = { color: string, pos: number };
 
 export default {
   components: {
-    ColorStopBlock, NButton, NFormItem, NSpace
+    ColorStopBlock, NButton, NFormItem, NSpace,
   },
   props: {
     modelValue: { type: Array, required: true },

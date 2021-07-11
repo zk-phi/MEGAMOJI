@@ -10,7 +10,7 @@ export default {
   },
   emits: [
     "update:modelValue",
-    "remove"
+    "remove",
   ],
 };
 </script>
@@ -21,9 +21,9 @@ export default {
         :modes="['hex']"
         :value="modelValue"
         :show-alpha="false"
-        @update:value="$emit('update:modelValue', $event)"
-        style="margin-right: 8px" />
-    <NButton ghost type="error" @click="$emit('remove')" style="width: 16px">
+        style="margin-right: 8px"
+        @update:value="$emit('update:modelValue', $event)" />
+    <NButton ghost type="error" style="width: 16px" @click="$emit('remove')">
       x
     </NButton>
   </div>

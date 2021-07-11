@@ -21,7 +21,6 @@ export default {
     <NSelect
         :value="modelValue"
         :options="options"
-        @update:value="$emit('update:modelValue', $event)">
-    </NSelect>
+        @update:value="$emit('update:modelValue', $event)" />
   </NFormItem>
 </template>
