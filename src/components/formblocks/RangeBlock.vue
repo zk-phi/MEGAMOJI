@@ -1,10 +1,17 @@
 <script lang="ts">
+import { NFormItem, NSlider } from "naive-ui";
+
 export default {
+  components: {
+    NFormItem, NSlider,
+  },
   props: {
-    modelValue: { type: Number, required: true },
+    modelValue: { type: [Number, Array], required: true },
     label: { type: String, default: undefined },
     min: { type: Number, required: true },
     max: { type: Number, required: true },
+    range: { type: Boolean, default: false },
+    marks: { type: Object, default: undefined },
   },
   emits: [
     "update:modelValue",
@@ -13,15 +20,13 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <label v-if="label" class="label">{{ label }}</label>
-    <div class="control">
-      <input
-          :value="modelValue"
-          type="range"
-          :min="min"
-          :max="max"
-          @input="$emit('update:modelValue', Number($event.target.value))">
-    </div>
-  </div>
+  <NFormItem :label="label">
+    <NSlider
+        :value="modelValue"
+        :min="min"
+        :max="max"
+        :range="range"
+        :marks="marks"
+        @update:value="$emit('update:modelValue', $event) "/>
+  </NFormItem>
 </template>

@@ -11,6 +11,14 @@ export default {
   emits: [
     "update:modelValue",
   ],
+  data: (): Record<string, unknown> => ({
+    options: [
+      { label: "両端", value: "stretch" },
+      { label: "左", value: "left" },
+      { label: "中央", value: "center" },
+      { label: "右", value: "right" },
+    ],
+  }),
 };
 </script>
 
@@ -18,18 +26,6 @@ export default {
   <SelectBlock
       :model-value="modelValue"
       label="揃え"
-      @update:model-value="$emit('update:modelValue', $event)">
-    <option value="stretch">
-      両端
-    </option>
-    <option value="left">
-      左
-    </option>
-    <option value="center">
-      中央
-    </option>
-    <option value="right">
-      右
-    </option>
-  </SelectBlock>
+      :options="options"
+      @update:model-value="$emit('update:modelValue', $event)" />
 </template>

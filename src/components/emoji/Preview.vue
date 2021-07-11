@@ -1,5 +1,10 @@
 <script lang="ts">
+import Reaction from "./Reaction.vue";
+
 export default {
+  components: {
+    Reaction,
+  },
   props: {
     images: { type: Array, required: true },
     darkMode: { type: Boolean, required: true },
@@ -7,13 +12,41 @@ export default {
 };
 </script>
 
+<style>
+.preview {
+  padding: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #ccc;
+}
+
+.preview.light {
+  color: #222;
+  background-color: #fff;
+}
+
+.preview.dark {
+  color: #ddd;
+  background-color: #333;
+}
+
+.large {
+  width: 32px;
+}
+
+.in_text {
+  width: 24px;
+  vertical-align: bottom;
+}
+</style>
+
 <template>
   <div :class="`preview ${darkMode ? 'dark' : 'light'}`">
     <div>
-      <b>zk-phi</b> <small>1:23 AM</small>
+      <b>ほげほげさん</b> <small>1:23 AM</small>
     </div>
     <div v-for="(row, i) in images" :key="i" class="row">
-      <img v-for="(col, j) in row" :key="j" class="cell large" :src="col">
+      <img v-for="(col, j) in row" :key="j" class="large" :src="col">
     </div>
     <div>
       ほげほげほげほげほげほげほげほげ。
@@ -21,15 +54,13 @@ export default {
     <div>
       文章中で使うとこんな
       <span v-for="(row, i) in images" :key="i">
-        <img v-for="(col, j) in row" :key="j" class="cell small" :src="col">
+        <img v-for="(col, j) in row" :key="j" class="in_text" :src="col">
       </span>
       感じ。
     </div>
     <div>
       <span v-for="(row, i) in images" :key="i">
-        <div v-for="(col, j) in row" :key="j" class="reaction">
-          <img class="cell smallest" :src="col"> 5
-        </div>
+        <Reaction v-for="(col, j) in row" :key="j" :src="col" />
       </span>
     </div>
   </div>

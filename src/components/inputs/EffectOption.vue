@@ -1,9 +1,13 @@
 <script lang="ts">
 import { Effect } from "../../types";
+import { NCheckbox } from "naive-ui";
 
 type EffectOption = { label: string, fn: Effect };
 
 export default {
+  components: {
+    NCheckbox,
+  },
   props: {
     modelValue: { type: Array, required: true },
     effect: { type: Object, required: true },
@@ -31,8 +35,7 @@ export default {
 </script>
 
 <template>
-  <label class="checkbox">
-    <input type="checkbox" :checked="checked" @change="onToggle(effect)">
+  <NCheckbox :checked="checked" @update:checked="onToggle(effect)">
     {{ effect.label }}
-  </label>
+  </NCheckbox>
 </template>

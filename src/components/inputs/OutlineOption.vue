@@ -1,7 +1,11 @@
 <script lang="ts">
+import { NCheckbox } from "naive-ui";
 import { darkerColor, lighterColor } from "../../utils/color";
 
 export default {
+  components: {
+    NCheckbox,
+  },
   props: {
     modelValue: { type: Array, required: true },
     color: { type: String, required: true },
@@ -41,8 +45,9 @@ export default {
 </script>
 
 <template>
-  <label class="checkbox" :style="{ color: iconColor }">
-    <input type="checkbox" :checked="checked" @change="onToggle(color)">
-    {{ color === "#ffffff" ? "♢" : "◆" }}
-  </label>
+  <NCheckbox :checked="checked" @update:checked="onToggle(color)">
+    <span :style="{ color: iconColor }">
+      {{ color === "#ffffff" ? "♢" : "◆" }}
+    </span>
+  </NCheckbox>
 </template>

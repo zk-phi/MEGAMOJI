@@ -2,10 +2,11 @@
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
-import TextAlignSelectBlock from "../formblocks/TextAlignSelectBlock.vue";
+import SelectBlock from "../formblocks/SelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
+import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 
 import { darkerColor, lighterColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
@@ -17,10 +18,14 @@ export default {
     FontSelectBlock,
     TextBlock,
     TextAreaBlock,
-    TextAlignSelectBlock,
+    SelectBlock,
     FontColorSelectBlock,
     GradientBlock,
     OutlineBlock,
+    NCard,
+    NButton,
+    NGrid,
+    NGridItem,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -29,11 +34,17 @@ export default {
     "render",
   ],
   data: (): Record<string, unknown> => ({
+    ALIGN_OPTIONS: [
+      { label: "両端", value: "stretch" },
+      { label: "左", value: "left" },
+      { label: "中央", value: "center" },
+      { label: "右", value: "right" },
+    ],
     conf: {
       /* basic */
       content: "",
       align: "stretch",
-      color: "#ffbf00",
+      color: "#ffda00",
       gradient: [],
       outlines: [],
       font: "normal 1em sans-serif",
@@ -91,42 +102,44 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="card">
-    <div class="card-content">
-      <div class="columns">
-        <div class="column">
-          <FontSelectBlock
-              v-model="conf.font"
-              :show-details="showDetails" />
-          <TextBlock
-              v-if="showDetails"
-              v-model="conf.lineSpacing"
-              label="行間 (文字分)" />
-        </div>
-        <div class="column">
-          <TextAreaBlock
-              v-model="conf.content"
-              label="テキスト (改行可)"
-              :rows="3" />
-          <TextAlignSelectBlock
-              v-model="conf.align" />
-          <FontColorSelectBlock
-              v-model="conf.color"
-              :show-details="showDetails" />
-          <GradientBlock
-              v-model="conf.gradient"
-              :base-color="conf.color" />
-          <OutlineBlock
-              v-model="conf.outlines"
-              :base-color="conf.color"
-              :show-details="showDetails" />
-        </div>
+  <NCard segmented v-if="show">
+    <NGrid cols="1 600:3" :x-gap="24">
+      <NGridItem>
+        <FontSelectBlock
+            v-model="conf.font"
+            :show-details="showDetails" />
+      </NGridItem>
+      <NGridItem :span="2">
+        <TextAreaBlock
+            v-model="conf.content"
+            label="テキスト (改行可)"
+            :rows="3" />
+        <SelectBlock
+            v-model="conf.align"
+            label="揃え"
+            :options="ALIGN_OPTIONS" />
+        <TextBlock
+            v-if="showDetails"
+            v-model="conf.lineSpacing"
+            label="行間 (文字分)" />
+        <FontColorSelectBlock
+            v-model="conf.color"
+            :show-details="showDetails" />
+        <GradientBlock
+            v-model="conf.gradient"
+            :base-color="conf.color" />
+        <OutlineBlock
+            v-model="conf.outlines"
+            :base-color="conf.color"
+            :show-details="showDetails" />
+      </NGridItem>
+    </NGrid>
+    <template #footer>
+      <div style="text-align: center">
+        <NButton text @click="showDetails = !showDetails">
+          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+        </NButton>
       </div>
-    </div>
-    <div class="card-footer">
-      <a class="card-footer-item" @click="showDetails = !showDetails">
-        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-      </a>
-    </div>
-  </div>
+    </template>
+  </NCard>
 </template>

@@ -1,5 +1,10 @@
 <script lang="ts">
+import { NFormItem, NInputNumber } from "naive-ui";
+
 export default {
+  components: {
+    NFormItem, NInputNumber,
+  },
   props: {
     modelValue: { type: Number, required: true },
     label: { type: String, default: undefined },
@@ -12,15 +17,10 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <label v-if="label" class="label">{{ label }}</label>
-    <div class="control">
-      <input
-          :value="modelValue"
-          class="input"
-          type="number"
-          :min="min"
-          @change="$emit('update:modelValue', Number($event.target.value))">
-    </div>
-  </div>
+  <NFormItem :label="label">
+    <NInputNumber
+        :value="modelValue"
+        :min="min"
+        @update:value="$emit('update:modelValue', $event)" />
+  </NFormItem>
 </template>

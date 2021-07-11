@@ -67,7 +67,7 @@ function renderFrameUncut(
  * each images may exceed binarySizeLimit.
  */
 function renderAllCellsFixedSize(
-  image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, targetSize, noCrop,
+  image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, targetSize, noCrop,
   animated, animation, animationInvert, effects, webglEffects, postEffects,
   framerate, framecount,
   backgroundColor, transparent,
@@ -76,7 +76,7 @@ function renderAllCellsFixedSize(
   if (!animated) {
     const img = renderFrameUncut(
       0, image,
-      offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+      offsetH, offsetV, srcWidth, srcHeight,
       targetSize * hCells, targetSize * vCells, noCrop,
       animation, animationInvert, effects, webglEffects, postEffects,
       framerate, framecount,
@@ -109,7 +109,7 @@ function renderAllCellsFixedSize(
       const keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
       const frame = renderFrameUncut(
         keyframe, image,
-        offsetH, offsetV, cellWidth * hCells, cellHeight * vCells,
+        offsetH, offsetV, srcWidth, srcHeight,
         targetSize * hCells, targetSize * vCells, noCrop,
         animation, animationInvert, effects, webglEffects, postEffects,
         framerate, framecount,
@@ -142,8 +142,8 @@ export function renderAllCells(
   offsetV: number,
   hCells: number,
   vCells: number,
-  cellWidth: number,
-  cellHeight: number,
+  srcWidth: number,
+  srcHeight: number,
   maxSize: number,
   noCrop: boolean,
   animated: boolean,
@@ -160,7 +160,7 @@ export function renderAllCells(
 ): Promise<string[][]> {
   return new Promise((resolve) => {
     renderAllCellsFixedSize(
-      image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize, noCrop,
+      image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize, noCrop,
       animated, animation, animationInvert, effects, webglEffects, postEffects,
       framerate, framecount,
       backgroundColor, transparent,
@@ -174,7 +174,7 @@ export function renderAllCells(
       )));
       if (shouldRetry) {
         renderAllCells(
-          image, offsetH, offsetV, hCells, vCells, cellWidth, cellHeight, maxSize * 0.9, noCrop,
+          image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize * 0.9, noCrop,
           animated, animation, animationInvert, effects, webglEffects, postEffects,
           framerate, framecount,
           backgroundColor, transparent,

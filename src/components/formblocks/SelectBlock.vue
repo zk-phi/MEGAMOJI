@@ -1,8 +1,14 @@
 <script lang="ts">
+import { NFormItem, NSelect } from "naive-ui";
+
 export default {
+  components: {
+    NFormItem, NSelect,
+  },
   props: {
     modelValue: { type: String, required: true },
     label: { type: String, default: undefined },
+    options: { type: Object, required: true },
   },
   emits: [
     "update:modelValue",
@@ -11,14 +17,11 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <label class="label">{{ label }}</label>
-    <div class="control">
-      <div class="select">
-        <select :value="modelValue" @change="$emit('update:modelValue', $event.target.value)">
-          <slot />
-        </select>
-      </div>
-    </div>
-  </div>
+  <NFormItem :label="label">
+    <NSelect
+        :value="modelValue"
+        :options="options"
+        @update:value="$emit('update:modelValue', $event)">
+    </NSelect>
+  </NFormItem>
 </template>

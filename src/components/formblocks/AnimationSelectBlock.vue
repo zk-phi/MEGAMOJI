@@ -13,7 +13,10 @@ export default {
     "update:modelValue",
   ],
   data: (): Record<string, unknown> => ({
-    animations,
+    options: [
+      { label: "なし", value: "" },
+      ...animations.map((animation, ix) => ({ label: animation.label, value: animation.label })),
+    ],
   }),
   methods: {
     onChange(label: string): void {
@@ -30,15 +33,6 @@ export default {
   <SelectBlock
       :model-value="modelValue ? modelValue.label : ''"
       label="アニメーション"
-      @update:model-value="onChange">
-    <option value="">
-      なし
-    </option>
-    <option
-        v-for="animation in animations"
-        :key="animation.label"
-        :value="animation.label">
-      {{ animation.label }}
-    </option>
-  </SelectBlock>
+      :options="options"
+      @update:model-value="onChange" />
 </template>

@@ -1,12 +1,16 @@
 <script lang="ts">
+import { NButton, NColorPicker, NSlider } from "naive-ui";
+
 export default {
+  components: {
+    NButton, NColorPicker, NSlider,
+  },
   props: {
     modelValue: { type: Object, required: true },
-    onRemove: { type: Function, required: true },
   },
   emits: [
     "update:modelValue",
-    "remove",
+    "remove"
   ],
   methods: {
     changeColor(val: string): void {
@@ -20,27 +24,21 @@ export default {
 </script>
 
 <template>
-  <div class="field has-addons">
-    <div class="control">
-      <input
-          :value="modelValue.color"
-          type="color"
-          class="input"
-          @change="changeColor($event.target.value)">
-    </div>
-    <div class="control is-expanded">
-      <input
-          :value="modelValue.pos"
-          class="input"
-          type="range"
-          min="1"
-          max="100"
-          @change="changePos($event.target.value)">
-    </div>
-    <div class="control">
-      <button class="button" @click="$emit('remove')">
-        x
-      </button>
-    </div>
+  <div style="display: flex; align-items: center; width: 100%">
+    <NColorPicker
+        :modes="['hex']"
+        :value="modelValue.color"
+        :show-alpha="false"
+        @update:value="changeColor($event)"
+        style="width: 128px; margin-right: 8px" />
+    <NSlider
+        :value="modelValue.pos"
+        :min="1"
+        :max="100"
+        @update:value="changePos($event)"
+        style="margin-right: 8px" />
+    <NButton ghost type="error" @click="$emit('remove')" style="width: 16px">
+      x
+    </NButton>
   </div>
 </template>

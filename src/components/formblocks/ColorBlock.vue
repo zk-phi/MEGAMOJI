@@ -1,9 +1,13 @@
 <script lang="ts">
+import { NFormItem, NColorPicker } from "naive-ui";
+
 export default {
+  components: {
+    NFormItem, NColorPicker,
+  },
   props: {
     modelValue: { type: String, required: true },
     label: { type: String, default: undefined },
-    disabled: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
@@ -12,15 +16,11 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <label v-if="label" class="label">{{ label }}</label>
-    <div class="control">
-      <input
-          :value="modelValue"
-          class="input"
-          type="color"
-          :disabled="disabled"
-          @change="$emit('update:modelValue', $event.target.value)">
-    </div>
-  </div>
+  <NFormItem :label="label">
+    <NColorPicker
+        :modes="['hex']"
+        :value="modelValue"
+        :show-alpha="false"
+        @update:value="$emit('update:modelValue', $event)" />
+  </NFormItem>
 </template>

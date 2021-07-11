@@ -13,7 +13,10 @@ export default {
     "update:modelValue",
   ],
   data: (): Record<string, unknown> => ({
-    filters,
+    options: [
+      { label: "なし", value: "" },
+      ...filters.map((filter, ix) => ({ label: filter.label, value: filter.label })),
+    ],
   }),
   methods: {
     onChange(label: string): void {
@@ -27,12 +30,6 @@ export default {
   <SelectBlock
       :model-value="modelValue ? modelValue.label : ''"
       label="前処理"
-      @update:model-value="onChange">
-    <option value="">
-      なし
-    </option>
-    <option v-for="filter in filters" :key="filter.label" :value="filter.label">
-      {{ filter.label }}
-    </option>
-  </SelectBlock>
+      :options="options"
+      @update:model-value="onChange" />
 </template>

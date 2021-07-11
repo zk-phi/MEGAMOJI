@@ -5,9 +5,9 @@ export type Animation = (
   keyframe: number,
   // a (possively) effected 2d rendering context
   ctx: CanvasRenderingContext2D,
-// the source image to be rendered
+  // the source image to be rendered
   image: HTMLImageElement,
-// range of the source image to be rendered
+  // range of the source image to be rendered
   offsetH: number, offsetV: number, width: number, height: number,
 // size of the image to be rendered
   cellWidth: number, cellHeight: number,

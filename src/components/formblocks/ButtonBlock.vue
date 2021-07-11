@@ -1,5 +1,10 @@
 <script lang="ts">
+import { NButton } from "naive-ui";
+
 export default {
+  components: {
+    NButton,
+  },
   props: {
     click: { type: Function, required: true },
   },
@@ -7,11 +12,7 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <div class="control">
-      <button class="button" @click="click">
-        <slot />
-      </button>
-    </div>
-  </div>
+  <NButton @click="click" :block="true">
+    <slot />
+  </NButton>
 </template>

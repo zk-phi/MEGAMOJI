@@ -1,13 +1,14 @@
 <script lang="ts">
 import Tabs from "../navigation/Tabs.vue";
 import PartSelect from "../formblocks/PartSelect.vue";
+import { NCard, NTabs, NTabPane } from "naive-ui";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
 
 export default {
   components: {
-    Tabs, PartSelect,
+    PartSelect, NCard, NTabs, NTabPane,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -17,7 +18,7 @@ export default {
   ],
   data: (): Record<string, unknown> => ({
     parts,
-    tab: "base",
+    tab: "ベース",
     conf: {
       base: "assets/void.svg",
       textures: "assets/void.svg",
@@ -51,15 +52,17 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="card">
-    <div class="card-content">
-      <Tabs v-model="tab" :tabs="parts.categories" />
-      <PartSelect
+  <NCard v-if="show">
+    <NTabs v-model:value="tab" type="card">
+      <NTabPane
           v-for="category in parts.categories"
-          :key="category.value"
-          v-model="conf[category.value]"
-          :show="tab === category.value"
-          :parts="parts[category.value]" />
-    </div>
-  </div>
+          :key="category.label"
+          :name="category.label">
+        <PartSelect
+            :key="category.value"
+            v-model="conf[category.value]"
+            :parts="parts[category.value]" />
+      </NTabPane>
+    </NTabs>
+  </NCard>
 </template>

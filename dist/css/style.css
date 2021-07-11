@@ -72,19 +72,3 @@
   width: 19px;
   vertical-align: -5px;
 }
-
-.fukumoji .part {
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-  border: 2px solid #fff;
-  border-radius: 4px;
-}
-
-.fukumoji .part:hover {
-  border: 2px solid #ccc;
-}
-
-.fukumoji .part.selected {
-  border: 2px solid #f00;
-}

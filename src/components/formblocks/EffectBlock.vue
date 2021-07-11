@@ -1,9 +1,11 @@
 <script lang="ts">
 import EffectOption from "../inputs/EffectOption.vue";
+import CheckboxGroup from "../inputs/CheckboxGroup.vue";
+import { NFormItem } from "naive-ui";
 
 export default {
   components: {
-    EffectOption,
+    NFormItem, EffectOption, CheckboxGroup,
   },
   props: {
     modelValue: { type: Array, required: true },
@@ -16,13 +18,14 @@ export default {
 </script>
 
 <template>
-  <div v-for="category in effects" :key="category.label" class="field">
-    <label class="label">{{ category.label }}</label>
-    <EffectOption
-        v-for="effect in category.effects"
-        :key="effect.label"
-        :effect="effect"
-        :model-value="modelValue"
-        @update:model-value="$emit('update:modelValue', $event)" />
-  </div>
+  <NFormItem v-for="category in effects" :label="category.label">
+    <CheckboxGroup>
+      <EffectOption
+          v-for="effect in category.effects"
+          :key="effect.label"
+          :effect="effect"
+          :model-value="modelValue"
+          @update:model-value="$emit('update:modelValue', $event)" />
+    </CheckboxGroup>
+  </NFormItem>
 </template>

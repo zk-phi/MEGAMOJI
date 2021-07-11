@@ -1,5 +1,10 @@
 <script lang="ts">
+import { NRadio } from "naive-ui";
+
 export default {
+  components: {
+    NRadio,
+  },
   props: {
     modelValue: { type: String, required: true },
     font: { type: String, required: true },
@@ -11,13 +16,7 @@ export default {
 </script>
 
 <template>
-  <div class="control">
-    <label class="radio" :style="{ font: font }">
-      <input
-          type="radio"
-          :checked="modelValue === font"
-          @change="$emit('update:modelValue', font)">
-      <slot />
-    </label>
-  </div>
+  <NRadio :checked="modelValue === font" @update:checked="$emit('update:modelValue', font)">
+    <span :style="{ font: font }"><slot /></span>
+  </NRadio>
 </template>

@@ -3,9 +3,10 @@ import effectFlipVertical from "../effects/flipVertical";
 
 export default [
   {
+    label: "反転",
     effects: [
-      { label: "左右を反転", fn: effectFlip },
-      { label: "上下を反転", fn: effectFlipVertical },
+      { label: "左右", fn: effectFlip },
+      { label: "上下", fn: effectFlipVertical },
     ],
   },
 ];

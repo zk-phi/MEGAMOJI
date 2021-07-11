@@ -1,11 +1,13 @@
 <script lang="ts">
 import OutlineOption from "../inputs/OutlineOption.vue";
-import ButtonBlock from "./ButtonBlock.vue";
+import CheckboxGroup from "../inputs/CheckboxGroup.vue";
+import OutlineItemBlock from "./OutlineItemBlock.vue";
+import { NFormItem, NButton, NSpace } from "naive-ui";
 import { darkerColor, lighterColor } from "../../utils/color";
 
 export default {
   components: {
-    OutlineOption, ButtonBlock,
+    OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, NButton, NSpace,
   },
   props: {
     modelValue: { type: Array, required: true },
@@ -47,9 +49,8 @@ export default {
 </script>
 
 <template>
-  <div class="field">
-    <label class="label">アウトライン</label>
-    <div class="control">
+  <NFormItem v-if="!showDetails" label="アウトライン">
+    <CheckboxGroup>
       <OutlineOption
           :model-value="modelValue"
           :base-color="baseColor"
@@ -75,28 +76,19 @@ export default {
           :base-color="baseColor"
           color="#ffffff"
           @update:modelValue="$emit('update:modelValue', $event)" />
-    </div>
-  </div>
-  <div v-if="showDetails">
-    <div class="field">
-      <label class="label">その他のアウトライン</label>
-    </div>
-    <div v-for="(color, ix) in modelValue" :key="color" class="field has-addons">
-      <div class="control is-expanded">
-        <input
-            class="input"
-            type="color"
-            :value="colors[ix]"
-            @change="update(ix, $event.target.value)">
-      </div>
-      <div class="control">
-        <button class="button" @click="remove(ix)">
-          x
-        </button>
-      </div>
-    </div>
-    <ButtonBlock :click="add">
-      + アウトラインを追加
-    </ButtonBlock>
-  </div>
+    </CheckboxGroup>
+  </NFormItem>
+  <NFormItem v-else label="アウトライン">
+    <NSpace vertical style="width: 100%">
+      <OutlineItemBlock
+          v-for="(color, ix) in modelValue"
+          :key="ix"
+          :model-value="colors[ix]"
+          @update:model-value="update(ix, $event)"
+          @remove="remove(ix) "/>
+      <NButton dashed block @click="add">
+        + アウトラインを追加
+      </NButton>
+    </NSpace>
+  </NFormItem>
 </template>

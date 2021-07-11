@@ -1,11 +1,12 @@
 <script lang="ts">
 import FileBlock from "../formblocks/FileBlock.vue";
 import FilterSelectBlock from "../formblocks/FilterSelectBlock.vue";
+import { NCard } from "naive-ui";
 import { urlToImg } from "../../utils/canvas";
 
 export default {
   components: {
-    FileBlock, FilterSelectBlock,
+    FileBlock, FilterSelectBlock, NCard,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -44,10 +45,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="show" class="card">
-    <div class="card-content">
-      <FileBlock label="ファイル" @load="conf.img = $event" />
-      <FilterSelectBlock v-model="conf.filter" />
-    </div>
-  </div>
+  <NCard v-if="show">
+    <FileBlock label="ファイル" @load="conf.img = $event" />
+    <FilterSelectBlock v-model="conf.filter" />
+  </NCard>
 </template>

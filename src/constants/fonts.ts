@@ -25,6 +25,5 @@ export default [
       { label: "レゲエ", value: "normal 1em 'Reggae'" },
       { label: "ランパート", value: "normal 1em 'Rampart'" },
     ],
-  }, {
   },
 ];
