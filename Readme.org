@@ -34,6 +34,17 @@ http://zk-phi.github.io/MEGAMOJI
 
 プルリクを送る前に走らせておくのがおすすめです。
 
+*** Workflows
+
+GitHub Actions を使って自動でビルドしたり、 lint をかけたりするようにしてあります。
+
+- lint ... master を push したときに npm run lint
+- lint-pr ... プルリクを作ったときに reviewdog 経由で eslint, stylelint を回す
+- build ... master を push したときに npm run lint して gh-pages に push
+
+ビルド時、 GitHub Secrets に ~ROLLBAR_TOKEN~ をセットしておくと、エラーを
+rollbar から確認できます。
+
 *** ディレクトリ構成
 
 - ~dist/~ ... ビルドされたアプリが入る場所です
