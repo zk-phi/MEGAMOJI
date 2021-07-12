@@ -1,9 +1,9 @@
 <script>
-import { NCard, NThing, NSpace, NAvatar } from "naive-ui";
+import { NCard, NThing, NSpace, NAvatar, NButton } from "naive-ui";
 
 export default {
   components: {
-    NCard, NThing, NSpace, NAvatar,
+    NCard, NThing, NSpace, NAvatar, NButton,
   },
 };
 </script>
@@ -41,7 +41,14 @@ export default {
           キメラ絵文字
         </template>
         <template #description>
-          既存の絵文字を合成してスタンプを作ります。パーツは Twemoji (CC-BY (C) Twitter) から作っています。
+          既存の絵文字を合成してスタンプを作ります。
+          <NButton
+              text
+              tag="a"
+              href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown"
+              target="_blank">
+            ライセンス表示
+          </NButton>
         </template>
       </NThing>
     </NSpace>
