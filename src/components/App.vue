@@ -68,17 +68,17 @@ export default {
 <template>
   <NConfigProvider :theme-overrides="theme">
     <NLayout>
-      <NLayoutHeader bordered style="padding: 16px;">
+      <NLayoutHeader bordered style="padding: 12px;">
         <Header />
       </NLayoutHeader>
 
-      <NLayout content-style="padding: 16px">
+      <NLayout content-style="padding: 12px">
         <NTabs :value="ui.mode" @update:value="onSelectMode">
           <NTabPane name="text" tab="テキスト絵文字" />
           <NTabPane name="file" tab="画像絵文字" />
           <NTabPane name="fukumoji" tab="キメラ絵文字" />
         </NTabs>
-        <NGrid cols="1 840:3" :x-gap="16" :y-gap="16">
+        <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
           <NGridItem span="2">
             <TextSource
                 :show="ui.mode == 'text' && !ui.showTargetPanel"
@@ -106,7 +106,7 @@ export default {
         </NGrid>
       </NLayout>
 
-      <NLayoutFooter style="padding: 16px;">
+      <NLayoutFooter style="padding: 12px;">
         <Footer />
       </NLayoutFooter>
     </NLayout>

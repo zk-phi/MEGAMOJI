@@ -13,7 +13,7 @@ export default {
       title="MEGAMOJI"
       subtitle="カスタム絵文字メーカー">
     <template #extra>
-      <NSpace>
+      <NSpace vertical>
         <NButton
             text
             tag="a"
