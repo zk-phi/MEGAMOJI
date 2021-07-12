@@ -8,9 +8,10 @@
 # 権利表示
 
 Libraries
-- Vue.js 2.5.16 (Evan You, MIT License)
 - gif.js (Johan Nordberg, MIT License)
 - Naive UI (TuSimple, MIT License)
+- Rollbar (Rollbar, MIT License)
+- Vue.js (Evan You, MIT License)
 
 Images
 - Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
