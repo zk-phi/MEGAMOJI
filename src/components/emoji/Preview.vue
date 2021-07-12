@@ -38,7 +38,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .preview {
   padding: 12px;
   font-size: 16px;
@@ -54,6 +54,10 @@ export default {
 .preview.dark {
   color: #ddd;
   background-color: #333;
+}
+
+.row {
+  line-height: 0;
 }
 
 .large {
