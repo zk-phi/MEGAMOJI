@@ -1,5 +1,12 @@
-export type Filter = (image: HTMLImageElement) => string;
+type DataURL = string;
 
+// A filter takes an image, and returns filtered image as an DataURL.
+export type Filter = (
+  image: HTMLImageElement,
+) => DataURL;
+
+// An animation takes a CanvasRenderingContext2D and an image, and render
+// image to the canvas.
 export type Animation = (
   // a 0.0 - 1.0 progress of the animation
   keyframe: number,
@@ -13,8 +20,9 @@ export type Animation = (
   cellWidth: number, cellHeight: number,
 ) => void;
 
-// An effect takes a 2d rendering context and makes modifications to it.
-// Note that users can enable multiple effects at the same time.
+// Effects are called with CanvasRenderingContext2D before rendering, and
+// expected to configure the canvas. Note that users may enable multiple
+// effects at the same time.
 export type Effect = (
   // a 0.0 - 1.0 progress of the animation
   keyrame: number,
@@ -24,8 +32,18 @@ export type Effect = (
   width: number, height: number,
 ) => void;
 
+// Posteffects are called with CanvasRenderingContext2D after rendering, and modify it.
 export type PostEffect = (
-  keyframe: number, ctx: CanvasRenderingContext2D, width: number, height: number,
+  keyframe: number,
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
 ) => void;
 
-export type WebGLEffect = (keyframe: number, width: number, height: number) => WebGLProgram;
+// WebGLEffect loads and configures a WebGLProgram, which is then used to effect
+// rendered images.
+export type WebGLEffect = (
+  keyframe: number,
+  width: number,
+  height: number,
+) => WebGLProgram;
