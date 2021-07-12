@@ -9,6 +9,8 @@ if (rollbar) {
     rollbar.error(err);
     throw err; // rethrow
   };
+  // eslint-disable-next-line no-console
+  console.log("Rollbar initialized.");
 }
 
 window.onerror = (msg, file, line, col) => {
