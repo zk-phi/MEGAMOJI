@@ -1,7 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { VueLoaderPlugin } = require("vue-loader");
 
-module.exports = {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { EnvironmentPlugin } = require("webpack");
+
+module.exports = (env, argv) => ({
   entry: "./src/megamoji.ts",
   devServer: {
     contentBase: "dist",
@@ -32,6 +35,10 @@ module.exports = {
     extensions: [".ts", ".js"],
   },
   plugins: [
+    new EnvironmentPlugin({
+      NODE_ENV: argv.mode,
+      ROLLBAR_TOKEN: "",
+    }),
     new VueLoaderPlugin(),
   ],
-};
+});
