@@ -10,13 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment vars from GH Secrets
-        env:
-          ROLLBAR_TOKEN: ${{secrets.ROLLBAR_TOKEN}}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
       - run: npm ci
       - run: npm run build
+        env:
+          ROLLBAR_TOKEN: ${{secrets.ROLLBAR_TOKEN}}
       - uses: peaceiris/actions-gh-pages@v3.8.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
