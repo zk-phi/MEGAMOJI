@@ -1,4 +1,4 @@
 node_modules
 dist/bundle.js
+dist/bundle.js.map
 dist/bundle.js.LICENSE.txt
-
