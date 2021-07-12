@@ -17,6 +17,11 @@ window.onerror = (msg, file, line, col) => {
   ga("send", "event", "error", "thrown", `${file}:${line}:${col} ${msg}`);
 };
 
+const match = window.location.href.match(/debugrollbar=(.*)/);
+if (match) {
+  throw new Error(match[1]);
+}
+
 app.mount("#app");
 
 ga("send", "pageview", "/");
