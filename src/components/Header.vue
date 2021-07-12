@@ -1,9 +1,9 @@
 <script>
-import { NSpace, NPageHeader, NButton } from "naive-ui";
+import { NPageHeader, NButton } from "naive-ui";
 
 export default {
   components: {
-    NSpace, NPageHeader, NButton,
+    NPageHeader, NButton,
   },
 };
 </script>
@@ -13,7 +13,7 @@ export default {
       title="MEGAMOJI"
       subtitle="カスタム絵文字メーカー">
     <template #extra>
-      <NSpace vertical>
+      <div style="text-align: right;">
         <NButton
             text
             tag="a"
@@ -21,6 +21,7 @@ export default {
             target="_blank">
           更新履歴
         </NButton>
+        {{" "}}
         <NButton
             text
             tag="a"
@@ -28,7 +29,7 @@ export default {
             target="_blank">
           投げ銭箱
         </NButton>
-      </NSpace>
+      </div>
     </template>
   </NPageHeader>
 </template>
