@@ -10,7 +10,7 @@ http://zk-phi.github.io/MEGAMOJI
 : npm install
 : npm run start
 
-するとブラウザが開きます。
+するとサーバーが立ち上がります。 https://localhost:8080 で確認できます。
 
 ソースをいじるとすぐに反映されます。
 

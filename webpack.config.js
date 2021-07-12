@@ -5,7 +5,6 @@ module.exports = {
   entry: "./src/megamoji.ts",
   devServer: {
     contentBase: "dist",
-    open: true,
   },
   output: {
     path: `${__dirname}/dist`,
