@@ -44,12 +44,6 @@ export default {
       showTargetDetails: false,
     },
   }),
-  mounted(): void {
-    const match = window.location.href.match(/debugrollbar=(.*)/);
-    if (match) {
-      throw new Error(`Test: ${match[1]}`);
-    }
-  },
   methods: {
     onSetShowTarget(value: boolean): void {
       this.ui.showTargetPanel = value;
