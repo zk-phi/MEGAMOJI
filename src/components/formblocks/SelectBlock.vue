@@ -6,7 +6,7 @@ export default {
     NFormItem, NSelect,
   },
   props: {
-    modelValue: { type: String, required: true },
+    modelValue: { type: [String, Number], required: true },
     label: { type: String, default: undefined },
     options: { type: Object, required: true },
   },
