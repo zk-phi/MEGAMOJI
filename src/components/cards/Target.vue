@@ -16,7 +16,13 @@ import webgleffects from "../../constants/webgleffects";
 import posteffects from "../../constants/posteffects";
 
 import { renderAllCells } from "../../utils/emoji";
-import { ANIMATED_EMOJI_SIZE, EMOJI_SIZE, BINARY_SIZE_LIMIT } from "../../constants/emoji";
+import {
+  EMOJI_SIZE,
+  ANIMATED_EMOJI_SIZE,
+  BINARY_SIZE_LIMIT,
+  FRAMERATE_MAX,
+  FRAMECOUNT_MAX,
+}  from "../../constants/emoji";
 
 export default {
   components: {
@@ -52,9 +58,11 @@ export default {
       { label: "おさめる (アス比維持)", value: "contain" },
     ],
     SPEED_OPTIONS: [
-      { label: "ふつう", value: "" },
-      { label: "速い", value: "turbo" },
-      { label: "爆速", value: "jet" },
+      { label: "コマ送り", value: 2.0 },
+      { label: "遅い", value: 1.2 },
+      { label: "ふつう", value: 0.7 },
+      { label: "速い", value: 0.2 },
+      { label: "爆速", value: 0.1 },
     ],
     conf: {
       /* basic */
@@ -71,8 +79,7 @@ export default {
       trimH: [0, 0],
       trimV: [0, 0],
       noCrop: false,
-      framerate: 18,
-      framecount: 12,
+      duration: 0.7,
       backgroundColor: "#ffffff",
       transparent: false,
     },
@@ -95,18 +102,6 @@ export default {
     },
   },
   methods: {
-    selectSpeedPreset(speed: string): void {
-      if (speed === "") {
-        this.conf.framerate = 18;
-        this.conf.framecount = 12;
-      } else if (speed === "turbo") {
-        this.conf.framerate = 60;
-        this.conf.framecount = 12;
-      } else if (speed === "jet") {
-        this.conf.framerate = 60;
-        this.conf.framecount = 6;
-      }
-    },
     refreshDefaultSettings(): void {
       if (this.baseImage && !this.showDetails) {
         const image = this.baseImage;
@@ -140,6 +135,9 @@ export default {
           || this.conf.postEffects.length
         );
 
+        const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
+        const framecount = Math.floor(this.conf.duration * framerate);
+
         const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         renderAllCells(
           this.baseImage,
@@ -154,7 +152,7 @@ export default {
           this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.fn),
           this.conf.webglEffects.map((eff) => eff.fn),
           this.conf.postEffects.map((eff) => eff.fn),
-          this.conf.framerate, this.conf.framecount,
+          framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
         ).then((res) => {
           this.$emit("render", res);
@@ -209,22 +207,16 @@ export default {
         <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
         <SelectBlock
             v-if="!showDetails"
-            v-model="conf.speedPreset"
+            v-model="conf.duration"
             label="アニメ速度"
-            :options="SPEED_OPTIONS"
-            @update:model-value="selectSpeedPreset" />
+            :options="SPEED_OPTIONS" />
         <RangeBlock
             v-if="showDetails"
-            v-model="conf.framerate"
-            label="FPS"
-            :min="1"
-            :max="60" />
-        <RangeBlock
-            v-if="showDetails"
-            v-model="conf.framecount"
-            label="フレーム数"
-            :min="1"
-            :max="12" />
+            v-model="conf.duration"
+            label="アニメ長さ"
+            :min="0.1"
+            :step="0.1"
+            :max="2.0" />
         <ColorBlock
             v-model="conf.backgroundColor"
             label="背景色"
