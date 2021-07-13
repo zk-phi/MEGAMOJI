@@ -1,6 +1,6 @@
 <script lang="ts">
 import { NCheckbox } from "naive-ui";
-import { darkerColor, lighterColor } from "../../utils/color";
+import { absColor } from "../../utils/color";
 
 export default {
   components: {
@@ -18,18 +18,8 @@ export default {
     checked(): boolean {
       return this.modelValue.includes(this.color);
     },
-    iconColor(): string {
-      if (this.color === "#ffffff") {
-        return "#000000";
-      } else if (this.color === "identical") {
-        return this.baseColor;
-      } else if (this.color === "darker") {
-        return darkerColor(this.baseColor);
-      } else if (this.color === "lighter") {
-        return lighterColor(this.baseColor);
-      } else {
-        return this.color;
-      }
+    absColor(): string {
+      return absColor(this.color, this.baseColor);
     },
   },
   methods: {
@@ -46,7 +36,7 @@ export default {
 
 <template>
   <NCheckbox :checked="checked" @update:checked="onToggle(color)">
-    <span :style="{ color: iconColor }">
+    <span :style="{ color: absColor }">
       {{ color === "#ffffff" ? "♢" : "◆" }}
     </span>
   </NCheckbox>

@@ -1,7 +1,6 @@
 <script lang="ts">
 import { NButton, NFormItem, NSpace } from "naive-ui";
 import ColorStopBlock from "./ColorStopBlock.vue";
-import { lighterColor, darkerColor } from "../../utils/color";
 
 type ColorStop = { color: string, pos: number };
 
@@ -19,11 +18,10 @@ export default {
   methods: {
     initializeGradient(): void {
       this.$emit("update:modelValue", [
-        { color: "#ffffff", pos: 0 },
-        { color: this.baseColor, pos: 45 },
-        { color: lighterColor(this.baseColor), pos: 55 },
-        { color: darkerColor(this.baseColor), pos: 65 },
-        { color: "#ffffff", pos: 100 },
+        { color: "identical", pos: 45 },
+        { color: "lighter", pos: 55 },
+        { color: "darker", pos: 65 },
+        { color: "identical", pos: 90 },
       ]);
     },
     update(ix: number, value: ColorStop): void {
@@ -37,7 +35,7 @@ export default {
     add(): void {
       this.$emit("update:modelValue", [
         ...this.modelValue,
-        { color: this.baseColor, pos: 50 },
+        { color: "identical", pos: 50 },
       ]);
     },
   },
@@ -47,13 +45,14 @@ export default {
 <template>
   <NFormItem label="グラデ">
     <NButton v-if="modelValue.length == 0" dashed block @click="initializeGradient">
-      グラデーションを追加
+      + グラデーションを追加
     </NButton>
     <NSpace v-else vertical style="width: 100%;">
       <ColorStopBlock
           v-for="(colorstop, ix) in modelValue"
           :key="ix"
           :model-value="colorstop"
+          :base-color="baseColor"
           @remove="remove(ix)"
           @update:model-value="update(ix, $event)" />
       <NButton dashed block @click="add">

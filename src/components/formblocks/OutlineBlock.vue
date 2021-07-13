@@ -3,7 +3,7 @@ import { NFormItem, NButton, NSpace } from "naive-ui";
 import OutlineOption from "../inputs/OutlineOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
-import { darkerColor, lighterColor } from "../../utils/color";
+import { absColor } from "../../utils/color";
 
 export default {
   components: {
@@ -18,18 +18,8 @@ export default {
     "update:modelValue",
   ],
   computed: {
-    colors(): string[] {
-      return this.modelValue.map((color) => {
-        if (color === "darker") {
-          return darkerColor(this.baseColor);
-        } else if (color === "lighter") {
-          return lighterColor(this.baseColor);
-        } else if (color === "identical") {
-          return this.baseColor;
-        } else {
-          return color;
-        }
-      });
+    absColors(): string[] {
+      return this.modelValue.map((color) => absColor(color, this.baseColor));
     },
   },
   methods: {
@@ -83,7 +73,7 @@ export default {
       <OutlineItemBlock
           v-for="(color, ix) in modelValue"
           :key="ix"
-          :model-value="colors[ix]"
+          :model-value="absColors[ix]"
           @update:model-value="update(ix, $event)"
           @remove="remove(ix) " />
       <NButton dashed block @click="add">

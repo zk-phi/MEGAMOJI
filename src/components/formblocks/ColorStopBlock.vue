@@ -1,5 +1,6 @@
 <script lang="ts">
 import { NButton, NColorPicker, NSlider } from "naive-ui";
+import { absColor } from "../../utils/color";
 
 export default {
   components: {
@@ -7,11 +8,17 @@ export default {
   },
   props: {
     modelValue: { type: Object, required: true },
+    baseColor: { type: String, required: true },
   },
   emits: [
     "update:modelValue",
     "remove",
   ],
+  computed: {
+    absColor(): string {
+      return absColor(this.modelValue.color, this.baseColor);
+    },
+  },
   methods: {
     changeColor(val: string): void {
       this.$emit("update:modelValue", { color: val, pos: this.modelValue.pos });
@@ -27,7 +34,7 @@ export default {
   <div style="display: flex; align-items: center; width: 100%;">
     <NColorPicker
         :modes="['hex']"
-        :value="modelValue.color"
+        :value="absColor"
         :show-alpha="false"
         style="width: 128px; margin-right: 8px;"
         @update:value="changeColor($event)" />

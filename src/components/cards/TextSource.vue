@@ -8,7 +8,7 @@ import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 
-import { darkerColor, lighterColor } from "../../utils/color";
+import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
 import { EMOJI_SIZE } from "../../constants/emoji";
@@ -54,18 +54,14 @@ export default {
     showDetails: false,
   }),
   computed: {
-    outlineColors(): string[] {
-      return this.conf.outlines.map((color) => {
-        if (color === "darker") {
-          return darkerColor(this.conf.color);
-        } else if (color === "lighter") {
-          return lighterColor(this.conf.color);
-        } else if (color === "identical") {
-          return this.conf.color;
-        } else {
-          return color;
-        }
-      });
+    absoluteOutlines(): string[] {
+      return this.conf.outlines.map((outline) => absColor(outline, this.conf.color));
+    },
+    absoluteGradient(): { color: string, pos: number }[] {
+      return this.conf.gradient.map((cs) => ({
+        color: absColor(cs.color, this.conf.color),
+        pos: cs.pos,
+      }));
     },
   },
   watch: {
@@ -74,11 +70,6 @@ export default {
         this.render();
       },
       deep: true,
-    },
-    "conf.color": {
-      handler(): void {
-        this.conf.gradient = [];
-      },
     },
   },
   methods: {
@@ -91,8 +82,8 @@ export default {
           EMOJI_SIZE,
           this.conf.align,
           this.conf.lineSpacing * EMOJI_SIZE,
-          this.outlineColors,
-          this.conf.gradient,
+          this.absoluteOutlines,
+          this.absoluteGradient,
         );
         urlToImg(blobUrl, (img) => this.$emit("render", img));
       }
