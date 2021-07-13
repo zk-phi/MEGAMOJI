@@ -12,6 +12,7 @@ Libraries
 - Naive UI (TuSimple, MIT License)
 - Rollbar (Rollbar, MIT License)
 - Vue.js (Evan You, MIT License)
+- color-convert (Josh Junon, MIT License)
 
 Images
 - Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
