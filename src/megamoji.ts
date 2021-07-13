@@ -13,10 +13,6 @@ if (rollbar) {
   console.log("Rollbar initialized.");
 }
 
-window.onerror = (msg, file, line, col) => {
-  ga("send", "event", "error", "thrown", `${file}:${line}:${col} ${msg}`);
-};
-
 app.mount("#app");
 
 ga("send", "pageview", "/");
