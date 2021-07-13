@@ -18,10 +18,10 @@ export default {
   methods: {
     initializeGradient(): void {
       this.$emit("update:modelValue", [
-        { color: "identical", pos: 45 },
-        { color: "lighter", pos: 55 },
-        { color: "darker", pos: 65 },
-        { color: "identical", pos: 90 },
+        { color: "identical", pos: 40 },
+        { color: "lighter", pos: 50 },
+        { color: "darker", pos: 60 },
+        { color: "identical", pos: 85 },
       ]);
     },
     update(ix: number, value: ColorStop): void {
