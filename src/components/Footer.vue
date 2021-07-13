@@ -10,6 +10,6 @@ export default {
 
 <template>
   <NP>
-    このページではアクセス数などの集計に Google Analytics (cookie) を使用しています。オプトアウトアドオンで拒否することができます。
+    このページではアクセス数などの集計に Google Analytics、エラーの検知に Rollbar を使用しています。
   </NP>
 </template>
