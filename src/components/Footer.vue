@@ -1,9 +1,9 @@
 <script>
-import { NP, NButton } from "naive-ui";
+import { NP } from "naive-ui";
 
 export default {
   components: {
-    NP, NButton,
+    NP,
   },
 };
 </script>
@@ -11,12 +11,5 @@ export default {
 <template>
   <NP>
     このページではアクセス数などの集計に Google Analytics (cookie) を使用しています。オプトアウトアドオンで拒否することができます。
-    <NButton
-        text
-        tag="a"
-        href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown"
-        target="_blank">
-      ライセンス表示
-    </NButton>
   </NP>
 </template>

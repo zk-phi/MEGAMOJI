@@ -1,9 +1,28 @@
-<script>
-import { NPageHeader, NButton } from "naive-ui";
+<script lang="ts">
+import { NPageHeader, NButton, NPopover, NMenu } from "naive-ui";
 
 export default {
   components: {
-    NPageHeader, NButton,
+    NPageHeader, NButton, NPopover, NMenu,
+  },
+  data: (): Record<string, unknown> => ({
+    options: [
+      {
+        label: "更新履歴",
+        key: "https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown",
+      }, {
+        label: "ライセンス",
+        key: "https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown",
+      }, {
+        label: "投げ銭箱",
+        key: "https://note.com/zk_phi/n/n3a199c99d6d6",
+      },
+    ],
+  }),
+  methods: {
+    handleMenu(url: string): void {
+      window.open(url);
+    },
   },
 };
 </script>
@@ -13,23 +32,14 @@ export default {
       title="MEGAMOJI"
       subtitle="カスタム絵文字メーカー">
     <template #extra>
-      <div style="text-align: right;">
-        <NButton
-            text
-            tag="a"
-            href="https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown"
-            target="_blank">
-          更新履歴
-        </NButton>
-        {{ " " }}
-        <NButton
-            text
-            tag="a"
-            href="https://note.com/zk_phi/n/n3a199c99d6d6"
-            target="_blank">
-          投げ銭箱
-        </NButton>
-      </div>
+      <NPopover trigger="click" placement="bottom-end">
+        <template #trigger>
+          <NButton text>
+            Menu
+          </NButton>
+        </template>
+        <NMenu :options="options" :indent="18" @update:value="handleMenu" />
+      </NPopover>
     </template>
   </NPageHeader>
 </template>
