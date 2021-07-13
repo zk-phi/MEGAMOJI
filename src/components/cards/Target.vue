@@ -22,7 +22,7 @@ import {
   BINARY_SIZE_LIMIT,
   FRAMERATE_MAX,
   FRAMECOUNT_MAX,
-}  from "../../constants/emoji";
+} from "../../constants/emoji";
 
 export default {
   components: {
