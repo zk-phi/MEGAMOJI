@@ -21,7 +21,7 @@ export default {
             target="_blank">
           更新履歴
         </NButton>
-        {{" "}}
+        {{ " " }}
         <NButton
             text
             tag="a"
