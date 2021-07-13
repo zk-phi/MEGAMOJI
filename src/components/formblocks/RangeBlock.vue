@@ -11,6 +11,7 @@ export default {
     min: { type: Number, required: true },
     max: { type: Number, required: true },
     range: { type: Boolean, default: false },
+    step: { type: Number, default: 1 },
     marks: { type: Object, default: undefined },
   },
   emits: [
@@ -25,6 +26,7 @@ export default {
         :value="modelValue"
         :min="min"
         :max="max"
+        :step="step"
         :range="range"
         :marks="marks"
         @update:value="$emit('update:modelValue', $event) " />
