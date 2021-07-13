@@ -58,10 +58,10 @@ export default {
       { label: "おさめる (アス比維持)", value: "contain" },
     ],
     SPEED_OPTIONS: [
-      { label: "コマ送り", value: 2.0 },
-      { label: "遅い", value: 1.2 },
-      { label: "ふつう", value: 0.7 },
-      { label: "速い", value: 0.2 },
+      { label: "スローモ", value: 2.0 },
+      { label: "遅い", value: 1.3 },
+      { label: "ふつう", value: 0.8 },
+      { label: "速い", value: 0.3 },
       { label: "爆速", value: 0.1 },
     ],
     conf: {
@@ -79,7 +79,7 @@ export default {
       trimH: [0, 0],
       trimV: [0, 0],
       noCrop: false,
-      duration: 0.7,
+      duration: 0.8,
       backgroundColor: "#ffffff",
       transparent: false,
     },
