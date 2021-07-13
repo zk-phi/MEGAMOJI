@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     refreshDefaultSettings(): void {
-      if (this.baseImage && !this.showDetails) {
+      if (this.baseImage) {
         const image = this.baseImage;
         const h = EMOJI_SIZE * this.conf.cells[0];
         const v = EMOJI_SIZE * this.conf.cells[1];
