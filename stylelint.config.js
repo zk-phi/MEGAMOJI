@@ -4,9 +4,7 @@ module.exports = {
 
     // stylelint-config-primer dropped these rules from v11
     indentation: 2,
-
     "string-quotes": "double",
-
     "value-list-comma-newline-after": "always-multi-line",
 
     // do not require newlines for inline styles
