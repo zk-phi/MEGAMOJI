@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import SelectBlock from "./SelectBlock.vue";
 import filters from "../../constants/filters";
 
-export default {
+export default defineComponent({
   components: {
     SelectBlock,
   },
@@ -23,7 +24,7 @@ export default {
       this.$emit("update:modelValue", filters.find((filter) => filter.label === label) || null);
     },
   },
-};
+});
 </script>
 
 <template>

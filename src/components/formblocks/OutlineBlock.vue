@@ -1,11 +1,12 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NFormItem, NButton, NSpace } from "naive-ui";
 import OutlineOption from "../inputs/OutlineOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
 import { absColor } from "../../utils/color";
 
-export default {
+export default defineComponent({
   components: {
     OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, NButton, NSpace,
   },
@@ -35,7 +36,7 @@ export default {
       this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
     },
   },
-};
+});
 </script>
 
 <template>

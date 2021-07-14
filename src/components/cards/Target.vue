@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 import ColorBlock from "../formblocks/ColorBlock.vue";
 import AnimationSelectBlock from "../formblocks/AnimationSelectBlock.vue";
@@ -24,7 +25,7 @@ import {
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
-export default {
+export default defineComponent({
   components: {
     ColorBlock,
     AnimationSelectBlock,
@@ -160,7 +161,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

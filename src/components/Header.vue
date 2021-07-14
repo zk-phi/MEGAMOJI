@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NPageHeader, NButton, NPopover, NMenu } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NPageHeader, NButton, NPopover, NMenu,
   },
@@ -24,7 +25,7 @@ export default {
       window.open(url);
     },
   },
-};
+});
 </script>
 
 <template>

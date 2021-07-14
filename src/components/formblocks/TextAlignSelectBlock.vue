@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import SelectBlock from "./SelectBlock.vue";
 
-export default {
+export default defineComponent({
   components: {
     SelectBlock,
   },
@@ -19,7 +20,7 @@ export default {
       { label: "右", value: "right" },
     ],
   }),
-};
+});
 </script>
 
 <template>

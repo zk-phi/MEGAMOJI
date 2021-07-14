@@ -1,5 +1,7 @@
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   props: {
     modelValue: { type: String, required: true },
     parts: { type: Array, required: true },
@@ -7,7 +9,7 @@ export default {
   emits: [
     "update:modelValue",
   ],
-};
+});
 </script>
 
 <template>

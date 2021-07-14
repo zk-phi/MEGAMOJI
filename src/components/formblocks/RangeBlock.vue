@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NFormItem, NSlider } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NFormItem, NSlider,
   },
@@ -17,7 +18,7 @@ export default {
   emits: [
     "update:modelValue",
   ],
-};
+});
 </script>
 
 <template>

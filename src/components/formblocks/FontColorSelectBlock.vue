@@ -1,11 +1,12 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NSpace, NFormItem } from "naive-ui";
 import FontColorOption from "../inputs/FontColorOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import ColorBlock from "./ColorBlock.vue";
 import fontcolors from "../../constants/fontcolors";
 
-export default {
+export default defineComponent({
   components: {
     FontColorOption, CheckboxGroup, ColorBlock, NSpace, NFormItem,
   },
@@ -19,7 +20,7 @@ export default {
   data: (): Record<string, unknown> => ({
     fontcolors,
   }),
-};
+});
 </script>
 
 <template>

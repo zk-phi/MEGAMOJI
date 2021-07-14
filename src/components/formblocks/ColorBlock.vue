@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NFormItem, NColorPicker } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NFormItem, NColorPicker,
   },
@@ -12,7 +13,7 @@ export default {
   emits: [
     "update:modelValue",
   ],
-};
+});
 </script>
 
 <template>

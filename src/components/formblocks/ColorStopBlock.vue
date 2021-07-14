@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NButton, NColorPicker, NSlider } from "naive-ui";
 import { absColor } from "../../utils/color";
 
-export default {
+export default defineComponent({
   components: {
     NButton, NColorPicker, NSlider,
   },
@@ -27,7 +28,7 @@ export default {
       this.$emit("update:modelValue", { color: this.modelValue.color, pos: Number(val) });
     },
   },
-};
+});
 </script>
 
 <template>

@@ -1,10 +1,11 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCheckbox } from "naive-ui";
 import { Effect } from "../../types";
 
 type EffectOption = { label: string, fn: Effect };
 
-export default {
+export default defineComponent({
   components: {
     NCheckbox,
   },
@@ -31,7 +32,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

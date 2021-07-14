@@ -1,9 +1,11 @@
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   props: {
     images: { type: Array, required: true },
   },
-};
+});
 </script>
 
 <template>

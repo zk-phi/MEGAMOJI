@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import Reaction from "./Reaction.vue";
 
-export default {
+export default defineComponent({
   components: {
     Reaction,
   },
@@ -9,7 +10,7 @@ export default {
     images: { type: Array, required: true },
     darkMode: { type: Boolean, required: true },
   },
-};
+});
 </script>
 
 <template>

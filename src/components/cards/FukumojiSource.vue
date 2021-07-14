@@ -1,11 +1,12 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard, NTabs, NTabPane } from "naive-ui";
 import PartSelect from "../formblocks/PartSelect.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
 
-export default {
+export default defineComponent({
   components: {
     PartSelect, NCard, NTabs, NTabPane,
   },
@@ -47,7 +48,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <template>

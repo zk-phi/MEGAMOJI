@@ -1,10 +1,11 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NSpace, NFormItem } from "naive-ui";
 import TextBlock from "./TextBlock.vue";
 import FontOption from "../inputs/FontOption.vue";
 import fonts from "../../constants/fonts";
 
-export default {
+export default defineComponent({
   components: {
     FontOption, TextBlock, NSpace, NFormItem,
   },
@@ -18,7 +19,7 @@ export default {
   data: (): Record<string, unknown> => ({
     fonts,
   }),
-};
+});
 </script>
 
 <template>

@@ -1,9 +1,10 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NFormItem } from "naive-ui";
 import EffectOption from "../inputs/EffectOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 
-export default {
+export default defineComponent({
   components: {
     NFormItem, EffectOption, CheckboxGroup,
   },
@@ -14,7 +15,7 @@ export default {
   emits: [
     "update:modelValue",
   ],
-};
+});
 </script>
 
 <template>

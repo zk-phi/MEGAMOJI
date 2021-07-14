@@ -1,11 +1,12 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard, NThing, NSpace, NAvatar, NButton } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NCard, NThing, NSpace, NAvatar, NButton,
   },
-};
+});
 </script>
 
 <template>

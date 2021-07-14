@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NButton, NColorPicker } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NButton, NColorPicker,
   },
@@ -12,7 +13,7 @@ export default {
     "update:modelValue",
     "remove",
   ],
-};
+});
 </script>
 
 <template>

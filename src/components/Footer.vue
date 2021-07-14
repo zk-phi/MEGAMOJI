@@ -1,11 +1,12 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NP } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NP,
   },
-};
+});
 </script>
 
 <template>

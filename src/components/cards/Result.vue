@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard, NSpace, NSwitch } from "naive-ui";
 import RawResult from "../emoji/RawResult.vue";
 import Preview from "../emoji/Preview.vue";
@@ -12,7 +13,7 @@ const transparentBg = {
   `,
 };
 
-export default {
+export default defineComponent({
   components: {
     RawResult, Preview, NCard, NSpace, NSwitch,
   },
@@ -23,7 +24,7 @@ export default {
     transparentBg,
     previewMode: false,
   }),
-};
+});
 </script>
 
 <template>

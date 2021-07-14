@@ -1,10 +1,11 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NButton, NFormItem, NSpace } from "naive-ui";
 import ColorStopBlock from "./ColorStopBlock.vue";
 
 type ColorStop = { color: string, pos: number };
 
-export default {
+export default defineComponent({
   components: {
     ColorStopBlock, NButton, NFormItem, NSpace,
   },
@@ -39,7 +40,7 @@ export default {
       ]);
     },
   },
-};
+});
 </script>
 
 <template>

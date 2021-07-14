@@ -1,10 +1,11 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard } from "naive-ui";
 import FileBlock from "../formblocks/FileBlock.vue";
 import FilterSelectBlock from "../formblocks/FilterSelectBlock.vue";
 import { urlToImg } from "../../utils/canvas";
 
-export default {
+export default defineComponent({
   components: {
     FileBlock, FilterSelectBlock, NCard,
   },
@@ -41,7 +42,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

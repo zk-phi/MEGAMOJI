@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCheckbox } from "naive-ui";
 import { absColor } from "../../utils/color";
 
-export default {
+export default defineComponent({
   components: {
     NCheckbox,
   },
@@ -31,7 +32,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

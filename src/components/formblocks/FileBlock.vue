@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NFormItem, NUpload, NButton } from "naive-ui";
 import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
 
-export default {
+export default defineComponent({
   components: {
     NFormItem, NUpload, NButton,
   },
@@ -25,7 +26,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

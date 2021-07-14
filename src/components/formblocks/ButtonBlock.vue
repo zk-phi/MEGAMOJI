@@ -1,14 +1,15 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NButton } from "naive-ui";
 
-export default {
+export default defineComponent({
   components: {
     NButton,
   },
   props: {
     click: { type: Function, required: true },
   },
-};
+});
 </script>
 
 <template>

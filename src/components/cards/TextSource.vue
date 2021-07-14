@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
@@ -13,7 +14,7 @@ import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
 import { EMOJI_SIZE } from "../../constants/emoji";
 
-export default {
+export default defineComponent({
   components: {
     FontSelectBlock,
     TextBlock,
@@ -89,7 +90,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <template>

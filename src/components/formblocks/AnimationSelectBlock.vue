@@ -1,8 +1,9 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import SelectBlock from "./SelectBlock.vue";
 import animations from "../../constants/animations";
 
-export default {
+export default defineComponent({
   components: {
     SelectBlock,
   },
@@ -26,7 +27,7 @@ export default {
       );
     },
   },
-};
+});
 </script>
 
 <template>

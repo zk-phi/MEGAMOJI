@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from "vue";
 import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem, NButton } from "naive-ui";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
@@ -10,7 +11,7 @@ import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import theme from "../constants/theme";
 
-export default {
+export default defineComponent({
   components: {
     TextSource,
     FileSource,
@@ -62,7 +63,7 @@ export default {
       this.baseImage = img;
     },
   },
-};
+});
 </script>
 
 <template>
