@@ -50,6 +50,9 @@ module.exports = {
     // "continue" can help readablity as like "early-return"
     "no-continue": "off",
 
+    // non-null assertion is allowed as long as we are sure that it's non-null
+    "@typescript-eslint/no-non-null-assertion": "off",
+
     // allow named export
     "import/prefer-default-export": "off",
 
