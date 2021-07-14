@@ -58,8 +58,18 @@
 }
 
 @font-face {
+  font-family: kurobara-cinderella;
+  src: url("../fonts/kurobara-cinderella.woff") format("woff");
+}
+
+@font-face {
   font-family: PixelMplus;
   src: url("../fonts/PixelMplus12-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: Potta;
+  src: url("../fonts/PottaOne-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -70,9 +80,4 @@
 @font-face {
   font-family: Rampart;
   src: url("../fonts/RampartOne-Regular.woff") format("woff");
-}
-
-@font-face {
-  font-family: Potta;
-  src: url("../fonts/PottaOne-Regular.woff") format("woff");
 }

@@ -19,9 +19,10 @@ export default [
     fonts: [
       { label: "Dela Gothic One", value: "normal 1em 'DelaGothicOne-Regular'" },
       { label: "あかずきんポップ", value: "normal 1em 'AkazukiPOP'" },
-      { label: "ポッタ", value: "normal 1em 'Potta'" },
       { label: "零ゴシック", value: "normal 1em 'ZeroGothic'" },
+      { label: "黒薔薇シンデレラ", value: "normal 1em 'kurobara-cinderella'" },
       { label: "PixelMplus, bold", value: "normal 1em 'PixelMplus'" },
+      { label: "ポッタ", value: "normal 1em 'Potta'" },
       { label: "レゲエ", value: "normal 1em 'Reggae'" },
       { label: "ランパート", value: "normal 1em 'Rampart'" },
     ],
