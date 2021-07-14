@@ -20,7 +20,7 @@ const filterChromakey: Filter = (image) => {
   ];
 
   while (queue.length) {
-    const item = queue.shift();
+    const item = queue.shift() as [number, number];
     if (item[0] >= canvas.width || item[1] >= canvas.height || item[0] < 0 || item[1] < 0) {
       continue;
     }
