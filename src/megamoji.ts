@@ -4,14 +4,12 @@ import App from "./components/App.vue";
 
 const app = createApp(App);
 
-if (rollbar) {
-  app.config.errorHandler = (err: Error) => {
+app.config.errorHandler = (err: Error) => {
+  if (rollbar) {
     rollbar.error(err);
-    throw err; // rethrow
-  };
-  // eslint-disable-next-line no-console
-  console.log("Rollbar initialized.");
-}
+  }
+  throw err; // rethrow
+};
 
 app.mount("#app");
 
