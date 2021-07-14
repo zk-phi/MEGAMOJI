@@ -20,12 +20,12 @@ export default defineComponent({
   ],
   computed: {
     absColors(): string[] {
-      return this.modelValue.map((color: string) => absColor(color, this.baseColor));
+      return this.modelValue.map((color) => absColor(color, this.baseColor));
     },
   },
   methods: {
     update(ix: number, value: string): void {
-      this.$emit("update:modelValue", this.modelValue.map((origVal: string, i: number) => (
+      this.$emit("update:modelValue", this.modelValue.map((origVal, i) => (
         ix === i ? value : origVal
       )));
     },
@@ -33,7 +33,7 @@ export default defineComponent({
       this.$emit("update:modelValue", [...this.modelValue, this.baseColor]);
     },
     remove(ix: number): void {
-      this.$emit("update:modelValue", this.modelValue.filter((_: unknown, i: number) => i !== ix));
+      this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
     },
   },
 });

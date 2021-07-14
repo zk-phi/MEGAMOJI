@@ -9,7 +9,6 @@ import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 
-import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
@@ -57,10 +56,10 @@ export default defineComponent({
   }),
   computed: {
     absoluteOutlines(): string[] {
-      return this.conf.outlines.map((outline: string) => absColor(outline, this.conf.color));
+      return this.conf.outlines.map((outline) => absColor(outline, this.conf.color));
     },
     absoluteGradient(): { color: string, pos: number }[] {
-      return this.conf.gradient.map((cs: ColorStop) => ({
+      return this.conf.gradient.map((cs) => ({
         color: absColor(cs.color, this.conf.color),
         pos: cs.pos,
       }));

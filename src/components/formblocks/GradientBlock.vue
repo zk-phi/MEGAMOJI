@@ -25,12 +25,12 @@ export default defineComponent({
       ]);
     },
     update(ix: number, value: ColorStop): void {
-      this.$emit("update:modelValue", this.modelValue.map((origVal: ColorStop, i: number) => (
+      this.$emit("update:modelValue", this.modelValue.map((origVal, i) => (
         i === ix ? value : origVal
       )));
     },
     remove(ix: number): void {
-      this.$emit("update:modelValue", this.modelValue.filter((_: unknown, i: number) => i !== ix));
+      this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
     },
     add(): void {
       this.$emit("update:modelValue", [
