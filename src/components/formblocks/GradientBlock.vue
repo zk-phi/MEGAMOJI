@@ -1,16 +1,15 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { NButton, NFormItem, NSpace } from "naive-ui";
 import ColorStopBlock from "./ColorStopBlock.vue";
-
-type ColorStop = { color: string, pos: number };
+import { ColorStop, Gradient } from "../../types";
 
 export default defineComponent({
   components: {
     ColorStopBlock, NButton, NFormItem, NSpace,
   },
   props: {
-    modelValue: { type: Array, required: true },
+    modelValue: { type: Array as PropType<Gradient>, required: true },
     baseColor: { type: String, required: true },
   },
   emits: [

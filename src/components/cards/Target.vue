@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
 import ColorBlock from "../formblocks/ColorBlock.vue";
 import AnimationSelectBlock from "../formblocks/AnimationSelectBlock.vue";
@@ -41,7 +41,7 @@ export default defineComponent({
     NGridItem,
   },
   props: {
-    baseImage: { type: Object, default: null },
+    baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
     show: { type: Boolean, required: true },
   },
   emits: [

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { NCheckbox } from "naive-ui";
 import { Effect } from "../../types";
 
@@ -10,7 +10,7 @@ export default defineComponent({
     NCheckbox,
   },
   props: {
-    modelValue: { type: Array, required: true },
+    modelValue: { type: Array as PropType<EffectOption[]>, required: true },
     effect: { type: Object, required: true },
   },
   emits: [

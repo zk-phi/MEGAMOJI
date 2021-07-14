@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { NFormItem, NButton, NSpace } from "naive-ui";
 import OutlineOption from "../inputs/OutlineOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
@@ -11,7 +11,7 @@ export default defineComponent({
     OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, NButton, NSpace,
   },
   props: {
-    modelValue: { type: Array, required: true },
+    modelValue: { type: Array as PropType<string[]>, required: true },
     baseColor: { type: String, required: true },
     showDetails: { type: Boolean, required: true },
   },

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { NCheckbox } from "naive-ui";
 import { absColor } from "../../utils/color";
 
@@ -8,7 +8,7 @@ export default defineComponent({
     NCheckbox,
   },
   props: {
-    modelValue: { type: Array, required: true },
+    modelValue: { type: Array as PropType<string[]>, required: true },
     color: { type: String, required: true },
     baseColor: { type: String, required: true },
   },
