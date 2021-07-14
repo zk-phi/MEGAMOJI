@@ -20,7 +20,7 @@ export function webglInitialize(): boolean {
 
   if (!gl) {
     webglCanvas.remove();
-    return null;
+    return false;
   }
 
   const vertices = gl.createBuffer();
