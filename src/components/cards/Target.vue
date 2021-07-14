@@ -137,7 +137,7 @@ export default defineComponent({
     },
     render(): void {
       if (this.baseImage) {
-        const animated = (
+        const animated = !!(
           this.conf.animation
           || this.conf.effects.length
           || this.conf.webglEffects.length
