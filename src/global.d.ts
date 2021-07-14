@@ -10,7 +10,7 @@ declare module "@dhdbstjr98/gif.js" {
 
     addFrame(ctx: CanvasRenderingContext2D, options: { delay: number }): void;
 
-    on(event: string, cb: (res: Blob) => void): void;
+    on(event: "finished", cb: (res: Blob) => void): void;
 
     render(): void;
   }
