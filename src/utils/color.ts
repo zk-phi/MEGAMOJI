@@ -1,4 +1,4 @@
-import ColorConvert from "color-convert";
+import * as ColorConvert from "color-convert";
 
 export type HSV = { h: number, s: number, v: number };
 export type RGB = { r: number, g: number, b: number };
