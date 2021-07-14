@@ -82,7 +82,7 @@ export default defineComponent({
           this.conf.font.replace(/1em/, `${EMOJI_SIZE}px`),
           EMOJI_SIZE,
           this.conf.align,
-          this.conf.lineSpacing * EMOJI_SIZE,
+          Number(this.conf.lineSpacing) * EMOJI_SIZE,
           this.absoluteOutlines,
           this.absoluteGradient,
         );

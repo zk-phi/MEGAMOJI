@@ -55,7 +55,7 @@ export default defineComponent({
       this.ui.showTargetPanel = false;
       ga("send", "pageview", `/${value}`);
     },
-    onRenderTarget(imgs: HTMLImageElement[]): void {
+    onRenderTarget(imgs: HTMLImageElement[][]): void {
       this.resultImages = imgs;
       ga("send", "event", this.ui.mode, "render");
     },
