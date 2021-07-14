@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { NP } from "naive-ui";
 
 export default {

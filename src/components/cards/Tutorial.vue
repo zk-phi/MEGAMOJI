@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { NCard, NThing, NSpace, NAvatar, NButton } from "naive-ui";
 
 export default {

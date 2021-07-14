@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { NFormItem, NSpace, NInputNumber } from "naive-ui";
 
 export default {
