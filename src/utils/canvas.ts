@@ -132,14 +132,19 @@ export const mergeImages = (
 };
 
 /* Load a local image via specified path and call-back with the BlobURL of the loaded image. */
-export const loadFileAsBlobURL = (
-  path: File,
-  callback: (bloburl: string) => void,
-): void => {
-  const reader = new FileReader();
-  reader.onload = (e) => callback(e.target.result as string);
-  reader.readAsDataURL(path);
-};
+export const loadFileAsBlobURL = (path: File): Promise<string> => (
+  new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target && e.target.result) {
+        resolve(e.target.result as string);
+      } else {
+        throw new Error("Failed to load file");
+      }
+    };
+    reader.readAsDataURL(path);
+  })
+);
 
 /* Create an img object, set src attr to the specified url, and return it. */
 export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {

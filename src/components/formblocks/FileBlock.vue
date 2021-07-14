@@ -20,7 +20,7 @@ export default defineComponent({
     onChange(files: { file: File }[]): void {
       if (files[0]) {
         this.fileList = [files[files.length - 1]];
-        loadFileAsBlobURL(files[files.length - 1].file, (blobUrl) => {
+        loadFileAsBlobURL(files[files.length - 1].file).then((blobUrl) => {
           urlToImg(blobUrl, (img) => this.$emit("load", img));
         });
       }
