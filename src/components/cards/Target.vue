@@ -10,12 +10,12 @@ import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 
+import { Effect, WebGLEffect, PostEffect } from "../../types";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
 import staticeffects from "../../constants/staticeffects";
 import webgleffects from "../../constants/webgleffects";
 import posteffects from "../../constants/posteffects";
-
 import { renderAllCells } from "../../utils/emoji";
 import {
   EMOJI_SIZE,
@@ -150,9 +150,9 @@ export default defineComponent({
           animated,
           this.conf.animation ? this.conf.animation.fn : null,
           this.conf.animationInvert,
-          this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.fn),
-          this.conf.webglEffects.map((eff) => eff.fn),
-          this.conf.postEffects.map((eff) => eff.fn),
+          this.conf.effects.concat(this.conf.staticEffects).map((eff: { fn: Effect }) => eff.fn),
+          this.conf.webglEffects.map((eff: { fn: WebGLEffect }) => eff.fn),
+          this.conf.postEffects.map((eff: { fn: PostEffect }) => eff.fn),
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
         ).then((res) => {

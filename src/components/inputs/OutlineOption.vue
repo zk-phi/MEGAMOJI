@@ -26,7 +26,7 @@ export default defineComponent({
   methods: {
     onToggle(color: string): void {
       if (this.checked) {
-        this.$emit("update:modelValue", this.modelValue.filter((c) => c !== color));
+        this.$emit("update:modelValue", this.modelValue.filter((c: string) => c !== color));
       } else {
         this.$emit("update:modelValue", [...this.modelValue, color]);
       }

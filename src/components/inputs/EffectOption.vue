@@ -18,13 +18,13 @@ export default defineComponent({
   ],
   computed: {
     checked(): boolean {
-      return this.modelValue.some((eff) => eff.label === this.effect.label);
+      return this.modelValue.some((eff: EffectOption) => eff.label === this.effect.label);
     },
   },
   methods: {
     onToggle(effect: EffectOption): void {
       if (this.checked) {
-        this.$emit("update:modelValue", this.modelValue.filter((eff) => (
+        this.$emit("update:modelValue", this.modelValue.filter((eff: EffectOption) => (
           eff.label !== effect.label
         )));
       } else {
