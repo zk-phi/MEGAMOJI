@@ -114,8 +114,10 @@ function renderAllCellsFixedSize(
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
     );
-    return Promise.all(cells.map((row) => (
-      Promise.all(row.map((cell) => new Promise((resolve) => cell.toBlob(resolve))))
+    return Promise.all<Blob[]>(cells.map((row) => (
+      Promise.all<Blob>(row.map((cell) => (
+        new Promise((resolve) => cell.toBlob((blob) => resolve(blob!)))
+      )))
     )));
   } else {
     /* instantiate GIF encoders for each cells */
@@ -153,7 +155,7 @@ function renderAllCellsFixedSize(
         }
       }
     }
-    return Promise.all(cells.map((row) => Promise.all(row.map((cell) => (
+    return Promise.all<Blob[]>(cells.map((row) => Promise.all<Blob>(row.map((cell) => (
       new Promise((resolve) => {
         cell.on("finished", resolve);
         cell.render();
