@@ -168,8 +168,6 @@ function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
 
 /* ---- CORE */
 
-type Ring<T> = { car: T, cdr: Ring<T> | null }
-
 // apply effects on image and render in webglCanvas
 export function webglApplyEffects(
   image: HTMLCanvasElement, keyframe: number, effects: WebGLEffect[],
@@ -180,11 +178,14 @@ export function webglApplyEffects(
   webglCanvas.width = w;
   gl.viewport(0, 0, w, h);
 
-  let ring: Ring<FrameBufferWithTexture> = {
-    car: webglFrameBuffer(w, h),
-    cdr: { car: webglFrameBuffer(w, h), cdr: null },
+  let prevBuf = webglFrameBuffer(w, h);
+  let nextBuf = webglFrameBuffer(w, h);
+
+  const swapBufs = () => {
+    const tmp = nextBuf;
+    nextBuf = prevBuf;
+    prevBuf = tmp;
   };
-  ring.cdr.cdr = ring;
 
   const texture = webglTexture();
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
@@ -194,13 +195,13 @@ export function webglApplyEffects(
     const lastp = ix === effects.length - 1;
     const program = effect(keyframe, w, h);
     webglSetFloat(program, "flipY", lastp ? -1 : 1); // set vertex shader arg
-    draw(initialp ? texture : ring.car.texture, lastp ? null : ring.cdr.car.frame);
-    ring = ring.cdr;
+    draw(initialp ? texture : prevBuf.texture, lastp ? null : nextBuf.frame);
+    swapBufs();
   });
 
   gl.deleteTexture(texture);
-  webglDeleteFrameBuffer(ring.car);
-  webglDeleteFrameBuffer(ring.cdr.car);
+  webglDeleteFrameBuffer(prevBuf);
+  webglDeleteFrameBuffer(nextBuf);
 
   return webglCanvas;
 }
