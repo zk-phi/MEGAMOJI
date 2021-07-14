@@ -38,7 +38,7 @@ export function webglInitialize(): boolean {
 /* ---- WEBGL UTILS */
 
 // compile and return shader (memoized)
-function webglRawShader(source, isVertex?): RawShader {
+function webglRawShader(source: string, isVertex?: boolean): RawShader {
   let shader;
   return () => {
     if (!shader) {
@@ -136,8 +136,10 @@ function webglTexture() {
   return texture;
 }
 
+type FrameBufferWithTexture = { frame: WebGLFramebuffer, texture: WebGLTexture };
+
 // create, initialize and bind a frame buffer (with texture)
-function webglFrameBuffer(w, h) {
+function webglFrameBuffer(w: number, h: number): FrameBufferWithTexture {
   const frame = gl.createFramebuffer();
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   const texture = webglTexture();
@@ -147,13 +149,13 @@ function webglFrameBuffer(w, h) {
 }
 
 // delete framebuffer created with webglFrameBuffer
-function webglDeleteFrameBuffer(buf) {
+function webglDeleteFrameBuffer(buf: FrameBufferWithTexture) {
   gl.deleteTexture(buf.texture);
   gl.deleteFramebuffer(buf.frame);
 }
 
 // render texture in framebuffer (or webglCanvas if frame=null)
-function draw(texture, frame) {
+function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   gl.drawArrays(gl.TRIANGLES, 0, 6);

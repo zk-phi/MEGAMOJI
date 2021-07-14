@@ -2,7 +2,7 @@ import { PostEffect } from "../types";
 
 /** the idea based on https://qiita.com/nekoneko-wanwan/items/0911a59bf835d5b9e35a */
 const postEffectFocusLine: PostEffect = (keyframe, ctx, w, h) => {
-  const circumPos = (deg, r) => ({
+  const circumPos = (deg: number, r: number) => ({
     x: Math.cos(Math.PI / 180 * deg) * r + w / 2,
     y: Math.sin(Math.PI / 180 * deg) * r + h / 2,
   });

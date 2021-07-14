@@ -6,11 +6,23 @@ import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
 const webglEnabled = webglInitialize();
 
 function renderFrameUncut(
-  keyframe,
-  image, offsetH, offsetV, width, height, targetWidth, targetHeight, noCrop,
-  animation, animationInvert, effects, webglEffects, postEffects,
-  framerate, framecount,
-  fillStyle,
+  keyframe: number,
+  image: HTMLImageElement,
+  offsetH: number,
+  offsetV: number,
+  width: number,
+  height: number,
+  targetWidth: number,
+  targetHeight: number,
+  noCrop: boolean,
+  animation: Animation | null,
+  animationInvert: boolean,
+  effects: Effect[],
+  webglEffects: WebGLEffect[],
+  postEffects: PostEffect[],
+  framerate: number,
+  framecount: number,
+  fillStyle: string,
 ) {
   let canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -67,10 +79,25 @@ function renderFrameUncut(
  * each images may exceed binarySizeLimit.
  */
 function renderAllCellsFixedSize(
-  image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, targetSize, noCrop,
-  animated, animation, animationInvert, effects, webglEffects, postEffects,
-  framerate, framecount,
-  backgroundColor, transparent,
+  image: HTMLImageElement,
+  offsetH: number,
+  offsetV: number,
+  hCells: number,
+  vCells: number,
+  srcWidth: number,
+  srcHeight: number,
+  targetSize: number,
+  noCrop: boolean,
+  animated: boolean,
+  animation: Animation | null,
+  animationInvert: boolean,
+  effects: Effect[],
+  webglEffects: WebGLEffect[],
+  postEffects: PostEffect[],
+  framerate: number,
+  framecount: number,
+  backgroundColor: string,
+  transparent: boolean,
 ) {
   let cells = [];
   if (!animated) {
