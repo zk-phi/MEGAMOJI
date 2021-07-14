@@ -3,15 +3,17 @@ import { WebGLEffect } from "../types";
 type RawShader = () => WebGLShader;
 export type EffectShader = () => WebGLProgram;
 
-let webglCanvas;
-let gl;
+let webglCanvas: HTMLCanvasElement | null;
+let gl: WebGLRenderingContext | null;
 
 // initialize webgl rendering context and return true iff succeeded.
 export function webglInitialize(): boolean {
   webglCanvas = document.createElement("canvas");
 
   try {
-    gl = webglCanvas.getContext("experimental-webgl", { premultipliedAlpha: false });
+    gl = webglCanvas.getContext("experimental-webgl", {
+      premultipliedAlpha: false,
+    }) as (WebGLRenderingContext | null);
   } catch (e) {
     /* do nothing */
   }
@@ -39,17 +41,19 @@ export function webglInitialize(): boolean {
 
 // compile and return shader (memoized)
 function webglRawShader(source: string, isVertex?: boolean): RawShader {
-  let shader;
+  let shader: WebGLShader | null;
   return () => {
-    if (!shader) {
+    if (shader) {
+      return shader;
+    } else {
       shader = gl.createShader(isVertex ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER);
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
         throw new Error("compile error");
       }
+      return shader;
     }
-    return shader;
   };
 }
 
@@ -73,9 +77,12 @@ const identityVertexShader = webglRawShader(`
 // create and initialize program
 export function webglEffectShader(fragmentShader: string): EffectShader {
   const shader = webglRawShader(fragmentShader);
-  let program;
+  let program: WebGLProgram | null;
   return () => {
-    if (!program) {
+    if (program) {
+      gl.useProgram(program);
+      return program;
+    } else {
       program = gl.createProgram();
       gl.attachShader(program, webglLoadRawShader(identityVertexShader));
       gl.attachShader(program, webglLoadRawShader(shader));
@@ -91,10 +98,8 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
       const uv = gl.getAttribLocation(program, "uv");
       gl.enableVertexAttribArray(uv);
       gl.vertexAttribPointer(uv, 2, gl.FLOAT, false, 4 * u, 2 * u);
-    } else {
-      gl.useProgram(program);
+      return program;
     }
-    return program;
   };
 }
 
@@ -163,6 +168,8 @@ function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
 
 /* ---- CORE */
 
+type Ring<T> = { car: T, cdr: Ring<T> | null }
+
 // apply effects on image and render in webglCanvas
 export function webglApplyEffects(
   image: HTMLCanvasElement, keyframe: number, effects: WebGLEffect[],
@@ -173,7 +180,10 @@ export function webglApplyEffects(
   webglCanvas.width = w;
   gl.viewport(0, 0, w, h);
 
-  let ring = { car: webglFrameBuffer(w, h), cdr: { car: webglFrameBuffer(w, h), cdr: null } };
+  let ring: Ring<FrameBufferWithTexture> = {
+    car: webglFrameBuffer(w, h),
+    cdr: { car: webglFrameBuffer(w, h), cdr: null },
+  };
   ring.cdr.cdr = ring;
 
   const texture = webglTexture();
