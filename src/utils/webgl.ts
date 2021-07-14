@@ -174,7 +174,7 @@ function webglDeleteFrameBuffer(buf: FrameBufferWithTexture) {
 }
 
 // render texture in framebuffer (or webglCanvas if frame=null)
-function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
+function draw(texture: WebGLTexture, frame: WebGLFramebuffer | null) {
   if (!gl) throw new Error("WebGL not initialized");
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
