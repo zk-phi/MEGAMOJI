@@ -25,7 +25,7 @@ function renderFrameUncut(
   fillStyle: string,
 ) {
   let canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d")!;
 
   /* use larger canvas, because some effects may translate the canvas */
   canvas.width = targetWidth * 2;
@@ -149,7 +149,7 @@ function renderAllCellsFixedSize(
       );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          cells[y][x].addFrame(imgCells[y][x].getContext("2d"), { delay: delayPerFrame });
+          cells[y][x].addFrame(imgCells[y][x].getContext("2d")!, { delay: delayPerFrame });
         }
       }
     }

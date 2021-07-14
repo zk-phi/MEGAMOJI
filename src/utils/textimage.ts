@@ -11,7 +11,7 @@ const makeTextImageSingleLine = (
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d")!;
   ctx.font = font;
   ctx.textBaseline = "top";
 
@@ -53,7 +53,7 @@ export const makeTextImage = (
   canvas.width = maxWidth;
   canvas.height = totalHeight;
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d")!;
 
   let currentHeight = 0;
   images.forEach((image, ix) => {

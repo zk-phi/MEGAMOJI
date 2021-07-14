@@ -23,7 +23,7 @@ export const cropCanvas = (
   fillStyle?: string,
 ): HTMLCanvasElement => {
   const target = document.createElement("canvas");
-  const ctx = target.getContext("2d");
+  const ctx = target.getContext("2d")!;
 
   target.width = w;
   target.height = h;
@@ -40,7 +40,7 @@ export const cropCanvas = (
 
 /* drop transparent area from canvas and returns a new cropped canvas */
 export const shrinkCanvas = (source: HTMLCanvasElement): HTMLCanvasElement => {
-  const ctx = source.getContext("2d");
+  const ctx = source.getContext("2d")!;
   const { data } = ctx.getImageData(0, 0, source.width, source.height);
 
   let top = 0;
@@ -110,7 +110,7 @@ export const mergeImages = (
   w: number, h: number, srcs: string[], callback: (bloburl: string) => void,
 ): void => {
   const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d")!;
 
   canvas.width = w;
   canvas.height = h;
