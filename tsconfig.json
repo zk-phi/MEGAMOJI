@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "sourceMap": true,
     "alwaysStrict": true,
     "strictBindCallApply": true,
