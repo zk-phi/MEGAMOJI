@@ -34,26 +34,28 @@ export default defineComponent({
   emits: [
     "render",
   ],
-  data: (): Record<string, unknown> => ({
-    ALIGN_OPTIONS: [
-      { label: "両端", value: "stretch" },
-      { label: "左", value: "left" },
-      { label: "中央", value: "center" },
-      { label: "右", value: "right" },
-    ],
-    conf: {
-      /* basic */
-      content: "",
-      align: "stretch",
-      color: "#ffda00",
-      gradient: [],
-      outlines: [],
-      font: "normal 1em sans-serif",
-      /* advanced */
-      lineSpacing: "0.05",
-    },
-    showDetails: false,
-  }),
+  data() {
+    return {
+      ALIGN_OPTIONS: [
+        { label: "両端", value: "stretch" },
+        { label: "左", value: "left" },
+        { label: "中央", value: "center" },
+        { label: "右", value: "right" },
+      ],
+      conf: {
+        /* basic */
+        content: "",
+        align: "stretch",
+        color: "#ffda00",
+        gradient: [],
+        outlines: [],
+        font: "normal 1em sans-serif",
+        /* advanced */
+        lineSpacing: "0.05",
+      },
+      showDetails: false,
+    };
+  },
   computed: {
     absoluteOutlines(): string[] {
       return this.conf.outlines.map((outline) => absColor(outline, this.conf.color));

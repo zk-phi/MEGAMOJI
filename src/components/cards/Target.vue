@@ -47,45 +47,47 @@ export default defineComponent({
   emits: [
     "render",
   ],
-  data: (): Record<string, unknown> => ({
-    effects,
-    bgeffects,
-    staticeffects,
-    webgleffects,
-    posteffects,
-    TRIMMING_OPTIONS: [
-      { label: "ぴっちり", value: "" },
-      { label: "はみだす (アス比維持)", value: "cover" },
-      { label: "おさめる (アス比維持)", value: "contain" },
-    ],
-    SPEED_OPTIONS: [
-      { label: "スローモ", value: 2.0 },
-      { label: "遅い", value: 1.3 },
-      { label: "ふつう", value: 0.8 },
-      { label: "速い", value: 0.3 },
-      { label: "爆速", value: 0.1 },
-    ],
-    conf: {
-      /* basic */
-      trimming: "",
-      speedPreset: "",
-      cells: [1, 1],
-      animation: null,
-      animationInvert: false,
-      staticEffects: [],
-      effects: [],
-      webglEffects: [],
-      postEffects: [],
-      /* advanced */
-      trimH: [0, 0],
-      trimV: [0, 0],
-      noCrop: false,
-      duration: 0.8,
-      backgroundColor: "#ffffff",
-      transparent: false,
-    },
-    showDetails: false,
-  }),
+  data() {
+    return {
+      effects,
+      bgeffects,
+      staticeffects,
+      webgleffects,
+      posteffects,
+      TRIMMING_OPTIONS: [
+        { label: "ぴっちり", value: "" },
+        { label: "はみだす (アス比維持)", value: "cover" },
+        { label: "おさめる (アス比維持)", value: "contain" },
+      ],
+      SPEED_OPTIONS: [
+        { label: "スローモ", value: 2.0 },
+        { label: "遅い", value: 1.3 },
+        { label: "ふつう", value: 0.8 },
+        { label: "速い", value: 0.3 },
+        { label: "爆速", value: 0.1 },
+      ],
+      conf: {
+        /* basic */
+        trimming: "",
+        speedPreset: "",
+        cells: [1, 1],
+        animation: null,
+        animationInvert: false,
+        staticEffects: [],
+        effects: [],
+        webglEffects: [],
+        postEffects: [],
+        /* advanced */
+        trimH: [0, 0],
+        trimV: [0, 0],
+        noCrop: false,
+        duration: 0.8,
+        backgroundColor: "#ffffff",
+        transparent: false,
+      },
+      showDetails: false,
+    };
+  },
   watch: {
     baseImage: {
       handler(): void {

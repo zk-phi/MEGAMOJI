@@ -32,19 +32,21 @@ export default defineComponent({
     NGridItem,
     NButton,
   },
-  data: (): Record<string, unknown> => ({
-    theme,
-    baseImage: null,
-    resultImages: [[]],
-    previewMode: false,
-    /* ui */
-    ui: {
-      mode: "text",
-      showTargetPanel: false,
-      fukumojiTab: "base",
-      showTargetDetails: false,
-    },
-  }),
+  data() {
+    return {
+      theme,
+      baseImage: null,
+      resultImages: [[]],
+      previewMode: false,
+      /* ui */
+      ui: {
+        mode: "text",
+        showTargetPanel: false,
+        fukumojiTab: "base",
+        showTargetDetails: false,
+      },
+    };
+  },
   methods: {
     onSetShowTarget(value: boolean): void {
       this.ui.showTargetPanel = value;

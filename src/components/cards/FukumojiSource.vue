@@ -16,17 +16,19 @@ export default defineComponent({
   emits: [
     "render",
   ],
-  data: (): Record<string, unknown> => ({
-    parts,
-    tab: "ベース",
-    conf: {
-      base: "assets/void.svg",
-      textures: "assets/void.svg",
-      eyes: "assets/void.svg",
-      mouths: "assets/void.svg",
-      others: "assets/void.svg",
-    },
-  }),
+  data() {
+    return {
+      parts,
+      tab: "ベース",
+      conf: {
+        base: "assets/void.svg",
+        textures: "assets/void.svg",
+        eyes: "assets/void.svg",
+        mouths: "assets/void.svg",
+        others: "assets/void.svg",
+      },
+    };
+  },
   watch: {
     conf: {
       handler(): void {

@@ -15,12 +15,14 @@ export default defineComponent({
   emits: [
     "render",
   ],
-  data: (): Record<string, unknown> => ({
-    conf: {
-      img: null,
-      filter: null,
-    },
-  }),
+  data() {
+    return {
+      conf: {
+        img: null,
+        filter: null,
+      },
+    };
+  },
   watch: {
     conf: {
       handler(): void {
