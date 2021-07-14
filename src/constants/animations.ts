@@ -16,8 +16,8 @@ export default [
   { label: "押し出し (縦)", fn: animationPushVertical },
   { label: "謁見", fn: animationEkken },
   { label: "謁見バーティカル", fn: animationEkkenVertical },
+  { label: "通過 ('はみだす'向け)", fn: animationScrollFull },
   { label: "乾杯", fn: animationKanpai },
   { label: "乾杯 (左利き)", fn: animationKanpaiLefty },
   { label: "ザイル", fn: animationXile },
-  { label: "全体スクロール ('はみだす'用)", fn: animationScrollFull },
 ];
