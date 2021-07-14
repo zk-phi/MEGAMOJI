@@ -147,7 +147,7 @@ export function renderAllCells(
   maxSize: number,
   noCrop: boolean,
   animated: boolean,
-  animation: Animation[] | null,
+  animation: Animation | null,
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],

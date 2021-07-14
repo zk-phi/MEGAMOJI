@@ -87,7 +87,7 @@ export const cutoutCanvasIntoCells = (
   source: HTMLCanvasElement,
   offsetH: number, offsetV: number,
   hCells: number, vCells: number, cellWidth: number, cellHeight: number,
-): HTMLCanvasElement[] => {
+): HTMLCanvasElement[][] => {
   const cells = [];
   for (let y = 0; y < vCells; y += 1) {
     const row = [];
