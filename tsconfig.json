@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "sourceMap": true,
+    "noImplicitAny": true,
     "alwaysStrict": true,
     "strictBindCallApply": true,
     "target": "ES6",
