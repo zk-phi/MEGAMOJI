@@ -13,12 +13,14 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
-  data: (): Record<string, unknown> => ({
-    options: [
-      { label: "なし", value: "" },
-      ...animations.map((animation) => ({ label: animation.label, value: animation.label })),
-    ],
-  }),
+  data() {
+    return {
+      options: [
+        { label: "なし", value: "" },
+        ...animations.map((animation) => ({ label: animation.label, value: animation.label })),
+      ],
+    };
+  },
   methods: {
     onChange(label: string): void {
       this.$emit(

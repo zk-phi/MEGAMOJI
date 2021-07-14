@@ -17,9 +17,11 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
-  data: (): Record<string, unknown> => ({
-    fontcolors,
-  }),
+  data() {
+    return {
+      fontcolors,
+    };
+  },
 });
 </script>
 

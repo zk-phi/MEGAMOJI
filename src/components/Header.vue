@@ -6,20 +6,22 @@ export default defineComponent({
   components: {
     NPageHeader, NButton, NPopover, NMenu,
   },
-  data: (): Record<string, unknown> => ({
-    options: [
-      {
-        label: "更新履歴",
-        key: "https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown",
-      }, {
-        label: "ライセンス",
-        key: "https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown",
-      }, {
-        label: "投げ銭箱",
-        key: "https://note.com/zk_phi/n/n3a199c99d6d6",
-      },
-    ],
-  }),
+  data() {
+    return {
+      options: [
+        {
+          label: "更新履歴",
+          key: "https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown",
+        }, {
+          label: "ライセンス",
+          key: "https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown",
+        }, {
+          label: "投げ銭箱",
+          key: "https://note.com/zk_phi/n/n3a199c99d6d6",
+        },
+      ],
+    };
+  },
   methods: {
     handleMenu(url: string): void {
       window.open(url);

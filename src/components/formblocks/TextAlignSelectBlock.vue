@@ -12,14 +12,16 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
-  data: (): Record<string, unknown> => ({
-    options: [
-      { label: "両端", value: "stretch" },
-      { label: "左", value: "left" },
-      { label: "中央", value: "center" },
-      { label: "右", value: "right" },
-    ],
-  }),
+  data() {
+    return {
+      options: [
+        { label: "両端", value: "stretch" },
+        { label: "左", value: "left" },
+        { label: "中央", value: "center" },
+        { label: "右", value: "right" },
+      ],
+    };
+  },
 });
 </script>
 

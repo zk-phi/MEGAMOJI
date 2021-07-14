@@ -13,9 +13,11 @@ export default defineComponent({
   emits: [
     "load",
   ],
-  data: (): Record<string, unknown> => ({
-    fileList: [],
-  }),
+  data() {
+    return {
+      fileList: [] as { file: File }[],
+    };
+  },
   methods: {
     onChange(files: { file: File }[]): void {
       if (files[0]) {

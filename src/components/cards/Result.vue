@@ -20,10 +20,12 @@ export default defineComponent({
   props: {
     images: { type: Array, required: true },
   },
-  data: (): Record<string, unknown> => ({
-    transparentBg,
-    previewMode: false,
-  }),
+  data() {
+    return {
+      transparentBg,
+      previewMode: false,
+    };
+  },
 });
 </script>
 

@@ -13,12 +13,14 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
-  data: (): Record<string, unknown> => ({
-    options: [
-      { label: "なし", value: "" },
-      ...filters.map((filter) => ({ label: filter.label, value: filter.label })),
-    ],
-  }),
+  data() {
+    return {
+      options: [
+        { label: "なし", value: "" },
+        ...filters.map((filter) => ({ label: filter.label, value: filter.label })),
+      ],
+    };
+  },
   methods: {
     onChange(label: string): void {
       this.$emit("update:modelValue", filters.find((filter) => filter.label === label) || null);
