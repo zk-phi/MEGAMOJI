@@ -43,6 +43,7 @@ export function webglInitialize(): boolean {
 function webglRawShader(source: string, isVertex?: boolean): RawShader {
   let shader: WebGLShader | null;
   return () => {
+    if (!gl) throw new Error("WebGL not initialized");
     if (shader) {
       return shader;
     } else {
@@ -79,6 +80,7 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
   const shader = webglRawShader(fragmentShader);
   let program: WebGLProgram | null;
   return () => {
+    if (!gl) throw new Error("WebGL not initialized");
     if (program) {
       gl.useProgram(program);
       return program;
@@ -109,29 +111,38 @@ export function webglLoadEffectShader(effectShader: EffectShader): WebGLProgram 
 
 // set uniform
 export function webglSetFloat(program: WebGLProgram, varName: string, value: number): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniform1f(gl.getUniformLocation(program, varName), value);
 }
 export function webglSetVec2(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniform2fv(gl.getUniformLocation(program, varName), value);
 }
 export function webglSetVec3(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniform3fv(gl.getUniformLocation(program, varName), value);
 }
 export function webglSetVec4(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniform4fv(gl.getUniformLocation(program, varName), value);
 }
 export function webglSetMat2(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniformMatrix2fv(gl.getUniformLocation(program, varName), false, value);
 }
 export function webglSetMat3(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniformMatrix3fv(gl.getUniformLocation(program, varName), false, value);
 }
 export function webglSetMat4(program: WebGLProgram, varName: string, value: number[]): void {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.uniformMatrix4fv(gl.getUniformLocation(program, varName), false, value);
 }
 
 // create, initialize and bind a texture
 function webglTexture() {
+  if (!gl) throw new Error("WebGL not initialized");
+
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -145,6 +156,8 @@ type FrameBufferWithTexture = { frame: WebGLFramebuffer, texture: WebGLTexture }
 
 // create, initialize and bind a frame buffer (with texture)
 function webglFrameBuffer(w: number, h: number): FrameBufferWithTexture {
+  if (!gl) throw new Error("WebGL not initialized");
+
   const frame = gl.createFramebuffer();
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   const texture = webglTexture();
@@ -155,12 +168,14 @@ function webglFrameBuffer(w: number, h: number): FrameBufferWithTexture {
 
 // delete framebuffer created with webglFrameBuffer
 function webglDeleteFrameBuffer(buf: FrameBufferWithTexture) {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.deleteTexture(buf.texture);
   gl.deleteFramebuffer(buf.frame);
 }
 
 // render texture in framebuffer (or webglCanvas if frame=null)
 function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
+  if (!gl) throw new Error("WebGL not initialized");
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -172,6 +187,8 @@ function draw(texture: WebGLTexture, frame: WebGLFramebuffer) {
 export function webglApplyEffects(
   image: HTMLCanvasElement, keyframe: number, effects: WebGLEffect[],
 ): HTMLCanvasElement {
+  if (!webglCanvas || !gl) throw new Error("WebGL not initialized");
+
   const w = image.width;
   const h = image.height;
   webglCanvas.height = h;
