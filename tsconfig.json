@@ -2,11 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "sourceMap": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "strictBindCallApply": true,
-    "strictNullChecks": true,
+    "strict": true,
     "target": "ES6",
     "module": "ES2015",
     "moduleResolution": "node"
