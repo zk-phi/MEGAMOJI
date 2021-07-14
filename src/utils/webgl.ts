@@ -47,7 +47,7 @@ function webglRawShader(source: string, isVertex?: boolean): RawShader {
     if (shader) {
       return shader;
     } else {
-      shader = gl.createShader(isVertex ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER);
+      shader = gl.createShader(isVertex ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER) as WebGLShader;
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -85,7 +85,7 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
       gl.useProgram(program);
       return program;
     } else {
-      program = gl.createProgram();
+      program = gl.createProgram() as WebGLProgram;
       gl.attachShader(program, webglLoadRawShader(identityVertexShader));
       gl.attachShader(program, webglLoadRawShader(shader));
       gl.linkProgram(program);
@@ -143,7 +143,7 @@ export function webglSetMat4(program: WebGLProgram, varName: string, value: numb
 function webglTexture() {
   if (!gl) throw new Error("WebGL not initialized");
 
-  const texture = gl.createTexture();
+  const texture = gl.createTexture() as WebGLTexture;
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -158,7 +158,7 @@ type FrameBufferWithTexture = { frame: WebGLFramebuffer, texture: WebGLTexture }
 function webglFrameBuffer(w: number, h: number): FrameBufferWithTexture {
   if (!gl) throw new Error("WebGL not initialized");
 
-  const frame = gl.createFramebuffer();
+  const frame = gl.createFramebuffer() as WebGLFramebuffer;
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   const texture = webglTexture();
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
