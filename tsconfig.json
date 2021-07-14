@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
+    "alwaysStrict": true,
     "target": "ES6",
     "module": "ES2015",
     "moduleResolution": "node"
