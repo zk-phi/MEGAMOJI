@@ -63,13 +63,13 @@
 }
 
 @font-face {
-  font-family: PixelMplus;
-  src: url("../fonts/PixelMplus12-Bold.woff") format("woff");
+  font-family: AoyagiReishoSIMO;
+  src: url("../fonts/aoyagireisyosimo_ttf_2_01.woff") format("woff");
 }
 
 @font-face {
-  font-family: Potta;
-  src: url("../fonts/PottaOne-Regular.woff") format("woff");
+  font-family: PixelMplus;
+  src: url("../fonts/PixelMplus12-Bold.woff") format("woff");
 }
 
 @font-face {
