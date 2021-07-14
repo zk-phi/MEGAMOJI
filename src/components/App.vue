@@ -35,8 +35,8 @@ export default defineComponent({
   data() {
     return {
       theme,
-      baseImage: null,
-      resultImages: [[]],
+      baseImage: null as (HTMLImageElement | null),
+      resultImages: [[]] as HTMLImageElement[][],
       previewMode: false,
       /* ui */
       ui: {

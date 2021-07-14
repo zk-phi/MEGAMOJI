@@ -4,6 +4,9 @@ import { NCard } from "naive-ui";
 import FileBlock from "../formblocks/FileBlock.vue";
 import FilterSelectBlock from "../formblocks/FilterSelectBlock.vue";
 import { urlToImg } from "../../utils/canvas";
+import { Filter } from "../../types";
+
+type FilterOption = { label: string, fn: Filter };
 
 export default defineComponent({
   components: {
@@ -18,8 +21,8 @@ export default defineComponent({
   data() {
     return {
       conf: {
-        img: null,
-        filter: null,
+        img: null as (HTMLImageElement | null),
+        filter: null as (FilterOption | null),
       },
     };
   },

@@ -9,6 +9,7 @@ import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 
+import { Gradient } from "../../types";
 import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
@@ -47,8 +48,8 @@ export default defineComponent({
         content: "",
         align: "stretch",
         color: "#ffda00",
-        gradient: [],
-        outlines: [],
+        gradient: [] as Gradient,
+        outlines: [] as string[],
         font: "normal 1em sans-serif",
         /* advanced */
         lineSpacing: "0.05",

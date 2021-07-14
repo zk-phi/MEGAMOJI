@@ -10,6 +10,7 @@ import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 
+import { Animation, Effect, WebGLEffect, PostEffect } from "../../types";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
 import staticeffects from "../../constants/staticeffects";
@@ -24,6 +25,11 @@ import {
   FRAMERATE_MAX,
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
+
+type AnimationOption = { label: string, fn: Animation };
+type EffectOption = { label: string, fn: Effect };
+type WebGLEffectOption = { label: string, fn: WebGLEffect };
+type PostEffectOption = { label: string, fn: PostEffect };
 
 export default defineComponent({
   components: {
@@ -71,12 +77,12 @@ export default defineComponent({
         trimming: "",
         speedPreset: "",
         cells: [1, 1],
-        animation: null,
+        animation: null as (AnimationOption | null),
         animationInvert: false,
-        staticEffects: [],
-        effects: [],
-        webglEffects: [],
-        postEffects: [],
+        staticEffects: [] as EffectOption[],
+        effects: [] as EffectOption[],
+        webglEffects: [] as WebGLEffectOption[],
+        postEffects: [] as PostEffectOption[],
         /* advanced */
         trimH: [0, 0],
         trimV: [0, 0],
