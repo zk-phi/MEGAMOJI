@@ -4,9 +4,9 @@ import App from "./components/App.vue";
 
 const app = createApp(App);
 
-app.config.errorHandler = (err: Error) => {
+app.config.errorHandler = (err: unknown) => {
   if (rollbar) {
-    rollbar.error(err);
+    rollbar.error(err as Error);
   }
   throw err; // rethrow
 };
