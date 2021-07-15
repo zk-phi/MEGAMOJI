@@ -10,6 +10,7 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import theme from "../constants/theme";
+import ga from "../utils/analytics";
 
 export default defineComponent({
   components: {
