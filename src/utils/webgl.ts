@@ -51,6 +51,8 @@ function webglRawShader(source: string, isVertex?: boolean): RawShader {
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
       if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        // eslint-disable-next-line no-console
+        console.log(gl.getShaderInfoLog(shader));
         throw new Error("compile error");
       }
       return shader;
@@ -91,6 +93,8 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
       gl.linkProgram(program);
       gl.useProgram(program);
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        // eslint-disable-next-line no-console
+        console.log(gl.getProgramInfoLog(program));
         throw new Error("link error");
       }
       const u = Float32Array.BYTES_PER_ELEMENT;
