@@ -18,9 +18,7 @@ http://zk-phi.github.io/MEGAMOJI
 
 : npm run build
 
-ビルドすると =dist= 以下に成果物が入ります。
-
-静的サイトとしてデプロイできます。
+ビルドすると =./dist= ができます。そのまま静的サイトとしてデプロイできます。
 
 **** lint
 
@@ -46,10 +44,6 @@ GitHub Actions を使って自動でビルドしたり、 lint をかけたり�
 rollbar から確認できます。
 
 *** ディレクトリ構成
-
-- ~dist/~ ... ビルドされたアプリが入る場所です
-  - ~index.html~
-  - ~ga.js~ ... google analytics を読み込むやつです
 
 - ~src/~
   - ~animations/~ ... 個別のアニメーションの実装が入っています
