@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import rollbar from "./utils/rollbar";
 import App from "./components/App.vue";
-import ga from "./utils/analytics";
 
 const app = createApp(App);
 
