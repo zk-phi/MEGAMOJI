@@ -4,6 +4,7 @@ import webglBlur from "../webgleffects/blur";
 import webglBlurVertical from "../webgleffects/blurVertical";
 import webglZoom from "../webgleffects/zoom";
 import webglDokaben from "../webgleffects/dokaben";
+import webglWave from "../webgleffects/wave";
 
 export default [
   {
@@ -15,6 +16,7 @@ export default [
       { label: "Foil", fn: webglFoil },
       { label: "カベドン", fn: webglDokaben },
       { label: "残像", fn: webglZoom },
+      { label: "ウェイヴ", fn: webglWave },
     ],
   },
 ];
