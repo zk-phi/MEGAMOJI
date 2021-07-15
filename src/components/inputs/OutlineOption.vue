@@ -37,8 +37,8 @@ export default defineComponent({
 
 <template>
   <NCheckbox :checked="checked" @update:checked="onToggle(color)">
-    <span :style="{ color: absColor }">
-      {{ color === "#ffffff" ? "♢" : "◆" }}
+    <span :style="{ color: absColor === '#ffffff' ? '#000000' : absColor }">
+      {{ absColor === "#ffffff" ? "♢" : "◆" }}
     </span>
   </NCheckbox>
 </template>
