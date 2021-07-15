@@ -4,6 +4,9 @@ const { VueLoaderPlugin } = require("vue-loader");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { EnvironmentPlugin } = require("webpack");
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = (env, argv) => ({
   entry: "./src/megamoji.ts",
   devServer: {
@@ -44,5 +47,8 @@ module.exports = (env, argv) => ({
       ROLLBAR_TOKEN: "",
     }),
     new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
   ],
 });

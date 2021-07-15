@@ -11,6 +11,7 @@ app.config.errorHandler = (err: unknown) => {
   throw err; // rethrow
 };
 
-app.mount("#app");
-
+ga("create", "UA-121793995-1", "auto");
 ga("send", "pageview", "/");
+
+app.mount("#app");
