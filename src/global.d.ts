@@ -19,3 +19,11 @@ declare module "@dhdbstjr98/gif.js" {
 declare module "*.woff" {
   export default string;
 }
+
+declare module "*.svg" {
+  export default string;
+}
+
+declare module "*.png" {
+  export default string;
+}

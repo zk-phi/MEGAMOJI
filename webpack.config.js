@@ -30,7 +30,7 @@ module.exports = (env, argv) => ({
         test: /\.vue$/,
         use: "vue-loader",
       }, {
-        test: /\.woff/,
+        test: /\.(woff|svg|png)/,
         type: "asset/resource",
       },
     ],
