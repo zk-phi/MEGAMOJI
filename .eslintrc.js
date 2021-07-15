@@ -62,6 +62,11 @@ module.exports = {
     // TEMPORARILY allow empty line around html tags
     "vue/multiline-html-element-content-newline": "off",
 
+    // ts-nocheck comment is allowed if description is provided
+    "@typescript-eslint/ban-ts-comment": ["error", {
+      "ts-nocheck": "allow-with-description",
+    }],
+
     // fns and classes can be referred before defined
     "no-use-before-define": ["error", {
       // functions: true,
