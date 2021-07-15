@@ -12,6 +12,7 @@ module.exports = (env, argv) => ({
   output: {
     path: `${__dirname}/dist`,
     filename: "bundle.js",
+    assetModuleFilename: "assets/[name][ext]",
   },
   devtool: "source-map",
   module: {
@@ -28,6 +29,9 @@ module.exports = (env, argv) => ({
       }, {
         test: /\.vue$/,
         use: "vue-loader",
+      }, {
+        test: /\.woff/,
+        type: "asset/resource",
       },
     ],
   },

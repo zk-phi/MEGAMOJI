@@ -15,3 +15,7 @@ declare module "@dhdbstjr98/gif.js" {
     render(): void;
   }
 }
+
+declare module "*.woff" {
+  export default string;
+}
