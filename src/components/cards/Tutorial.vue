@@ -1,10 +1,20 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { NCard, NThing, NSpace, NAvatar, NButton } from "naive-ui";
+import textSample from "../../samples/text.png";
+import imageSample from "../../samples/image.png";
+import fukumojiSample from "../../samples/fukumoji.png";
 
 export default defineComponent({
   components: {
     NCard, NThing, NSpace, NAvatar, NButton,
+  },
+  data() {
+    return {
+      textSample,
+      imageSample,
+      fukumojiSample,
+    };
   },
 });
 </script>
@@ -14,7 +24,7 @@ export default defineComponent({
     <NSpace vertical>
       <NThing>
         <template #avatar>
-          <NAvatar src="assets/samples/text.png" />
+          <NAvatar :src="textSample" />
         </template>
         <template #header>
           テキスト絵文字
@@ -25,7 +35,7 @@ export default defineComponent({
       </NThing>
       <NThing>
         <template #avatar>
-          <NAvatar src="assets/samples/image.png" />
+          <NAvatar :src="imageSample" />
         </template>
         <template #header>
           画像絵文字
@@ -36,7 +46,7 @@ export default defineComponent({
       </NThing>
       <NThing>
         <template #avatar>
-          <NAvatar src="assets/samples/fukumoji.png" />
+          <NAvatar :src="fukumojiSample" />
         </template>
         <template #header>
           キメラ絵文字

@@ -5,6 +5,7 @@ import PartSelect from "../formblocks/PartSelect.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
+import empty from "../../parts/void.svg";
 
 export default defineComponent({
   components: {
@@ -21,11 +22,11 @@ export default defineComponent({
       parts,
       tab: "ベース",
       conf: {
-        base: "assets/void.svg",
-        textures: "assets/void.svg",
-        eyes: "assets/void.svg",
-        mouths: "assets/void.svg",
-        others: "assets/void.svg",
+        base: empty,
+        textures: empty,
+        eyes: empty,
+        mouths: empty,
+        others: empty,
       },
     };
   },
