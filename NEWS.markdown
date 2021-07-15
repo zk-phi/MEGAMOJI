@@ -24,7 +24,7 @@
 ## 2021/7/13
 ### 新アニメーション：全体スクロール
 
-![scrollfull](imgs/scrollfull.gif)
+![scrollfull](resources/imgs/scrollfull.gif)
 
 トリミング「はみだす」と組み合わせると良い感じになります。
 
@@ -60,9 +60,9 @@
 
 WebGL で動いているので、古いブラウザでは動きません。
 
-![dokaben](imgs/dokaben.gif)
+![dokaben](resources/imgs/dokaben.gif)
 
-![zoomblur](imgs/zoomblur.gif)
+![zoomblur](resources/imgs/zoomblur.gif)
 
 ## 2021/2/16
 ### 新エフェクト： 直球を追加した
@@ -72,7 +72,7 @@ WebGL で動いているので、古いブラウザでは動きません。
 
 ゴージャスなテキスト絵文字が作れます。 5000 兆円欲しい。
 
-![gradient](imgs/gradient.gif)
+![gradient](resources/imgs/gradient.gif)
 
 デフォルトでは金属光沢っぽいグラデーションを設定していますが、自由にいじれるので遊んでみてください。
 
@@ -85,7 +85,7 @@ WebGL で動いているので、古いブラウザでは動きません。
 
 パキっとした文字が出せるようになりました。
 
-![outline](imgs/outline.png)
+![outline](resources/imgs/outline.png)
 
 ### 新エフェクト： モザイクを追加した
 
@@ -104,7 +104,7 @@ WebGL で動いているので、古いブラウザでは動きません。
 
 実装してみたくなったので追加してみました。
 
-![glitch](imgs/glitch.gif)
+![glitch](resources/imgs/glitch.gif)
 
 ### エフェクトの整理
 
@@ -143,7 +143,7 @@ Slack の 64KB 制限を一撃でクリアできるように 64x64px でレン�
 
 内部実装的にも新しい概念が追加されて表現の幅が広がっているので、やばいエフェクトを思いついた人はぜひプルリクください。
 
-![focusline](imgs/focusline.gif)
+![focusline](resources/imgs/focusline.gif)
 
 ## 2021/1/20
 ### デザイン系フォントを追加した
@@ -259,11 +259,11 @@ Google Fonts を 早期アクセス版 から正式版 に移行＆整理
 
 旧
 
-![0](imgs/200501_0.gif)![1](imgs/200501_1.gif)
+![0](resources/imgs/200501_0.gif)![1](resources/imgs/200501_1.gif)
 
 新
 
-![2](imgs/200501_2.gif)![3](imgs/200501_3.gif)
+![2](resources/imgs/200501_2.gif)![3](resources/imgs/200501_3.gif)
 
 ## 2020/4/30
 ### 巨大絵文字の `effect` の振る舞いを変更
@@ -274,11 +274,11 @@ Google Fonts を 早期アクセス版 から正式版 に移行＆整理
 
 旧
 
-![0](imgs/200430_0.gif)![1](imgs/200430_1.gif)
+![0](resources/imgs/200430_0.gif)![1](resources/imgs/200430_1.gif)
 
 新
 
-![2](imgs/200430_2.gif)![3](imgs/200430_3.gif)
+![2](resources/imgs/200430_2.gif)![3](resources/imgs/200430_3.gif)
 
 ### ライセンスをちゃんと書いた
 
