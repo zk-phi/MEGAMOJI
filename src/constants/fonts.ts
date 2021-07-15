@@ -12,7 +12,7 @@ import PixelMplus from "../fonts/PixelMplus12-Bold.woff";
 import Reggae from "../fonts/ReggaeOne-Regular.woff";
 import Rampart from "../fonts/RampartOne-Regular.woff";
 
-const font = (font: Record<string, string>) => {
+const loadFont = (font: Record<string, string>) => {
   const family = Object.keys(font)[0];
   const url = font[family];
   const fontFace = new FontFace(family, `url('${url}')`);
@@ -32,23 +32,23 @@ export default [
   }, {
     label: "スタンダード",
     fonts: [
-      { label: "ゴシック/太", value: font({ GenEiMGothicBold }) },
-      { label: "ゴシック/極太", value: font({ GenEiMGothicBlack }) },
-      { label: "丸ゴ/太", value: font({ RoundedMPlusBold }) },
-      { label: "丸ゴ/極太", value: font({ RoundedMPlusBlack }) },
-      { label: "明朝/太", value: font({ NotoSerifBlack }) },
+      { label: "ゴシック/太", value: loadFont({ GenEiMGothicBold }) },
+      { label: "ゴシック/極太", value: loadFont({ GenEiMGothicBlack }) },
+      { label: "丸ゴ/太", value: loadFont({ RoundedMPlusBold }) },
+      { label: "丸ゴ/極太", value: loadFont({ RoundedMPlusBlack }) },
+      { label: "明朝/太", value: loadFont({ NotoSerifBlack }) },
     ],
   }, {
     label: "デザイン",
     fonts: [
-      { label: "Dela Gothic One", value: font({ DelaGothic }) },
-      { label: "あかずきんポップ", value: font({ AkazukinPOP }) },
-      { label: "零ゴシック", value: font({ ZeroGothic }) },
-      { label: "黒薔薇シンデレラ", value: font({ KurobaraCinderella }) },
-      { label: "青柳隷書しも", value: font({ AoyagiReishoSIMO }) },
-      { label: "PixelMplus", value: font({ PixelMplus }) },
-      { label: "レゲエ", value: font({ Reggae }) },
-      { label: "ランパート", value: font({ Rampart }) },
+      { label: "Dela Gothic One", value: loadFont({ DelaGothic }) },
+      { label: "あかずきんポップ", value: loadFont({ AkazukinPOP }) },
+      { label: "零ゴシック", value: loadFont({ ZeroGothic }) },
+      { label: "黒薔薇シンデレラ", value: loadFont({ KurobaraCinderella }) },
+      { label: "青柳隷書しも", value: loadFont({ AoyagiReishoSIMO }) },
+      { label: "PixelMplus", value: loadFont({ PixelMplus }) },
+      { label: "レゲエ", value: loadFont({ Reggae }) },
+      { label: "ランパート", value: loadFont({ Rampart }) },
     ],
   },
 ];
