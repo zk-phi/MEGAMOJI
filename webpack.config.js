@@ -12,7 +12,7 @@ module.exports = (env, argv) => ({
   output: {
     path: `${__dirname}/dist`,
     filename: "bundle.js",
-    assetModuleFilename: "assets/[name][ext]",
+    assetModuleFilename: "assets/[hash][ext][query]",
   },
   devtool: "source-map",
   module: {
