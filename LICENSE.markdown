@@ -1,4 +1,4 @@
-このソフトウェアは以下のライセンスのもと自由に使えます。
+このソフトウェアは以下のライセンスのもと自由にコピー＆改造できます。
 
 - ソースコード ... MIT License
 - 「パーツを選んで作る」の素材 (./dist/assets) ... CC-BY
@@ -31,3 +31,5 @@ Fonts
 - PixelMplus (itouhiro, M+ Fonts License)
 - レゲエ (Fontworks, Open Font License)
 - ランパート (Fontworks, Open Font License)
+
+Some filters are taken and modified from glfx.js by evanw, under the MIT License.
