@@ -1,5 +1,16 @@
+## 2021/7/16
+### 新エフェクト：Foil エフェクトをリニューアル
+
+全体が点滅するだけのエフェクトでしたが、斜めに光った方が使いやすそうだったのでそうしました。
+
+![foil1](resources/imgs/foil1.gif)
+
+![foil2](resources/imgs/foil2.gif)
+
 ## 2021/7/15
 ### 新エフェクト：ウェイヴ
+
+びびったときのテロップみたいなやつ。
 
 ![wave](resources/imgs/wave.gif)
 
