@@ -7,9 +7,11 @@ const shaderWave: EffectShader = webglEffectShader(`
   uniform sampler2D texture;
   varying vec2 vUv;
   uniform float keyframe;
+  uniform float frequency;
+  uniform float amplitude;
 
   void main() {
-    vec2 pos = vec2(vUv.x, vUv.y + 0.04 * sin((keyframe + vUv.x) * 4. * PI));
+    vec2 pos = vec2(vUv.x, vUv.y + amplitude * sin((keyframe + vUv.x) * frequency * 2. * PI));
     gl_FragColor = texture2D(texture, pos);
   }
 `);
