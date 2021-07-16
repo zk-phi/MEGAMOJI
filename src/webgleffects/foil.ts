@@ -1,15 +1,12 @@
 import { WebGLEffect } from "../types";
 import { webglLoadEffectShader, webglSetFloat } from "../utils/webgl";
-import shaderAdjust from "../shaders/adjust";
+import shaderFoil from "../shaders/foil";
 
 const webglFoil: WebGLEffect = (keyframe) => {
-  const program = webglLoadEffectShader(shaderAdjust);
-
-  const brightness = 0.1 + 0.05 * Math.sin(2 * Math.PI * keyframe);
-  webglSetFloat(program, "brightness", brightness);
-  webglSetFloat(program, "contrast", -0.1);
-  webglSetFloat(program, "hue", 0);
-
+  const program = webglLoadEffectShader(shaderFoil);
+  webglSetFloat(program, "width", 0.2);
+  webglSetFloat(program, "brightness", 0.4);
+  webglSetFloat(program, "keyframe", keyframe);
   return program;
 };
 
