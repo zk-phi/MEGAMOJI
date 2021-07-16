@@ -2,7 +2,7 @@
 const { VueLoaderPlugin } = require("vue-loader");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { EnvironmentPlugin } = require("webpack");
+const { EnvironmentPlugin, DefinePlugin } = require("webpack");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -48,6 +48,10 @@ module.exports = (env, argv) => ({
     extensions: [".ts", ".js"],
   },
   plugins: [
+    new DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
     new EnvironmentPlugin({
       NODE_ENV: argv.mode,
       ROLLBAR_TOKEN: "",
