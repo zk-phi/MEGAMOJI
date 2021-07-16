@@ -35,7 +35,7 @@ module.exports = (env, argv) => ({
       }, {
         test: /\.(woff|svg|png)$/,
         type: "asset/resource",
-      },{
+      }, {
         test: /\.glsl$/,
         loader: "webpack-glsl-minify",
         options: {
