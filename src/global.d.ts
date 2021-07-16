@@ -27,3 +27,13 @@ declare module "*.svg" {
 declare module "*.png" {
   export default string;
 }
+
+declare module "*.glsl" {
+  import { GlslShader, GlslVariableMap } from 'webpack-glsl-minify';
+
+  export default {
+    sourceCode: GlslShader,
+    uniforms: GlslVariableMap,
+    consts: GlslVariableMap,
+  };
+}
