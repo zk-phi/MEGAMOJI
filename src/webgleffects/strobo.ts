@@ -5,7 +5,7 @@ import shaderAdjust from "../shaders/adjust.glsl";
 const shader = webglEffectShader(shaderAdjust.sourceCode);
 
 let lastStrobe = true;
-const webglStrobo: WebGLEffect = (keyframe) => {
+const webglStrobo: WebGLEffect = () => {
   const program = webglLoadEffectShader(shader);
 
   webglSetFloat(program, "brightness", lastStrobe ? 0 : -0.1);

@@ -29,7 +29,7 @@ declare module "*.png" {
 }
 
 declare module "*.glsl" {
-  import { GlslShader, GlslVariableMap } from 'webpack-glsl-minify';
+  import { GlslShader, GlslVariableMap } from "webpack-glsl-minify";
 
   export default {
     sourceCode: GlslShader,
