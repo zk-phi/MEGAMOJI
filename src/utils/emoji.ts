@@ -1,7 +1,7 @@
 import GIF from "@dhdbstjr98/gif.js";
 import { Animation, Effect, WebGLEffect, PostEffect } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
-import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
+import { cropCanvas, cutoutCanvasIntoCells, fillTransparentPixels } from "./canvas";
 
 const webglEnabled = webglInitialize();
 
@@ -142,8 +142,11 @@ function renderAllCellsFixedSize(
         targetSize * hCells, targetSize * vCells, noCrop,
         animation, animationInvert, effects, webglEffects, postEffects,
         framerate, framecount,
-        transparent ? "#ffffff" : backgroundColor,
+        transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
+      if (transparent) {
+        fillTransparentPixels(frame, "#ffffff");
+      }
       const imgCells = noCrop ? (
         cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
       ) : (

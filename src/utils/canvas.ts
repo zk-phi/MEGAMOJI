@@ -1,3 +1,5 @@
+import * as ColorConvert from "color-convert";
+
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number, cellHeight: number,
@@ -151,4 +153,28 @@ export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void
   const img = document.createElement("img");
   img.src = url;
   img.onload = () => cb(img);
+};
+
+/* Fill all transparent (alpha < threshold) pixels with specific color. */
+export const fillTransparentPixels = (
+  canvas: HTMLCanvasElement,
+  fillColor: string,
+  threshold = 128,
+): void => {
+  const ctx = canvas.getContext("2d")!;
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const { data } = imageData;
+
+  const rgb = ColorConvert.hex.rgb(fillColor);
+  for (let i = 0; i + 4 < data.length; i += 4) {
+    if (data[i + 3] < threshold) {
+      data[i] = rgb[0];
+      data[i + 1] = rgb[1];
+      data[i + 2] = rgb[2];
+    }
+    data[i + 3] = 255;
+  }
+
+  ctx.putImageData(imageData, 0, 0);
 };
