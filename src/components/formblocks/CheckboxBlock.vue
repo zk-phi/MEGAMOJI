@@ -8,7 +8,7 @@ export default defineComponent({
   },
   props: {
     modelValue: { type: Boolean, required: true },
-    label: { type: String, default: undefined },
+    label: { type: String, required: true },
   },
   emits: [
     "update:modelValue",
