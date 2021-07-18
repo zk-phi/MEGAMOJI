@@ -40,6 +40,14 @@ export default defineComponent({
   border-radius: 12px;
 }
 
+.reaction.reacted,
+.reaction.reacted:hover {
+  box-shadow: inset 0 0 0 1.5px rgb(29, 155, 209);
+  background-color: rgba(29, 155, 209, 0.1);
+  color: rgb(18, 100, 163);
+  border-color: transparent;
+}
+
 .reaction:hover {
   background-color: rgba(128, 128, 128, 0.2);
   border-color: currentColor;
