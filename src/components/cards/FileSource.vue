@@ -6,7 +6,7 @@ import FilterSelectBlock from "../formblocks/FilterSelectBlock.vue";
 import { urlToImg } from "../../utils/canvas";
 import { Filter } from "../../types";
 
-type FilterOption = { label: string, fn: Filter };
+type FilterOption = { label: string, value: Filter };
 
 export default defineComponent({
   components: {
@@ -38,7 +38,7 @@ export default defineComponent({
     render(): void {
       if (this.conf.img) {
         if (this.conf.filter) {
-          urlToImg(this.conf.filter.fn(this.conf.img), (filteredImg) => {
+          urlToImg(this.conf.filter.value(this.conf.img), (filteredImg) => {
             this.$emit("render", filteredImg);
           });
         } else {

@@ -11,14 +11,14 @@ export default [
   {
     label: "WebGL 対応ブラウザのみ",
     effects: [
-      { label: "キラ", fn: webglKira },
-      { label: "横もや", fn: webglBlur },
-      { label: "縦もや", fn: webglBlurVertical },
-      { label: "Foil", fn: webglFoil },
-      { label: "カベドン", fn: webglDokaben },
-      { label: "残像", fn: webglZoom },
-      { label: "ウェイヴ", fn: webglWave },
-      { label: "ストロボ", fn: webglStrobo },
+      { label: "キラ", value: webglKira },
+      { label: "横もや", value: webglBlur },
+      { label: "縦もや", value: webglBlurVertical },
+      { label: "Foil", value: webglFoil },
+      { label: "カベドン", value: webglDokaben },
+      { label: "残像", value: webglZoom },
+      { label: "ウェイヴ", value: webglWave },
+      { label: "ストロボ", value: webglStrobo },
     ],
   },
 ];

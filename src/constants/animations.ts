@@ -10,14 +10,14 @@ import animationXile from "../animations/xile";
 import animationScrollFull from "../animations/scrollFull";
 
 export default [
-  { label: "スクロール", fn: animationScroll },
-  { label: "スクロール (縦)", fn: animationScrollVertical },
-  { label: "押し出し", fn: animationPush },
-  { label: "押し出し (縦)", fn: animationPushVertical },
-  { label: "謁見", fn: animationEkken },
-  { label: "謁見バーティカル", fn: animationEkkenVertical },
-  { label: "通過 ('はみだす'向け)", fn: animationScrollFull },
-  { label: "乾杯", fn: animationKanpai },
-  { label: "乾杯 (左利き)", fn: animationKanpaiLefty },
-  { label: "ザイル", fn: animationXile },
+  { label: "スクロール", value: animationScroll },
+  { label: "スクロール (縦)", value: animationScrollVertical },
+  { label: "押し出し", value: animationPush },
+  { label: "押し出し (縦)", value: animationPushVertical },
+  { label: "謁見", value: animationEkken },
+  { label: "謁見バーティカル", value: animationEkkenVertical },
+  { label: "通過 ('はみだす'向け)", value: animationScrollFull },
+  { label: "乾杯", value: animationKanpai },
+  { label: "乾杯 (左利き)", value: animationKanpaiLefty },
+  { label: "ザイル", value: animationXile },
 ];

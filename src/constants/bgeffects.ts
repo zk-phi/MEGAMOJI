@@ -6,9 +6,9 @@ export default [
   {
     label: "背景エフェクト",
     effects: [
-      { label: "チリチリ", fn: effectBGTiritiri },
-      { label: "ディスコ", fn: effectBGPsych },
-      { label: "サイケ", fn: effectBGDizzy },
+      { label: "チリチリ", value: effectBGTiritiri },
+      { label: "ディスコ", value: effectBGPsych },
+      { label: "サイケ", value: effectBGDizzy },
     ],
   },
 ];

@@ -26,10 +26,10 @@ import {
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
-type AnimationOption = { label: string, fn: Animation };
-type EffectOption = { label: string, fn: Effect };
-type WebGLEffectOption = { label: string, fn: WebGLEffect };
-type PostEffectOption = { label: string, fn: PostEffect };
+type AnimationOption = { label: string, value: Animation };
+type EffectOption = { label: string, value: Effect };
+type WebGLEffectOption = { label: string, value: WebGLEffect };
+type PostEffectOption = { label: string, value: PostEffect };
 
 export default defineComponent({
   components: {
@@ -156,11 +156,11 @@ export default defineComponent({
           this.conf.trimV[1] - this.conf.trimV[0],
           maxSize, this.conf.noCrop,
           animated,
-          this.conf.animation ? this.conf.animation.fn : null,
+          this.conf.animation ? this.conf.animation.value : null,
           this.conf.animationInvert,
-          this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.fn),
-          this.conf.webglEffects.map((eff) => eff.fn),
-          this.conf.postEffects.map((eff) => eff.fn),
+          this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.value),
+          this.conf.webglEffects.map((eff) => eff.value),
+          this.conf.postEffects.map((eff) => eff.value),
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
         ).then((res) => {

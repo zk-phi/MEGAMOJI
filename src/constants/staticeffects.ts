@@ -5,8 +5,8 @@ export default [
   {
     label: "反転",
     effects: [
-      { label: "左右", fn: effectFlip },
-      { label: "上下", fn: effectFlipVertical },
+      { label: "左右", value: effectFlip },
+      { label: "上下", value: effectFlipVertical },
     ],
   },
 ];
