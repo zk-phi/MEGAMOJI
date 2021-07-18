@@ -5,12 +5,25 @@ export default defineComponent({
   props: {
     src: { type: String, required: true },
   },
+  data() {
+    return {
+      hasReacted: false,
+    };
+  },
+  methods: {
+    toggleReacted() {
+      this.hasReacted = !this.hasReacted;
+    },
+  },
 });
 </script>
 
 <template>
-  <div class="reaction">
-    <img class="reaction_icon" :src="src"> 5
+  <div
+    :class="'reaction' + (hasReacted ? ' reacted' : '')"
+    @click="toggleReacted"
+  >
+    <img class="reaction_icon" :src="src" /> 5
   </div>
 </template>
 
