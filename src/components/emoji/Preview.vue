@@ -33,7 +33,7 @@ export default defineComponent({
     </div>
     <div>
       <span v-for="(row, i) in images" :key="i">
-        <Reaction v-for="(col, j) in row" :key="j" :src="col" />
+        <Reaction v-for="(col, j) in row" :key="j" :src="col" :dark-mode="darkMode" />
       </span>
     </div>
   </div>

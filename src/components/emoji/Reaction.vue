@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     src: { type: String, required: true },
+    darkMode: { type: Boolean, required: true },
   },
   data() {
     return {
@@ -20,7 +21,9 @@ export default defineComponent({
 
 <template>
   <div
-    :class="'reaction' + (hasReacted ? ' reacted' : '')"
+    :class="
+      'reaction' + (hasReacted ? ' reacted' : '') + (darkMode ? ' dark' : '')
+    "
     @click="toggleReacted"
   >
     <img class="reaction_icon" :src="src" /> 5
@@ -40,12 +43,19 @@ export default defineComponent({
   border-radius: 12px;
 }
 
-.reaction.reacted,
-.reaction.reacted:hover {
+.reaction.reacted:not(.dark),
+.reaction.reacted:not(.dark):hover {
   box-shadow: inset 0 0 0 1.5px rgb(29, 155, 209);
   background-color: rgba(29, 155, 209, 0.1);
   color: rgb(18, 100, 163);
   border-color: transparent;
+}
+
+.reaction.reacted.dark,
+.reaction.reacted.dark:hover {
+  box-shadow: none;
+  background-color: #1264a3;
+  border-color: #1264a3;
 }
 
 .reaction:hover {
