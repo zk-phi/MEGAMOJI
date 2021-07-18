@@ -50,4 +50,3 @@ export type WebGLEffect = (
 
 // Gradient is a list of colorstops
 export type ColorStop = { color: string, pos: number };
-export type Gradient = ColorStop[];

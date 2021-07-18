@@ -2,14 +2,14 @@
 import { defineComponent, PropType } from "vue";
 import { NButton, NFormItem, NSpace } from "naive-ui";
 import ColorStopBlock from "./ColorStopBlock.vue";
-import { ColorStop, Gradient } from "../../types";
+import { ColorStop } from "../../types";
 
 export default defineComponent({
   components: {
     ColorStopBlock, NButton, NFormItem, NSpace,
   },
   props: {
-    modelValue: { type: Array as PropType<Gradient>, required: true },
+    modelValue: { type: Array as PropType<ColorStop[]>, required: true },
     baseColor: { type: String, required: true },
   },
   emits: [
