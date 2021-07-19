@@ -1,42 +1,20 @@
 module.exports = {
-  parser: "vue-eslint-parser",
-  parserOptions: {
-    parser: "@typescript-eslint/parser",
-  },
-  plugins: ["@typescript-eslint"],
   env: {
     browser: true,
   },
-  globals: {
-    ga: false,
-  },
-  extends: [
-    "airbnb-base",
-    "plugin:compat/recommended",
-    "plugin:vue/vue3-recommended",
-    "plugin:@typescript-eslint/recommended",
-  ],
   settings: {
     "import/resolver": {
       webpack: { config: "webpack.config.js" },
     },
   },
+  extends: [
+    "airbnb-base",
+    "plugin:compat/recommended",
+  ],
   rules: {
-
     // basic style modifications
     indent: ["error", 2],
     quotes: ["error", "double"],
-
-    // vue template styles
-    "vue/html-indent": ["error", 2, {
-      attribute: 2,
-      baseIndent: 1,
-      alignAttributesVertically: true,
-    }],
-    "vue/html-closing-bracket-newline": ["error", {
-      singleline: "never",
-      multiline: "never",
-    }],
 
     // redundant "else" can help readablity
     "no-else-return": "off",
@@ -50,17 +28,8 @@ module.exports = {
     // "continue" can help readablity as like "early-return"
     "no-continue": "off",
 
-    // non-null assertion is allowed as long as we are sure that it's non-null
-    "@typescript-eslint/no-non-null-assertion": "off",
-
     // allow named export
     "import/prefer-default-export": "off",
-
-    // allow multiple attrs per line
-    "vue/max-attributes-per-line": "off",
-
-    // TEMPORARILY allow empty line around html tags
-    "vue/multiline-html-element-content-newline": "off",
 
     // fns and classes can be referred before defined
     "no-use-before-define": ["error", {
@@ -130,4 +99,40 @@ module.exports = {
       ExportDeclaration: { consistent: true },
     }],
   },
+  overrides: [
+    {
+      files: ["**/*.ts", "**/*.vue"],
+      parser: "vue-eslint-parser",
+      parserOptions: {
+        parser: "@typescript-eslint/parser",
+      },
+      plugins: ["@typescript-eslint"],
+      extends: [
+        "plugin:vue/vue3-recommended",
+        "plugin:@typescript-eslint/recommended",
+      ],
+      rules: {
+        // vue template styles
+        "vue/html-indent": ["error", 2, {
+          attribute: 2,
+          baseIndent: 1,
+          alignAttributesVertically: true,
+        }],
+
+        "vue/html-closing-bracket-newline": ["error", {
+          singleline: "never",
+          multiline: "never",
+        }],
+
+        // non-null assertion is allowed as long as we are sure that it's non-null
+        "@typescript-eslint/no-non-null-assertion": "off",
+
+        // allow multiple attrs per line
+        "vue/max-attributes-per-line": "off",
+
+        // TEMPORARILY allow empty line around html tags
+        "vue/multiline-html-element-content-newline": "off",
+      },
+    },
+  ],
 };
