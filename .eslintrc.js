@@ -129,9 +129,6 @@ module.exports = {
 
         // allow multiple attrs per line
         "vue/max-attributes-per-line": "off",
-
-        // TEMPORARILY allow empty line around html tags
-        "vue/multiline-html-element-content-newline": "off",
       },
     },
   ],
