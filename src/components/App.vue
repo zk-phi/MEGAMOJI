@@ -32,9 +32,6 @@ export default defineComponent({
     NGridItem,
     NButton,
   },
-  props: {
-    ga: { type: Function, default: null },
-  },
   data() {
     return {
       theme,
@@ -53,21 +50,21 @@ export default defineComponent({
   methods: {
     onSetShowTarget(value: boolean): void {
       this.ui.showTargetPanel = value;
-      if (this.ga) {
-        this.ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
+      if (window.ga) {
+        window.ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
       }
     },
     onSelectMode(value: string): void {
       this.ui.mode = value;
       this.ui.showTargetPanel = false;
-      if (this.ga) {
-        this.ga("send", "pageview", `/${value}`);
+      if (window.ga) {
+        window.ga("send", "pageview", `/${value}`);
       }
     },
     onRenderTarget(imgs: HTMLImageElement[][]): void {
       this.resultImages = imgs;
-      if (this.ga) {
-        this.ga("send", "event", this.ui.mode, "render");
+      if (window.ga) {
+        window.ga("send", "event", this.ui.mode, "render");
       }
     },
     onRender(img: HTMLImageElement): void {

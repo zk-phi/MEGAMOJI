@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import rollbar from "./utils/rollbar";
 import App from "./components/App.vue";
 
-const app = createApp(App, { ga });
+const app = createApp(App);
 
 app.config.errorHandler = (err: unknown) => {
   if (rollbar) {
