@@ -1,5 +1,5 @@
-import CheckboxGroup from "./CheckboxGroup.vue";
 import { NCheckbox } from "naive-ui";
+import CheckboxGroup from "./CheckboxGroup.vue";
 
 export default {
   title: "inputs/molecules/CheckboxGroup",

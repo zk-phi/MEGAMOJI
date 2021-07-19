@@ -1,5 +1,4 @@
 import EffectOption from "./EffectOption.vue";
-import { NCheckbox } from "naive-ui";
 
 export default {
   title: "inputs/molecules/EffectOption",

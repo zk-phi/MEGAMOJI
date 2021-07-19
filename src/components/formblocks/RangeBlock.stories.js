@@ -26,7 +26,7 @@ Base.args = {
   min: 0,
   max: 100,
   step: 1,
-  marks: { 50: '基準値' },
+  marks: { 50: "基準値" },
 };
 
 export const Range = Template.bind({});
@@ -37,5 +37,5 @@ Range.args = {
   min: 0,
   max: 100,
   step: 1,
-  marks: { 50: '基準値' },
+  marks: { 50: "基準値" },
 };

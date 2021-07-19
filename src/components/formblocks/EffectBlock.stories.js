@@ -18,7 +18,7 @@ const effects = [
       { label: "エフェクト３", value: null },
       { label: "エフェクト４", value: null },
     ],
-  }
+  },
 ];
 
 export const Base = (args) => ({
@@ -28,5 +28,5 @@ export const Base = (args) => ({
 });
 Base.args = {
   modelValue: [effects[0].effects[0]],
-  effects: effects,
+  effects,
 };

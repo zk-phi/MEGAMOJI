@@ -10,4 +10,7 @@ export const Base = (args) => ({
   data: () => args,
   template: "<ButtonBlock :click='click'>Button</ButtonBlock>",
 });
-Base.args = { click: () => alert("clicked!") };
+Base.args = {
+  /* eslint-disable-next-line no-alert */
+  click: () => alert("clicked!"),
+};

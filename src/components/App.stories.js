@@ -5,9 +5,7 @@ export default {
   component: App,
 };
 
-export const Base = (args) => ({
+export const Base = () => ({
   components: { App },
-  data: () => args,
   template: "<App />",
 });
-Base.args = { };
