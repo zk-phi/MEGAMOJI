@@ -6,6 +6,7 @@ import webglZoom from "../webgleffects/zoom";
 import webglDokaben from "../webgleffects/dokaben";
 import webglWave from "../webgleffects/wave";
 import webglStrobo from "../webgleffects/strobo";
+import webglFocusLine from "../webgleffects/focusLine";
 
 export default [
   {
@@ -19,6 +20,7 @@ export default [
       { label: "残像", value: webglZoom },
       { label: "ウェイヴ", value: webglWave },
       { label: "ストロボ", value: webglStrobo },
+      { label: "集中線", value: webglFocusLine },
     ],
   },
 ];
