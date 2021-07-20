@@ -75,7 +75,6 @@ export default defineComponent({
       conf: {
         /* basic */
         trimming: "",
-        speedPreset: "",
         cells: [1, 1],
         animation: null as (AnimationOption | null),
         animationInvert: false,
