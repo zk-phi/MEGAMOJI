@@ -7,7 +7,7 @@ varying vec2 vUv;
 uniform vec2 center;
 uniform float strength;
 
-@include "./utils/random.glsl"
+@include "./utils/random2.glsl"
 
 void main() {
   vec4 color = vec4(0.0);
@@ -15,7 +15,7 @@ void main() {
   vec2 toCenter = center - vUv;
 
   /* randomize the lookup values to hide the fixed number of samples */
-  float offset = random(vec3(12.9898, 78.233, 151.7182), 0.0);
+  float offset = random2(gl_FragCoord.xy);
 
   for (float t = 0.0; t <= 40.0; t++) {
     float percent = (t + offset) / 40.0;
