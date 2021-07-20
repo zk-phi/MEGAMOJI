@@ -4,7 +4,7 @@ import shaderFocusLine from "../shaders/focusLine.glsl";
 
 const shader = webglEffectShader(shaderFocusLine.sourceCode);
 
-const webglFocusLine: WebGLEffect = (keyframe, w, h) => {
+const webglFocusLine: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shader);
   webglSetFloat(program, "keyframe", keyframe);
   return program;
