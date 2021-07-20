@@ -66,7 +66,7 @@ export default defineComponent({
         { label: "おさめる (アス比維持)", value: "contain" },
       ],
       SPEED_OPTIONS: [
-        { label: "スローモ", value: 2.0 },
+        { label: "コマ送り", value: 2.0 },
         { label: "遅い", value: 1.3 },
         { label: "ふつう", value: 0.8 },
         { label: "速い", value: 0.3 },
