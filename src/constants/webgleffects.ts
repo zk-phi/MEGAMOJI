@@ -12,7 +12,7 @@ import webglMosaic from "../webgleffects/mosaic";
 
 export default [
   {
-    label: "WebGL 対応ブラウザのみ",
+    label: "特殊効果 (WebGL 対応ブラウザ用)",
     effects: [
       { label: "キラ", value: webglKira },
       { label: "横もや", value: webglBlur },
