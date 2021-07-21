@@ -8,6 +8,8 @@ uniform vec2 center;
 uniform float strength;
 
 @include "./utils/random2.glsl"
+@include "./utils/premultiplied.glsl"
+@include "./utils/unmultiplied.glsl"
 
 void main() {
   vec4 color = vec4(0.0);
@@ -20,17 +22,10 @@ void main() {
   for (float t = 0.0; t <= 40.0; t++) {
     float percent = (t + offset) / 40.0;
     float weight = 4.0 * (percent - percent * percent);
-    vec4 sample = texture2D(texture, vUv + toCenter * percent * strength);
-
-    /* switch to pre-multiplied alpha to correctly blur transparent images */
-    sample.rgb *= sample.a;
-
+    vec4 sample = premultiplied(texture2D(texture, vUv + toCenter * percent * strength));
     color += sample * weight;
     total += weight;
   }
 
-  gl_FragColor = color / total;
-
-  /* switch back from pre-multiplied alpha */
-  gl_FragColor.rgb /= gl_FragColor.a + 0.00001;
+  gl_FragColor = unmultiplied(color / total);
 }
