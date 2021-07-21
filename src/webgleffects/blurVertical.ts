@@ -7,7 +7,7 @@ const shader = webglEffectShader(shaderBlur.sourceCode);
 const webglBlurVertical: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shader);
 
-  const radius = 0.07 + 0.01 * Math.cos(2 * Math.PI * keyframe);
+  const radius = 0.05 + 0.03 * Math.cos(2 * Math.PI * keyframe);
   webglSetVec2(program, "delta", [0, radius]);
 
   return program;
