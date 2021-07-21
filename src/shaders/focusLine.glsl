@@ -1,6 +1,5 @@
 // idea based on https://blog.narumium.net/2020/06/16/glsl%E3%81%A7%E9%9B%86%E4%B8%AD%E7%B7%9A%E3%82%92%E6%9B%B8%E3%81%8F/
 
-#define PI 3.141592653589793
 #define NUM_LINES 100.
 
 precision highp float;
@@ -9,6 +8,7 @@ varying vec2 vUv;
 
 uniform float keyframe;
 
+@include "./utils/PI.glsl"
 @include "./utils/random1.glsl"
 @include "./utils/cross2.glsl"
 @include "./utils/map.glsl"
