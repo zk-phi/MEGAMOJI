@@ -7,6 +7,7 @@ import webglDokaben from "../webgleffects/dokaben";
 import webglWave from "../webgleffects/wave";
 import webglStrobo from "../webgleffects/strobo";
 import webglFocusLine from "../webgleffects/focusLine";
+import webglGlitch from "../webgleffects/glitch";
 
 export default [
   {
@@ -21,6 +22,7 @@ export default [
       { label: "ウェイヴ", value: webglWave },
       { label: "ストロボ", value: webglStrobo },
       { label: "集中線", value: webglFocusLine },
+      { label: "グリッチ", value: webglGlitch },
     ],
   },
 ];
