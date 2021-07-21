@@ -1,5 +1,5 @@
 import GIF from "@dhdbstjr98/gif.js";
-import { Animation, Effect, WebGLEffect, PostEffect } from "../types";
+import { Animation, Effect, WebGLEffect } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
 import { cropCanvas, cutoutCanvasIntoCells, fillTransparentPixels } from "./canvas";
 
@@ -19,7 +19,6 @@ function renderFrameUncut(
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
-  postEffects: PostEffect[],
   framerate: number,
   framecount: number,
   fillStyle: string,
@@ -51,11 +50,6 @@ function renderFrameUncut(
       targetLeft, targetTop, targetWidth * 2, targetHeight * 2,
     );
   }
-
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  postEffects.forEach((postEffect) => {
-    postEffect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
-  });
 
   if (webglEffects.length && webglEnabled) {
     canvas = webglApplyEffects(canvas, keyframe, webglEffects);
@@ -93,7 +87,6 @@ function renderAllCellsFixedSize(
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
-  postEffects: PostEffect[],
   framerate: number,
   framecount: number,
   backgroundColor: string,
@@ -105,7 +98,7 @@ function renderAllCellsFixedSize(
       0, image,
       offsetH, offsetV, srcWidth, srcHeight,
       targetSize * hCells, targetSize * vCells, noCrop,
-      animation, animationInvert, effects, webglEffects, postEffects,
+      animation, animationInvert, effects, webglEffects,
       framerate, framecount,
       transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
     );
@@ -140,7 +133,7 @@ function renderAllCellsFixedSize(
         keyframe, image,
         offsetH, offsetV, srcWidth, srcHeight,
         targetSize * hCells, targetSize * vCells, noCrop,
-        animation, animationInvert, effects, webglEffects, postEffects,
+        animation, animationInvert, effects, webglEffects,
         framerate, framecount,
         transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
@@ -183,7 +176,6 @@ export function renderAllCells(
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
-  postEffects: PostEffect[],
   framerate: number,
   framecount: number,
   backgroundColor: string,
@@ -193,7 +185,7 @@ export function renderAllCells(
   return new Promise((resolve) => {
     renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize, noCrop,
-      animated, animation, animationInvert, effects, webglEffects, postEffects,
+      animated, animation, animationInvert, effects, webglEffects,
       framerate, framecount,
       backgroundColor, transparent,
     ).then((ret) => {
@@ -207,7 +199,7 @@ export function renderAllCells(
       if (shouldRetry) {
         renderAllCells(
           image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize * 0.9, noCrop,
-          animated, animation, animationInvert, effects, webglEffects, postEffects,
+          animated, animation, animationInvert, effects, webglEffects,
           framerate, framecount,
           backgroundColor, transparent,
           binarySizeLimit,

@@ -32,14 +32,6 @@ export type Effect = (
   width: number, height: number,
 ) => void;
 
-// Posteffects are called with CanvasRenderingContext2D after rendering, and modify it.
-export type PostEffect = (
-  keyframe: number,
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-) => void;
-
 // WebGLEffect loads and configures a WebGLProgram, which is then used to effect
 // rendered images.
 export type WebGLEffect = (

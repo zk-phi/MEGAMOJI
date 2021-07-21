@@ -10,12 +10,11 @@ import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 
-import { Animation, Effect, WebGLEffect, PostEffect } from "../../types";
+import { Animation, Effect, WebGLEffect } from "../../types";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
 import staticeffects from "../../constants/staticeffects";
 import webgleffects from "../../constants/webgleffects";
-import posteffects from "../../constants/posteffects";
 
 import { renderAllCells } from "../../utils/emoji";
 import {
@@ -29,7 +28,6 @@ import {
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
-type PostEffectOption = { label: string, value: PostEffect };
 
 export default defineComponent({
   components: {
@@ -59,7 +57,6 @@ export default defineComponent({
       bgeffects,
       staticeffects,
       webgleffects,
-      posteffects,
       TRIMMING_OPTIONS: [
         { label: "ぴっちり", value: "" },
         { label: "はみだす (アス比維持)", value: "cover" },
@@ -81,7 +78,6 @@ export default defineComponent({
         staticEffects: [] as EffectOption[],
         effects: [] as EffectOption[],
         webglEffects: [] as WebGLEffectOption[],
-        postEffects: [] as PostEffectOption[],
         /* advanced */
         trimH: [0, 0],
         trimV: [0, 0],
@@ -140,7 +136,6 @@ export default defineComponent({
           this.conf.animation
           || this.conf.effects.length
           || this.conf.webglEffects.length
-          || this.conf.postEffects.length
         );
 
         const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
@@ -159,7 +154,6 @@ export default defineComponent({
           this.conf.animationInvert,
           this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.value),
           this.conf.webglEffects.map((eff) => eff.value),
-          this.conf.postEffects.map((eff) => eff.value),
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
         ).then((res) => {
@@ -179,7 +173,6 @@ export default defineComponent({
         <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
-        <EffectBlock v-model="conf.postEffects" :effects="posteffects" />
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
         <CheckboxBlock v-if="showDetails" v-model="conf.noCrop" label="開発者用">
           余白を切らない

@@ -8,6 +8,7 @@ import webglWave from "../webgleffects/wave";
 import webglStrobo from "../webgleffects/strobo";
 import webglFocusLine from "../webgleffects/focusLine";
 import webglGlitch from "../webgleffects/glitch";
+import webglMosaic from "../webgleffects/mosaic";
 
 export default [
   {
@@ -23,6 +24,7 @@ export default [
       { label: "ストロボ", value: webglStrobo },
       { label: "集中線", value: webglFocusLine },
       { label: "グリッチ", value: webglGlitch },
+      { label: "モザイク", value: webglMosaic },
     ],
   },
 ];
