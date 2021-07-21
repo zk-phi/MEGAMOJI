@@ -8,8 +8,8 @@ const webglKira: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shader);
 
   webglSetFloat(program, "brightness", 0.1);
-  webglSetFloat(program, "contrast", -0.1);
-  webglSetFloat(program, "hue", -1 + 2 * keyframe);
+  webglSetFloat(program, "saturation", -0.1);
+  webglSetFloat(program, "hue", keyframe);
 
   return program;
 };

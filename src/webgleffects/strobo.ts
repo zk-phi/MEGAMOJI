@@ -9,7 +9,7 @@ const webglStrobo: WebGLEffect = () => {
   const program = webglLoadEffectShader(shader);
 
   webglSetFloat(program, "brightness", lastStrobe ? 0 : -0.1);
-  webglSetFloat(program, "contrast", 0);
+  webglSetFloat(program, "saturation", 0);
   webglSetFloat(program, "hue", 0);
 
   lastStrobe = !lastStrobe;

@@ -1,38 +1,21 @@
-// based on glfx.js (by evanw, MIT License)
-
 precision highp float;
 uniform sampler2D texture;
 varying vec2 vUv;
 
 uniform float hue;
+uniform float saturation;
 uniform float brightness;
-uniform float contrast;
+
+@include "./utils/rgb2hsv.glsl"
+@include "./utils/hsv2rgb.glsl"
 
 void main(void) {
-  vec4 color = texture2D(texture, vUv);
+  vec4 col = texture2D(texture, vUv);
+  vec3 hsv = rgb2hsv(col.rgb);
 
-  /* brightness */
-  color.rgb += brightness;
+  hsv[0] += hue;
+  hsv[1] += saturation;
+  hsv[2] += brightness;
 
-  /* contrast */
-  if (contrast > 0.0) {
-    color.rgb = (color.rgb - 0.5) / (1.0 - contrast) + 0.5;
-  } else {
-    color.rgb = (color.rgb - 0.5) * (1.0 + contrast) + 0.5;
-  }
-
-  /* hue */
-  if (hue != 0.0) {
-    float angle = hue * 3.14159265;
-    float s = sin(angle), c = cos(angle);
-    vec3 weights = (vec3(2.0 * c, -sqrt(3.0) * s - c, sqrt(3.0) * s - c) + 1.0) / 3.0;
-    float len = length(color.rgb);
-    color.rgb = vec3(
-      dot(color.rgb, weights.xyz),
-      dot(color.rgb, weights.zxy),
-      dot(color.rgb, weights.yzx)
-    );
-  }
-
-  gl_FragColor = color;
+  gl_FragColor = vec4(hsv2rgb(hsv), col.a);
 }
