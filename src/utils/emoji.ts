@@ -67,6 +67,8 @@ function renderFrameUncut(
   }
 }
 
+let encoders: GIF[][] | null = null;
+
 /**
  * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
@@ -92,7 +94,6 @@ function renderAllCellsFixedSize(
   backgroundColor: string,
   transparent: boolean,
 ) {
-  let cells = [];
   if (!animated) {
     const img = renderFrameUncut(
       0, image,
@@ -102,7 +103,7 @@ function renderAllCellsFixedSize(
       framerate, framecount,
       transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
     );
-    cells = noCrop ? (
+    const cells = noCrop ? (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
     ) : (
       cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
@@ -113,6 +114,10 @@ function renderAllCellsFixedSize(
       )))
     )));
   } else {
+    if (encoders) {
+      encoders.forEach((row) => { row.forEach((encoder) => encoder.abort()); });
+    }
+    encoders = [];
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
@@ -124,7 +129,7 @@ function renderAllCellsFixedSize(
         });
         row.push(encoder);
       }
-      cells.push(row);
+      encoders.push(row);
     }
     const delayPerFrame = 1000 / framerate;
     for (let i = 0; i < framecount; i += 1) {
@@ -147,13 +152,16 @@ function renderAllCellsFixedSize(
       );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          cells[y][x].addFrame(imgCells[y][x].getContext("2d")!, { delay: delayPerFrame });
+          encoders[y][x].addFrame(imgCells[y][x].getContext("2d")!, { delay: delayPerFrame });
         }
       }
     }
-    return Promise.all<Blob[]>(cells.map((row) => Promise.all<Blob>(row.map((cell) => (
+    return Promise.all<Blob[]>(encoders.map((row) => Promise.all<Blob>(row.map((cell) => (
       new Promise((resolve) => {
-        cell.on("finished", resolve);
+        cell.on("finished", (ret) => {
+          resolve(ret);
+          encoders = null;
+        });
         cell.render();
       })
     )))));

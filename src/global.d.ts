@@ -12,6 +12,8 @@ declare module "@dhdbstjr98/gif.js" {
 
     on(event: "finished", cb: (res: Blob) => void): void;
 
+    abort(): void;
+
     render(): void;
   }
 }
