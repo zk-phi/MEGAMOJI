@@ -15,7 +15,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           stylelint_input: '**/*.{css,vue}'
-      - uses: reviewdog/action-eslint@v1.12.3
+      - uses: reviewdog/action-eslint@v1.14
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
