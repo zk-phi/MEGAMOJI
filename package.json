@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
-    "color-convert": "^1.9.3",
+    "color-convert": "^2.0.1",
     "naive-ui": "^2.15.6",
     "rollbar": "^2.24.0",
     "vue": "^3.1.5",
