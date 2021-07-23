@@ -23,7 +23,7 @@
     "webpack-glsl-minify": "^1.4.2"
   },
   "devDependencies": {
-    "@primer/css": "^17.2.1",
+    "@primer/css": "^17.4.0",
     "@storybook/addon-essentials": "^6.3.4",
     "@storybook/builder-webpack5": "^6.3.4",
     "@storybook/manager-webpack5": "^6.3.4",
