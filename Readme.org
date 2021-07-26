@@ -227,7 +227,11 @@ WebGL エフェクトの実体は４引数の関数です：
 フォントのライセンスをよく確認 (再配布可？改変 (woff 化) 可？) した上で、
 woff 化したフォントを ~src/fonts~ に入れてください。
 
-自分はこれ https://github.com/zk-phi/woff2sfnt-sfnt2woff を使っています。
+SIL Open Font License でライセンスされたフォントのうち、ライセンスに
+「with Reserved Font Name ...」が含まれているものは原則使用しません
+(woff 化にあたってフォント名を変える必要があり、面倒なため)。
+
+woff 化にはこれ https://github.com/zk-phi/woff2sfnt-sfnt2woff を使っています。
 
 : node sfnt2woff.js hoge.ttf hoge.woff
 
@@ -235,3 +239,6 @@ woff 化したフォントを ~src/fonts~ に入れてください。
 
 - ~src/constants/fonts.ts~
 - ~LICENSE.markdown~
+
+ライセンス表記時の作者名は、アカウント名などから適当に持ってくるのではなく、
+なるべく正式な表記を探してコピーしてください。
