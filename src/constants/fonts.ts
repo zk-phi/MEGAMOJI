@@ -1,5 +1,5 @@
-import GenEiMGothicBold from "../fonts/GenEiMGothic2-Bold.woff";
-import GenEiMGothicBlack from "../fonts/GenEiMGothic2-Black.woff";
+import Mplus1Bold from "../fonts/Mplus1-Bold.woff";
+import Mplus1Black from "../fonts/Mplus1-Black.woff";
 import RoundedMPlusBold from "../fonts/m-plus-rounded-1c-v10-latin_japanese-700.woff";
 import RoundedMPlusBlack from "../fonts/m-plus-rounded-1c-v10-latin_japanese-900.woff";
 import NotoSerifBlack from "../fonts/noto-serif-jp-v7-latin_japanese-900.woff";
@@ -32,8 +32,8 @@ export default [
   }, {
     label: "スタンダード",
     fonts: [
-      { label: "ゴシック/太", value: loadFont({ GenEiMGothicBold }) },
-      { label: "ゴシック/極太", value: loadFont({ GenEiMGothicBlack }) },
+      { label: "ゴシック/太", value: loadFont({ Mplus1Bold }) },
+      { label: "ゴシック/極太", value: loadFont({ Mplus1Black }) },
       { label: "丸ゴ/太", value: loadFont({ RoundedMPlusBold }) },
       { label: "丸ゴ/極太", value: loadFont({ RoundedMPlusBlack }) },
       { label: "明朝/太", value: loadFont({ NotoSerifBlack }) },

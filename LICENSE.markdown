@@ -26,8 +26,8 @@ Images
   - (c) Twitter, Licensed under the CC-BY License
 
 Fonts
-- 源暎エムゴ
-  - (c) おたもん, Licensed under the SIL OFL (with RFN '源暎')
+- Mplus 1
+  - (c) The M+ FONTS Project Authors, Licensed under the SIL OFL (without RFN)
 - Rounded M+ 1c
   - (c) 自家製フォント工房, Licensed under the M+ Fonts License
 - Noto Serif
