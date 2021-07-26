@@ -41,7 +41,7 @@ export default [
   }, {
     label: "デザイン",
     fonts: [
-      { label: "Dela Gothic One", value: loadFont({ DelaGothic }) },
+      { label: "デラゴシック", value: loadFont({ DelaGothic }) },
       { label: "あかずきんポップ", value: loadFont({ AkazukinPOP }) },
       { label: "零ゴシック", value: loadFont({ ZeroGothic }) },
       { label: "黒薔薇シンデレラ", value: loadFont({ KurobaraCinderella }) },

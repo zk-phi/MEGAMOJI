@@ -21,7 +21,7 @@ Fonts
 - 源暎エムゴ (おたもん, Open Font License)
 - Rounded M+ 1c (M+ Font Project, Open Font License)
 - Noto Serif (Google, Apache License)
-- Dela Gothic (aratakana, Open Font License)
+- デラゴシック (aratakana, Open Font License)
 - あかずきんポップ (FLOP DESIGN, M+ Fonts License)
 - 零ゴシック (FLOP DESIGN, Open Font License)
 - 黒薔薇シンデレラ (MODI, Open Font License)
