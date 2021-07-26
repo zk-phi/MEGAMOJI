@@ -1,35 +1,52 @@
 このソフトウェアは以下のライセンスのもと自由にコピー＆改造できます。
 
 - ソースコード ... MIT License
-- 「パーツを選んで作る」の素材 (./dist/assets) ... CC-BY
+- 「キメラ絵文字」の素材 (./dist/assets) ... CC-BY
 
 同梱のフォントはそれぞれのライセンスに従ってください (下記参照)。
 
 # 権利表示
 
 Libraries
-- gif.js (Johan Nordberg, MIT License)
-- Naive UI (TuSimple, MIT License)
-- Rollbar (Rollbar, MIT License)
-- Vue.js (Evan You, MIT License)
-- color-convert (Josh Junon, MIT License)
+- gif.js
+  - (c) Johan Nordberg, Licensed under the MIT License
+- Naive UI
+  - (c) TuSimple, Licensed under the MIT License
+- Rollbar
+  - (c) Rollbar, Licensed under the MIT License
+- Vue.js
+  - (c) Evan You, Licensed under the MIT License
+- color-convert
+  - (c) Josh Junon, Licensed under the MIT License
+- glfx.js
+  - (c) Evan Wallace, under the MIT License
 
 Images
-- Twemoji (「パーツを選んで作る」機能のために改変) (Twitter, CC-BY)
+- Twemoji (modified for "キメラ絵文字" feature)
+  - (c) Twitter, Licensed under the CC-BY License
 
 Fonts
-- 源暎エムゴ (おたもん, Open Font License)
-- Rounded M+ 1c (M+ Font Project, Open Font License)
-- Noto Serif (Google, Apache License)
-- デラゴシック (aratakana, Open Font License)
-- あかずきんポップ (FLOP DESIGN, M+ Fonts License)
-- 零ゴシック (FLOP DESIGN, Open Font License)
-- 黒薔薇シンデレラ (MODI, Open Font License)
-- 青柳隷書しも (武蔵システム, 独自ライセンス)
+- 源暎エムゴ
+  - (c) おたもん, Licensed under the SIL OFL (with RFN '源暎')
+- Rounded M+ 1c
+  - (c) 自家製フォント工房, Licensed under the M+ Fonts License
+- Noto Serif
+  - (c) Google, Licensed under the SIL OFL (without RFN)
+- デラゴシック
+  - (c) The Dela Gothic Project Authors, Licensed under the SIL OFL (without RFN)
+- あかずきんポップ
+  - (c) Kato Masashi, Licensed under the M+ Fonts License
+- 零ゴシック
+  - (c) フロップデザイン, Licensed under the SIL OFL (without RFN)
+- 黒薔薇シンデレラ
+  - (c) MODI工場, Licensed under the M+ Fonts License
+- 青柳隷書しも
+  - (c) 武蔵システム, 独自ライセンス (下記参照)
   - [フォントの使用方法](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/SIMO/readme.txt)
   - [フォントの解説](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/SIMO/description.pdf)
-- PixelMplus (itouhiro, M+ Fonts License)
-- レゲエ (Fontworks, Open Font License)
-- ランパート (Fontworks, Open Font License)
-
-Some filters are taken and modified from glfx.js by evanw, under the MIT License.
+- PixelMplus
+  - (c) Itou Hiroki, Licensed under the M+ Fonts License
+- レゲエ
+  - (c) The Reggae Project Authors, Licensed under the SIL OFL (without RFN)
+- ランパート
+  - (c) The Rampart Project Authors, Licensed under the SIL OFL (without RFN)
