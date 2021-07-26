@@ -11,6 +11,7 @@ import AoyagiReishoSIMO from "../fonts/aoyagireisyosimo_ttf_2_01.woff";
 import PixelMplus from "../fonts/PixelMplus12-Bold.woff";
 import Reggae from "../fonts/ReggaeOne-Regular.woff";
 import Rampart from "../fonts/RampartOne-Regular.woff";
+import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
 
 const loadFont = (font: Record<string, string>) => {
   const family = Object.keys(font)[0];
@@ -45,6 +46,7 @@ export default [
       { label: "あかずきんポップ", value: loadFont({ AkazukinPOP }) },
       { label: "零ゴシック", value: loadFont({ ZeroGothic }) },
       { label: "黒薔薇シンデレラ", value: loadFont({ KurobaraCinderella }) },
+      { label: "はちまるポップ", value: loadFont({ HachiMaruPop }) },
       { label: "青柳隷書しも", value: loadFont({ AoyagiReishoSIMO }) },
       { label: "PixelMplus", value: loadFont({ PixelMplus }) },
       { label: "レゲエ", value: loadFont({ Reggae }) },

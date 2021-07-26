@@ -40,6 +40,8 @@ Fonts
   - (c) フロップデザイン, Licensed under the SIL OFL (without RFN)
 - 黒薔薇シンデレラ
   - (c) MODI工場, Licensed under the M+ Fonts License
+- はちまるポップ
+  - (c) The Hachi Maru Pop Project Authors, Licensed under the SIL OFL (without RFN)
 - 青柳隷書しも
   - (c) 武蔵システム, 独自ライセンス (下記参照)
   - [フォントの使用方法](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/SIMO/readme.txt)
