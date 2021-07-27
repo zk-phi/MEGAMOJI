@@ -30,7 +30,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard :style="transparentBg" title="絵文字 (右クリックで保存)">
+  <NCard :style="transparentBg" title="絵文字">
     <NSpace vertical>
       <RawResult v-if="!previewMode" :images="images" />
       <Preview v-if="previewMode" :images="images" :dark-mode="false" />

@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem, NButton } from "naive-ui";
+import { saveAs } from "file-saver";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import TextSource from "./cards/TextSource.vue";
@@ -10,6 +11,7 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import theme from "../constants/theme";
+import { extension, prepareDownloadFile } from "../utils/file";
 
 export default defineComponent({
   components: {
@@ -75,6 +77,10 @@ export default defineComponent({
     onRender(img: HTMLImageElement): void {
       this.baseImage = img;
     },
+    onDownload(): void {
+      const download = prepareDownloadFile(this.resultImages);
+      download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
+    },
   },
 });
 </script>
@@ -114,6 +120,9 @@ export default defineComponent({
               <Result :images="resultImageUrls" />
               <NButton block type="primary" ghost @click="onSetShowTarget(!ui.showTargetPanel)">
                 {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
+              </NButton>
+              <NButton v-if="baseImage" block type="primary" @click="onDownload">
+                絵文字を保存
               </NButton>
             </NSpace>
           </NGridItem>
