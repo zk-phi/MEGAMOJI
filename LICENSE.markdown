@@ -7,19 +7,23 @@
 
 # 権利表示
 
-Libraries
+Runtime libraries
 - gif.js
   - (c) Johan Nordberg, Licensed under the MIT License
+- color-convert
+  - (c) Josh Junon, Licensed under the MIT License
+- file-saver
+  - (c) Eli Grey, Licensed under the MIT License
+- jszip
+  - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso, Licensed under the MIT License
 - Naive UI
   - (c) TuSimple, Licensed under the MIT License
 - Rollbar
   - (c) Rollbar, Licensed under the MIT License
 - Vue.js
   - (c) Evan You, Licensed under the MIT License
-- color-convert
-  - (c) Josh Junon, Licensed under the MIT License
-- glfx.js
-  - (c) Evan Wallace, under the MIT License
+
+Some effects are based on glfx.js (c) Evan Wallace, under the MIT License.
 
 Images
 - Twemoji (modified for "キメラ絵文字" feature)
