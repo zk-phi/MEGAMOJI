@@ -80,6 +80,9 @@ export default defineComponent({
     onDownload(): void {
       const download = prepareDownloadFile(this.resultImages);
       download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
+      if (window.ga) {
+        window.ga("send", "event", this.ui.mode, "download");
+      }
     },
   },
 });
