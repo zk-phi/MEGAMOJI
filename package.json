@@ -17,6 +17,8 @@
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
     "color-convert": "^2.0.1",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.7.0",
     "naive-ui": "^2.15.6",
     "rollbar": "^2.24.0",
     "vue": "^3.1.5",
@@ -30,6 +32,7 @@
     "@storybook/vue3": "^6.3.5",
     "@types/color-convert": "^2.0.0",
     "@types/css-font-loading-module": "^0.0.6",
+    "@types/file-saver": "^2.0.3",
     "@types/google.analytics": "^0.0.42",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
