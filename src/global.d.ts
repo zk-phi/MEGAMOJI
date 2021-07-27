@@ -1,4 +1,5 @@
 declare module "*.vue" {
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import Vue from "vue";
 
   export default Vue;
@@ -31,6 +32,7 @@ declare module "*.png" {
 }
 
 declare module "*.glsl" {
+  // eslint-disable-next-line import/no-extraneous-dependencies
   import { GlslShader, GlslVariableMap } from "webpack-glsl-minify";
 
   export default {
