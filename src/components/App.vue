@@ -36,7 +36,7 @@ export default defineComponent({
     return {
       theme,
       baseImage: null as (HTMLImageElement | null),
-      resultImages: [[]] as HTMLImageElement[][],
+      resultImages: [[]] as string[][],
       previewMode: false,
       /* ui */
       ui: {
@@ -61,7 +61,7 @@ export default defineComponent({
         window.ga("send", "pageview", `/${value}`);
       }
     },
-    onRenderTarget(imgs: HTMLImageElement[][]): void {
+    onRenderTarget(imgs: string[][]): void {
       this.resultImages = imgs;
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "render");
