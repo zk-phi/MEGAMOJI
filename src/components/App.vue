@@ -36,7 +36,7 @@ export default defineComponent({
     return {
       theme,
       baseImage: null as (HTMLImageElement | null),
-      resultImages: [[]] as string[][],
+      resultImages: [[]] as Blob[][],
       previewMode: false,
       /* ui */
       ui: {
@@ -46,6 +46,11 @@ export default defineComponent({
         showTargetDetails: false,
       },
     };
+  },
+  computed: {
+    resultImageUrls(): string[][] {
+      return this.resultImages.map((row) => row.map((cell) => URL.createObjectURL(cell)));
+    },
   },
   methods: {
     onSetShowTarget(value: boolean): void {
@@ -61,7 +66,7 @@ export default defineComponent({
         window.ga("send", "pageview", `/${value}`);
       }
     },
-    onRenderTarget(imgs: string[][]): void {
+    onRenderTarget(imgs: Blob[][]): void {
       this.resultImages = imgs;
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "render");
@@ -106,7 +111,7 @@ export default defineComponent({
           <NGridItem span="1">
             <Tutorial v-if="!baseImage" />
             <NSpace v-else vertical>
-              <Result :images="resultImages" />
+              <Result :images="resultImageUrls" />
               <NButton block type="primary" ghost @click="onSetShowTarget(!ui.showTargetPanel)">
                 {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
               </NButton>

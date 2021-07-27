@@ -189,7 +189,7 @@ export function renderAllCells(
   backgroundColor: string,
   transparent: boolean,
   binarySizeLimit: number,
-): Promise<string[][]> {
+): Promise<Blob[][]> {
   return new Promise((resolve) => {
     renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize, noCrop,
@@ -213,7 +213,7 @@ export function renderAllCells(
           binarySizeLimit,
         ).then(resolve);
       } else {
-        resolve(ret.map((row) => row.map((cell) => URL.createObjectURL(cell))));
+        resolve(ret);
       }
     });
   });
