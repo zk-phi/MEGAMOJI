@@ -57,6 +57,11 @@ export default defineComponent({
       showDetails: false,
     };
   },
+  mounted() {
+    if (window.ga) {
+      window.ga("set", "dimension1", this.conf.font);
+    }
+  },
   computed: {
     absoluteOutlines(): string[] {
       return this.conf.outlines.map((outline) => absColor(outline, this.conf.color));
@@ -71,6 +76,9 @@ export default defineComponent({
   watch: {
     conf: {
       handler(): void {
+        if (window.ga) {
+          window.ga("set", "dimension1", this.conf.font);
+        }
         this.render();
       },
       deep: true,
