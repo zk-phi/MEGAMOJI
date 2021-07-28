@@ -37,7 +37,7 @@ export default defineComponent({
     <template #extra>
       <NPopover trigger="click" placement="bottom-end">
         <template #trigger>
-          <NButton text>
+          <NButton ghost>
             Menu
           </NButton>
         </template>
