@@ -89,11 +89,6 @@ export default defineComponent({
       showDetails: false,
     };
   },
-  mounted() {
-    if (window.ga) {
-      window.ga("set", "dimension2", "///");
-    }
-  },
   watch: {
     baseImage: {
       handler(): void {
@@ -106,18 +101,23 @@ export default defineComponent({
     conf: {
       handler(): void {
         if (window.ga) {
-          const animation = this.conf.animation ? this.conf.animation.label : "";
-          const effects = [
+          const animationName = this.conf.animation ? this.conf.animation.label : "";
+          const effectNames = [
             this.conf.staticEffects.map((e) => e.label).join(","),
             this.conf.effects.map((e) => e.label).join(","),
             this.conf.webglEffects.map((e) => e.label).join(","),
           ].join("/");
-          window.ga("set", "dimension2", `${animation}/${effects}`);
+          window.ga("set", "dimension2", `${animationName}/${effectNames}`);
         }
         this.render();
       },
       deep: true,
     },
+  },
+  mounted() {
+    if (window.ga) {
+      window.ga("set", "dimension2", "///");
+    }
   },
   methods: {
     refreshDefaultSettings(): void {
