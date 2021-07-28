@@ -121,12 +121,14 @@ export default defineComponent({
             <Tutorial v-if="!baseImage" />
             <NSpace v-else vertical>
               <Result :images="resultImageUrls" />
-              <NButton block type="primary" ghost @click="onSetShowTarget(!ui.showTargetPanel)">
-                {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
-              </NButton>
-              <NButton v-if="baseImage" block type="primary" @click="onDownload">
-                絵文字を保存
-              </NButton>
+              <NSpace>
+                <NButton block type="primary" ghost @click="onSetShowTarget(!ui.showTargetPanel)">
+                  {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
+                </NButton>
+                <NButton v-if="baseImage" block type="primary" @click="onDownload">
+                  絵文字を保存
+                </NButton>
+              </NSpace>
             </NSpace>
           </NGridItem>
         </NGrid>
