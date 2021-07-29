@@ -151,6 +151,9 @@ export default defineComponent({
   --primary: #18a058;
   --primaryHover: #36ad6a;
   --primaryActive: #0c7a43;
+  --danger: #d03050;
+  --dangerHover: #de576d;
+  --dangerActive: #ab1f3f;
 
   /* typography */
   --fontSizeMedium: 14px;
@@ -158,5 +161,6 @@ export default defineComponent({
   /* layout */
   --borderRadius: 4px;
   --paddingMedium: 10px 12px;
+  --iconButtonSize: 24px;
 }
 </style>

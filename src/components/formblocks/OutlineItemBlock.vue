@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NButton, NColorPicker } from "naive-ui";
+import { NColorPicker } from "naive-ui";
+import IconButton from "../inputs/IconButton.vue";
+import Delete from "../icons/Delete.vue";
 
 export default defineComponent({
   components: {
-    NButton, NColorPicker,
+    IconButton, Delete, NColorPicker,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -24,8 +26,8 @@ export default defineComponent({
         :show-alpha="false"
         style="margin-right: 8px;"
         @update:value="$emit('update:modelValue', $event)" />
-    <NButton ghost type="error" style="width: 16px;" @click="$emit('remove')">
-      x
-    </NButton>
+    <IconButton type="danger" @click="$emit('remove')">
+      <Delete />
+    </IconButton>
   </div>
 </template>

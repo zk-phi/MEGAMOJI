@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NPageHeader, NButton, NPopover, NMenu } from "naive-ui";
+import { NPageHeader, NPopover, NMenu } from "naive-ui";
+import IconButton from "./inputs/IconButton.vue";
+import Menu from "./icons/Menu.vue";
 
 export default defineComponent({
   components: {
-    NPageHeader, NButton, NPopover, NMenu,
+    NPageHeader, IconButton, Menu, NPopover, NMenu,
   },
   data() {
     return {
@@ -37,9 +39,9 @@ export default defineComponent({
     <template #extra>
       <NPopover trigger="click" placement="bottom-end">
         <template #trigger>
-          <NButton ghost>
-            Menu
-          </NButton>
+          <IconButton>
+            <Menu />
+          </IconButton>
         </template>
         <NMenu :options="options" :indent="18" @update:value="handleMenu" />
       </NPopover>
