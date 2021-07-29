@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
+import { NCard, NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
@@ -8,6 +8,7 @@ import SelectBlock from "../formblocks/SelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
+import Button from "../inputs/Button.vue";
 
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
@@ -25,7 +26,7 @@ export default defineComponent({
     GradientBlock,
     OutlineBlock,
     NCard,
-    NButton,
+    Button,
     NGrid,
     NGridItem,
   },
@@ -139,9 +140,9 @@ export default defineComponent({
     </NGrid>
     <template #footer>
       <div style="text-align: center;">
-        <NButton text @click="showDetails = !showDetails">
+        <Button type="text" @click="showDetails = !showDetails">
           {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </NButton>
+        </Button>
       </div>
     </template>
   </NCard>

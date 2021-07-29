@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NButton, NGrid, NGridItem } from "naive-ui";
+import { NCard, NGrid, NGridItem } from "naive-ui";
 import ColorBlock from "../formblocks/ColorBlock.vue";
 import AnimationSelectBlock from "../formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "../formblocks/EffectBlock.vue";
@@ -9,6 +9,7 @@ import CheckboxBlock from "../formblocks/CheckboxBlock.vue";
 import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
+import Button from "../inputs/Button.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import effects from "../../constants/effects";
@@ -40,7 +41,7 @@ export default defineComponent({
     SwitchBlock,
     CellcountBlock,
     NCard,
-    NButton,
+    Button,
     NGrid,
     NGridItem,
   },
@@ -241,9 +242,9 @@ export default defineComponent({
     </NGrid>
     <template #footer>
       <div style="text-align: center;">
-        <NButton text @click="showDetails = !showDetails">
+        <Button type="text" @click="showDetails = !showDetails">
           {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </NButton>
+        </Button>
       </div>
     </template>
   </NCard>

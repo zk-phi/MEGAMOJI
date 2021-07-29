@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem, NButton } from "naive-ui";
+import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
@@ -10,6 +10,7 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
+import Button from "./inputs/Button.vue";
 import theme from "../constants/theme";
 import { extension, prepareDownloadFile } from "../utils/file";
 
@@ -32,7 +33,7 @@ export default defineComponent({
     NSpace,
     NGrid,
     NGridItem,
-    NButton,
+    Button,
   },
   data() {
     return {
@@ -122,12 +123,12 @@ export default defineComponent({
             <NSpace v-else vertical>
               <Result :images="resultImageUrls" />
               <NSpace>
-                <NButton block type="primary" ghost @click="onSetShowTarget(!ui.showTargetPanel)">
+                <Button @click="onSetShowTarget(!ui.showTargetPanel)">
                   {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
-                </NButton>
-                <NButton v-if="baseImage" block type="primary" @click="onDownload">
+                </Button>
+                <Button v-if="baseImage" type="primary" @click="onDownload">
                   絵文字を保存
-                </NButton>
+                </Button>
               </NSpace>
             </NSpace>
           </NGridItem>
@@ -140,3 +141,22 @@ export default defineComponent({
     </NLayout>
   </NConfigProvider>
 </template>
+
+<style>
+:root {
+  /* colors */
+  --fg: #333639;
+  --distantFg: #fff;
+  --border: #aaa;
+  --primary: #18a058;
+  --primaryHover: #36ad6a;
+  --primaryActive: #0c7a43;
+
+  /* typography */
+  --fontSizeMedium: 14px;
+
+  /* layout */
+  --borderRadius: 4px;
+  --paddingMedium: 10px 12px;
+}
+</style>

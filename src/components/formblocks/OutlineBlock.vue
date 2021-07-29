@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NFormItem, NButton, NSpace } from "naive-ui";
+import { NFormItem, NSpace } from "naive-ui";
+import Button from "../inputs/Button.vue";
 import OutlineOption from "../inputs/OutlineOption.vue";
 import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
@@ -8,7 +9,7 @@ import { absColor } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, NButton, NSpace,
+    OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, Button, NSpace,
   },
   props: {
     modelValue: { type: Array as PropType<string[]>, required: true },
@@ -77,9 +78,9 @@ export default defineComponent({
           :model-value="absColors[ix]"
           @update:model-value="update(ix, $event)"
           @remove="remove(ix) " />
-      <NButton dashed block @click="add">
+      <Button type="dashed" block @click="add">
         + アウトラインを追加
-      </NButton>
+      </Button>
     </NSpace>
   </NFormItem>
 </template>

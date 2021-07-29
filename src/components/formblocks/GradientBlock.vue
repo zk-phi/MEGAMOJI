@@ -1,12 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NButton, NFormItem, NSpace } from "naive-ui";
+import { NFormItem, NSpace } from "naive-ui";
+import Button from "../inputs/Button.vue";
 import ColorStopBlock from "./ColorStopBlock.vue";
 import { ColorStop } from "../../types";
 
 export default defineComponent({
   components: {
-    ColorStopBlock, NButton, NFormItem, NSpace,
+    ColorStopBlock, Button, NFormItem, NSpace,
   },
   props: {
     modelValue: { type: Array as PropType<ColorStop[]>, required: true },
@@ -44,9 +45,9 @@ export default defineComponent({
 
 <template>
   <NFormItem label="グラデ">
-    <NButton v-if="modelValue.length == 0" dashed block @click="initializeGradient">
+    <Button v-if="modelValue.length == 0" type="dashed" block @click="initializeGradient">
       + グラデーションを追加
-    </NButton>
+    </Button>
     <NSpace v-else vertical style="width: 100%;">
       <ColorStopBlock
           v-for="(colorstop, ix) in modelValue"
@@ -55,9 +56,9 @@ export default defineComponent({
           :base-color="baseColor"
           @remove="remove(ix)"
           @update:model-value="update(ix, $event)" />
-      <NButton dashed block @click="add">
+      <Button type="dashed" block @click="add">
         + 色を追加
-      </NButton>
+      </Button>
     </NSpace>
   </NFormItem>
 </template>
