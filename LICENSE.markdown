@@ -28,6 +28,8 @@ Some effects are based on glfx.js (c) Evan Wallace, under the MIT License.
 Images
 - Twemoji (modified for "キメラ絵文字" feature)
   - (c) Twitter, Licensed under the CC-BY License
+- Material Design Icons
+  - (c) Google, Licensed under the Apache License
 
 Fonts
 - Mplus 1
