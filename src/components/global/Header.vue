@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { NPageHeader, NPopover, NMenu } from "naive-ui";
-import IconButton from "./inputs/IconButton.vue";
-import Menu from "./icons/Menu.vue";
+import IconButton from "../inputs/IconButton.vue";
+import Menu from "../icons/Menu.vue";
 
 export default defineComponent({
   components: {

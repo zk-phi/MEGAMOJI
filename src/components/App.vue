@@ -2,8 +2,8 @@
 import { defineComponent } from "vue";
 import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
-import Header from "./Header.vue";
-import Footer from "./Footer.vue";
+import Header from "./global/Header.vue";
+import Footer from "./global/Footer.vue";
 import TextSource from "./cards/TextSource.vue";
 import FileSource from "./cards/FileSource.vue";
 import FukumojiSource from "./cards/FukumojiSource.vue";
