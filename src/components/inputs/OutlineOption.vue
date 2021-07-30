@@ -1,11 +1,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCheckbox } from "naive-ui";
 import { absColor } from "../../utils/color";
+import ToggleButton from "./ToggleButton.vue";
+import ColorSample from "../global/ColorSample.vue";
 
 export default defineComponent({
   components: {
-    NCheckbox,
+    ToggleButton, ColorSample,
   },
   props: {
     modelValue: { type: Array as PropType<string[]>, required: true },
@@ -36,9 +37,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCheckbox :checked="checked" @update:checked="onToggle(color)">
-    <span :style="{ color: absColor === '#ffffff' ? '#000000' : absColor }">
-      {{ absColor === "#ffffff" ? "♢" : "◆" }}
-    </span>
-  </NCheckbox>
+  <ToggleButton
+      :model-value="modelValue"
+      :value="color"
+      @update:model-value="$emit('update:modelValue', $event)">
+    <ColorSample :color="absColor" />
+  </ToggleButton>
 </template>

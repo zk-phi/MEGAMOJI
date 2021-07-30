@@ -3,13 +3,12 @@ import { defineComponent, PropType } from "vue";
 import { NFormItem, NSpace } from "naive-ui";
 import Button from "../inputs/Button.vue";
 import OutlineOption from "../inputs/OutlineOption.vue";
-import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
 import { absColor } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    OutlineOption, CheckboxGroup, OutlineItemBlock, NFormItem, Button, NSpace,
+    OutlineOption, OutlineItemBlock, NFormItem, Button, NSpace,
   },
   props: {
     modelValue: { type: Array as PropType<string[]>, required: true },
@@ -42,7 +41,7 @@ export default defineComponent({
 
 <template>
   <NFormItem v-if="!showDetails" label="アウトライン">
-    <CheckboxGroup>
+    <NSpace>
       <OutlineOption
           :model-value="modelValue"
           :base-color="baseColor"
@@ -68,7 +67,7 @@ export default defineComponent({
           :base-color="baseColor"
           color="#ffffff"
           @update:modelValue="$emit('update:modelValue', $event)" />
-    </CheckboxGroup>
+    </NSpace>
   </NFormItem>
   <NFormItem v-else label="アウトライン">
     <NSpace vertical style="width: 100%;">

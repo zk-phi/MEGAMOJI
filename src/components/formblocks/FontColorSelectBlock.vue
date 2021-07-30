@@ -2,13 +2,12 @@
 import { defineComponent } from "vue";
 import { NSpace, NFormItem } from "naive-ui";
 import FontColorOption from "../inputs/FontColorOption.vue";
-import CheckboxGroup from "../inputs/CheckboxGroup.vue";
 import ColorBlock from "./ColorBlock.vue";
 import fontcolors from "../../constants/fontcolors";
 
 export default defineComponent({
   components: {
-    FontColorOption, CheckboxGroup, ColorBlock, NSpace, NFormItem,
+    FontColorOption, ColorBlock, NSpace, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -28,14 +27,14 @@ export default defineComponent({
 <template>
   <NFormItem v-if="!showDetails" label="色">
     <NSpace vertical>
-      <CheckboxGroup v-for="row in fontcolors" :key="row[0]">
+      <NSpace v-for="row in fontcolors" :key="row[0]">
         <FontColorOption
             v-for="color in row"
             :key="color"
             :model-value="modelValue"
             :color="color"
             @update:model-value="$emit('update:modelValue', $event)" />
-      </CheckboxGroup>
+      </NSpace>
     </NSpace>
   </NFormItem>
   <ColorBlock

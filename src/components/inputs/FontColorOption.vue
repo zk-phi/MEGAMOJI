@@ -1,10 +1,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NRadio } from "naive-ui";
+import ToggleButton from "./ToggleButton.vue";
+import ColorSample from "../global/ColorSample.vue";
 
 export default defineComponent({
   components: {
-    NRadio,
+    ToggleButton, ColorSample,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -17,9 +18,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <NRadio :checked="modelValue === color" @change="$emit('update:modelValue', color)">
-    <span :style="{ color: color === '#ffffff' ? '#000000' : color }">
-      {{ color === "#ffffff" ? "♢" : "◆" }}
-    </span>
-  </NRadio>
+  <ToggleButton
+      :model-value="modelValue"
+      :value="color"
+      @update:model-value="$emit('update:modelValue', $event)">
+    <ColorSample :color="color" />
+  </ToggleButton>
 </template>
