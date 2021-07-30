@@ -51,6 +51,7 @@ export default defineComponent({
 .default:active {
   color: var(--primaryActive);
   border-color: var(--primaryActive);
+  box-shadow: var(--primaryShadow);
 }
 
 .text {
@@ -80,6 +81,7 @@ export default defineComponent({
 .dashed:active {
   color: var(--primaryActive);
   border-color: var(--primaryActive);
+  box-shadow: var(--primaryShadow);
 }
 
 .primary {
@@ -93,5 +95,6 @@ export default defineComponent({
 
 .primary:active {
   background-color: var(--primaryActive);
+  box-shadow: var(--primaryShadow);
 }
 </style>
