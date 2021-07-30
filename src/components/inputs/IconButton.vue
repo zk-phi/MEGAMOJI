@@ -40,6 +40,7 @@ export default defineComponent({
 
 .default:active {
   color: var(--primaryActive);
+  filter: var(--primaryDropShadow);
 }
 
 .danger {
@@ -52,5 +53,6 @@ export default defineComponent({
 
 .danger:active {
   color: var(--dangerActive);
+  filter: var(--dangerDropShadow);
 }
 </style>

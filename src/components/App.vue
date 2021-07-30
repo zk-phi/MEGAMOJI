@@ -152,9 +152,11 @@ export default defineComponent({
   --primaryHover: #36ad6a;
   --primaryActive: #0c7a43;
   --primaryShadow: 0 0 0 2px rgba(24, 160, 88, 0.2);
+  --primaryDropShadow: drop-shadow(0 0 2px rgba(24, 160, 88, 0.6));
   --danger: #d03050;
   --dangerHover: #de576d;
   --dangerActive: #ab1f3f;
+  --dangerDropShadow: drop-shadow(0 0 2px rgba(208, 48, 80, 0.6));
 
   /* typography */
   --fontSizeMedium: 14px;
