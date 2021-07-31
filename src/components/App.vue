@@ -164,7 +164,7 @@ export default defineComponent({
   /* layout */
   --borderRadius: 4px;
   --paddingMedium: 10px 12px;
-  --paddingMinimal: 2px;
+  --paddingMinimal: 4px;
   --iconButtonSize: 24px;
 }
 </style>
