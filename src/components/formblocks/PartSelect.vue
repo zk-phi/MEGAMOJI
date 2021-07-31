@@ -1,7 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { NSpace } from "naive-ui";
+import ToggleButton from "../inputs/ToggleButton.vue";
 
 export default defineComponent({
+  components: {
+    ToggleButton, NSpace,
+  },
   props: {
     modelValue: { type: String, required: true },
     parts: { type: Array, required: true },
@@ -13,34 +18,21 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="field">
-    <img
+  <NSpace>
+    <ToggleButton
         v-for="p in parts"
         :key="p"
-        :class="'part' + (modelValue == p ? ' selected' : '')"
-        :src="p"
-        @click="$emit('update:modelValue', p)">
-  </div>
+        :value="p"
+        :model-value="modelValue"
+        @update:model-value="$emit('update:modelValue', $event)">
+      <img class="part" :src="p">
+    </ToggleButton>
+  </NSpace>
 </template>
 
 <style scoped>
 .part {
-  width: 48px;
   height: 48px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
-
-.part:hover {
-  border: 1px solid #aaa;
-}
-
-.part:active {
-  border: 1px solid #0c7a43;
-}
-
-.part.selected {
-  border: 1px solid #18a058;
+  vertical-align: middle;
 }
 </style>
