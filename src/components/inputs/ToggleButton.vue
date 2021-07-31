@@ -7,6 +7,7 @@ export default defineComponent({
   props: {
     modelValue: { type: [Boolean, String, Number, Array] as PropType<InputType>, required: true },
     value: { type: [String, Number], required: true },
+    size: { type: String, default: "default" },
   },
   emits: [
     "update:modelValue",
@@ -22,7 +23,7 @@ export default defineComponent({
       }
     },
     className(): string {
-      return `toggle-button ${this.selected ? " selected" : ""}`;
+      return `toggle-button ${this.size}${this.selected ? " selected" : ""}`;
     },
   },
   methods: {
@@ -54,13 +55,26 @@ export default defineComponent({
   display: inline-block;
   box-sizing: border-box;
   padding: var(--paddingMinimal);
-  font-size: var(--fontSizeMedium);
-  line-height: 1;
   color: var(--fg);
   cursor: pointer;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: var(--borderRadius);
+}
+
+.default {
+  font-size: var(--fontSizeMedium);
+  line-height: 1;
+}
+
+.icon {
+  font-size: var(--fontSizeIcon);
+  line-height: 0;
+}
+
+.part {
+  font-size: var(--fontSizePart);
+  line-height: 0;
 }
 
 .toggle-button:hover {

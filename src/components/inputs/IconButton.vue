@@ -23,7 +23,7 @@ export default defineComponent({
 .icon-button {
   display: inline-block;
   padding: 0;
-  font-size: var(--iconButtonSize);
+  font-size: var(--fontSizeIcon);
   line-height: 1;
   cursor: pointer;
   background-color: transparent;

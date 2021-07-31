@@ -160,11 +160,12 @@ export default defineComponent({
 
   /* typography */
   --fontSizeMedium: 14px;
+  --fontSizeIcon: 26px;
+  --fontSizePart: 48px;
 
   /* layout */
   --borderRadius: 4px;
   --paddingMedium: 10px 12px;
   --paddingMinimal: 4px;
-  --iconButtonSize: 24px;
 }
 </style>
