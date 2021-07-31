@@ -20,19 +20,20 @@ export default defineComponent({
 <template>
   <NSpace>
     <ToggleButton
+        size="part"
         v-for="p in parts"
         :key="p"
         :value="p"
         :model-value="modelValue"
         @update:model-value="$emit('update:modelValue', $event)">
-      <img class="part" :src="p">
+      <img class="img" :src="p">
     </ToggleButton>
   </NSpace>
 </template>
 
 <style scoped>
-.part {
-  height: 48px;
+.img {
+  height: 1em;
   vertical-align: middle;
 }
 </style>
