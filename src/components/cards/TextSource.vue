@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard, NGrid, NGridItem } from "naive-ui";
+import { NFormItem, NCard, NGrid, NGridItem, NSpace } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
@@ -9,6 +9,11 @@ import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
+import ToggleButton from "../inputs/ToggleButton.vue";
+import AlignJustify from "../icons/AlignJustify.vue";
+import AlignCenter from "../icons/AlignCenter.vue";
+import AlignLeft from "../icons/AlignLeft.vue";
+import AlignRight from "../icons/AlignRight.vue";
 
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
@@ -25,10 +30,17 @@ export default defineComponent({
     FontColorSelectBlock,
     GradientBlock,
     OutlineBlock,
+    NFormItem,
     NCard,
     Button,
     NGrid,
     NGridItem,
+    NSpace,
+    ToggleButton,
+    AlignJustify,
+    AlignCenter,
+    AlignLeft,
+    AlignRight,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -38,12 +50,6 @@ export default defineComponent({
   ],
   data() {
     return {
-      ALIGN_OPTIONS: [
-        { label: "両端", value: "stretch" },
-        { label: "左", value: "left" },
-        { label: "中央", value: "center" },
-        { label: "右", value: "right" },
-      ],
       conf: {
         /* basic */
         content: "",
@@ -118,10 +124,22 @@ export default defineComponent({
             v-model="conf.content"
             label="テキスト (改行可)"
             :rows="3" />
-        <SelectBlock
-            v-model="conf.align"
-            label="揃え"
-            :options="ALIGN_OPTIONS" />
+        <NFormItem label="揃え">
+          <NSpace>
+            <ToggleButton size="icon" v-model="conf.align" value="stretch">
+              <AlignJustify />
+            </ToggleButton>
+            <ToggleButton size="icon" v-model="conf.align" value="center">
+              <AlignCenter />
+            </ToggleButton>
+            <ToggleButton size="icon" v-model="conf.align" value="left">
+              <AlignLeft />
+            </ToggleButton>
+            <ToggleButton size="icon" v-model="conf.align" value="right">
+              <AlignRight />
+            </ToggleButton>
+          </NSpace>
+        </NFormItem>
         <TextBlock
             v-if="showDetails"
             v-model="conf.lineSpacing"
