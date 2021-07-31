@@ -5,8 +5,8 @@ type InputType = boolean | string | number | (string | number)[];
 
 export default defineComponent({
   props: {
-    modelValue: { type: [Boolean, String, Number, Array] as PropType<InputType>, default: null },
-    value: { type: [String, Number], default: null },
+    modelValue: { type: [Boolean, String, Number, Array] as PropType<InputType>, required: true },
+    value: { type: [String, Number], required: true },
   },
   emits: [
     "update:modelValue",
