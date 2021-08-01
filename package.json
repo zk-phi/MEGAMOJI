@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "webpack --mode production",
+    "build-storybook": "build-storybook -o dist/storybook",
     "start": "webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint '**/*.{css,vue}'",
