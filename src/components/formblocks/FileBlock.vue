@@ -3,10 +3,11 @@ import { defineComponent } from "vue";
 import { NFormItem, NUpload } from "naive-ui";
 import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
 import Button from "../inputs/Button.vue";
+import Image from "../icons/Image.vue";
 
 export default defineComponent({
   components: {
-    NFormItem, NUpload, Button,
+    NFormItem, NUpload, Button, Image,
   },
   props: {
     label: { type: String, default: undefined },
@@ -40,7 +41,7 @@ export default defineComponent({
         :show-cancel-button="false"
         @update:file-list="onChange">
       <Button type="dashed">
-        ファイルを選ぶ
+        <Image /> ファイルを選ぶ
       </Button>
     </NUpload>
   </NFormItem>

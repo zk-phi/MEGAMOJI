@@ -11,6 +11,9 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
+import Effect from "./icons/Effect.vue";
+import Back from "./icons/Back.vue";
+import Save from "./icons/Save.vue";
 import theme from "../constants/theme";
 import { extension, prepareDownloadFile } from "../utils/file";
 
@@ -34,6 +37,9 @@ export default defineComponent({
     NGrid,
     NGridItem,
     Button,
+    Effect,
+    Back,
+    Save,
   },
   data() {
     return {
@@ -124,10 +130,15 @@ export default defineComponent({
               <Result :images="resultImageUrls" />
               <NSpace>
                 <Button @click="onSetShowTarget(!ui.showTargetPanel)">
-                  {{ ui.showTargetPanel ? 'もどる' : '効果をつける' }}
+                  <span v-if="ui.showTargetPanel">
+                    <Back /> もどる
+                  </span>
+                  <span v-else>
+                    <Effect /> 効果をつける
+                  </span>
                 </Button>
                 <Button v-if="baseImage" type="primary" @click="onDownload">
-                  絵文字を保存
+                  <Save /> 絵文字を保存
                 </Button>
               </NSpace>
             </NSpace>
