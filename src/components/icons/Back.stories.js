@@ -1,11 +1,11 @@
-import Close from "./Close.vue";
+import Back from "./Back.vue";
 
 export default {
-  title: "icons/Close",
-  component: Close,
+  title: "icons/Back",
+  component: Back,
 };
 
 export const Base = () => ({
-  components: { Close },
-  template: "<Close />",
+  components: { Back },
+  template: "<Back />",
 });
