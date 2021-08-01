@@ -6,8 +6,8 @@
 <style scoped>
 .icon {
   display: inline;
-  height: 1em;
   width: auto;
+  height: 1em;
   vertical-align: -0.11em;
   fill: currentColor;
 }

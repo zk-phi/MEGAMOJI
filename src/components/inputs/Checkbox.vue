@@ -62,23 +62,23 @@ export default defineComponent({
 <style scoped>
 .checkbox {
   display: inline-block;
-  color: var(--fg);
-  cursor: pointer;
-  line-height: 1;
-  background-color: transparent;
-  border: 0;
   padding: 0;
   font-size: var(--fontSizeMedium);
+  line-height: 1;
+  color: var(--fg);
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
 }
 
 .check {
-  color: transparent;
-  background-color: var(--bg);
   display: inline-block;
-  border: 1px solid var(--border);
-  border-radius: var(--borderRadiusSmall);
   margin-right: var(--marginSmall);
   line-height: 0;
+  color: transparent;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--borderRadiusSmall);
 }
 
 .check.radio {
