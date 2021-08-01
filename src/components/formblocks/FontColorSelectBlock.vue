@@ -1,13 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NSpace, NFormItem } from "naive-ui";
+import { NSpace, NFormItem, NColorPicker } from "naive-ui";
 import FontColorOption from "../inputs/FontColorOption.vue";
-import ColorBlock from "./ColorBlock.vue";
 import fontcolors from "../../constants/fontcolors";
 
 export default defineComponent({
   components: {
-    FontColorOption, ColorBlock, NSpace, NFormItem,
+    FontColorOption, NColorPicker, NSpace, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -37,9 +36,11 @@ export default defineComponent({
       </NSpace>
     </NSpace>
   </NFormItem>
-  <ColorBlock
-      v-else
-      :model-value="modelValue"
-      label="色"
-      @update:model-value="$emit('update:modelValue', $event)" />
+  <NFormItem v-else label="色">
+    <NColorPicker
+        :modes="['hex']"
+        :value="modelValue"
+        :show-alpha="false"
+        @update:value="$emit('update:modelValue', $event)" />
+  </NFormItem>
 </template>

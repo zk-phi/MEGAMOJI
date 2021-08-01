@@ -1,10 +1,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem } from "naive-ui";
-import ColorBlock from "../formblocks/ColorBlock.vue";
+import { NCard, NGrid, NGridItem, NFormItem, NCheckbox, NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import RangeBlock from "../formblocks/RangeBlock.vue";
-import CheckboxBlock from "../formblocks/CheckboxBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -47,10 +45,10 @@ const SPEED_OPTIONS = [
 
 export default defineComponent({
   components: {
-    ColorBlock,
+    NColorPicker,
     EffectBlock,
     RangeBlock,
-    CheckboxBlock,
+    NCheckbox,
     SwitchBlock,
     CellcountBlock,
     NCard,
@@ -201,9 +199,11 @@ export default defineComponent({
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-        <CheckboxBlock v-if="showDetails" v-model="conf.noCrop" label="開発者用">
-          余白を切らない
-        </CheckboxBlock>
+        <NFormItem v-if="showDetails" label="開発者用">
+          <NCheckbox v-model:checked="conf.noCrop">
+            余白を切らない
+          </NCheckbox>
+        </NFormItem>
       </NGridItem>
       <NGridItem>
         <NFormItem v-if="!showDetails" label="切り抜き">
@@ -248,10 +248,12 @@ export default defineComponent({
             :min="0.1"
             :step="0.1"
             :max="2.0" />
-        <ColorBlock
-            v-model="conf.backgroundColor"
-            label="背景色"
-            :disabled="conf.transparent" />
+        <NFormItem label="背景色">
+          <NColorPicker
+              v-model:value="conf.backgroundColor"
+              :modes="['hex']"
+              :show-alpha="false" />
+        </NFormItem>
         <SwitchBlock v-model="conf.transparent" label="透過 (アニメ gif は非推奨)" />
       </NGridItem>
     </NGrid>
