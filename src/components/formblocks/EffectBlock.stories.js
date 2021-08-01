@@ -1,7 +1,7 @@
 import EffectBlock from "./EffectBlock.vue";
 
 export default {
-  title: "formblocks/molecules/EffectBlock",
+  title: "organisms/target/EffectBlock",
   component: EffectBlock,
 };
 
