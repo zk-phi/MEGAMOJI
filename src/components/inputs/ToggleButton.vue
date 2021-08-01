@@ -1,12 +1,10 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-
-type InputType = boolean | string | number | (string | number)[];
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
-    modelValue: { type: [Boolean, String, Number, Array] as PropType<InputType>, required: true },
-    value: { type: [String, Number], required: true },
+    modelValue: { type: undefined, required: true },
+    value: { type: undefined, default: null },
     size: { type: String, default: "default" },
   },
   emits: [
@@ -14,11 +12,11 @@ export default defineComponent({
   ],
   computed: {
     selected(): boolean {
-      if (typeof this.modelValue === "boolean") {
+      if (typeof this.modelValue === "boolean") { // toggle
         return this.modelValue;
-      } else if (Array.isArray(this.modelValue)) {
+      } else if (Array.isArray(this.modelValue)) { // multiple
         return this.modelValue.findIndex((item) => item === this.value) !== -1;
-      } else {
+      } else { // radio
         return this.modelValue === this.value;
       }
     },
@@ -28,15 +26,15 @@ export default defineComponent({
   },
   methods: {
     toggle() {
-      if (typeof this.modelValue === "boolean") {
+      if (typeof this.modelValue === "boolean") { // toggle
         this.$emit("update:modelValue", !this.modelValue);
-      } else if (!Array.isArray(this.modelValue)) {
+      } else if (!Array.isArray(this.modelValue)) { // radio
         this.$emit("update:modelValue", this.value);
-      } else if (this.selected) {
-        this.$emit("update:modelValue", this.modelValue.filter((item: string | number) => (
+      } else if (this.selected) { // multiple (selected)
+        this.$emit("update:modelValue", this.modelValue.filter((item: unknown) => (
           item !== this.value
         )));
-      } else {
+      } else { // multiple (not selected)
         this.$emit("update:modelValue", [...this.modelValue, this.value]);
       }
     },
