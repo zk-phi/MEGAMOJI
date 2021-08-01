@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   props: {
@@ -8,10 +8,13 @@ export default defineComponent({
     block: { type: Boolean, default: false },
     nullable: { type: Boolean, default: false },
   },
+  emits: [
+    "update:modelValue",
+  ],
   computed: {
     className(): string {
-      return `select ${this.block ? ' block' : ''}`;
-    }
+      return `select ${this.block ? " block" : ""}`;
+    },
     value(): number {
       if (!this.modelValue) return "null";
       return this.options.findIndex((option) => option.label === this.modelValue.label);
@@ -24,15 +27,19 @@ export default defineComponent({
       } else {
         this.$emit("update:modelValue", this.options[ix]);
       }
-    }
+    },
   },
 });
 </script>
 
 <template>
   <select :class="className" :value="value" @change="onChange($event.target.value)">
-    <option v-if="nullable" value="null">なし</option>
-    <option v-for="(option, ix) in options" :value="ix">{{ option.label }}</option>
+    <option v-if="nullable" value="null">
+      なし
+    </option>
+    <option v-for="(option, ix) in options" :key="ix" :value="ix">
+      {{ option.label }}
+    </option>
   </select>
 </template>
 

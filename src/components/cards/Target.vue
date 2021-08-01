@@ -194,7 +194,7 @@ export default defineComponent({
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
         <NFormItem label="アニメーション">
-          <Select block nullable v-model="conf.animation" :options="animations" />
+          <Select v-model="conf.animation" block nullable :options="animations" />
         </NFormItem>
         <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
@@ -207,8 +207,8 @@ export default defineComponent({
       <NGridItem>
         <NFormItem v-if="!showDetails" label="切り抜き">
           <Select
-              block
               v-model="conf.trimming"
+              block
               :options="TRIMMING_OPTIONS"
               @update:model-value="refreshDefaultSettings" />
         </NFormItem>
@@ -235,8 +235,8 @@ export default defineComponent({
         <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
         <NFormItem v-if="!showDetails" label="アニメ速度">
           <Select
-              block
               v-model="conf.speed"
+              block
               :options="SPEED_OPTIONS"
               @update:model-value="selectSpeed($event)" />
         </NFormItem>

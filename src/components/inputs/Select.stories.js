@@ -22,7 +22,7 @@ const Template = (args) => ({
 export const Base = Template.bind({});
 Base.args = {
   modelValue: options[1],
-  options: options,
+  options,
   block: false,
   nullable: false,
 };
@@ -30,7 +30,7 @@ Base.args = {
 export const Nullable = Template.bind({});
 Nullable.args = {
   modelValue: null,
-  options: options,
+  options,
   block: false,
   nullable: true,
 };
@@ -38,7 +38,7 @@ Nullable.args = {
 export const Block = Template.bind({});
 Block.args = {
   modelValue: options[1],
-  options: options,
+  options,
   block: true,
   nullable: false,
 };

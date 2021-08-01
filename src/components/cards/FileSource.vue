@@ -56,7 +56,7 @@ export default defineComponent({
   <NCard v-if="show">
     <FileBlock label="ファイル" @load="conf.img = $event" />
     <NFormItem label="前処理">
-      <Select block nullable v-model="conf.filter" :options="FILTER_OPTIONS" />
+      <Select v-model="conf.filter" block nullable :options="FILTER_OPTIONS" />
     </NFormItem>
   </NCard>
 </template>

@@ -20,9 +20,9 @@ export default defineComponent({
 <template>
   <NSpace>
     <ToggleButton
-        size="part"
         v-for="p in parts"
         :key="p"
+        size="part"
         :value="p"
         :model-value="modelValue"
         @update:model-value="$emit('update:modelValue', $event)">

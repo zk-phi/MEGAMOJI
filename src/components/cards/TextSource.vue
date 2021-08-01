@@ -124,16 +124,16 @@ export default defineComponent({
             :rows="3" />
         <NFormItem label="揃え">
           <NSpace>
-            <ToggleButton size="icon" v-model="conf.align" value="stretch">
+            <ToggleButton v-model="conf.align" size="icon" value="stretch">
               <AlignJustify />
             </ToggleButton>
-            <ToggleButton size="icon" v-model="conf.align" value="center">
+            <ToggleButton v-model="conf.align" size="icon" value="center">
               <AlignCenter />
             </ToggleButton>
-            <ToggleButton size="icon" v-model="conf.align" value="left">
+            <ToggleButton v-model="conf.align" size="icon" value="left">
               <AlignLeft />
             </ToggleButton>
-            <ToggleButton size="icon" v-model="conf.align" value="right">
+            <ToggleButton v-model="conf.align" size="icon" value="right">
               <AlignRight />
             </ToggleButton>
           </NSpace>
