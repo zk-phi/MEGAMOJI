@@ -139,7 +139,7 @@ export default defineComponent({
           </NSpace>
         </NFormItem>
         <NFormItem v-if="showDetails" label="行間 (文字分)">
-          <Input block v-model="conf.lineSpacing" />
+          <Input v-model="conf.lineSpacing" block />
         </NFormItem>
         <FontColorSelectBlock
             v-model="conf.color"

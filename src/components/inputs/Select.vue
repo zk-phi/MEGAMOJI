@@ -50,9 +50,9 @@ export default defineComponent({
   display: inline-block;
   box-sizing: border-box;
   padding: var(--paddingSmall);
-  color: var(--fg);
   font-size: var(--fontSizeMedium);
   line-height: 1;
+  color: var(--fg);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
