@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 import { NFormItem, NCard, NGrid, NGridItem, NSpace } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
-import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
+import Input from "../inputs/Input.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
@@ -23,7 +23,6 @@ import { EMOJI_SIZE } from "../../constants/emoji";
 export default defineComponent({
   components: {
     FontSelectBlock,
-    TextBlock,
     TextAreaBlock,
     FontColorSelectBlock,
     GradientBlock,
@@ -31,6 +30,7 @@ export default defineComponent({
     NFormItem,
     NCard,
     Button,
+    Input,
     NGrid,
     NGridItem,
     NSpace,
@@ -138,10 +138,9 @@ export default defineComponent({
             </ToggleButton>
           </NSpace>
         </NFormItem>
-        <TextBlock
-            v-if="showDetails"
-            v-model="conf.lineSpacing"
-            label="行間 (文字分)" />
+        <NFormItem v-if="showDetails" label="行間 (文字分)">
+          <Input block v-model="conf.lineSpacing" />
+        </NFormItem>
         <FontColorSelectBlock
             v-model="conf.color"
             :show-details="showDetails" />
