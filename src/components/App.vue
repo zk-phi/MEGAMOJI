@@ -146,6 +146,7 @@ export default defineComponent({
 :root {
   /* colors */
   --fg: #333639;
+  --bg: #fff;
   --distantFg: #fff;
   --border: #aaa;
   --primary: #18a058;
