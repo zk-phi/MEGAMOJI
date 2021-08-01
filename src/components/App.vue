@@ -164,9 +164,11 @@ export default defineComponent({
   --fontSizePart: 48px;
 
   /* layout */
+  --borderRadiusSmall: 2px;
   --borderRadius: 4px;
   --paddingMedium: 10px 12px;
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
+  --marginSmall: 8px;
 }
 </style>
