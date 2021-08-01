@@ -93,7 +93,12 @@ export default defineComponent({
   color: var(--primary);
 }
 
+.checkbox:hover .check {
+  border-color: var(--primary);
+}
+
 .checkbox:active {
   color: var(--primaryActive);
+  border-color: var(--primaryActive);
 }
 </style>
