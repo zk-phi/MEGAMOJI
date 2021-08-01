@@ -1,8 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
-import RangeBlock from "../formblocks/RangeBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -48,7 +47,6 @@ export default defineComponent({
   components: {
     NColorPicker,
     EffectBlock,
-    RangeBlock,
     Checkbox,
     SwitchBlock,
     CellcountBlock,
@@ -57,6 +55,7 @@ export default defineComponent({
     NGrid,
     NGridItem,
     NFormItem,
+    NSlider,
     Select,
   },
   props: {
@@ -218,22 +217,22 @@ export default defineComponent({
             v-if="showDetails"
             v-model="conf.cells"
             @update:model-value="refreshDefaultSettings" />
-        <RangeBlock
-            v-if="showDetails"
-            v-model="conf.trimH"
-            range
-            label="トリミング 横"
-            :marks="{ 0: 'L', [baseImage.width]: 'R' }"
-            :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
-            :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
-        <RangeBlock
-            v-if="showDetails"
-            v-model="conf.trimV"
-            range
-            label="トリミング 縦"
-            :marks="{ 0: 'T', [baseImage.height]: 'B' }"
-            :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
-            :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
+        <NFormItem v-if="showDetails" label="トリミング 横">
+          <NSlider
+              v-model:value="conf.trimH"
+              range
+              :marks="{ 0: 'L', [baseImage.width]: 'R' }"
+              :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
+              :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
+        </NFormItem>
+        <NFormItem v-if="showDetails" label="トリミング 縦">
+          <NSlider
+              v-model:value="conf.trimV"
+              range
+              :marks="{ 0: 'T', [baseImage.height]: 'B' }"
+              :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
+              :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
+        </NFormItem>
         <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
         <NFormItem v-if="!showDetails" label="アニメ速度">
           <Select
@@ -242,13 +241,13 @@ export default defineComponent({
               :options="SPEED_OPTIONS"
               @update:model-value="selectSpeed($event)" />
         </NFormItem>
-        <RangeBlock
-            v-if="showDetails"
-            v-model="conf.duration"
-            label="アニメ長さ"
-            :min="0.1"
-            :step="0.1"
-            :max="2.0" />
+        <NFormItem v-if="showDetails" label="アニメ長さ">
+          <NSlider
+              v-model:value="conf.duration"
+              :min="0.1"
+              :step="0.1"
+              :max="2.0" />
+        </NFormItem>
         <NFormItem label="背景色">
           <NColorPicker
               v-model:value="conf.backgroundColor"
