@@ -180,5 +180,8 @@ export default defineComponent({
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
   --marginSmall: 8px;
+
+  /* other */
+  --textareaLineHeight: 1.4;
 }
 </style>

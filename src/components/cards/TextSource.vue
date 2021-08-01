@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 import { NFormItem, NCard, NGrid, NGridItem, NSpace } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
-import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
 import Input from "../inputs/Input.vue";
+import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
@@ -23,7 +23,6 @@ import { EMOJI_SIZE } from "../../constants/emoji";
 export default defineComponent({
   components: {
     FontSelectBlock,
-    TextAreaBlock,
     FontColorSelectBlock,
     GradientBlock,
     OutlineBlock,
@@ -31,6 +30,7 @@ export default defineComponent({
     NCard,
     Button,
     Input,
+    Textarea,
     NGrid,
     NGridItem,
     NSpace,
@@ -118,10 +118,9 @@ export default defineComponent({
             :show-details="showDetails" />
       </NGridItem>
       <NGridItem :span="2">
-        <TextAreaBlock
-            v-model="conf.content"
-            label="テキスト (改行可)"
-            :rows="3" />
+        <NFormItem label="テキスト (改行可)">
+          <Textarea v-model="conf.content" block :rows="3" />
+        </NFormItem>
         <NFormItem label="揃え">
           <NSpace>
             <ToggleButton v-model="conf.align" size="icon" value="stretch">
