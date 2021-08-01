@@ -1,12 +1,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { NSpace, NFormItem, NColorPicker } from "naive-ui";
-import FontColorOption from "../inputs/FontColorOption.vue";
+import ToggleButton from "../inputs/ToggleButton.vue";
+import ColorSample from "../global/ColorSample.vue";
 import fontcolors from "../../constants/fontcolors";
 
 export default defineComponent({
   components: {
-    FontColorOption, NColorPicker, NSpace, NFormItem,
+    ToggleButton, ColorSample, NColorPicker, NSpace, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -27,12 +28,14 @@ export default defineComponent({
   <NFormItem v-if="!showDetails" label="色">
     <NSpace vertical>
       <NSpace v-for="row in fontcolors" :key="row[0]">
-        <FontColorOption
+        <ToggleButton
             v-for="color in row"
             :key="color"
             :model-value="modelValue"
-            :color="color"
-            @update:model-value="$emit('update:modelValue', $event)" />
+            :value="color"
+            @update:model-value="$emit('update:modelValue', $event)">
+          <ColorSample :color="color" />
+        </ToggleButton>
       </NSpace>
     </NSpace>
   </NFormItem>
