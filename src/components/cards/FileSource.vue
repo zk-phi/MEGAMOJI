@@ -1,8 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { NCard, NFormItem } from "naive-ui";
-import FileBlock from "../formblocks/FileBlock.vue";
+import FileSelect from "../inputs/FileSelect.vue";
 import Select from "../inputs/Select.vue";
+import Image from "../icons/Image.vue";
 import { urlToImg } from "../../utils/canvas";
 import { Filter } from "../../types";
 import filters from "../../constants/filters";
@@ -11,7 +12,7 @@ type FilterOption = { label: string, value: Filter };
 
 export default defineComponent({
   components: {
-    FileBlock, Select, NCard, NFormItem,
+    FileSelect, Select, Image, NCard, NFormItem,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -54,7 +55,11 @@ export default defineComponent({
 
 <template>
   <NCard v-if="show">
-    <FileBlock label="ファイル" @load="conf.img = $event" />
+    <NFormItem label="ファイル">
+      <FileSelect @load="conf.img = $event">
+        <Image /> ファイルを選ぶ
+      </FileSelect>
+    </NFormItem>
     <NFormItem label="前処理">
       <Select v-model="conf.filter" block nullable :options="FILTER_OPTIONS" />
     </NFormItem>

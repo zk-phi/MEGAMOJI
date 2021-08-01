@@ -1,13 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NFormItem, NUpload } from "naive-ui";
+import { NUpload } from "naive-ui";
 import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
-import Button from "../inputs/Button.vue";
-import Image from "../icons/Image.vue";
+import Button from "./Button.vue";
 
 export default defineComponent({
   components: {
-    NFormItem, NUpload, Button, Image,
+    NUpload, Button,
   },
   props: {
     label: { type: String, default: undefined },
@@ -34,15 +33,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <NFormItem :label="label">
-    <NUpload
-        :file-list="fileList"
-        :multiple="false"
-        :show-cancel-button="false"
-        @update:file-list="onChange">
-      <Button type="dashed">
-        <Image /> ファイルを選ぶ
-      </Button>
-    </NUpload>
-  </NFormItem>
+  <NUpload
+      :file-list="fileList"
+      :multiple="false"
+      :show-cancel-button="false"
+      @update:file-list="onChange">
+    <Button type="dashed">
+      <slot />
+    </Button>
+  </NUpload>
 </template>
