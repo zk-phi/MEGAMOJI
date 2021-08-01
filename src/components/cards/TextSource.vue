@@ -4,7 +4,6 @@ import { NFormItem, NCard, NGrid, NGridItem, NSpace } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import TextBlock from "../formblocks/TextBlock.vue";
 import TextAreaBlock from "../formblocks/TextAreaBlock.vue";
-import SelectBlock from "../formblocks/SelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
@@ -26,7 +25,6 @@ export default defineComponent({
     FontSelectBlock,
     TextBlock,
     TextAreaBlock,
-    SelectBlock,
     FontColorSelectBlock,
     GradientBlock,
     OutlineBlock,

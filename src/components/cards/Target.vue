@@ -1,17 +1,17 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem } from "naive-ui";
 import ColorBlock from "../formblocks/ColorBlock.vue";
-import AnimationSelectBlock from "../formblocks/AnimationSelectBlock.vue";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import RangeBlock from "../formblocks/RangeBlock.vue";
 import CheckboxBlock from "../formblocks/CheckboxBlock.vue";
-import SelectBlock from "../formblocks/SelectBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
+import Select from "../inputs/Select.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
+import animations from "../../constants/animations";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
 import staticeffects from "../../constants/staticeffects";
@@ -30,20 +30,34 @@ type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
 
+const TRIMMING_OPTIONS = [
+  { label: "ぴっちり", value: "" },
+  { label: "はみだす (アス比維持)", value: "cover" },
+  { label: "おさめる (アス比維持)", value: "contain" },
+];
+
+const SPEED_OPTIONS = [
+  { label: "コマ送り", value: 2.0 },
+  { label: "遅い", value: 1.3 },
+  { label: "ふつう", value: 0.8 },
+  { label: "速い", value: 0.3 },
+  { label: "爆速", value: 0.1 },
+];
+
 export default defineComponent({
   components: {
     ColorBlock,
-    AnimationSelectBlock,
     EffectBlock,
     RangeBlock,
     CheckboxBlock,
-    SelectBlock,
     SwitchBlock,
     CellcountBlock,
     NCard,
     Button,
     NGrid,
     NGridItem,
+    NFormItem,
+    Select,
   },
   props: {
     baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
@@ -54,25 +68,17 @@ export default defineComponent({
   ],
   data() {
     return {
+      animations,
       effects,
       bgeffects,
       staticeffects,
       webgleffects,
-      TRIMMING_OPTIONS: [
-        { label: "ぴっちり", value: "" },
-        { label: "はみだす (アス比維持)", value: "cover" },
-        { label: "おさめる (アス比維持)", value: "contain" },
-      ],
-      SPEED_OPTIONS: [
-        { label: "コマ送り", value: 2.0 },
-        { label: "遅い", value: 1.3 },
-        { label: "ふつう", value: 0.8 },
-        { label: "速い", value: 0.3 },
-        { label: "爆速", value: 0.1 },
-      ],
+      TRIMMING_OPTIONS,
+      SPEED_OPTIONS,
       conf: {
         /* basic */
-        trimming: "",
+        trimming: TRIMMING_OPTIONS[0],
+        speed: SPEED_OPTIONS[2],
         cells: [1, 1],
         animation: null as (AnimationOption | null),
         animationInvert: false,
@@ -83,7 +89,7 @@ export default defineComponent({
         trimH: [0, 0],
         trimV: [0, 0],
         noCrop: false,
-        duration: 0.8,
+        duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
         transparent: false,
       },
@@ -128,10 +134,10 @@ export default defineComponent({
         const v = EMOJI_SIZE * this.conf.cells[1];
         let widthRatio = h / image.naturalWidth;
         let heightRatio = v / image.naturalHeight;
-        if (this.conf.trimming === "cover") {
+        if (this.conf.trimming.value === "cover") {
           widthRatio = Math.max(widthRatio, heightRatio);
           heightRatio = widthRatio;
-        } else if (this.conf.trimming === "contain") {
+        } else if (this.conf.trimming.value === "contain") {
           widthRatio = Math.min(widthRatio, heightRatio);
           heightRatio = widthRatio;
         }
@@ -144,6 +150,9 @@ export default defineComponent({
           [0, image.naturalHeight - offsetV * 2]
         );
       }
+    },
+    selectSpeed(speed): void {
+      this.conf.duration = speed.value;
     },
     render(): void {
       if (this.baseImage) {
@@ -184,7 +193,9 @@ export default defineComponent({
   <NCard v-if="show" segmented>
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
-        <AnimationSelectBlock v-model="conf.animation" />
+        <NFormItem label="アニメーション">
+          <Select block nullable v-model="conf.animation" :options="animations" />
+        </NFormItem>
         <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
@@ -194,12 +205,13 @@ export default defineComponent({
         </CheckboxBlock>
       </NGridItem>
       <NGridItem>
-        <SelectBlock
-            v-if="!showDetails"
-            v-model="conf.trimming"
-            label="切りぬき"
-            :options="TRIMMING_OPTIONS"
-            @update:model-value="refreshDefaultSettings" />
+        <NFormItem v-if="!showDetails" label="切り抜き">
+          <Select
+              block
+              v-model="conf.trimming"
+              :options="TRIMMING_OPTIONS"
+              @update:model-value="refreshDefaultSettings" />
+        </NFormItem>
         <CellcountBlock
             v-if="showDetails"
             v-model="conf.cells"
@@ -221,11 +233,13 @@ export default defineComponent({
             :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
             :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
         <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-        <SelectBlock
-            v-if="!showDetails"
-            v-model="conf.duration"
-            label="アニメ速度"
-            :options="SPEED_OPTIONS" />
+        <NFormItem v-if="!showDetails" label="アニメ速度">
+          <Select
+              block
+              v-model="conf.speed"
+              :options="SPEED_OPTIONS"
+              @update:model-value="selectSpeed($event)" />
+        </NFormItem>
         <RangeBlock
             v-if="showDetails"
             v-model="conf.duration"
