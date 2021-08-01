@@ -2,13 +2,14 @@
 import { defineComponent, PropType } from "vue";
 import { NFormItem, NSpace } from "naive-ui";
 import Button from "../inputs/Button.vue";
-import OutlineOption from "../inputs/OutlineOption.vue";
+import ToggleButton from "../inputs/ToggleButton.vue";
+import ColorSample from "../global/ColorSample.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
 import { absColor } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    OutlineOption, OutlineItemBlock, NFormItem, Button, NSpace,
+    ToggleButton, ColorSample, OutlineItemBlock, NFormItem, Button, NSpace,
   },
   props: {
     modelValue: { type: Array as PropType<string[]>, required: true },
@@ -19,6 +20,15 @@ export default defineComponent({
     "update:modelValue",
   ],
   computed: {
+    darker(): string {
+      return absColor("darker", this.baseColor);
+    },
+    identical(): string {
+      return absColor("identical", this.baseColor);
+    },
+    lighter(): string {
+      return absColor("lighter", this.baseColor);
+    },
     absColors(): string[] {
       return this.modelValue.map((color) => absColor(color, this.baseColor));
     },
@@ -42,31 +52,37 @@ export default defineComponent({
 <template>
   <NFormItem v-if="!showDetails" label="アウトライン">
     <NSpace>
-      <OutlineOption
+      <ToggleButton
+          :model-value="modelValue"
+          value="#000000"
+          @update:modelValue="$emit('update:modelValue', $event)">
+        <ColorSample color="#000000" />
+      </ToggleButton>
+      <ToggleButton
+          :model-value="modelValue"
+          value="darker"
+          @update:model-value="$emit('update:modelValue', $event)">
+        <ColorSample :color="darker" />
+      </ToggleButton>
+      <ToggleButton
           :model-value="modelValue"
           :base-color="baseColor"
-          color="#000000"
-          @update:modelValue="$emit('update:modelValue', $event)" />
-      <OutlineOption
+          value="identical"
+          @update:model-value="$emit('update:modelValue', $event)">
+        <ColorSample :color="identical" />
+      </ToggleButton>
+      <ToggleButton
           :model-value="modelValue"
-          :base-color="baseColor"
-          color="darker"
-          @update:modelValue="$emit('update:modelValue', $event)" />
-      <OutlineOption
+          value="lighter"
+          @update:model-value="$emit('update:modelValue', $event)">
+        <ColorSample :color="lighter" />
+      </ToggleButton>
+      <ToggleButton
           :model-value="modelValue"
-          :base-color="baseColor"
-          color="identical"
-          @update:modelValue="$emit('update:modelValue', $event)" />
-      <OutlineOption
-          :model-value="modelValue"
-          :base-color="baseColor"
-          color="lighter"
-          @update:modelValue="$emit('update:modelValue', $event)" />
-      <OutlineOption
-          :model-value="modelValue"
-          :base-color="baseColor"
-          color="#ffffff"
-          @update:modelValue="$emit('update:modelValue', $event)" />
+          value="#ffffff"
+          @update:model-value="$emit('update:modelValue', $event)">
+        <ColorSample color="#ffffff" />
+      </ToggleButton>
     </NSpace>
   </NFormItem>
   <NFormItem v-else label="アウトライン">
