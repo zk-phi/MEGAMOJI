@@ -29,6 +29,7 @@ import {
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
+type SpeedOption = { label: string, value: number };
 
 const TRIMMING_OPTIONS = [
   { label: "ぴっちり", value: "" },
@@ -151,7 +152,7 @@ export default defineComponent({
         );
       }
     },
-    selectSpeed(speed): void {
+    selectSpeed(speed: SpeedOption): void {
       this.conf.duration = speed.value;
     },
     render(): void {

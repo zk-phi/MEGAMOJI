@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 
+type Option = { label: string, value: unknown };
+
 export default defineComponent({
   props: {
-    modelValue: { type: Object as PropType<{ label: string }>, default: null },
-    options: { type: Array as PropType<{ label: string }>, required: true },
+    modelValue: { type: Object as PropType<Option>, default: null },
+    options: { type: Array as PropType<Option[]>, required: true },
     block: { type: Boolean, default: false },
     nullable: { type: Boolean, default: false },
   },
@@ -15,14 +17,14 @@ export default defineComponent({
     className(): string {
       return `select ${this.block ? " block" : ""}`;
     },
-    value(): number {
-      if (!this.modelValue) return "null";
+    value(): number | null {
+      if (!this.modelValue) return -1;
       return this.options.findIndex((option) => option.label === this.modelValue.label);
     },
   },
   methods: {
-    onChange(ix): void {
-      if (ix === "null") {
+    onChange(ix: number): void {
+      if (ix === -1) {
         this.$emit("update:modelValue", null);
       } else {
         this.$emit("update:modelValue", this.options[ix]);
@@ -34,7 +36,7 @@ export default defineComponent({
 
 <template>
   <select :class="className" :value="value" @change="onChange($event.target.value)">
-    <option v-if="nullable" value="null">
+    <option v-if="nullable" value="-1">
       なし
     </option>
     <option v-for="(option, ix) in options" :key="ix" :value="ix">
