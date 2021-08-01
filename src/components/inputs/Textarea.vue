@@ -34,6 +34,7 @@ export default defineComponent({
   font-size: var(--fontSizeMedium);
   line-height: var(--textareaLineHeight);
   color: var(--fg);
+  background-color: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
