@@ -1,8 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider, NSwitch } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
-import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
@@ -48,7 +47,6 @@ export default defineComponent({
     NColorPicker,
     EffectBlock,
     Checkbox,
-    SwitchBlock,
     CellcountBlock,
     NCard,
     Button,
@@ -56,6 +54,7 @@ export default defineComponent({
     NGridItem,
     NFormItem,
     NSlider,
+    NSwitch,
     Select,
   },
   props: {
@@ -195,7 +194,9 @@ export default defineComponent({
         <NFormItem label="アニメーション">
           <Select v-model="conf.animation" block nullable :options="animations" />
         </NFormItem>
-        <SwitchBlock v-if="showDetails" v-model="conf.animationInvert" label="逆再生" />
+        <NFormItem v-if="showDetails" label="逆再生">
+          <NSwitch v-model:value="conf.animationInvert" />
+        </NFormItem>
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
@@ -254,7 +255,9 @@ export default defineComponent({
               :modes="['hex']"
               :show-alpha="false" />
         </NFormItem>
-        <SwitchBlock v-model="conf.transparent" label="透過 (アニメ gif は非推奨)" />
+        <NFormItem label="透過 (アニメ gif は非推奨)">
+          <NSwitch v-model:value="conf.transparent" />
+        </NFormItem>
       </NGridItem>
     </NGrid>
     <template #footer>
