@@ -7,6 +7,7 @@
 .icon {
   display: inline;
   height: 1em;
+  width: auto;
   vertical-align: -0.11em;
   fill: currentColor;
 }
