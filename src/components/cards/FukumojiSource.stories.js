@@ -1,7 +1,7 @@
 import FukumojiSource from "./FukumojiSource.vue";
 
 export default {
-  title: "cards/organisms/FukumojiSource",
+  title: "cards/FukumojiSource",
   component: FukumojiSource,
 };
 

@@ -1,7 +1,7 @@
 import OutlineItemBlock from "./OutlineItemBlock.vue";
 
 export default {
-  title: "formblocks/molecules/OutlineItemBlock",
+  title: "molecules/text/OutlineItemBlock",
   component: OutlineItemBlock,
 };
 

@@ -1,7 +1,7 @@
 import FontColorSelectBlock from "./FontColorSelectBlock.vue";
 
 export default {
-  title: "formblocks/molecules/FontColorSelectBlock",
+  title: "organisms/text/FontColorSelectBlock",
   component: FontColorSelectBlock,
 };
 

@@ -1,7 +1,7 @@
 import Header from "./Header.vue";
 
 export default {
-  title: "global/organisms/Header",
+  title: "organisms/global/Header",
   component: Header,
 };
 

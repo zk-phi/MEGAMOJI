@@ -2,7 +2,7 @@ import RawResult from "./RawResult.vue";
 import icon from "../../samples/image.png";
 
 export default {
-  title: "emoji/molecules/RawResult",
+  title: "atoms/result/RawResult",
   component: RawResult,
 };
 

@@ -2,7 +2,7 @@ import Preview from "./Preview.vue";
 import icon from "../../samples/image.png";
 
 export default {
-  title: "emoji/molecules/Preview",
+  title: "organisms/result/Preview",
   component: Preview,
 };
 

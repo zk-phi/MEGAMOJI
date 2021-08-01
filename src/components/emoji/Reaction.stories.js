@@ -2,7 +2,7 @@ import Reaction from "./Reaction.vue";
 import icon from "../../samples/image.png";
 
 export default {
-  title: "emoji/atoms/Reaction",
+  title: "atoms/result/Reaction",
   component: Reaction,
 };
 

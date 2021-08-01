@@ -1,7 +1,7 @@
 import CellcountBlock from "./CellcountBlock.vue";
 
 export default {
-  title: "formblocks/molecules/CellcountBlock",
+  title: "organisms/target/CellcountBlock",
   component: CellcountBlock,
 };
 

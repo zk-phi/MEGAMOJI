@@ -2,7 +2,7 @@ import Target from "./Target.vue";
 import image from "../../samples/image.png";
 
 export default {
-  title: "cards/organisms/Target",
+  title: "cards/Target",
   component: Target,
 };
 

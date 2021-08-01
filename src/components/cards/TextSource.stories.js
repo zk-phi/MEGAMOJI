@@ -1,7 +1,7 @@
 import TextSource from "./TextSource.vue";
 
 export default {
-  title: "cards/organisms/TextSource",
+  title: "cards/TextSource",
   component: TextSource,
 };
 

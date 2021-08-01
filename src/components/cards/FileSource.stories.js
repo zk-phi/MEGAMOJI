@@ -1,7 +1,7 @@
 import FileSource from "./FileSource.vue";
 
 export default {
-  title: "cards/organisms/FileSource",
+  title: "cards/FileSource",
   component: FileSource,
 };
 

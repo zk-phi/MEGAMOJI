@@ -2,7 +2,7 @@ import Result from "./Result.vue";
 import image from "../../samples/image.png";
 
 export default {
-  title: "cards/organisms/Result",
+  title: "cards/Result",
   component: Result,
 };
 

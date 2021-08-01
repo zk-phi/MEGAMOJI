@@ -1,7 +1,7 @@
 import App from "./App.vue";
 
 export default {
-  title: "global/pages/App",
+  title: "App",
   component: App,
 };
 

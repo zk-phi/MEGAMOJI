@@ -1,7 +1,7 @@
 import ColorStopBlock from "./ColorStopBlock.vue";
 
 export default {
-  title: "formblocks/molecules/ColorStopBlock",
+  title: "molecules/text/ColorStopBlock",
   component: ColorStopBlock,
 };
 

@@ -1,7 +1,7 @@
 import Tutorial from "./Tutorial.vue";
 
 export default {
-  title: "cards/organisms/Tutorial",
+  title: "cards/Tutorial",
   component: Tutorial,
 };
 

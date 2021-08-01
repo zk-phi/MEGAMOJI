@@ -1,7 +1,7 @@
 import GradientBlock from "./GradientBlock.vue";
 
 export default {
-  title: "formblocks/molecules/GradientBlock",
+  title: "organisms/text/GradientBlock",
   component: GradientBlock,
 };
 

@@ -1,7 +1,7 @@
 import Footer from "./Footer.vue";
 
 export default {
-  title: "global/organisms/Footer",
+  title: "organisms/global/Footer",
   component: Footer,
 };
 
