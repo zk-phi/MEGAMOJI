@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 import { NSpace, NFormItem } from "naive-ui";
 import TextBlock from "./TextBlock.vue";
-import FontOption from "../inputs/FontOption.vue";
+import Checkbox from "../inputs/Checkbox.vue";
 import fonts from "../../constants/fonts";
 
 export default defineComponent({
   components: {
-    FontOption, TextBlock, NSpace, NFormItem,
+    Checkbox, TextBlock, NSpace, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -27,14 +27,14 @@ export default defineComponent({
 <template>
   <NFormItem v-for="category in fonts" :key="category.label" :label="category.label">
     <NSpace vertical>
-      <FontOption
+      <Checkbox
           v-for="font in category.fonts"
           :key="font.label"
           :model-value="modelValue"
-          :font="font.value"
+          :value="font.value"
           @update:model-value="$emit('update:modelValue', $event)">
-        {{ font.label }}
-      </FontOption>
+        <span :style="{ font: font.value }">{{ font.label }}</span>
+      </Checkbox>
     </NSpace>
   </NFormItem>
   <TextBlock

@@ -1,12 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NCheckbox, NColorPicker } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import RangeBlock from "../formblocks/RangeBlock.vue";
 import SwitchBlock from "../formblocks/SwitchBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
+import Checkbox from "../inputs/Checkbox.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -48,7 +49,7 @@ export default defineComponent({
     NColorPicker,
     EffectBlock,
     RangeBlock,
-    NCheckbox,
+    Checkbox,
     SwitchBlock,
     CellcountBlock,
     NCard,
@@ -200,9 +201,9 @@ export default defineComponent({
         <EffectBlock v-model="conf.effects" :effects="effects" />
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
         <NFormItem v-if="showDetails" label="開発者用">
-          <NCheckbox v-model:checked="conf.noCrop">
+          <Checkbox v-model="conf.noCrop">
             余白を切らない
-          </NCheckbox>
+          </Checkbox>
         </NFormItem>
       </NGridItem>
       <NGridItem>
