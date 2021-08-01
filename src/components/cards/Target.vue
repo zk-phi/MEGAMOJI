@@ -202,7 +202,7 @@ export default defineComponent({
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
         <NFormItem v-if="showDetails" label="開発者用">
           <Checkbox v-model="conf.noCrop">
-            余白を切らない
+            {{ "余白を切らない" }}
           </Checkbox>
         </NFormItem>
       </NGridItem>
