@@ -121,8 +121,8 @@ export default defineComponent({
 
 <style scoped>
 .slider {
-  --railSize: 0.5em;
-  --markHeight: 1em;
+  --railSize: 0.375em;
+  --markHeight: 0.75em;
   --knobSize: 1.5em;
   --valueMargin: 0.25em;
   display: block;
@@ -160,9 +160,13 @@ export default defineComponent({
 .mark {
   position: absolute;
   top: calc((var(--knobSize) - var(--markHeight)) / 2);
-  width: 1px;
+  width: 4px;
   height: var(--markHeight);
-  background-color: var(--border);
+  box-sizing: border-box;
+  margin-left: -2px;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
 }
 
 .knob {
