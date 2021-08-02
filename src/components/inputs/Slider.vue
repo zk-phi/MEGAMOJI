@@ -146,6 +146,7 @@ export default defineComponent({
   width: 100%;
   height: var(--railHeight);
   box-sizing: border-box;
+  background-color: var(--bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--railHeight) / 2);
 }
