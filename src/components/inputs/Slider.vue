@@ -111,7 +111,8 @@ export default defineComponent({
           class="knob"
           :style="pos"
           @pointerdown="startDrag(ix, $event)">
-        <div class="value">
+        <div class="knob-icon" />
+        <div class="knob-value">
           {{ Array.isArray(modelValue) ? modelValue[ix] : modelValue }}
         </div>
       </div>
@@ -121,10 +122,10 @@ export default defineComponent({
 
 <style scoped>
 .slider {
-  --railSize: 0.375em;
+  --railHeight: 0.375em;
   --markHeight: 0.75em;
-  --knobSize: 1.5em;
-  --valueMargin: 0.25em;
+  --knobSize: 1.25em;
+  --valueMargin: 0.125em;
   display: block;
   width: 100%;
 }
@@ -140,68 +141,73 @@ export default defineComponent({
 
 .rail {
   position: absolute;
-  top: calc((var(--knobSize) - var(--railSize)) / 2);
+  top: calc((var(--knobSize) - var(--railHeight)) / 2);
   left: 0;
   width: 100%;
-  height: var(--railSize);
+  height: var(--railHeight);
   box-sizing: border-box;
   border: 1px solid var(--border);
-  border-radius: calc(var(--railSize) / 2);
+  border-radius: calc(var(--railHeight) / 2);
 }
 
 .range {
   position: absolute;
-  top: calc((var(--knobSize) - var(--railSize)) / 2);
-  height: var(--railSize);
+  top: calc((var(--knobSize) - var(--railHeight)) / 2);
+  height: var(--railHeight);
   background-color: var(--border);
-  border-radius: calc(var(--railSize) / 2);
+  border-radius: calc(var(--railHeight) / 2);
 }
 
 .mark {
   position: absolute;
   top: calc((var(--knobSize) - var(--markHeight)) / 2);
-  width: 4px;
+  width: 1px;
   height: var(--markHeight);
-  box-sizing: border-box;
-  margin-left: -2px;
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 2px;
+  background-color: var(--border);
 }
 
 .knob {
   position: absolute;
   top: 0;
-  width: var(--knobSize);
-  height: var(--knobSize);
-  box-sizing: border-box;
-  margin-left: calc(-1 * var(--knobSize) / 2);
+  width: 2.5em;
+  margin-left: calc(-1 * 2.5em / 2);
   color: var(--fg);
+  text-align: center;
   cursor: pointer;
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: calc(var(--knobSize) / 2);
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
 
 .knob:hover {
   color: var(--primary);
-  border-color: var(--primary);
 }
 
 .knob:active {
   color: var(--primaryActive);
+}
+
+.knob-icon {
+  display: inline-block;
+  width: var(--knobSize);
+  height: var(--knobSize);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--knobSize) / 2);
+}
+
+.knob:hover .knob-icon {
+  border-color: var(--primary);
+}
+
+.knob:active .knob-icon {
   border-color: var(--primaryActive);
   box-shadow: var(--primaryShadow);
 }
 
-.value {
-  width: 2.5em;
-  margin-top: calc(var(--knobSize) + var(--valueMargin));
-  margin-left: calc(-1 * (2.5em - var(--knobSize)) / 2 - 1px);
+.knob-value {
+  margin-top: var(--valueMargin);
   overflow: hidden;
-  text-align: center;
   text-overflow: ellipsis;
 }
 </style>
