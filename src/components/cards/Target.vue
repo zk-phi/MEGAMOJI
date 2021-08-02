@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider, NSwitch } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider, NSpace } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -54,7 +54,7 @@ export default defineComponent({
     NGridItem,
     NFormItem,
     NSlider,
-    NSwitch,
+    NSpace,
     Select,
   },
   props: {
@@ -192,10 +192,12 @@ export default defineComponent({
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
         <NFormItem label="アニメーション">
-          <Select v-model="conf.animation" block nullable :options="animations" />
-        </NFormItem>
-        <NFormItem v-if="showDetails" label="逆再生">
-          <NSwitch v-model:value="conf.animationInvert" />
+          <NSpace vertical :style="{ width: '100%' }">
+            <Select v-model="conf.animation" block nullable :options="animations" />
+            <Checkbox v-model="conf.animationInvert">
+              {{ "逆再生" }}
+            </Checkbox>
+          </NSpace>
         </NFormItem>
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
@@ -250,13 +252,15 @@ export default defineComponent({
               :max="2.0" />
         </NFormItem>
         <NFormItem label="背景色">
-          <NColorPicker
-              v-model:value="conf.backgroundColor"
-              :modes="['hex']"
-              :show-alpha="false" />
-        </NFormItem>
-        <NFormItem label="透過 (アニメ gif は非推奨)">
-          <NSwitch v-model:value="conf.transparent" />
+          <NSpace vertical :style="{ width:'100%' }">
+            <NColorPicker
+                v-model:value="conf.backgroundColor"
+                :modes="['hex']"
+                :show-alpha="false" />
+            <Checkbox v-model="conf.transparent">
+              {{ "透過 (アニメ gif は非推奨)" }}
+            </Checkbox>
+          </NSpace>
         </NFormItem>
       </NGridItem>
     </NGrid>
