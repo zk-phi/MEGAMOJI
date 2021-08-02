@@ -19,5 +19,6 @@ export default defineComponent({
   height: 1em;
   vertical-align: middle;
   border: 1px solid var(--border);
+  border-radius: var(--borderRadiusSmall);
 }
 </style>
