@@ -121,57 +121,62 @@ export default defineComponent({
 
 <style scoped>
 .slider {
+  --railSize: 0.625em;
+  --markHeight: 1em;
+  --knobSize: 1.625em;
+  --valueMargin: 0.25em;
   display: block;
   width: 100%;
 }
 
 .container {
   position: relative;
-  left: 0.625em;
-  width: calc(100% - 1.25em);
-  height: 2.5em;
+  left: calc(var(--knobSize) / 2);
+  width: calc(100% - var(--knobSize));
+  height: calc(var(--knobSize) + var(--valueMargin) + 1em);
   font-size: var(--fontSizeMedium);
   line-height: 1;
 }
 
 .rail {
   position: absolute;
-  top: 0.5em;
+  top: calc((var(--knobSize) - var(--railSize)) / 2);
   left: 0;
   width: 100%;
-  height: 0.25em;
+  height: var(--railSize);
   box-sizing: border-box;
   border: 1px solid var(--border);
-  border-radius: 0.25em;
+  border-radius: calc(var(--railSize) / 2);
 }
 
 .range {
   position: absolute;
-  top: 0.5em;
-  height: 0.25em;
+  top: calc((var(--knobSize) - var(--railSize)) / 2);
+  height: var(--railSize);
   background-color: var(--border);
+  border-radius: calc(var(--railSize) / 2);
 }
 
 .mark {
   position: absolute;
-  top: 0.25em;
+  top: calc((var(--knobSize) - var(--markHeight)) / 2);
   width: 1px;
-  height: 0.75em;
+  height: var(--markHeight);
   background-color: var(--border);
 }
 
 .knob {
   position: absolute;
   top: 0;
-  width: 1.25em;
-  height: 1.25em;
+  width: var(--knobSize);
+  height: var(--knobSize);
   box-sizing: border-box;
-  margin-left: -0.625em;
+  margin-left: calc(-1 * var(--knobSize) / 2);
   color: var(--fg);
   cursor: pointer;
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 0.625em;
+  border-radius: calc(var(--knobSize) / 2);
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
@@ -189,8 +194,8 @@ export default defineComponent({
 
 .value {
   width: 2.5em;
-  margin-top: 1.5em;
-  margin-left: -0.75em;
+  margin-top: calc(var(--knobSize) + var(--valueMargin));
+  margin-left: calc(-1 * (2.5em - var(--knobSize)) / 2 - 1px);
   overflow: hidden;
   text-align: center;
   text-overflow: ellipsis;
