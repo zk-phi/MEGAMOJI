@@ -172,6 +172,8 @@ export default defineComponent({
   background-color: var(--bg);
   border: 1px solid var(--border);
   border-radius: 0.625em;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  touch-action: none;
 }
 
 .knob:hover {
