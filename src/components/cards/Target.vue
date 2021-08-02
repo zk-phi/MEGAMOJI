@@ -1,11 +1,12 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSlider, NSpace } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSpace } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
+import Slider from "../inputs/Slider.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -53,9 +54,9 @@ export default defineComponent({
     NGrid,
     NGridItem,
     NFormItem,
-    NSlider,
     NSpace,
     Select,
+    Slider,
   },
   props: {
     baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
@@ -221,18 +222,16 @@ export default defineComponent({
             v-model="conf.cells"
             @update:model-value="refreshDefaultSettings" />
         <NFormItem v-if="showDetails" label="トリミング 横">
-          <NSlider
-              v-model:value="conf.trimH"
-              range
-              :marks="{ 0: 'L', [baseImage.width]: 'R' }"
+          <Slider
+              v-model="conf.trimH"
+              :marks="[0, baseImage.width]"
               :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
         </NFormItem>
         <NFormItem v-if="showDetails" label="トリミング 縦">
-          <NSlider
-              v-model:value="conf.trimV"
-              range
-              :marks="{ 0: 'T', [baseImage.height]: 'B' }"
+          <Slider
+              v-model="conf.trimV"
+              :marks="[0, baseImage.height]"
               :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
         </NFormItem>
@@ -245,8 +244,8 @@ export default defineComponent({
               @update:model-value="selectSpeed($event)" />
         </NFormItem>
         <NFormItem v-if="showDetails" label="アニメ長さ">
-          <NSlider
-              v-model:value="conf.duration"
+          <Slider
+              v-model="conf.duration"
               :min="0.1"
               :step="0.1"
               :max="2.0" />
