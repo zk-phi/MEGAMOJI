@@ -121,9 +121,9 @@ export default defineComponent({
 
 <style scoped>
 .slider {
-  --railSize: 0.625em;
+  --railSize: 0.5em;
   --markHeight: 1em;
-  --knobSize: 1.625em;
+  --knobSize: 1.5em;
   --valueMargin: 0.25em;
   display: block;
   width: 100%;
