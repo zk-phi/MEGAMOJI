@@ -10,6 +10,7 @@ export default defineComponent({
     step: { type: Number, default: 1 },
     min: { type: Number, required: true },
     max: { type: Number, required: true },
+    block: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
@@ -100,7 +101,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="slider">
+  <div :class="['slider', { block }]">
     <div ref="container" class="container">
       <div class="rail" />
       <div class="range" :style="range" />
@@ -126,6 +127,11 @@ export default defineComponent({
   --markHeight: 0.75em;
   --knobSize: 1.25em;
   --valueMargin: 0.125em;
+  display: inline-block;
+  width: 240px;
+}
+
+.block {
   display: block;
   width: 100%;
 }

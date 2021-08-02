@@ -224,6 +224,7 @@ export default defineComponent({
         <NFormItem v-if="showDetails" label="トリミング 横">
           <Slider
               v-model="conf.trimH"
+              block
               :marks="[0, baseImage.width]"
               :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
@@ -231,6 +232,7 @@ export default defineComponent({
         <NFormItem v-if="showDetails" label="トリミング 縦">
           <Slider
               v-model="conf.trimV"
+              block
               :marks="[0, baseImage.height]"
               :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
@@ -246,6 +248,7 @@ export default defineComponent({
         <NFormItem v-if="showDetails" label="アニメ長さ">
           <Slider
               v-model="conf.duration"
+              block
               :min="0.1"
               :step="0.1"
               :max="2.0" />
