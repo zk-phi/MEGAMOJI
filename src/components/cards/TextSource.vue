@@ -119,7 +119,7 @@ export default defineComponent({
       </NGridItem>
       <NGridItem :span="2">
         <NFormItem label="テキスト (改行可)">
-          <Textarea v-model="conf.content" block :rows="3" />
+          <Textarea v-model="conf.content" block autofocus :rows="3" />
         </NFormItem>
         <NFormItem label="揃え">
           <NSpace>

@@ -6,6 +6,7 @@ export default defineComponent({
     modelValue: { type: String, default: "" },
     rows: { type: Number, required: true },
     block: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
@@ -23,6 +24,7 @@ export default defineComponent({
       :rows="rows"
       :class="className"
       :value="modelValue"
+      :autofocus="autofocus"
       @input="$emit('update:modelValue', $event.target.value)" />
 </template>
 
