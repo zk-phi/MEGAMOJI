@@ -183,5 +183,10 @@ export default defineComponent({
 
   /* other */
   --textareaLineHeight: 1.4;
+  --sliderRailHeight: 0.375em;
+  --sliderMarkHeight: 0.75em;
+  --sliderKnobSize: 1.25em;
+  --sliderValueMargin: 0.125em;
+  --sliderValueWidth: 2.5em;
 }
 </style>

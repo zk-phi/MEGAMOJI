@@ -123,10 +123,6 @@ export default defineComponent({
 
 <style scoped>
 .slider {
-  --railHeight: 0.375em;
-  --markHeight: 0.75em;
-  --knobSize: 1.25em;
-  --valueMargin: 0.125em;
   display: inline-block;
   width: 240px;
 }
@@ -138,46 +134,46 @@ export default defineComponent({
 
 .container {
   position: relative;
-  left: calc(var(--knobSize) / 2);
-  width: calc(100% - var(--knobSize));
-  height: calc(var(--knobSize) + var(--valueMargin) + 1em);
+  left: calc(var(--sliderKnobSize) / 2);
+  width: calc(100% - var(--sliderKnobSize));
+  height: calc(var(--sliderKnobSize) + var(--sliderValueMargin) + 1em);
   font-size: var(--fontSizeMedium);
   line-height: 1;
 }
 
 .rail {
   position: absolute;
-  top: calc((var(--knobSize) - var(--railHeight)) / 2);
+  top: calc((var(--sliderKnobSize) - var(--sliderRailHeight)) / 2);
   left: 0;
   width: 100%;
-  height: var(--railHeight);
+  height: var(--sliderRailHeight);
   box-sizing: border-box;
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: calc(var(--railHeight) / 2);
+  border-radius: calc(var(--sliderRailHeight) / 2);
 }
 
 .range {
   position: absolute;
-  top: calc((var(--knobSize) - var(--railHeight)) / 2);
-  height: var(--railHeight);
+  top: calc((var(--sliderKnobSize) - var(--sliderRailHeight)) / 2);
+  height: var(--sliderRailHeight);
   background-color: var(--border);
-  border-radius: calc(var(--railHeight) / 2);
+  border-radius: calc(var(--sliderRailHeight) / 2);
 }
 
 .mark {
   position: absolute;
-  top: calc((var(--knobSize) - var(--markHeight)) / 2);
+  top: calc((var(--sliderKnobSize) - var(--sliderMarkHeight)) / 2);
   width: 1px;
-  height: var(--markHeight);
+  height: var(--sliderMarkHeight);
   background-color: var(--border);
 }
 
 .knob {
   position: absolute;
   top: 0;
-  width: 2.5em;
-  margin-left: calc(-1 * 2.5em / 2);
+  width: var(--sliderValueWidth);
+  margin-left: calc(-1 * var(--sliderValueWidth) / 2);
   color: var(--fg);
   text-align: center;
   cursor: pointer;
@@ -195,12 +191,12 @@ export default defineComponent({
 
 .knob-icon {
   display: inline-block;
-  width: var(--knobSize);
-  height: var(--knobSize);
+  width: var(--sliderKnobSize);
+  height: var(--sliderKnobSize);
   box-sizing: border-box;
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: calc(var(--knobSize) / 2);
+  border-radius: calc(var(--sliderKnobSize) / 2);
 }
 
 .knob:hover .knob-icon {
@@ -213,7 +209,7 @@ export default defineComponent({
 }
 
 .knob-value {
-  margin-top: var(--valueMargin);
+  margin-top: var(--sliderValueMargin);
   overflow: hidden;
   text-overflow: ellipsis;
 }
