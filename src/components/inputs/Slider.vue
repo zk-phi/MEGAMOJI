@@ -164,9 +164,13 @@ export default defineComponent({
 .mark {
   position: absolute;
   top: calc((var(--sliderKnobSize) - var(--sliderMarkHeight)) / 2);
-  width: 1px;
+  margin-left: calc(-1 * var(--sliderMarkHeight) / 2);
+  width: var(--sliderMarkHeight);
   height: var(--sliderMarkHeight);
-  background-color: var(--border);
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  border-radius: calc(var(--sliderMarkHeight) / 2);
 }
 
 .knob {
