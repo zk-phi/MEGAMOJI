@@ -120,22 +120,22 @@ export default defineComponent({
       </NGridItem>
       <NGridItem :span="2">
         <NFormItem label="テキスト (改行可)">
-          <Textarea v-model="conf.content" block autofocus :rows="3" />
-        </NFormItem>
-        <NFormItem label="揃え">
-          <Space small>
-            <ToggleButton v-model="conf.align" size="icon" value="stretch">
-              <AlignJustify />
-            </ToggleButton>
-            <ToggleButton v-model="conf.align" size="icon" value="center">
-              <AlignCenter />
-            </ToggleButton>
-            <ToggleButton v-model="conf.align" size="icon" value="left">
-              <AlignLeft />
-            </ToggleButton>
-            <ToggleButton v-model="conf.align" size="icon" value="right">
-              <AlignRight />
-            </ToggleButton>
+          <Space vertical full>
+            <Textarea v-model="conf.content" block autofocus :rows="3" />
+            <Space small>
+              <ToggleButton v-model="conf.align" size="small" value="stretch">
+                <AlignJustify /> 両端
+              </ToggleButton>
+              <ToggleButton v-model="conf.align" size="small" value="center">
+                <AlignCenter /> 中央
+              </ToggleButton>
+              <ToggleButton v-model="conf.align" size="small" value="left">
+                <AlignLeft /> 左
+              </ToggleButton>
+              <ToggleButton v-model="conf.align" size="small" value="right">
+                <AlignRight /> 右
+              </ToggleButton>
+            </Space>
           </Space>
         </NFormItem>
         <NFormItem v-if="showDetails" label="行間 (文字分)">
