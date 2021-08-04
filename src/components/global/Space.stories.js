@@ -25,4 +25,4 @@ export const Small = Template.bind({});
 Small.args = { vertical: false, small: true, full: false };
 
 export const Vertical = Template.bind({});
-Vertical.args = { vertical: false, small: false, full: false };
+Vertical.args = { vertical: true, small: false, full: false };
