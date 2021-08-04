@@ -1,12 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NFormItem } from "naive-ui";
 import Checkbox from "../inputs/Checkbox.vue";
+import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 
 export default defineComponent({
   components: {
-    NFormItem, Space, Checkbox,
+    Fieldset, Space, Checkbox,
   },
   props: {
     modelValue: { type: Array, required: true },
@@ -19,7 +19,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NFormItem v-for="category in effects" :key="category.label" :label="category.label">
+  <Fieldset v-for="category in effects" :key="category.label" :label="category.label">
     <Space>
       <Checkbox
           v-for="effect in category.effects"
@@ -30,5 +30,5 @@ export default defineComponent({
         {{ effect.label }}
       </Checkbox>
     </Space>
-  </NFormItem>
+  </Fieldset>
 </template>

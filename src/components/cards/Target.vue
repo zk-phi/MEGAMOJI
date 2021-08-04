@@ -1,12 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker } from "naive-ui";
+import { NCard, NGrid, NGridItem, NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Slider from "../inputs/Slider.vue";
+import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
@@ -54,7 +55,7 @@ export default defineComponent({
     Button,
     NGrid,
     NGridItem,
-    NFormItem,
+    Fieldset,
     Space,
     Select,
     Slider,
@@ -193,68 +194,68 @@ export default defineComponent({
   <NCard v-if="show" segmented>
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
-        <NFormItem label="アニメーション">
+        <Fieldset label="アニメーション">
           <Space vertical full>
             <Select v-model="conf.animation" block nullable :options="animations" />
             <Checkbox v-model="conf.animationInvert">
               {{ "逆再生" }}
             </Checkbox>
           </Space>
-        </NFormItem>
+        </Fieldset>
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
         <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-        <NFormItem v-if="showDetails" label="開発者用">
+        <Fieldset v-if="showDetails" label="開発者用">
           <Checkbox v-model="conf.noCrop">
             {{ "余白を切らない" }}
           </Checkbox>
-        </NFormItem>
+        </Fieldset>
       </NGridItem>
       <NGridItem>
-        <NFormItem v-if="!showDetails" label="切り抜き">
+        <Fieldset v-if="!showDetails" label="切り抜き">
           <Select
               v-model="conf.trimming"
               block
               :options="TRIMMING_OPTIONS"
               @update:model-value="refreshDefaultSettings" />
-        </NFormItem>
+        </Fieldset>
         <CellcountBlock
             v-if="showDetails"
             v-model="conf.cells"
             @update:model-value="refreshDefaultSettings" />
-        <NFormItem v-if="showDetails" label="トリミング 横">
+        <Fieldset v-if="showDetails" label="トリミング 横">
           <Slider
               v-model="conf.trimH"
               block
               :marks="[0, baseImage.width]"
               :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
-        </NFormItem>
-        <NFormItem v-if="showDetails" label="トリミング 縦">
+        </Fieldset>
+        <Fieldset v-if="showDetails" label="トリミング 縦">
           <Slider
               v-model="conf.trimV"
               block
               :marks="[0, baseImage.height]"
               :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
               :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
-        </NFormItem>
+        </Fieldset>
         <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-        <NFormItem v-if="!showDetails" label="アニメ速度">
+        <Fieldset v-if="!showDetails" label="アニメ速度">
           <Select
               v-model="conf.speed"
               block
               :options="SPEED_OPTIONS"
               @update:model-value="selectSpeed($event)" />
-        </NFormItem>
-        <NFormItem v-if="showDetails" label="アニメ長さ">
+        </Fieldset>
+        <Fieldset v-if="showDetails" label="アニメ長さ">
           <Slider
               v-model="conf.duration"
               block
               :min="0.1"
               :step="0.1"
               :max="2.0" />
-        </NFormItem>
-        <NFormItem label="背景色">
+        </Fieldset>
+        <Fieldset label="背景色">
           <Space vertical full>
             <NColorPicker
                 v-model:value="conf.backgroundColor"
@@ -264,7 +265,7 @@ export default defineComponent({
               {{ "透過 (アニメ gif は非推奨)" }}
             </Checkbox>
           </Space>
-        </NFormItem>
+        </Fieldset>
       </NGridItem>
     </NGrid>
     <template #footer>

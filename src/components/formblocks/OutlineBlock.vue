@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NFormItem } from "naive-ui";
 import Button from "../inputs/Button.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
+import Fieldset from "../inputs/Fieldset.vue";
 import ColorSample from "../global/ColorSample.vue";
 import Space from "../global/Space.vue";
 import OutlineItemBlock from "./OutlineItemBlock.vue";
@@ -10,7 +10,7 @@ import { absColor } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    ToggleButton, ColorSample, OutlineItemBlock, NFormItem, Button, Space,
+    ToggleButton, ColorSample, OutlineItemBlock, Fieldset, Button, Space,
   },
   props: {
     modelValue: { type: Array as PropType<string[]>, required: true },
@@ -51,7 +51,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NFormItem v-if="!showDetails" label="アウトライン">
+  <Fieldset v-if="!showDetails" label="アウトライン">
     <Space small>
       <ToggleButton
           :model-value="modelValue"
@@ -90,8 +90,8 @@ export default defineComponent({
         <ColorSample color="#ffffff" />
       </ToggleButton>
     </Space>
-  </NFormItem>
-  <NFormItem v-else label="アウトライン">
+  </Fieldset>
+  <Fieldset v-else label="アウトライン">
     <Space vertical full>
       <OutlineItemBlock
           v-for="(color, ix) in modelValue"
@@ -103,5 +103,5 @@ export default defineComponent({
         + アウトラインを追加
       </Button>
     </Space>
-  </NFormItem>
+  </Fieldset>
 </template>

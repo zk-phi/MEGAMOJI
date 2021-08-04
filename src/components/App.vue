@@ -191,5 +191,6 @@ export default defineComponent({
   --sliderKnobSize: 1.25em;
   --sliderValueMargin: 0.125em;
   --sliderValueWidth: 2.5em;
+  --fieldsetBottomSpacing: 24px;
 }
 </style>

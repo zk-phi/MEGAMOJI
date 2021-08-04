@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NFormItem, NCard, NGrid, NGridItem } from "naive-ui";
+import { NCard, NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
@@ -9,6 +9,7 @@ import Button from "../inputs/Button.vue";
 import Input from "../inputs/Input.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
+import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
@@ -27,7 +28,7 @@ export default defineComponent({
     FontColorSelectBlock,
     GradientBlock,
     OutlineBlock,
-    NFormItem,
+    Fieldset,
     NCard,
     Button,
     Input,
@@ -119,7 +120,7 @@ export default defineComponent({
             :show-details="showDetails" />
       </NGridItem>
       <NGridItem :span="2">
-        <NFormItem label="テキスト (改行可)">
+        <Fieldset label="テキスト (改行可)">
           <Space vertical full>
             <Textarea v-model="conf.content" block autofocus :rows="3" />
             <Space small>
@@ -137,12 +138,13 @@ export default defineComponent({
               </ToggleButton>
             </Space>
           </Space>
-        </NFormItem>
-        <NFormItem v-if="showDetails" label="行間 (文字分)">
+        </Fieldset>
+        <Fieldset v-if="showDetails" label="行間 (文字分)">
           <Input v-model="conf.lineSpacing" block />
-        </NFormItem>
+        </Fieldset>
         <FontColorSelectBlock
             v-model="conf.color"
+            :base-color="conf.color"
             :show-details="showDetails" />
         <GradientBlock
             v-model="conf.gradient"
