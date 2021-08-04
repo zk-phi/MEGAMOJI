@@ -13,7 +13,7 @@ module.exports = {
   ],
   rules: {
     // basic style modifications
-    indent: ["error", 2],
+    indent: ["error", 2, { SwitchCase: 1 }],
     quotes: ["error", "double"],
 
     // redundant "else" can help readablity
