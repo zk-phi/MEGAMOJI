@@ -125,16 +125,16 @@ export default defineComponent({
             <Textarea v-model="conf.content" block autofocus :rows="3" />
             <Space small>
               <ToggleButton v-model="conf.align" size="small" value="stretch">
-                <AlignJustify /> 両端
+                <AlignJustify />
               </ToggleButton>
               <ToggleButton v-model="conf.align" size="small" value="center">
-                <AlignCenter /> 中央
+                <AlignCenter />
               </ToggleButton>
               <ToggleButton v-model="conf.align" size="small" value="left">
-                <AlignLeft /> 左
+                <AlignLeft />
               </ToggleButton>
               <ToggleButton v-model="conf.align" size="small" value="right">
-                <AlignRight /> 右
+                <AlignRight />
               </ToggleButton>
             </Space>
           </Space>
