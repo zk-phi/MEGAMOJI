@@ -25,19 +25,13 @@ const loadFont = (font: Record<string, string>) => {
 
 export default [
   {
-    label: "システムフォント",
-    fonts: [
-      { label: "ゴシック", value: "normal 1em sans-serif" },
-      { label: "明朝", value: "normal 1em serif" },
-    ],
-  }, {
     label: "スタンダード",
     fonts: [
-      { label: "ゴシック/太", value: loadFont({ Mplus1Bold }) },
+      { label: "ゴシック", value: loadFont({ Mplus1Bold }) },
       { label: "ゴシック/極太", value: loadFont({ Mplus1Black }) },
-      { label: "丸ゴ/太", value: loadFont({ RoundedMPlusBold }) },
+      { label: "丸ゴ", value: loadFont({ RoundedMPlusBold }) },
       { label: "丸ゴ/極太", value: loadFont({ RoundedMPlusBlack }) },
-      { label: "明朝/太", value: loadFont({ NotoSerifBlack }) },
+      { label: "明朝", value: loadFont({ NotoSerifBlack }) },
     ],
   }, {
     label: "デザイン",
