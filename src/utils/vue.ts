@@ -1,18 +1,20 @@
-import { ComponentPublicInstance, Fragment, Comment, VNodeChild, createTextVNode, VNode } from 'vue'
+import { ComponentPublicInstance, Fragment, Comment, VNodeChild, createTextVNode, VNode } from "vue";
 
 function flatten(nodes: VNodeChild[]): VNode[] {
   return nodes.flatMap((node) => {
     if (!node) {
       return [];
     } else if (typeof node === "string" || typeof node === "number") {
-      return [createTextVNode(String(node))]
+      return [createTextVNode(String(node))];
     } else if (Array.isArray(node)) {
-      return flatten(node)
+      return flatten(node);
     } else if (typeof node === "object") {
       switch (node.type) {
         case Fragment:
           if (Array.isArray(node.children)) {
-            return flatten(node.children)
+            return flatten(node.children);
+          } else {
+            return [];
           }
         case Comment:
           return [];

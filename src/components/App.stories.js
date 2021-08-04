@@ -3,7 +3,7 @@ import App from "./App.vue";
 export default {
   title: "App",
   component: App,
-  parameters:{
+  parameters: {
     layout: "fullscreen",
   },
 };

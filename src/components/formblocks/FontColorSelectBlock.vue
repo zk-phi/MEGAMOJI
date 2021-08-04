@@ -29,11 +29,11 @@ export default defineComponent({
 <template>
   <Fieldset v-if="!showDetails" label="色">
     <Space small vertical>
-      <Space v-for="row in fontcolors" small :key="row[0]">
+      <Space v-for="row in fontcolors" :key="row[0]" small>
         <ToggleButton
             v-for="color in row"
-            size="small"
             :key="color"
+            size="small"
             :model-value="modelValue"
             :value="color"
             @update:model-value="$emit('update:modelValue', $event)">

@@ -5,7 +5,7 @@ import Node from "../utils/Node.vue";
 
 export default defineComponent({
   components: {
-    Node
+    Node,
   },
   props: {
     vertical: { type: Boolean, default: false },
@@ -22,7 +22,7 @@ export default defineComponent({
 
 <template>
   <div :class="['space', { vertical, small, full }]">
-    <div v-for="child in children" class="child">
+    <div v-for="(child, ix) in children" :key="ix" class="child">
       <Node :node="child" />
     </div>
   </div>

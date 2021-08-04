@@ -1,10 +1,7 @@
 <script lang="ts">
-import { PropType, VNodeChild } from "vue";
+import { VNodeChild } from "vue";
 
-const Node = (props) => props.node;
-Node.props = {
-  node: { type: Object as PropType<VNodeChild>, required: true },
-};
+const Node = (props: { node: VNodeChild }): VNodeChild => props.node;
 
 export default Node;
 </script>
