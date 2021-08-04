@@ -1,29 +1,24 @@
 import { ComponentPublicInstance, Fragment, Comment, VNodeChild, createTextVNode, VNode } from "vue";
 
 function flatten(nodes: VNodeChild[]): VNode[] {
-  return nodes.flatMap((node) => {
-    if (!node) {
-      return [];
-    } else if (typeof node === "string" || typeof node === "number") {
-      return [createTextVNode(String(node))];
-    } else if (Array.isArray(node)) {
-      return flatten(node);
-    } else if (typeof node === "object") {
-      switch (node.type) {
-        case Fragment:
+  return nodes.reduce((arr: VNode[], node: VNodeChild) => {
+    if (node) {
+      if (typeof node === "string" || typeof node === "number") {
+        arr.push(createTextVNode(String(node)));
+      } else if (Array.isArray(node)) {
+        arr.push(...flatten(node));
+      } else if (typeof node === "object") {
+        if (node.type === Fragment) {
           if (Array.isArray(node.children)) {
-            return flatten(node.children);
-          } else {
-            return [];
+            arr.push(...flatten(node.children));
           }
-        case Comment:
-          return [];
-        default:
-          return node;
+        } else if (node.type !== Comment) {
+          arr.push(node);
+        }
       }
     }
-    return [];
-  });
+    return arr;
+  }, []);
 }
 
 export function children(component: ComponentPublicInstance, slotName = "default"): VNode[] {
