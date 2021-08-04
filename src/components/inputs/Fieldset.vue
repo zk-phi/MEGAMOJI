@@ -21,10 +21,10 @@ export default defineComponent({
 }
 
 .title {
-  font-size: var(--fontSizeMedium);
   display: block;
+  margin-bottom: var(--marginMedium);
+  font-size: var(--fontSizeMedium);
   font-weight: bold;
   line-height: 1;
-  margin-bottom: var(--marginMedium);
 }
 </style>

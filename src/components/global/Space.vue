@@ -33,6 +33,7 @@ export default defineComponent({
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   column-gap: var(--marginMedium);
   row-gap: var(--marginSmall);
 }
