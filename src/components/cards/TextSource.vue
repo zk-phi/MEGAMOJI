@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NFormItem, NCard, NGrid, NGridItem, NSpace } from "naive-ui";
+import { NFormItem, NCard, NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
@@ -9,6 +9,7 @@ import Button from "../inputs/Button.vue";
 import Input from "../inputs/Input.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
+import Space from "../global/Space.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
 import AlignLeft from "../icons/AlignLeft.vue";
@@ -33,7 +34,7 @@ export default defineComponent({
     Textarea,
     NGrid,
     NGridItem,
-    NSpace,
+    Space,
     ToggleButton,
     AlignJustify,
     AlignCenter,
@@ -122,7 +123,7 @@ export default defineComponent({
           <Textarea v-model="conf.content" block autofocus :rows="3" />
         </NFormItem>
         <NFormItem label="揃え">
-          <NSpace>
+          <Space small>
             <ToggleButton v-model="conf.align" size="icon" value="stretch">
               <AlignJustify />
             </ToggleButton>
@@ -135,7 +136,7 @@ export default defineComponent({
             <ToggleButton v-model="conf.align" size="icon" value="right">
               <AlignRight />
             </ToggleButton>
-          </NSpace>
+          </Space>
         </NFormItem>
         <NFormItem v-if="showDetails" label="行間 (文字分)">
           <Input v-model="conf.lineSpacing" block />

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NSpace, NGrid, NGridItem } from "naive-ui";
+import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
@@ -11,6 +11,7 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
+import Space from "./global/Space.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
 import Save from "./icons/Save.vue";
@@ -33,7 +34,7 @@ export default defineComponent({
     NLayout,
     NLayoutHeader,
     NLayoutFooter,
-    NSpace,
+    Space,
     NGrid,
     NGridItem,
     Button,
@@ -126,9 +127,9 @@ export default defineComponent({
           </NGridItem>
           <NGridItem span="1">
             <Tutorial v-if="!baseImage" />
-            <NSpace v-else vertical>
+            <Space v-else vertical>
               <Result :images="resultImageUrls" />
-              <NSpace>
+              <Space>
                 <Button @click="onSetShowTarget(!ui.showTargetPanel)">
                   <span v-if="ui.showTargetPanel">
                     <Back /> もどる
@@ -140,8 +141,8 @@ export default defineComponent({
                 <Button v-if="baseImage" type="primary" @click="onDownload">
                   <Save /> 絵文字を保存
                 </Button>
-              </NSpace>
-            </NSpace>
+              </Space>
+            </Space>
           </NGridItem>
         </NGrid>
       </NLayout>

@@ -1,12 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NFormItem, NColorPicker, NSpace } from "naive-ui";
+import { NCard, NGrid, NGridItem, NFormItem, NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Slider from "../inputs/Slider.vue";
+import Space from "../global/Space.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -54,7 +55,7 @@ export default defineComponent({
     NGrid,
     NGridItem,
     NFormItem,
-    NSpace,
+    Space,
     Select,
     Slider,
   },
@@ -193,12 +194,12 @@ export default defineComponent({
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
         <NFormItem label="アニメーション">
-          <NSpace vertical :style="{ width: '100%' }">
+          <Space vertical full>
             <Select v-model="conf.animation" block nullable :options="animations" />
             <Checkbox v-model="conf.animationInvert">
               {{ "逆再生" }}
             </Checkbox>
-          </NSpace>
+          </Space>
         </NFormItem>
         <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
         <EffectBlock v-model="conf.effects" :effects="effects" />
@@ -254,7 +255,7 @@ export default defineComponent({
               :max="2.0" />
         </NFormItem>
         <NFormItem label="背景色">
-          <NSpace vertical :style="{ width:'100%' }">
+          <Space vertical full>
             <NColorPicker
                 v-model:value="conf.backgroundColor"
                 :modes="['hex']"
@@ -262,7 +263,7 @@ export default defineComponent({
             <Checkbox v-model="conf.transparent">
               {{ "透過 (アニメ gif は非推奨)" }}
             </Checkbox>
-          </NSpace>
+          </Space>
         </NFormItem>
       </NGridItem>
     </NGrid>

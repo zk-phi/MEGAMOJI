@@ -1,7 +1,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard, NTabs, NTabPane, NSpace } from "naive-ui";
+import { NCard, NTabs, NTabPane } from "naive-ui";
 import ToggleButton from "../inputs/ToggleButton.vue";
+import Space from "../global/Space.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import { mergeImages, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
@@ -9,7 +10,7 @@ import empty from "../../parts/void.svg";
 
 export default defineComponent({
   components: {
-    ToggleButton, NCard, NTabs, NTabPane, NSpace,
+    ToggleButton, NCard, NTabs, NTabPane, Space,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -61,7 +62,7 @@ export default defineComponent({
           v-for="category in parts.categories"
           :key="category.label"
           :name="category.label">
-        <NSpace>
+        <Space small>
           <ToggleButton
               v-for="p in parts[category.value]"
               :key="p"
@@ -70,7 +71,7 @@ export default defineComponent({
               :value="p">
             <img class="img" :src="p">
           </ToggleButton>
-        </NSpace>
+        </Space>
       </NTabPane>
     </NTabs>
   </NCard>

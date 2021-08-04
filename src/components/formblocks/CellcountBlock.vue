@@ -1,10 +1,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NFormItem, NSpace, NInputNumber } from "naive-ui";
+import { NFormItem, NInputNumber } from "naive-ui";
+import Space from "../global/Space.vue";
 
 export default defineComponent({
   components: {
-    NFormItem, NSpace, NInputNumber,
+    NFormItem, Space, NInputNumber,
   },
   props: {
     modelValue: { type: Array, required: true },
@@ -17,7 +18,7 @@ export default defineComponent({
 
 <template>
   <NFormItem label="分割">
-    <NSpace>
+    <Space>
       <NInputNumber
           :value="modelValue[0]"
           :min="1"
@@ -29,6 +30,6 @@ export default defineComponent({
           :min="1"
           style="width: 90px;"
           @update:value="$emit('update:modelValue', [modelValue[0], $event])" />
-    </NSpace>
+    </Space>
   </NFormItem>
 </template>

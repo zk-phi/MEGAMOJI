@@ -1,13 +1,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NSpace, NFormItem } from "naive-ui";
+import { NFormItem } from "naive-ui";
 import Checkbox from "../inputs/Checkbox.vue";
 import Input from "../inputs/Input.vue";
+import Space from "../global/Space.vue";
 import fonts from "../../constants/fonts";
 
 export default defineComponent({
   components: {
-    Checkbox, Input, NSpace, NFormItem,
+    Checkbox, Input, Space, NFormItem,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -26,7 +27,7 @@ export default defineComponent({
 
 <template>
   <NFormItem v-for="category in fonts" :key="category.label" :label="category.label">
-    <NSpace vertical>
+    <Space vertical>
       <Checkbox
           v-for="font in category.fonts"
           :key="font.label"
@@ -35,7 +36,7 @@ export default defineComponent({
           @update:model-value="$emit('update:modelValue', $event)">
         <span :style="{ font: font.value }">{{ font.label }}</span>
       </Checkbox>
-    </NSpace>
+    </Space>
   </NFormItem>
   <NFormItem v-if="showDetails" label="その他のフォント">
     <Input
