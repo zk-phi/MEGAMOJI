@@ -5,17 +5,24 @@ export default {
   component: ToggleButton,
 };
 
-export const Base = () => ({
+const Single = (args) => ({
   components: { ToggleButton },
   data: () => ({
+    ...args,
     value: false,
   }),
   template: `
-    <ToggleButton v-model="value">ボタン</ToggleButton>
+    <ToggleButton v-model="value" :size="size">ボタン</ToggleButton>
   `,
 });
 
-const Template = (args) => ({
+export const Base = Single.bind({});
+Base.args = { size: undefined };
+
+export const Small = Single.bind({});
+Small.args = { size: "small" };
+
+const Multiple = (args) => ({
   components: { ToggleButton },
   data: () => ({
     value: args.initialValue,
@@ -31,8 +38,8 @@ const Template = (args) => ({
   `,
 });
 
-export const Radio = Template.bind({});
+export const Radio = Multiple.bind({});
 Radio.args = { initialValue: "1" };
 
-export const Multiple = Template.bind({});
-Multiple.args = { initialValue: ["1"] };
+export const Check = Multiple.bind({});
+Check.args = { initialValue: ["1"] };

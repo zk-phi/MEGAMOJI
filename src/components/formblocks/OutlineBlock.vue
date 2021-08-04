@@ -55,12 +55,14 @@ export default defineComponent({
     <Space small>
       <ToggleButton
           :model-value="modelValue"
+          size="small"
           value="#000000"
           @update:modelValue="$emit('update:modelValue', $event)">
         <ColorSample color="#000000" />
       </ToggleButton>
       <ToggleButton
           :model-value="modelValue"
+          size="small"
           value="darker"
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample :color="darker" />
@@ -68,18 +70,21 @@ export default defineComponent({
       <ToggleButton
           :model-value="modelValue"
           :base-color="baseColor"
+          size="small"
           value="identical"
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample :color="identical" />
       </ToggleButton>
       <ToggleButton
           :model-value="modelValue"
+          size="small"
           value="lighter"
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample :color="lighter" />
       </ToggleButton>
       <ToggleButton
           :model-value="modelValue"
+          size="small"
           value="#ffffff"
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample color="#ffffff" />

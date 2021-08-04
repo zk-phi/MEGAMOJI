@@ -31,6 +31,7 @@ export default defineComponent({
       <Space v-for="row in fontcolors" small :key="row[0]">
         <ToggleButton
             v-for="color in row"
+            size="small"
             :key="color"
             :model-value="modelValue"
             :value="color"

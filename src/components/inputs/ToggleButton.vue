@@ -60,8 +60,14 @@ export default defineComponent({
   border-radius: var(--borderRadius);
 }
 
+.small {
+  font-size: var(--fontSizeMedium);
+  line-height: 1;
+}
+
 .default {
   font-size: var(--fontSizeMedium);
+  padding: var(--paddingMedium);
   line-height: 1;
 }
 
