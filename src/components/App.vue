@@ -11,7 +11,7 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
-import ToggleButton from "./inputs/ToggleButton.vue";
+import TabButton from "./inputs/TabButton.vue";
 import Space from "./global/Space.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
@@ -37,7 +37,7 @@ export default defineComponent({
     NGrid,
     NGridItem,
     Button,
-    ToggleButton,
+    TabButton,
     Effect,
     Back,
     Save,
@@ -103,27 +103,15 @@ export default defineComponent({
       <NLayout content-style="padding: 12px">
         <Space vertical large full>
           <Space>
-            <ToggleButton
-                :model-value="ui.mode"
-                value="text"
-                size="tab"
-                @update:model-value="onSelectMode">
+            <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
               テキスト絵文字
-            </ToggleButton>
-            <ToggleButton
-                :model-value="ui.mode"
-                value="file"
-                size="tab"
-                @update:model-value="onSelectMode">
+            </TabButton>
+            <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
               画像絵文字
-            </ToggleButton>
-            <ToggleButton
-                :model-value="ui.mode"
-                value="parts"
-                size="tab"
-                @update:model-value="onSelectMode">
+            </TabButton>
+            <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
               キメラ絵文字
-            </ToggleButton>
+            </TabButton>
           </Space>
           <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
             <NGridItem span="2">

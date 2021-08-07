@@ -71,16 +71,6 @@ export default defineComponent({
   line-height: 1;
 }
 
-.tab {
-  border: 0;
-  border-bottom: 2px solid transparent;
-  border-radius: 0;
-}
-
-.toggle-button.tab:active {
-  box-shadow: none;
-}
-
 .icon {
   font-size: var(--fontSizeIcon);
   line-height: 0;
