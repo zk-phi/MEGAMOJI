@@ -4,7 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     title: { type: String, default: null },
-    style: { type: [Object, String], default: {} },
+    style: { type: [Object, String], default: "" },
   },
 });
 </script>
