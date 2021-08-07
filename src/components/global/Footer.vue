@@ -11,6 +11,6 @@ export default defineComponent({
 
 <template>
   <NP>
-    このページではアクセス数などの集計に Google Analytics、エラーの検知に Rollbar を使用しています。
+    このページでは Cookie (アクセス数などの集計に Google Analytics、エラーの検知に Rollbar) を使用しています。
   </NP>
 </template>
