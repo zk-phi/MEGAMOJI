@@ -46,7 +46,7 @@ export default defineComponent({
 
 <template>
   <Fieldset label="グラデ">
-    <Button v-if="modelValue.length == 0" type="dashed" block @click="initializeGradient">
+    <Button v-if="modelValue.length == 0" type="dashed" @click="initializeGradient">
       + グラデーションを追加
     </Button>
     <Space v-else vertical full>

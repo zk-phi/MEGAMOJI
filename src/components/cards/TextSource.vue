@@ -140,7 +140,7 @@ export default defineComponent({
           </Space>
         </Fieldset>
         <Fieldset v-if="showDetails" label="行間 (文字分)">
-          <Input v-model="conf.lineSpacing" block />
+          <Input v-model="conf.lineSpacing" />
         </Fieldset>
         <FontColorSelectBlock
             v-model="conf.color"

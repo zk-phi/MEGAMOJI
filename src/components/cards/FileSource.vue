@@ -62,7 +62,7 @@ export default defineComponent({
       </FileSelect>
     </Fieldset>
     <Fieldset label="前処理">
-      <Select v-model="conf.filter" block nullable :options="FILTER_OPTIONS" />
+      <Select v-model="conf.filter" nullable :options="FILTER_OPTIONS" />
     </Fieldset>
   </NCard>
 </template>

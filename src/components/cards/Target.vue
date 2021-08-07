@@ -196,7 +196,7 @@ export default defineComponent({
       <NGridItem>
         <Fieldset label="アニメーション">
           <Space vertical full>
-            <Select v-model="conf.animation" block nullable :options="animations" />
+            <Select v-model="conf.animation" nullable :options="animations" />
             <Checkbox v-model="conf.animationInvert">
               {{ "逆再生" }}
             </Checkbox>
@@ -215,7 +215,6 @@ export default defineComponent({
         <Fieldset v-if="!showDetails" label="切り抜き">
           <Select
               v-model="conf.trimming"
-              block
               :options="TRIMMING_OPTIONS"
               @update:model-value="refreshDefaultSettings" />
         </Fieldset>
@@ -243,7 +242,6 @@ export default defineComponent({
         <Fieldset v-if="!showDetails" label="アニメ速度">
           <Select
               v-model="conf.speed"
-              block
               :options="SPEED_OPTIONS"
               @update:model-value="selectSpeed($event)" />
         </Fieldset>
