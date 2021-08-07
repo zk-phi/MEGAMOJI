@@ -48,6 +48,7 @@ export default defineComponent({
 }
 
 .space.large {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   column-gap: var(--marginLarge);
   row-gap: var(--marginMedium);
 }
