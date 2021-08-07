@@ -23,22 +23,22 @@ export default defineComponent({
 
 <style scoped>
 .card {
+  padding: var(--cardPaddingV) var(--cardPaddingH);
   background-color: var(--accentBg);
   border: 1px solid var(--border);
-  padding: var(--cardPaddingV) var(--cardPaddingH);
   border-radius: var(--borderRadius);
 }
 
 .title {
-  color: var(--fg);
-  font-size: var(--fontSizeLarge);
   margin: 0 0 var(--marginLarge);
+  font-size: var(--fontSizeLarge);
   font-weight: normal;
+  color: var(--fg);
 }
 
 .footer {
-  margin-top: var(--cardPaddingV);
   padding-top: var(--cardPaddingV);
+  margin-top: var(--cardPaddingV);
   border-top: 1px solid var(--border);
 }
 </style>
