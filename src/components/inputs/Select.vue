@@ -53,11 +53,11 @@ export default defineComponent({
   font-size: var(--fontSizeMedium);
   line-height: 1;
   color: var(--fg);
+  cursor: pointer;
   background-color: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
-  cursor: pointer;
 }
 
 .select:hover {
