@@ -1,16 +1,13 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-import { NP } from "naive-ui";
-
-export default defineComponent({
-  components: {
-    NP,
-  },
-});
-</script>
-
 <template>
-  <NP>
+  <footer class="footer">
     このページでは Cookie (アクセス数などの集計に Google Analytics、エラーの検知に Rollbar) を使用しています。
-  </NP>
+  </footer>
 </template>
+
+<style scoped>
+.footer {
+  padding: var(--paddingMedium);
+  font-size: var(--fontSizeMedium);
+  color: var(--fg);
+}
+</style>

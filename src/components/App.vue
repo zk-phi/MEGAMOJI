@@ -98,9 +98,7 @@ export default defineComponent({
 <template>
   <NConfigProvider :theme-overrides="theme">
     <NLayout>
-      <NLayoutHeader bordered style="padding: 12px;">
-        <Header />
-      </NLayoutHeader>
+      <Header />
 
       <NLayout content-style="padding: 12px">
         <Space vertical large full>
@@ -166,9 +164,7 @@ export default defineComponent({
         </Space>
       </NLayout>
 
-      <NLayoutFooter style="padding: 12px;">
-        <Footer />
-      </NLayoutFooter>
+      <Footer />
     </NLayout>
   </NConfigProvider>
 </template>
@@ -189,6 +185,7 @@ export default defineComponent({
   --dangerActive: #ab1f3f;
 
   /* typography */
+  --fontSizeLarge: 18px;
   --fontSizeMedium: 14px;
   --fontSizeIcon: 26px;
   --fontSizePart: 48px;

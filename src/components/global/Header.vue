@@ -1,12 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NPageHeader, NPopover, NMenu } from "naive-ui";
+import { NPopover, NMenu } from "naive-ui";
 import IconButton from "../inputs/IconButton.vue";
 import Menu from "../icons/Menu.vue";
 
 export default defineComponent({
   components: {
-    NPageHeader, IconButton, Menu, NPopover, NMenu,
+    IconButton, Menu, NPopover, NMenu,
   },
   data() {
     return {
@@ -33,10 +33,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <NPageHeader
-      title="MEGAMOJI"
-      subtitle="カスタム絵文字メーカー">
-    <template #extra>
+  <header class="header">
+    <h1 class="title">MEGAMOJI</h1>
+    <h2 class="subtitle">カスタム絵文字メーカー</h2>
+    <span class="right">
       <NPopover trigger="click" placement="bottom-end">
         <template #trigger>
           <IconButton>
@@ -45,6 +45,36 @@ export default defineComponent({
         </template>
         <NMenu :options="options" :indent="18" @update:value="handleMenu" />
       </NPopover>
-    </template>
-  </NPageHeader>
+    </span>
+  </header>
 </template>
+
+<style scoped>
+.header {
+  display: flex;
+  padding: var(--paddingMedium);
+  border-bottom: 1px solid var(--border);
+  line-height: 1;
+  align-items: center;
+}
+
+.title {
+  display: inline;
+  font-size: var(--fontSizeLarge);
+  font-weight: bold;
+  margin: 0 var(--marginSmall) 0 0;
+  vertical-align: middle;
+}
+
+.subtitle {
+  display: inline;
+  font-size: var(--fontSizeMedium);
+  font-weight: normal;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.right {
+  margin-left: auto;
+}
+</style>
