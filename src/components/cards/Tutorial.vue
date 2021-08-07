@@ -1,14 +1,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard, NThing, NAvatar, NButton } from "naive-ui";
+import { NThing, NAvatar, NButton } from "naive-ui";
 import Space from "../global/Space.vue";
+import Card from "../global/Card.vue";
 import textSample from "../../samples/text.png";
 import imageSample from "../../samples/image.png";
 import fukumojiSample from "../../samples/fukumoji.png";
 
 export default defineComponent({
   components: {
-    NCard, NThing, Space, NAvatar, NButton,
+    Card, NThing, Space, NAvatar, NButton,
   },
   data() {
     return {
@@ -21,7 +22,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard title="使い方">
+  <Card title="使い方">
     <Space vertical>
       <NThing>
         <template #avatar>
@@ -64,5 +65,5 @@ export default defineComponent({
         </template>
       </NThing>
     </Space>
-  </NCard>
+  </Card>
 </template>

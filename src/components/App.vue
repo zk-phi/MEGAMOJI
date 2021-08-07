@@ -157,6 +157,7 @@ export default defineComponent({
   /* colors */
   --fg: #333639;
   --bg: #fff;
+  --accentBg: #fafafa;
   --distantFg: #fff;
   --border: #aaa;
   --primary: #18a058;
@@ -192,6 +193,7 @@ export default defineComponent({
   --sliderValueMargin: 0.125em;
   --sliderValueWidth: 2.5em;
   --fieldsetBottomSpacing: 24px;
+  --cardPadding: 20px 24px;
 }
 </style>
 

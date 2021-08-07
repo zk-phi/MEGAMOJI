@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard, NGrid, NGridItem } from "naive-ui";
+import { NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
@@ -11,6 +11,7 @@ import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
+import Card from "../global/Card.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
 import AlignLeft from "../icons/AlignLeft.vue";
@@ -29,13 +30,13 @@ export default defineComponent({
     GradientBlock,
     OutlineBlock,
     Fieldset,
-    NCard,
     Button,
     Input,
     Textarea,
     NGrid,
     NGridItem,
     Space,
+    Card,
     ToggleButton,
     AlignJustify,
     AlignCenter,
@@ -112,7 +113,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard v-if="show" segmented>
+  <Card v-if="show">
     <NGrid cols="1 440:3" :x-gap="24">
       <NGridItem>
         <FontSelectBlock
@@ -155,12 +156,10 @@ export default defineComponent({
             :show-details="showDetails" />
       </NGridItem>
     </NGrid>
-    <template #footer>
-      <div style="text-align: center;">
-        <Button type="text" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </Button>
-      </div>
-    </template>
-  </NCard>
+    <div style="text-align: right;">
+      <Button type="text" @click="showDetails = !showDetails">
+        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+      </Button>
+    </div>
+  </Card>
 </template>

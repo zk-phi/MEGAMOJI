@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NCard, NGrid, NGridItem, NColorPicker } from "naive-ui";
+import { NGrid, NGridItem, NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -9,6 +9,7 @@ import Checkbox from "../inputs/Checkbox.vue";
 import Slider from "../inputs/Slider.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
+import Card from "../global/Card.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -51,7 +52,7 @@ export default defineComponent({
     EffectBlock,
     Checkbox,
     CellcountBlock,
-    NCard,
+    Card,
     Button,
     NGrid,
     NGridItem,
@@ -191,7 +192,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard v-if="show" segmented>
+  <Card v-if="show">
     <NGrid cols="1 500:2" :x-gap="24">
       <NGridItem>
         <Fieldset label="アニメーション">
@@ -266,12 +267,10 @@ export default defineComponent({
         </Fieldset>
       </NGridItem>
     </NGrid>
-    <template #footer>
-      <div style="text-align: center;">
-        <Button type="text" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </Button>
-      </div>
-    </template>
-  </NCard>
+    <div style="text-align: right;">
+      <Button type="text" @click="showDetails = !showDetails">
+        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+      </Button>
+    </div>
+  </Card>
 </template>

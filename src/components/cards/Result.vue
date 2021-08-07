@@ -1,10 +1,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard } from "naive-ui";
 import RawResult from "../emoji/RawResult.vue";
 import Preview from "../emoji/Preview.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Space from "../global/Space.vue";
+import Card from "../global/Card.vue";
 
 const transparentBg = {
   backgroundPosition: "0 0, 10px 10px",
@@ -17,7 +17,7 @@ const transparentBg = {
 
 export default defineComponent({
   components: {
-    RawResult, Preview, Checkbox, NCard, Space,
+    RawResult, Preview, Checkbox, Card, Space,
   },
   props: {
     images: { type: Array, required: true },
@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard :style="transparentBg" title="絵文字">
+  <Card :style="transparentBg" title="絵文字">
     <Space vertical>
       <RawResult v-if="!previewMode" :images="images" />
       <Preview v-if="previewMode" :images="images" :dark-mode="false" />
@@ -41,5 +41,5 @@ export default defineComponent({
         {{ "プレビュー" }}
       </Checkbox>
     </Space>
-  </NCard>
+  </Card>
 </template>

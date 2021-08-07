@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NCard } from "naive-ui";
+import Card from "../global/Card.vue";
 import FileSelect from "../inputs/FileSelect.vue";
 import Select from "../inputs/Select.vue";
 import Fieldset from "../inputs/Fieldset.vue";
@@ -13,7 +13,7 @@ type FilterOption = { label: string, value: Filter };
 
 export default defineComponent({
   components: {
-    FileSelect, Select, Image, NCard, Fieldset,
+    FileSelect, Select, Image, Card, Fieldset,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -55,7 +55,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <NCard v-if="show">
+  <Card v-if="show">
     <Fieldset label="ファイル">
       <FileSelect @load="conf.img = $event">
         <Image /> ファイルを選ぶ
@@ -64,5 +64,5 @@ export default defineComponent({
     <Fieldset label="前処理">
       <Select v-model="conf.filter" nullable :options="FILTER_OPTIONS" />
     </Fieldset>
-  </NCard>
+  </Card>
 </template>
