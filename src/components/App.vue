@@ -104,14 +104,26 @@ export default defineComponent({
 
       <NLayout content-style="padding: 12px">
         <Space vertical full>
-          <Space small>
-            <ToggleButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
+          <Space>
+            <ToggleButton
+                :model-value="ui.mode"
+                value="text"
+                size="tab"
+                @update:model-value="onSelectMode">
               テキスト絵文字
             </ToggleButton>
-            <ToggleButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
+            <ToggleButton
+                :model-value="ui.mode"
+                value="file"
+                size="tab"
+                @update:model-value="onSelectMode">
               画像絵文字
             </ToggleButton>
-            <ToggleButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
+            <ToggleButton
+                :model-value="ui.mode"
+                value="parts"
+                size="tab"
+                @update:model-value="onSelectMode">
               キメラ絵文字
             </ToggleButton>
           </Space>

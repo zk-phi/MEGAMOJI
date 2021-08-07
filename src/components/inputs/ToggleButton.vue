@@ -71,6 +71,16 @@ export default defineComponent({
   line-height: 1;
 }
 
+.tab {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+.toggle-button.tab:active {
+  box-shadow: none;
+}
+
 .icon {
   font-size: var(--fontSizeIcon);
   line-height: 0;
@@ -82,10 +92,12 @@ export default defineComponent({
 }
 
 .toggle-button:hover {
+  color: var(--primary);
   border-color: var(--primary);
 }
 
 .toggle-button:active {
+  color: var(--primaryActive);
   border-color: var(--primaryActive);
   box-shadow: var(--primaryShadow);
 }
