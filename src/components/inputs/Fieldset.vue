@@ -15,7 +15,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style>
+<style scoped>
 .fieldset {
   padding-bottom: var(--fieldsetBottomSpacing);
 }

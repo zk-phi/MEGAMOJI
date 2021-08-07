@@ -29,7 +29,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style>
+<style scoped>
 .space {
   display: flex;
   flex-flow: row wrap;
