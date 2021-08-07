@@ -193,8 +193,10 @@ export default defineComponent({
   --sliderValueWidth: 2.5em;
   --fieldsetBottomSpacing: 24px;
 }
+</style>
 
+<style scoped>
 .container {
-  padding: var(--paddingMedium);
+  padding: var(--marginMedium);
 }
 </style>
