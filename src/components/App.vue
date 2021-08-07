@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NConfigProvider, NTabs, NTabPane, NLayout, NLayoutHeader, NLayoutFooter, NGrid, NGridItem } from "naive-ui";
+import { NConfigProvider, NLayout, NLayoutHeader, NLayoutFooter, NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
@@ -11,6 +11,7 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
+import ToggleButton from "./inputs/ToggleButton.vue";
 import Space from "./global/Space.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
@@ -29,8 +30,6 @@ export default defineComponent({
     Header,
     Footer,
     NConfigProvider,
-    NTabs,
-    NTabPane,
     NLayout,
     NLayoutHeader,
     NLayoutFooter,
@@ -38,6 +37,7 @@ export default defineComponent({
     NGrid,
     NGridItem,
     Button,
+    ToggleButton,
     Effect,
     Back,
     Save,
@@ -52,7 +52,6 @@ export default defineComponent({
       ui: {
         mode: "text",
         showTargetPanel: false,
-        fukumojiTab: "base",
         showTargetDetails: false,
       },
     };
@@ -104,47 +103,55 @@ export default defineComponent({
       </NLayoutHeader>
 
       <NLayout content-style="padding: 12px">
-        <NTabs :value="ui.mode" @update:value="onSelectMode">
-          <NTabPane name="text" tab="テキスト絵文字" />
-          <NTabPane name="file" tab="画像絵文字" />
-          <NTabPane name="fukumoji" tab="キメラ絵文字" />
-        </NTabs>
-        <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
-          <NGridItem span="2">
-            <TextSource
-                :show="ui.mode == 'text' && !ui.showTargetPanel"
-                @render="onRender" />
-            <FileSource
-                :show="ui.mode == 'file' && !ui.showTargetPanel"
-                @render="onRender" />
-            <FukumojiSource
-                :show="ui.mode == 'fukumoji' && !ui.showTargetPanel"
-                @render="onRender" />
-            <Target
-                :show="ui.showTargetPanel"
-                :base-image="baseImage"
-                @render="onRenderTarget" />
-          </NGridItem>
-          <NGridItem span="1">
-            <Tutorial v-if="!baseImage" />
-            <Space v-else vertical>
-              <Result :images="resultImageUrls" />
-              <Space>
-                <Button @click="onSetShowTarget(!ui.showTargetPanel)">
-                  <span v-if="ui.showTargetPanel">
-                    <Back /> もどる
-                  </span>
-                  <span v-else>
-                    <Effect /> 効果をつける
-                  </span>
-                </Button>
-                <Button v-if="baseImage" type="primary" @click="onDownload">
-                  <Save /> 絵文字を保存
-                </Button>
+        <Space vertical full>
+          <Space small>
+            <ToggleButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
+              テキスト絵文字
+            </ToggleButton>
+            <ToggleButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
+              画像絵文字
+            </ToggleButton>
+            <ToggleButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
+              キメラ絵文字
+            </ToggleButton>
+          </Space>
+          <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
+            <NGridItem span="2">
+              <TextSource
+                  :show="ui.mode == 'text' && !ui.showTargetPanel"
+                  @render="onRender" />
+              <FileSource
+                  :show="ui.mode == 'file' && !ui.showTargetPanel"
+                  @render="onRender" />
+              <FukumojiSource
+                  :show="ui.mode == 'parts' && !ui.showTargetPanel"
+                  @render="onRender" />
+              <Target
+                  :show="ui.showTargetPanel"
+                  :base-image="baseImage"
+                  @render="onRenderTarget" />
+            </NGridItem>
+            <NGridItem span="1">
+              <Tutorial v-if="!baseImage" />
+              <Space v-else vertical>
+                <Result :images="resultImageUrls" />
+                <Space>
+                  <Button @click="onSetShowTarget(!ui.showTargetPanel)">
+                    <span v-if="ui.showTargetPanel">
+                      <Back /> もどる
+                    </span>
+                    <span v-else>
+                      <Effect /> 効果をつける
+                    </span>
+                  </Button>
+                  <Button v-if="baseImage" type="primary" @click="onDownload">
+                    <Save /> 絵文字を保存
+                  </Button>
+                </Space>
               </Space>
-            </Space>
-          </NGridItem>
-        </NGrid>
+            </NGridItem>
+          </NGrid>
+        </Space>
       </NLayout>
 
       <NLayoutFooter style="padding: 12px;">
