@@ -34,8 +34,12 @@ export default defineComponent({
 
 <template>
   <header class="header">
-    <h1 class="title">MEGAMOJI</h1>
-    <h2 class="subtitle">カスタム絵文字メーカー</h2>
+    <h1 class="title">
+      MEGAMOJI
+    </h1>
+    <h2 class="subtitle">
+      カスタム絵文字メーカー
+    </h2>
     <span class="right">
       <NPopover trigger="click" placement="bottom-end">
         <template #trigger>
@@ -53,25 +57,25 @@ export default defineComponent({
 .header {
   display: flex;
   padding: var(--paddingMedium);
-  border-bottom: 1px solid var(--border);
   line-height: 1;
+  border-bottom: 1px solid var(--border);
   align-items: center;
 }
 
 .title {
   display: inline;
+  margin: 0 var(--marginMedium) 0 0;
   font-size: var(--fontSizeLarge);
   font-weight: bold;
-  margin: 0 var(--marginMedium) 0 0;
   vertical-align: middle;
 }
 
 .subtitle {
   display: inline;
+  margin: 0;
   font-size: var(--fontSizeMedium);
   font-weight: normal;
   vertical-align: middle;
-  margin: 0;
 }
 
 .right {
