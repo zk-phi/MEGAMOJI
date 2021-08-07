@@ -267,10 +267,12 @@ export default defineComponent({
         </Fieldset>
       </NGridItem>
     </NGrid>
-    <div style="text-align: right;">
-      <Button type="text" @click="showDetails = !showDetails">
-        {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-      </Button>
-    </div>
+    <template #footer>
+      <div style="text-align: right;">
+        <Button type="text" @click="showDetails = !showDetails">
+          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
+        </Button>
+      </div>
+    </template>
   </Card>
 </template>

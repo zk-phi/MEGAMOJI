@@ -193,7 +193,8 @@ export default defineComponent({
   --sliderValueMargin: 0.125em;
   --sliderValueWidth: 2.5em;
   --fieldsetBottomSpacing: 24px;
-  --cardPadding: 20px 24px;
+  --cardPaddingH: 24px;
+  --cardPaddingV: 20px;
 }
 </style>
 
