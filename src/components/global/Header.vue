@@ -62,7 +62,7 @@ export default defineComponent({
   display: inline;
   font-size: var(--fontSizeLarge);
   font-weight: bold;
-  margin: 0 var(--marginSmall) 0 0;
+  margin: 0 var(--marginMedium) 0 0;
   vertical-align: middle;
 }
 
