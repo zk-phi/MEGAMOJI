@@ -10,6 +10,7 @@ export default defineComponent({
   props: {
     vertical: { type: Boolean, default: false },
     small: { type: Boolean, default: false },
+    large: { type: Boolean, default: false },
     full: { type: Boolean, default: false },
   },
   computed: {
@@ -21,7 +22,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="['space', { vertical, small, full }]">
+  <div :class="['space', { vertical, small, large, full }]">
     <div v-for="(child, ix) in children" :key="ix" class="child">
       <Node :node="child" />
     </div>
@@ -46,7 +47,12 @@ export default defineComponent({
   width: 100%;
 }
 
-.small {
+.space.large {
+  column-gap: var(--marginLarge);
+  row-gap: var(--marginMedium);
+}
+
+.space.small {
   gap: var(--marginXSmall);
 }
 

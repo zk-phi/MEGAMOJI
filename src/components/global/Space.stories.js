@@ -10,19 +10,31 @@ const Template = (args) => ({
   components: { Space, ColorSample },
   data: () => args,
   template: `
-    <Space :vertical="vertical" :small="small" :full="full">
-      <ColorSample color="#f00" />
-      <ColorSample color="#0f0" />
-      <ColorSample color="#00f" />
+    <Space vertical :small="small" :large="large">
+      <Space :small="small" :large="large">
+        <ColorSample color="#f00" />
+        <ColorSample color="#0f0" />
+        <ColorSample color="#00f" />
+      </Space>
+      <Space :small="small" :large="large">
+        <ColorSample color="#f00" />
+        <ColorSample color="#0f0" />
+        <ColorSample color="#00f" />
+      </Space>
+      <Space :small="small" :large="large">
+        <ColorSample color="#f00" />
+        <ColorSample color="#0f0" />
+        <ColorSample color="#00f" />
+      </Space>
     </Space>
   `,
 });
 
 export const Base = Template.bind({});
-Base.args = { vertical: false, small: false, full: false };
+Base.args = { small: false, large: false };
 
 export const Small = Template.bind({});
-Small.args = { vertical: false, small: true, full: false };
+Small.args = { small: true, large: false };
 
-export const Vertical = Template.bind({});
-Vertical.args = { vertical: true, small: false, full: false };
+export const Large = Template.bind({});
+Large.args = { small: false, large: true };

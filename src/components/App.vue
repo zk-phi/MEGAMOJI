@@ -103,7 +103,7 @@ export default defineComponent({
       </NLayoutHeader>
 
       <NLayout content-style="padding: 12px">
-        <Space vertical full>
+        <Space vertical large full>
           <Space>
             <ToggleButton
                 :model-value="ui.mode"
@@ -199,6 +199,7 @@ export default defineComponent({
   --paddingMedium: 10px 12px;
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
+  --marginLarge: 16px;
   --marginMedium: 12px;
   --marginSmall: 8px;
   --marginXSmall: 4px;
