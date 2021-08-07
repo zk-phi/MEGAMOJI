@@ -82,12 +82,10 @@ export default defineComponent({
 }
 
 .toggle-button:hover {
-  color: var(--primary);
   border-color: var(--primary);
 }
 
 .toggle-button:active {
-  color: var(--primaryActive);
   border-color: var(--primaryActive);
   box-shadow: var(--primaryShadow);
 }
