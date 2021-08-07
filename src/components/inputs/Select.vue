@@ -57,6 +57,7 @@ export default defineComponent({
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
+  cursor: pointer;
 }
 
 .select:hover {
