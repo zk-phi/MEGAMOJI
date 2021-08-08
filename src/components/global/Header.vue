@@ -1,33 +1,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NPopover, NMenu } from "naive-ui";
-import IconButton from "../inputs/IconButton.vue";
-import Menu from "../icons/Menu.vue";
+import Button from "../inputs/Button.vue";
 
 export default defineComponent({
   components: {
-    IconButton, Menu, NPopover, NMenu,
-  },
-  data() {
-    return {
-      options: [
-        {
-          label: "更新履歴",
-          key: "https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown",
-        }, {
-          label: "ライセンス",
-          key: "https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown",
-        }, {
-          label: "投げ銭箱",
-          key: "https://note.com/zk_phi/n/n3a199c99d6d6",
-        },
-      ],
-    };
+    Button,
   },
   methods: {
-    handleMenu(url: string): void {
-      window.open(url);
-    },
+    openNews() {
+      window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown");
+    }
   },
 });
 </script>
@@ -41,14 +23,9 @@ export default defineComponent({
       カスタム絵文字メーカー
     </h2>
     <span class="right">
-      <NPopover trigger="click" placement="bottom-end">
-        <template #trigger>
-          <IconButton>
-            <Menu />
-          </IconButton>
-        </template>
-        <NMenu :options="options" :indent="18" @update:value="handleMenu" />
-      </NPopover>
+      <Button type="text" @click="openNews">
+        更新履歴
+      </Button>
     </span>
   </header>
 </template>

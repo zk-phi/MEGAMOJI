@@ -1,15 +1,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NThing, NAvatar, NButton } from "naive-ui";
+import { NThing, NAvatar } from "naive-ui";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
+import Button from "../inputs/Button.vue";
 import textSample from "../../samples/text.png";
 import imageSample from "../../samples/image.png";
 import fukumojiSample from "../../samples/fukumoji.png";
 
 export default defineComponent({
   components: {
-    Card, NThing, Space, NAvatar, NButton,
+    Card, NThing, Space, NAvatar, Button,
   },
   data() {
     return {
@@ -17,6 +18,11 @@ export default defineComponent({
       imageSample,
       fukumojiSample,
     };
+  },
+  methods: {
+    openLicense() {
+      window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown");
+    },
   },
 });
 </script>
@@ -55,15 +61,11 @@ export default defineComponent({
         </template>
         <template #description>
           既存の絵文字を合成してスタンプを作ります。
-          <NButton
-              text
-              tag="a"
-              href="https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown"
-              target="_blank">
-            ライセンス表示
-          </NButton>
         </template>
       </NThing>
+      <Button type="text" @click="openLicense">
+        ライセンス表示
+      </Button>
     </Space>
   </Card>
 </template>
