@@ -9,7 +9,7 @@ export default defineComponent({
   methods: {
     openNews() {
       window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown");
-    }
+    },
   },
 });
 </script>
@@ -47,7 +47,7 @@ export default defineComponent({
 
 .description {
   margin: 0;
-  color: var(--fg);
   font-size: var(--fontSizeMedium);
+  color: var(--fg);
 }
 </style>
