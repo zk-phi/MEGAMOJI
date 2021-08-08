@@ -19,43 +19,35 @@ export default defineComponent({
     <h1 class="title">
       MEGAMOJI
     </h1>
-    <h2 class="subtitle">
-      カスタム絵文字メーカー
-    </h2>
-    <span class="right">
+    <p class="description">
+      カスタム絵文字をサクッと作れるジェネレーターです。
       <Button type="text" @click="openNews">
         更新履歴
       </Button>
-    </span>
+    </p>
   </header>
 </template>
 
 <style scoped>
 .header {
   display: flex;
+  flex-wrap: wrap;
   padding: var(--paddingMedium);
   line-height: 1;
-  border-bottom: 1px solid var(--border);
-  align-items: center;
+  color: var(--fg);
+  align-items: flex-end;
+  gap: var(--marginSmall);
 }
 
 .title {
-  display: inline;
-  margin: 0 var(--marginMedium) 0 0;
-  font-size: var(--fontSizeLarge);
-  font-weight: bold;
-  vertical-align: middle;
-}
-
-.subtitle {
-  display: inline;
   margin: 0;
-  font-size: var(--fontSizeMedium);
-  font-weight: normal;
-  vertical-align: middle;
+  font-size: var(--fontSizeTitle);
+  font-weight: bold;
 }
 
-.right {
-  margin-left: auto;
+.description {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fontSizeMedium);
 }
 </style>
