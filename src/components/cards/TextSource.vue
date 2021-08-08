@@ -157,7 +157,7 @@ export default defineComponent({
       </NGridItem>
     </NGrid>
     <template #footer>
-      <div style="text-align: right;">
+      <div style="text-align: center;">
         <Button type="text" @click="showDetails = !showDetails">
           {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
         </Button>
