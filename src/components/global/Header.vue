@@ -33,7 +33,6 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   padding: var(--paddingMedium);
-  line-height: 1;
   color: var(--fg);
   align-items: flex-end;
   gap: var(--marginSmall);
@@ -43,11 +42,13 @@ export default defineComponent({
   margin: 0;
   font-size: var(--fontSizeTitle);
   font-weight: bold;
+  line-height: 1;
 }
 
 .description {
   margin: 0;
   font-size: var(--fontSizeMedium);
+  line-height: var(--multilineTextLineHeight);
   color: var(--fg);
 }
 </style>

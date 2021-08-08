@@ -180,6 +180,7 @@ export default defineComponent({
   --fontSizeMedium: 14px;
   --fontSizeIcon: 26px;
   --fontSizePart: 48px;
+  --multilineTextLineHeight: 1.5;
 
   /* layout */
   --borderRadiusSmall: 2px;

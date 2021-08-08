@@ -32,7 +32,7 @@ export default defineComponent({
 .footer {
   padding: var(--paddingMedium);
   font-size: var(--fontSizeMedium);
-  line-height: 1.5;
+  line-height: var(--multilineTextLineHeight);
   color: var(--fg);
 }
 
