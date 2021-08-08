@@ -11,10 +11,12 @@ export default defineComponent({
 
 <template>
   <div class="card" :style="style">
-    <h3 v-if="title" class="title">
-      {{ title }}
-    </h3>
-    <slot />
+    <div class="content">
+      <h3 v-if="title" class="title">
+        {{ title }}
+      </h3>
+      <slot />
+    </div>
     <div v-if="$slots.footer" class="footer">
       <slot name="footer" />
     </div>
@@ -23,10 +25,13 @@ export default defineComponent({
 
 <style scoped>
 .card {
-  padding: var(--cardPaddingV) var(--cardPaddingH);
   background-color: var(--accentBg);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
+}
+
+.content {
+  padding: var(--paddingXLarge);
 }
 
 .title {
@@ -37,8 +42,7 @@ export default defineComponent({
 }
 
 .footer {
-  padding-top: var(--cardPaddingV);
-  margin-top: var(--cardPaddingV);
+  padding: var(--paddingXLarge);
   border-top: 1px solid var(--border);
 }
 </style>

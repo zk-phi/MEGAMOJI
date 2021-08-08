@@ -177,6 +177,7 @@ export default defineComponent({
   /* layout */
   --borderRadiusSmall: 2px;
   --borderRadius: 4px;
+  --paddingXLarge: 20px 22px;
   --paddingMedium: 10px 12px;
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
