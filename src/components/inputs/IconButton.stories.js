@@ -1,5 +1,5 @@
 import IconButton from "./IconButton.vue";
-import Menu from "../icons/Menu.vue";
+import Delete from "../icons/Delete.vue";
 
 export default {
   title: "atoms/inputs/IconButton",
@@ -7,11 +7,11 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { IconButton, Menu },
+  components: { IconButton, Delete },
   data: () => args,
   template: `
     <IconButton :type="type">
-      <Menu />
+      <Delete />
     </IconButton>
   `,
 });
