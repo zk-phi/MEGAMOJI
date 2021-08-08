@@ -1,13 +1,20 @@
-このソフトウェアは以下のライセンスのもと自由にコピー＆改造できます。
+このツールで作った絵文字について、ツール作者がなにか権利を主張することは原則ありません。
 
-- ソースコード ... MIT License
-- 「キメラ絵文字」の素材 (./dist/assets) ... CC-BY
+(画像から絵文字を作る場合、素材のライセンスには注意してください)
 
-同梱のフォントはそれぞれのライセンスに従ってください (下記参照)。
+「キメラ絵文字」はパーツが CC-BY ライセンスで提供されているので、再配布等には権利表示が必要になります。
+
+# このツール自体のライセンス
+
+このソフトウェアは以下のライセンスのもと自由に改変、再配布できます。
+
+- 「キメラ絵文字」の素材 (./src/parts) ... CC-BY
+- フォント (./src/fonts) ... フォントごとのライセンス (下記参照)
+- それ以外 ... MIT License
 
 # 権利表示
 
-Runtime libraries
+バンドルに含まれるライブラリ
 - gif.js
   - (c) Johan Nordberg, Licensed under the MIT License
 - color-convert
@@ -23,15 +30,15 @@ Runtime libraries
 - Vue.js
   - (c) Evan You, Licensed under the MIT License
 
-Some effects are based on glfx.js (c) Evan Wallace, under the MIT License.
+いくつかのエフェクトは glfx.js ((c) Evan Wallace, MIT License) から引用しています。
 
-Images
-- Twemoji (modified for "キメラ絵文字" feature)
+画像素材
+- Twemoji ("キメラ絵文字" 機能のために改変)
   - (c) Twitter, Licensed under the CC-BY License
 - Material Design Icons
   - (c) Google, Licensed under the Apache License
 
-Fonts
+フォント
 - Mplus 1
   - (c) The M+ FONTS Project Authors, Licensed under the SIL OFL (without RFN)
 - Rounded M+ 1c
