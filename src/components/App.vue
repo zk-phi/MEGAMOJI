@@ -16,6 +16,9 @@ import Space from "./global/Space.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
 import Save from "./icons/Save.vue";
+import Image from "./icons/Image.vue";
+import Text from "./icons/Text.vue";
+import Emoji from "./icons/Emoji.vue";
 import theme from "../constants/theme";
 import { extension, prepareDownloadFile } from "../utils/file";
 
@@ -38,6 +41,9 @@ export default defineComponent({
     Effect,
     Back,
     Save,
+    Text,
+    Image,
+    Emoji,
   },
   data() {
     return {
@@ -100,13 +106,13 @@ export default defineComponent({
       <Space vertical large full>
         <Space>
           <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
-            テキスト絵文字
+            <Text /> テキスト絵文字
           </TabButton>
           <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
-            画像絵文字
+            <Image /> 画像絵文字
           </TabButton>
           <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
-            キメラ絵文字
+            <Emoji /> キメラ絵文字
           </TabButton>
         </Space>
         <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
