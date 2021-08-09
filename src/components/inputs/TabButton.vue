@@ -33,7 +33,7 @@ export default defineComponent({
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
 }
 
 .tab-button:hover {

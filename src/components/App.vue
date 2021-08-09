@@ -12,6 +12,7 @@ import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
 import TabButton from "./inputs/TabButton.vue";
+import TabGroup from "./inputs/TabGroup.vue";
 import Space from "./global/Space.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
@@ -38,6 +39,7 @@ export default defineComponent({
     NGridItem,
     Button,
     TabButton,
+    TabGroup,
     Effect,
     Back,
     Save,
@@ -104,7 +106,7 @@ export default defineComponent({
 
     <div class="container">
       <Space vertical large full>
-        <Space>
+        <TabGroup>
           <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
             <Text /> テキスト絵文字
           </TabButton>
@@ -114,7 +116,7 @@ export default defineComponent({
           <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
             <Emoji /> キメラ絵文字
           </TabButton>
-        </Space>
+        </TabGroup>
         <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
           <NGridItem span="2">
             <TextSource
