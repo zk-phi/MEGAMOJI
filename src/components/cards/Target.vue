@@ -197,76 +197,80 @@ export default defineComponent({
   <Card v-if="show">
     <Grid :columns="[[450, 1], [Infinity, 2]]">
       <GridItem>
-        <Fieldset label="アニメーション">
-          <Space vertical full>
-            <Select v-model="conf.animation" nullable :options="animations" />
-            <Checkbox v-model="conf.animationInvert">
-              {{ "逆再生" }}
+        <Space vertical xlarge full>
+          <Fieldset label="アニメーション">
+            <Space vertical full>
+              <Select v-model="conf.animation" nullable :options="animations" />
+              <Checkbox v-model="conf.animationInvert">
+                {{ "逆再生" }}
+              </Checkbox>
+            </Space>
+          </Fieldset>
+          <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
+          <EffectBlock v-model="conf.effects" :effects="effects" />
+          <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
+          <Fieldset v-if="showDetails" label="開発者用">
+            <Checkbox v-model="conf.noCrop">
+              {{ "余白を切らない" }}
             </Checkbox>
-          </Space>
-        </Fieldset>
-        <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
-        <EffectBlock v-model="conf.effects" :effects="effects" />
-        <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-        <Fieldset v-if="showDetails" label="開発者用">
-          <Checkbox v-model="conf.noCrop">
-            {{ "余白を切らない" }}
-          </Checkbox>
-        </Fieldset>
+          </Fieldset>
+        </Space>
       </GridItem>
       <GridItem>
-        <Fieldset v-if="!showDetails" label="切り抜き">
-          <Select
-              v-model="conf.trimming"
-              :options="TRIMMING_OPTIONS"
+        <Space vertical xlarge full>
+          <Fieldset v-if="!showDetails" label="切り抜き">
+            <Select
+                v-model="conf.trimming"
+                :options="TRIMMING_OPTIONS"
+                @update:model-value="refreshDefaultSettings" />
+          </Fieldset>
+          <CellcountBlock
+              v-if="showDetails"
+              v-model="conf.cells"
               @update:model-value="refreshDefaultSettings" />
-        </Fieldset>
-        <CellcountBlock
-            v-if="showDetails"
-            v-model="conf.cells"
-            @update:model-value="refreshDefaultSettings" />
-        <Fieldset v-if="showDetails" label="トリミング 横">
-          <Slider
-              v-model="conf.trimH"
-              block
-              :marks="[0, baseImage.width]"
-              :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
-              :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
-        </Fieldset>
-        <Fieldset v-if="showDetails" label="トリミング 縦">
-          <Slider
-              v-model="conf.trimV"
-              block
-              :marks="[0, baseImage.height]"
-              :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
-              :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
-        </Fieldset>
-        <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-        <Fieldset v-if="!showDetails" label="アニメ速度">
-          <Select
-              v-model="conf.speed"
-              :options="SPEED_OPTIONS"
-              @update:model-value="selectSpeed($event)" />
-        </Fieldset>
-        <Fieldset v-if="showDetails" label="アニメ長さ">
-          <Slider
-              v-model="conf.duration"
-              block
-              :min="0.1"
-              :step="0.1"
-              :max="2.0" />
-        </Fieldset>
-        <Fieldset label="背景色">
-          <Space vertical full>
-            <NColorPicker
-                v-model:value="conf.backgroundColor"
-                :modes="['hex']"
-                :show-alpha="false" />
-            <Checkbox v-model="conf.transparent">
-              {{ "透過 (アニメ gif は非推奨)" }}
-            </Checkbox>
-          </Space>
-        </Fieldset>
+          <Fieldset v-if="showDetails" label="トリミング 横">
+            <Slider
+                v-model="conf.trimH"
+                block
+                :marks="[0, baseImage.width]"
+                :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
+                :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="トリミング 縦">
+            <Slider
+                v-model="conf.trimV"
+                block
+                :marks="[0, baseImage.height]"
+                :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
+                :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
+          </Fieldset>
+          <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
+          <Fieldset v-if="!showDetails" label="アニメ速度">
+            <Select
+                v-model="conf.speed"
+                :options="SPEED_OPTIONS"
+                @update:model-value="selectSpeed($event)" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="アニメ長さ">
+            <Slider
+                v-model="conf.duration"
+                block
+                :min="0.1"
+                :step="0.1"
+                :max="2.0" />
+          </Fieldset>
+          <Fieldset label="背景色">
+            <Space vertical full>
+              <NColorPicker
+                  v-model:value="conf.backgroundColor"
+                  :modes="['hex']"
+                  :show-alpha="false" />
+              <Checkbox v-model="conf.transparent">
+                {{ "透過 (アニメ gif は非推奨)" }}
+              </Checkbox>
+            </Space>
+          </Fieldset>
+        </Space>
       </GridItem>
     </Grid>
     <template #footer>

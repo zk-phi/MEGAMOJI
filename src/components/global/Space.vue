@@ -12,6 +12,7 @@ export default defineComponent({
     small: { type: Boolean, default: false },
     large: { type: Boolean, default: false },
     full: { type: Boolean, default: false },
+    xlarge: { type: Boolean, default: false },
   },
   computed: {
     children(): VNodeChild[] {
@@ -22,7 +23,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="['space', { vertical, small, large, full }]">
+  <div :class="['space', { vertical, small, large, full, xlarge }]">
     <div v-for="(child, ix) in children" :key="ix" class="child">
       <Node :node="child" />
     </div>
@@ -45,6 +46,10 @@ export default defineComponent({
 
 .full {
   width: 100%;
+}
+
+.space.xlarge {
+  gap: var(--marginXLarge);
 }
 
 .space.large {

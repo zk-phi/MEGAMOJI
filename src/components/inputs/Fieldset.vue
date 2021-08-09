@@ -9,17 +9,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="fieldset">
-    <label class="title">{{ label }}</label>
-    <slot />
-  </div>
+  <label class="title">{{ label }}</label>
+  <slot />
 </template>
 
 <style scoped>
-.fieldset {
-  padding-bottom: var(--fieldsetBottomSpacing);
-}
-
 .title {
   display: block;
   margin-bottom: var(--marginMedium);

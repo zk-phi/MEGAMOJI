@@ -100,7 +100,7 @@ export default defineComponent({
 
 <template>
   <div class="app">
-    <Space vertical large full>
+    <Space vertical xlarge full>
       <Header />
 
       <TabGroup>

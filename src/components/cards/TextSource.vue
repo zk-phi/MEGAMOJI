@@ -122,39 +122,41 @@ export default defineComponent({
             :show-details="showDetails" />
       </GridItem>
       <GridItem :span="2">
-        <Fieldset label="テキスト (改行可)">
-          <Space vertical full>
-            <Textarea v-model="conf.content" block autofocus :rows="3" />
-            <Space small>
-              <ToggleButton v-model="conf.align" size="small" value="stretch">
-                <AlignJustify />
-              </ToggleButton>
-              <ToggleButton v-model="conf.align" size="small" value="center">
-                <AlignCenter />
-              </ToggleButton>
-              <ToggleButton v-model="conf.align" size="small" value="left">
-                <AlignLeft />
-              </ToggleButton>
-              <ToggleButton v-model="conf.align" size="small" value="right">
-                <AlignRight />
-              </ToggleButton>
+        <Space vertical xlarge full>
+          <Fieldset label="テキスト (改行可)">
+            <Space vertical full>
+              <Textarea v-model="conf.content" block autofocus :rows="3" />
+              <Space small>
+                <ToggleButton v-model="conf.align" size="small" value="stretch">
+                  <AlignJustify />
+                </ToggleButton>
+                <ToggleButton v-model="conf.align" size="small" value="center">
+                  <AlignCenter />
+                </ToggleButton>
+                <ToggleButton v-model="conf.align" size="small" value="left">
+                  <AlignLeft />
+                </ToggleButton>
+                <ToggleButton v-model="conf.align" size="small" value="right">
+                  <AlignRight />
+                </ToggleButton>
+              </Space>
             </Space>
-          </Space>
-        </Fieldset>
-        <Fieldset v-if="showDetails" label="行間 (文字分)">
-          <Input v-model="conf.lineSpacing" />
-        </Fieldset>
-        <FontColorSelectBlock
-            v-model="conf.color"
-            :base-color="conf.color"
-            :show-details="showDetails" />
-        <GradientBlock
-            v-model="conf.gradient"
-            :base-color="conf.color" />
-        <OutlineBlock
-            v-model="conf.outlines"
-            :base-color="conf.color"
-            :show-details="showDetails" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="行間 (文字分)">
+            <Input v-model="conf.lineSpacing" />
+          </Fieldset>
+          <FontColorSelectBlock
+              v-model="conf.color"
+              :base-color="conf.color"
+              :show-details="showDetails" />
+          <GradientBlock
+              v-model="conf.gradient"
+              :base-color="conf.color" />
+          <OutlineBlock
+              v-model="conf.outlines"
+              :base-color="conf.color"
+              :show-details="showDetails" />
+        </Space>
       </GridItem>
     </Grid>
     <template #footer>

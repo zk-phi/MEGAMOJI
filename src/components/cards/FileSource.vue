@@ -4,6 +4,7 @@ import Card from "../global/Card.vue";
 import FileSelect from "../inputs/FileSelect.vue";
 import Select from "../inputs/Select.vue";
 import Fieldset from "../inputs/Fieldset.vue";
+import Space from "../global/Space.vue";
 import Image from "../icons/Image.vue";
 import { urlToImg } from "../../utils/canvas";
 import { Filter } from "../../types";
@@ -13,7 +14,7 @@ type FilterOption = { label: string, value: Filter };
 
 export default defineComponent({
   components: {
-    FileSelect, Select, Image, Card, Fieldset,
+    FileSelect, Select, Image, Card, Fieldset, Space,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -56,13 +57,15 @@ export default defineComponent({
 
 <template>
   <Card v-if="show">
-    <Fieldset label="ファイル">
-      <FileSelect @load="conf.img = $event">
-        <Image /> ファイルを選ぶ
-      </FileSelect>
-    </Fieldset>
-    <Fieldset label="前処理">
-      <Select v-model="conf.filter" nullable :options="FILTER_OPTIONS" />
-    </Fieldset>
+    <Space vertical xlarge full>
+      <Fieldset label="ファイル">
+        <FileSelect @load="conf.img = $event">
+          <Image /> ファイルを選ぶ
+        </FileSelect>
+      </Fieldset>
+      <Fieldset label="前処理">
+        <Select v-model="conf.filter" nullable :options="FILTER_OPTIONS" />
+      </Fieldset>
+    </Space>
   </Card>
 </template>

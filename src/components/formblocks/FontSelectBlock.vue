@@ -26,22 +26,24 @@ export default defineComponent({
 </script>
 
 <template>
-  <Fieldset v-for="category in fonts" :key="category.label" :label="category.label">
-    <Space vertical>
-      <Checkbox
-          v-for="font in category.fonts"
-          :key="font.label"
+  <Space vertical xlarge full>
+    <Fieldset v-for="category in fonts" :key="category.label" :label="category.label">
+      <Space vertical>
+        <Checkbox
+            v-for="font in category.fonts"
+            :key="font.label"
+            :model-value="modelValue"
+            :value="font.value"
+            @update:model-value="$emit('update:modelValue', $event)">
+          <span :style="{ font: font.value }">{{ font.label }}</span>
+        </Checkbox>
+      </Space>
+    </Fieldset>
+    <Fieldset v-if="showDetails" label="その他のフォント">
+      <Input
+          block
           :model-value="modelValue"
-          :value="font.value"
-          @update:model-value="$emit('update:modelValue', $event)">
-        <span :style="{ font: font.value }">{{ font.label }}</span>
-      </Checkbox>
-    </Space>
-  </Fieldset>
-  <Fieldset v-if="showDetails" label="その他のフォント">
-    <Input
-        block
-        :model-value="modelValue"
-        @update:model-value="$emit('update:modelValue', $event)" />
-  </Fieldset>
+          @update:model-value="$emit('update:modelValue', $event)" />
+    </Fieldset>
+  </Space>
 </template>
