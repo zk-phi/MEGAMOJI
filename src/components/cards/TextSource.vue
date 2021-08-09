@@ -147,7 +147,6 @@ export default defineComponent({
           </Fieldset>
           <FontColorSelectBlock
               v-model="conf.color"
-              :base-color="conf.color"
               :show-details="showDetails" />
           <GradientBlock
               v-model="conf.gradient"
