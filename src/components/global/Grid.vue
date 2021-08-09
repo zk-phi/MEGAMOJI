@@ -12,10 +12,12 @@ export default defineComponent({
   },
   data: () => ({
     width: 0,
+    observer: null as ResizeObserver | null,
   }),
   computed: {
-    numColumns() {
-      return this.columns.find((item) => this.width <= item[0])[1];
+    numColumns(): number {
+      const column = this.columns.find((item) => this.width <= item[0]);
+      return column ? column[1] : 1;
     },
   },
   mounted() {
@@ -25,7 +27,9 @@ export default defineComponent({
     this.observer.observe(this.$el);
   },
   beforeUnmount() {
-    this.observer.disconnect();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   },
 });
 </script>
