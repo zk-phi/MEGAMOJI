@@ -20,9 +20,9 @@ export default defineComponent({
       MEGAMOJI
     </h1>
     <p class="description">
-      カスタム絵文字をサクッと作れるジェネレーターです。
+      カスタム絵文字をサクッと作れるジェネレーターです
       <Button type="text" @click="openNews">
-        更新履歴
+        🗞更新履歴
       </Button>
     </p>
   </header>

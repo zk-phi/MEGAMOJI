@@ -175,7 +175,7 @@ export default defineComponent({
   --dangerActive: #ab1f3f;
 
   /* typography */
-  --fontSizeTitle: 32px;
+  --fontSizeTitle: 28px;
   --fontSizeLarge: 18px;
   --fontSizeMedium: 14px;
   --fontSizeIcon: 26px;
