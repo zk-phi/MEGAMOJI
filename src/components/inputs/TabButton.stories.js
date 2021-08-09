@@ -5,19 +5,16 @@ export default {
   component: TabButton,
 };
 
-export const Base = (args) => ({
+const Template = (args) => ({
   components: { TabButton },
-  data: () => ({
-    value: args.initialValue,
-  }),
+  data: () => args,
   template: `
-    <div>
-      <TabButton v-model="value" value="1">タブ</TabButton>&nbsp;
-      <TabButton v-model="value" value="2">タブ</TabButton>&nbsp;
-      <TabButton v-model="value" value="3">タブ</TabButton>&nbsp;
-      <TabButton v-model="value" value="4">タブ</TabButton>&nbsp;
-      <TabButton v-model="value" value="5">タブ</TabButton>
-    </div>
+    <TabButton :model-value="value" value="1">タブ</TabButton>
   `,
 });
-Base.args = { initialValue: "1" };
+
+export const Base = Template.bind({});
+Base.args = { value: "0" };
+
+export const Selected = Template.bind({});
+Selected.args = { value: "1" };
