@@ -38,6 +38,6 @@ export default defineComponent({
 }
 
 .p {
-  margin: 0 0 var(--marginSmall);
+  margin: 0 0 var(--marginXSmall);
 }
 </style>
