@@ -1,7 +1,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NTabs, NTabPane } from "naive-ui";
 import ToggleButton from "../inputs/ToggleButton.vue";
+import TabButton from "../inputs/TabButton.vue";
+import Fieldset from "../inputs/Fieldset.vue";
+import TabGroup from "../inputs/TabGroup.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
@@ -11,7 +13,7 @@ import empty from "../../parts/void.svg";
 
 export default defineComponent({
   components: {
-    ToggleButton, Card, NTabs, NTabPane, Space,
+    ToggleButton, TabButton, TabGroup, Fieldset, Card, Space,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -22,7 +24,7 @@ export default defineComponent({
   data() {
     return {
       parts,
-      tab: "ベース",
+      tab: "base",
       conf: {
         base: empty,
         textures: empty,
@@ -58,23 +60,29 @@ export default defineComponent({
 
 <template>
   <Card v-if="show">
-    <NTabs v-model:value="tab" type="card">
-      <NTabPane
-          v-for="category in parts.categories"
-          :key="category.label"
-          :name="category.label">
+    <Fieldset label="パーツ">
+      <Space vertical large>
+        <TabGroup>
+          <TabButton
+              v-for="category in parts.categories"
+              :key="category.value"
+              v-model="tab"
+              :value="category.value">
+            {{ category.label }}
+          </TabButton>
+        </TabGroup>
         <Space small>
           <ToggleButton
-              v-for="p in parts[category.value]"
+              v-for="p in parts[tab]"
               :key="p"
-              v-model="conf[category.value]"
+              v-model="conf[tab]"
               size="part"
               :value="p">
             <img class="img" :src="p">
           </ToggleButton>
         </Space>
-      </NTabPane>
-    </NTabs>
+      </Space>
+    </Fieldset>
   </Card>
 </template>
 
