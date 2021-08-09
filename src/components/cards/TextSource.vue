@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NGrid, NGridItem } from "naive-ui";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
@@ -12,6 +11,8 @@ import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
+import Grid from "../global/Grid.vue";
+import GridItem from "../global/GridItem.vue";
 import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
 import AlignLeft from "../icons/AlignLeft.vue";
@@ -33,8 +34,8 @@ export default defineComponent({
     Button,
     Input,
     Textarea,
-    NGrid,
-    NGridItem,
+    Grid,
+    GridItem,
     Space,
     Card,
     ToggleButton,
@@ -114,13 +115,13 @@ export default defineComponent({
 
 <template>
   <Card v-if="show">
-    <NGrid cols="1 440:3" :x-gap="24">
-      <NGridItem>
+    <Grid :columns="[[450, 1], [Infinity, 3]]">
+      <GridItem>
         <FontSelectBlock
             v-model="conf.font"
             :show-details="showDetails" />
-      </NGridItem>
-      <NGridItem :span="2">
+      </GridItem>
+      <GridItem :span="2">
         <Fieldset label="テキスト (改行可)">
           <Space vertical full>
             <Textarea v-model="conf.content" block autofocus :rows="3" />
@@ -154,8 +155,8 @@ export default defineComponent({
             v-model="conf.outlines"
             :base-color="conf.color"
             :show-details="showDetails" />
-      </NGridItem>
-    </NGrid>
+      </GridItem>
+    </Grid>
     <template #footer>
       <div style="text-align: center;">
         <Button type="text" @click="showDetails = !showDetails">

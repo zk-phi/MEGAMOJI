@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
@@ -14,6 +13,8 @@ import Button from "./inputs/Button.vue";
 import TabButton from "./inputs/TabButton.vue";
 import TabGroup from "./inputs/TabGroup.vue";
 import Space from "./global/Space.vue";
+import Grid from "./global/Grid.vue";
+import GridItem from "./global/GridItem.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
 import Save from "./icons/Save.vue";
@@ -33,8 +34,8 @@ export default defineComponent({
     Header,
     Footer,
     Space,
-    NGrid,
-    NGridItem,
+    Grid,
+    GridItem,
     Button,
     TabButton,
     TabGroup,
@@ -114,8 +115,8 @@ export default defineComponent({
         </TabButton>
       </TabGroup>
 
-      <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
-        <NGridItem span="2">
+      <Grid :columns="[[760, 1], [Infinity, 3]]">
+        <GridItem :span="2">
           <TextSource
               :show="ui.mode == 'text' && !ui.showTargetPanel"
               @render="onRender" />
@@ -129,8 +130,8 @@ export default defineComponent({
               :show="ui.showTargetPanel"
               :base-image="baseImage"
               @render="onRenderTarget" />
-        </NGridItem>
-        <NGridItem span="1">
+        </GridItem>
+        <GridItem>
           <Tutorial v-if="!baseImage" />
           <Space v-else vertical>
             <Result :images="resultImageUrls" />
@@ -148,8 +149,8 @@ export default defineComponent({
               </Button>
             </Space>
           </Space>
-        </NGridItem>
-      </NGrid>
+        </GridItem>
+      </Grid>
 
       <Footer />
     </Space>
@@ -188,6 +189,7 @@ export default defineComponent({
   --paddingMedium: 10px 12px;
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
+  --marginXLarge: 20px;
   --marginLarge: 16px;
   --marginMedium: 12px;
   --marginSmall: 8px;

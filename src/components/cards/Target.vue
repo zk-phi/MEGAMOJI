@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NGrid, NGridItem, NColorPicker } from "naive-ui";
+import { NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -10,6 +10,8 @@ import Slider from "../inputs/Slider.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
+import Grid from "../global/Grid.vue";
+import GridItem from "../global/GridItem.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -54,8 +56,8 @@ export default defineComponent({
     CellcountBlock,
     Card,
     Button,
-    NGrid,
-    NGridItem,
+    Grid,
+    GridItem,
     Fieldset,
     Space,
     Select,
@@ -193,8 +195,8 @@ export default defineComponent({
 
 <template>
   <Card v-if="show">
-    <NGrid cols="1 500:2" :x-gap="24">
-      <NGridItem>
+    <Grid :columns="[[450, 1], [Infinity, 2]]">
+      <GridItem>
         <Fieldset label="アニメーション">
           <Space vertical full>
             <Select v-model="conf.animation" nullable :options="animations" />
@@ -211,8 +213,8 @@ export default defineComponent({
             {{ "余白を切らない" }}
           </Checkbox>
         </Fieldset>
-      </NGridItem>
-      <NGridItem>
+      </GridItem>
+      <GridItem>
         <Fieldset v-if="!showDetails" label="切り抜き">
           <Select
               v-model="conf.trimming"
@@ -265,8 +267,8 @@ export default defineComponent({
             </Checkbox>
           </Space>
         </Fieldset>
-      </NGridItem>
-    </NGrid>
+      </GridItem>
+    </Grid>
     <template #footer>
       <div style="text-align: center;">
         <Button type="text" @click="showDetails = !showDetails">
