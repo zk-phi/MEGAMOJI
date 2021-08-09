@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NConfigProvider, NGrid, NGridItem } from "naive-ui";
+import { NGrid, NGridItem } from "naive-ui";
 import { saveAs } from "file-saver";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
@@ -33,7 +33,6 @@ export default defineComponent({
     Tutorial,
     Header,
     Footer,
-    NConfigProvider,
     Space,
     NGrid,
     NGridItem,
@@ -101,63 +100,62 @@ export default defineComponent({
 </script>
 
 <template>
-  <NConfigProvider :theme-overrides="theme">
-    <Header />
+  <div class="app">
+    <Space vertical large full>
+      <Header />
 
-    <div class="container">
-      <Space vertical large full>
-        <TabGroup>
-          <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
-            <Text /> テキスト絵文字
-          </TabButton>
-          <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
-            <Image /> 画像絵文字
-          </TabButton>
-          <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
-            <Emoji /> キメラ絵文字
-          </TabButton>
-        </TabGroup>
-        <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
-          <NGridItem span="2">
-            <TextSource
-                :show="ui.mode == 'text' && !ui.showTargetPanel"
-                @render="onRender" />
-            <FileSource
-                :show="ui.mode == 'file' && !ui.showTargetPanel"
-                @render="onRender" />
-            <FukumojiSource
-                :show="ui.mode == 'parts' && !ui.showTargetPanel"
-                @render="onRender" />
-            <Target
-                :show="ui.showTargetPanel"
-                :base-image="baseImage"
-                @render="onRenderTarget" />
-          </NGridItem>
-          <NGridItem span="1">
-            <Tutorial v-if="!baseImage" />
-            <Space v-else vertical>
-              <Result :images="resultImageUrls" />
-              <Space>
-                <Button @click="onSetShowTarget(!ui.showTargetPanel)">
-                  <span v-if="ui.showTargetPanel">
-                    <Back /> もどる
-                  </span>
-                  <span v-else>
-                    <Effect /> 効果をつける
-                  </span>
-                </Button>
-                <Button v-if="baseImage" type="primary" @click="onDownload">
-                  <Save /> 絵文字を保存
-                </Button>
-              </Space>
+      <TabGroup>
+        <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
+          <Text /> テキスト絵文字
+        </TabButton>
+        <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
+          <Image /> 画像絵文字
+        </TabButton>
+        <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
+          <Emoji /> キメラ絵文字
+        </TabButton>
+      </TabGroup>
+
+      <NGrid cols="1 840:3" :x-gap="12" :y-gap="12">
+        <NGridItem span="2">
+          <TextSource
+              :show="ui.mode == 'text' && !ui.showTargetPanel"
+              @render="onRender" />
+          <FileSource
+              :show="ui.mode == 'file' && !ui.showTargetPanel"
+              @render="onRender" />
+          <FukumojiSource
+              :show="ui.mode == 'parts' && !ui.showTargetPanel"
+              @render="onRender" />
+          <Target
+              :show="ui.showTargetPanel"
+              :base-image="baseImage"
+              @render="onRenderTarget" />
+        </NGridItem>
+        <NGridItem span="1">
+          <Tutorial v-if="!baseImage" />
+          <Space v-else vertical>
+            <Result :images="resultImageUrls" />
+            <Space>
+              <Button @click="onSetShowTarget(!ui.showTargetPanel)">
+                <span v-if="ui.showTargetPanel">
+                  <Back /> もどる
+                </span>
+                <span v-else>
+                  <Effect /> 効果をつける
+                </span>
+              </Button>
+              <Button v-if="baseImage" type="primary" @click="onDownload">
+                <Save /> 絵文字を保存
+              </Button>
             </Space>
-          </NGridItem>
-        </NGrid>
-      </Space>
-    </div>
+          </Space>
+        </NGridItem>
+      </NGrid>
 
-    <Footer />
-  </NConfigProvider>
+      <Footer />
+    </Space>
+  </div>
 </template>
 
 <style>
@@ -188,6 +186,7 @@ export default defineComponent({
   --borderRadiusSmall: 2px;
   --borderRadius: 4px;
   --paddingXLarge: 20px 22px;
+  --paddingLarge: 14px 16px;
   --paddingMedium: 10px 12px;
   --paddingSmall: 8px 10px;
   --paddingMinimal: 4px;
@@ -210,7 +209,7 @@ export default defineComponent({
 </style>
 
 <style scoped>
-.container {
-  padding: var(--marginMedium);
+.app {
+  padding: var(--paddingLarge);
 }
 </style>

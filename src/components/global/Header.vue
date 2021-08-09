@@ -32,7 +32,6 @@ export default defineComponent({
 .header {
   display: flex;
   flex-wrap: wrap;
-  padding: var(--paddingMedium);
   color: var(--fg);
   align-items: flex-end;
   gap: var(--marginSmall);
