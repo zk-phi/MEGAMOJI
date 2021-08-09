@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  props: {
-    span: { type: Number, default: 1 },
-  },
   inject: [
     "numColumns",
   ],
+  props: {
+    span: { type: Number, default: 1 },
+  },
 });
 </script>
 

@@ -1,13 +1,23 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
+  provide() {
+    return {
+      numColumns: () => this.numColumns,
+    };
+  },
   props: {
     columns: { type: Array as PropType<number[][]>, required: true },
   },
   data: () => ({
     width: 0,
   }),
+  computed: {
+    numColumns() {
+      return this.columns.find((item) => this.width <= item[0])[1];
+    },
+  },
   mounted() {
     this.observer = new ResizeObserver((entries) => {
       this.width = entries[0].contentRect.width;
@@ -16,16 +26,6 @@ export default defineComponent({
   },
   beforeUnmount() {
     this.observer.disconnect();
-  },
-  computed: {
-    numColumns() {
-      return this.columns.find((item) => this.width <= item[0])[1];
-    },
-  },
-  provide() {
-    return {
-      numColumns: () => this.numColumns,
-    };
   },
 });
 </script>
