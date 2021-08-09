@@ -20,7 +20,6 @@ import Save from "./icons/Save.vue";
 import Image from "./icons/Image.vue";
 import Text from "./icons/Text.vue";
 import Emoji from "./icons/Emoji.vue";
-import theme from "../constants/theme";
 import { extension, prepareDownloadFile } from "../utils/file";
 
 export default defineComponent({
@@ -48,7 +47,6 @@ export default defineComponent({
   },
   data() {
     return {
-      theme,
       baseImage: null as (HTMLImageElement | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
