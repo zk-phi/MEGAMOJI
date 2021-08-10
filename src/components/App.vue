@@ -208,6 +208,10 @@ export default defineComponent({
   --cardPaddingV: 20px;
   --iconSize: 34px;
 }
+
+body {
+  margin: 0;
+}
 </style>
 
 <style scoped>
@@ -217,7 +221,6 @@ export default defineComponent({
 
 /* taken from naive-ui/global */
 .app {
-  margin: 0;
   font-size: 14px;
   font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.6;
