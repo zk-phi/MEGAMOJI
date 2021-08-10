@@ -63,7 +63,7 @@ export default defineComponent({
   cursor: pointer;
   background-color: var(--bg);
   background-repeat: no-repeat;
-  background-position: right var(--marginSmall) bottom 50%;
+  background-position: right var(--marginXSmall) bottom 50%;
   background-size: var(--fontSizeMedium);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);

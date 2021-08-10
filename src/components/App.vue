@@ -198,7 +198,7 @@ export default defineComponent({
 
   /* other */
   --textareaLineHeight: 1.4;
-  --selectPadding: 10px calc(12px + 1em + var(--marginSmall)) 10px 12px;
+  --selectPadding: 10px calc(12px + 1em) 10px 12px;
   --sliderRailHeight: 0.375em;
   --sliderMarkHeight: 0.75em;
   --sliderKnobSize: 1.25em;
