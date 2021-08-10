@@ -212,7 +212,8 @@ body {
   margin: 0;
 }
 
-input, select {
+input,
+select {
   font: inherit;
 }
 </style>
@@ -220,13 +221,10 @@ input, select {
 <style scoped>
 .app {
   padding: var(--paddingLarge);
-}
-
-/* taken from naive-ui/global */
-.app {
-  font-size: 14px;
   font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  /* taken from naive-ui/global */
+  font-size: 14px;
   line-height: 1.6;
-  -webkit-text-size-adjust: 100%;
 }
 </style>

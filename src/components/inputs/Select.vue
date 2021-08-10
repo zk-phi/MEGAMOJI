@@ -52,6 +52,7 @@ export default defineComponent({
 
 <style scoped>
 .select {
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   appearance: none;
   display: inline-block;
   box-sizing: border-box;
@@ -61,12 +62,12 @@ export default defineComponent({
   color: var(--fg);
   cursor: pointer;
   background-color: var(--bg);
+  background-repeat: no-repeat;
+  background-position: right var(--marginSmall) bottom 50%;
+  background-size: var(--fontSizeMedium);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
-  background-position: right var(--marginSmall) bottom 50%;
-  background-size: var(--fontSizeMedium);
-  background-repeat: no-repeat;
 }
 
 .select:hover {

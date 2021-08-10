@@ -29,22 +29,22 @@ export default defineComponent({
 }
 
 .title {
-  line-height: 1;
-  font-size: var(--fontSizeLarge);
   margin-bottom: var(--marginSmall);
+  font-size: var(--fontSizeLarge);
+  line-height: 1;
 }
 
 .body {
-  line-height: var(--multilineTextLineHeight);
   font-size: var(--fontSizeMedium);
+  line-height: var(--multilineTextLineHeight);
 }
 
 .icon {
   display: inline-block;
-  flex-shrink: 0;
-  height: var(--iconSize);
   width: var(--iconSize);
+  height: var(--iconSize);
   background-size: cover;
   border-radius: var(--borderRadiusSmall);
+  flex-shrink: 0;
 }
 </style>
