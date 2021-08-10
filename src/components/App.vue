@@ -211,6 +211,10 @@ export default defineComponent({
 body {
   margin: 0;
 }
+
+input, select {
+  font: inherit;
+}
 </style>
 
 <style scoped>
