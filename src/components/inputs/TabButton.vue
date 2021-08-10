@@ -28,7 +28,7 @@ export default defineComponent({
   display: inline-block;
   box-sizing: border-box;
   padding: 0 0 var(--paddingMinimal);
-  font-size: var(--fontSizeMiddle);
+  font-size: var(--fontSizeMedium);
   color: var(--fg);
   cursor: pointer;
   background-color: transparent;
