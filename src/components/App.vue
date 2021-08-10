@@ -175,7 +175,8 @@ export default defineComponent({
 
   /* typography */
   --fontSizeTitle: 28px;
-  --fontSizeLarge: 18px;
+  --fontSizeXLarge: 18px;
+  --fontSizeLarge: 16px;
   --fontSizeMedium: 14px;
   --fontSizeIcon: 26px;
   --fontSizePart: 48px;
@@ -205,11 +206,21 @@ export default defineComponent({
   --fieldsetBottomSpacing: 24px;
   --cardPaddingH: 24px;
   --cardPaddingV: 20px;
+  --iconSize: 34px;
 }
 </style>
 
 <style scoped>
 .app {
   padding: var(--paddingLarge);
+}
+
+/* taken from naive-ui/global */
+.app {
+  margin: 0;
+  font-size: 14px;
+  font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
 }
 </style>
