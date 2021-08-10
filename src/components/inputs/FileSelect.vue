@@ -1,12 +1,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NUpload } from "naive-ui";
 import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
 import Button from "./Button.vue";
+import File from "../icons/File.vue";
 
 export default defineComponent({
   components: {
-    NUpload, Button,
+    Button, File,
   },
   props: {
     label: { type: String, default: undefined },
@@ -16,14 +16,17 @@ export default defineComponent({
   ],
   data() {
     return {
-      fileList: [] as { file: File }[],
+      file: null,
     };
   },
   methods: {
-    onChange(files: { file: File }[]): void {
-      if (files[0]) {
-        this.fileList = [files[files.length - 1]];
-        loadFileAsBlobURL(files[files.length - 1].file).then((blobUrl) => {
+    onClick(): void {
+      this.$refs.input.click();
+    },
+    onChange(e: Event): void {
+      if (e.target.files[0]) {
+        this.file = e.target.files[0];
+        loadFileAsBlobURL(this.file).then((blobUrl) => {
           urlToImg(blobUrl, (img) => this.$emit("load", img));
         });
       }
@@ -33,13 +36,20 @@ export default defineComponent({
 </script>
 
 <template>
-  <NUpload
-      :file-list="fileList"
-      :multiple="false"
-      :show-cancel-button="false"
-      @update:file-list="onChange">
-    <Button type="dashed">
-      <slot />
-    </Button>
-  </NUpload>
+  <input ref="input" type="file" style="display: none" @change="onChange" />
+  <Button type="dashed" @click="onClick">
+    <slot />
+  </Button>
+  <div v-if="file" class="file">
+    <File /> {{ file.name }}
+  </div>
 </template>
+
+<style scoped>
+.file {
+  margin-top: var(--marginSmall);
+  font-size: var(--fontSizeMedium);
+  color: var(--fg);
+  user-select: none;
+}
+</style>
