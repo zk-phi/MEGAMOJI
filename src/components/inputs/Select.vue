@@ -64,7 +64,7 @@ export default defineComponent({
   background-color: var(--bg);
   background-repeat: no-repeat;
   background-position: right var(--marginXSmall) bottom 50%;
-  background-size: var(--fontSizeMedium);
+  background-size: var(--fontSizeXLarge);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
