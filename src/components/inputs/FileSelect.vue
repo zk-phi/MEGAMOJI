@@ -36,7 +36,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <input ref="input" type="file" style="display: none;" @change="onChange" />
+  <input ref="input" type="file" style="display: none;" @change="onChange">
   <Button type="dashed" @click="onClick">
     <slot />
   </Button>

@@ -33,7 +33,7 @@ export default defineComponent({
         class="number"
         type="text"
         :value="modelValue"
-        @input="onChange($event.target.value)" />
+        @input="onChange($event.target.value)">
     <div class="buttons">
       <button class="button" @click="onChange(modelValue - 1)">
         <Decrement />
@@ -93,8 +93,8 @@ export default defineComponent({
   padding: 0;
   font-size: var(--fontSizeXLarge);
   line-height: 1;
-  cursor: pointer;
   color: var(--border);
+  cursor: pointer;
   background-color: transparent;
   border: 0;
 }
