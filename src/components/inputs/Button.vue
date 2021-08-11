@@ -60,7 +60,7 @@ export default defineComponent({
 }
 
 .text:hover {
-  color: var(--primaryHover);
+  color: var(--primary);
 }
 
 .text:active {
