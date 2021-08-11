@@ -17,7 +17,7 @@ export default defineComponent({
     "update:modelValue",
   ],
   methods: {
-    onChange(value): void {
+    onChange(value: string): void {
       const number = Number(value);
       if (!Number.isNaN(number)) {
         this.$emit("update:modelValue", Math.min(this.max, Math.max(this.min, number)));

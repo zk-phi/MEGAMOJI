@@ -16,14 +16,14 @@ export default defineComponent({
   ],
   data() {
     return {
-      file: null,
+      file: null as File | null,
     };
   },
   methods: {
     onClick(): void {
-      this.$refs.input.click();
+      (this.$refs.input as HTMLInputElement).click();
     },
-    onChange(e: Event): void {
+    onChange(e: { target: { files: FileList } }): void {
       if (e.target.files[0]) {
         this.file = e.target.files[0];
         loadFileAsBlobURL(this.file).then((blobUrl) => {
