@@ -9,6 +9,7 @@ import Input from "../inputs/Input.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
+import Slider from "../inputs/Slider.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import Grid from "../global/Grid.vue";
@@ -31,6 +32,7 @@ export default defineComponent({
     GradientBlock,
     OutlineBlock,
     Fieldset,
+    Slider,
     Button,
     Input,
     Textarea,
@@ -61,7 +63,7 @@ export default defineComponent({
         outlines: [] as string[],
         font: "normal 1em sans-serif",
         /* advanced */
-        lineSpacing: "0.05",
+        lineSpacing: 0.05,
       },
       showDetails: false,
     };
@@ -143,7 +145,12 @@ export default defineComponent({
             </Space>
           </Fieldset>
           <Fieldset v-if="showDetails" label="行間 (文字分)">
-            <Input v-model="conf.lineSpacing" />
+            <Slider
+                v-model="conf.lineSpacing"
+                block
+                :min="0"
+                :max="1"
+                :step="0.01" />
           </Fieldset>
           <FontColorSelectBlock
               v-model="conf.color"
