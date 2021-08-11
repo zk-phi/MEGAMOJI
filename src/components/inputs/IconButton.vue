@@ -31,7 +31,7 @@ export default defineComponent({
 }
 
 .default {
-  color: var(--fg);
+  color: var(--border);
 }
 
 .default:hover {
@@ -43,7 +43,7 @@ export default defineComponent({
 }
 
 .danger {
-  color: var(--fg);
+  color: var(--border);
 }
 
 .danger:hover {
