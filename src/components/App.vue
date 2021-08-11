@@ -210,10 +210,12 @@ export default defineComponent({
   --iconSize: 34px;
 }
 
+/* stylelint-disable-next-line selector-max-type */
 body {
   margin: 0;
 }
 
+/* stylelint-disable-next-line selector-max-type */
 input,
 select {
   font: inherit;
@@ -223,7 +225,16 @@ select {
 <style scoped>
 .app {
   padding: var(--paddingLarge);
-  font-family: v-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family:
+    v-sans,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
 
   /* taken from naive-ui/global */
   font-size: 14px;

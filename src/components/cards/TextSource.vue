@@ -5,7 +5,6 @@ import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
-import Input from "../inputs/Input.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
@@ -34,7 +33,6 @@ export default defineComponent({
     Fieldset,
     Slider,
     Button,
-    Input,
     Textarea,
     Grid,
     GridItem,
