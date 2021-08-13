@@ -2,7 +2,6 @@
 import { defineComponent } from "vue";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
-import GradientBlock from "../formblocks/GradientBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
 import Textarea from "../inputs/Textarea.vue";
@@ -28,7 +27,6 @@ export default defineComponent({
   components: {
     FontSelectBlock,
     FontColorSelectBlock,
-    GradientBlock,
     OutlineBlock,
     Fieldset,
     Slider,
@@ -152,10 +150,8 @@ export default defineComponent({
           </Fieldset>
           <FontColorSelectBlock
               v-model="conf.color"
+              v-model:gradient="conf.gradient"
               :show-details="showDetails" />
-          <GradientBlock
-              v-model="conf.gradient"
-              :base-color="conf.color" />
           <OutlineBlock
               v-model="conf.outlines"
               :base-color="conf.color"
