@@ -123,7 +123,7 @@ export default defineComponent({
         <Space vertical xlarge full>
           <Fieldset label="テキスト (改行可)">
             <Space vertical full>
-              <Textarea v-model="conf.content" block autofocus :rows="3" />
+              <Textarea v-model="conf.content" block autofocus :rows="5" />
               <Space small>
                 <ToggleButton v-model="conf.align" size="small" value="stretch">
                   <AlignJustify />
