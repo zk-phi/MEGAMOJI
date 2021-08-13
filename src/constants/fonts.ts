@@ -25,7 +25,7 @@ const loadFont = (font: Record<string, string>) => {
 
 export default [
   {
-    label: "スタンダード",
+    label: "フォント",
     fonts: [
       { label: "ゴシック", value: loadFont({ Mplus1Bold }) },
       { label: "ゴシック/極太", value: loadFont({ Mplus1Black }) },
@@ -34,7 +34,7 @@ export default [
       { label: "明朝", value: loadFont({ NotoSerifBlack }) },
     ],
   }, {
-    label: "デザイン",
+    label: "デザインフォント",
     fonts: [
       { label: "デラゴシック", value: loadFont({ DelaGothic }) },
       { label: "あかずきんポップ", value: loadFont({ AkazukinPOP }) },
