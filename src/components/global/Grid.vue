@@ -19,17 +19,17 @@ export default defineComponent({
       return column ? column[1] : 1;
     },
   },
-  methods: {
-    updateWidth() {
-      this.width = this.$el.getBoundingClientRect().width;
-    }
-  },
   mounted() {
     this.updateWidth();
     window.addEventListener("resize", this.updateWidth);
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.updateWidth);
+  },
+  methods: {
+    updateWidth() {
+      this.width = this.$el.getBoundingClientRect().width;
+    },
   },
 });
 </script>
