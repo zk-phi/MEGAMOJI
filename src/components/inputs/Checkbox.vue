@@ -27,9 +27,6 @@ export default defineComponent({
     isRadio(): boolean {
       return typeof this.modelValue !== "boolean" && !Array.isArray(this.modelValue);
     },
-    className(): string {
-      return `check ${this.isRadio ? " radio" : ""}${this.selected ? " selected" : ""}`;
-    },
   },
   methods: {
     toggle() {
@@ -51,7 +48,7 @@ export default defineComponent({
 
 <template>
   <button class="checkbox" @click="toggle">
-    <span :class="className">
+    <span :class="['check', { selected, radio: isRadio }]">
       <RadioCheck v-if="isRadio" />
       <Check v-else />
     </span>
