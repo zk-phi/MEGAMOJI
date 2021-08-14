@@ -67,28 +67,6 @@ export default defineComponent({
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample :color="darker" />
       </ToggleButton>
-      <ToggleButton
-          :model-value="modelValue"
-          :base-color="baseColor"
-          size="small"
-          value="identical"
-          @update:model-value="$emit('update:modelValue', $event)">
-        <ColorSample :color="identical" />
-      </ToggleButton>
-      <ToggleButton
-          :model-value="modelValue"
-          size="small"
-          value="lighter"
-          @update:model-value="$emit('update:modelValue', $event)">
-        <ColorSample :color="lighter" />
-      </ToggleButton>
-      <ToggleButton
-          :model-value="modelValue"
-          size="small"
-          value="#ffffff"
-          @update:model-value="$emit('update:modelValue', $event)">
-        <ColorSample color="#ffffff" />
-      </ToggleButton>
     </Space>
   </Fieldset>
   <Fieldset v-else label="アウトライン">
