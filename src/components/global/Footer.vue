@@ -22,7 +22,7 @@ export default defineComponent({
     <p class="p">
       Built with ♡ by zk-phi
       <Button type="text" @click="donate">
-        ☕️コーヒーをおごる
+        🎁投げ銭箱
       </Button>
     </p>
   </footer>
