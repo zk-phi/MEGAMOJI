@@ -47,6 +47,7 @@ export default defineComponent({
 }
 
 .tab-button.selected:not(:hover) {
-  border-color: var(--border);
+  color: var(--primary);
+  border-color: var(--primary);
 }
 </style>
