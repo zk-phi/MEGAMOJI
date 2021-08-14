@@ -46,8 +46,8 @@ export default defineComponent({
   border-color: var(--primaryActive);
 }
 
-.tab-button.selected:not(:hover) {
-  color: var(--primary);
+.tab-button.selected {
+  font-weight: bold;
   border-color: var(--primary);
 }
 </style>
