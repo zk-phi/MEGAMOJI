@@ -12,7 +12,6 @@ export default defineComponent({
   },
   data: () => ({
     width: 0,
-    observer: null as ResizeObserver | null,
   }),
   computed: {
     numColumns(): number {
@@ -20,16 +19,17 @@ export default defineComponent({
       return column ? column[1] : 1;
     },
   },
+  methods: {
+    updateWidth() {
+      this.width = this.$el.getBoundingClientRect().width;
+    }
+  },
   mounted() {
-    this.observer = new ResizeObserver((entries) => {
-      this.width = entries[0].contentRect.width;
-    });
-    this.observer.observe(this.$el);
+    this.updateWidth();
+    window.addEventListener("resize", this.updateWidth);
   },
   beforeUnmount() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    window.removeEventListener("resize", this.updateWidth);
   },
 });
 </script>
