@@ -27,6 +27,7 @@ export default [
   {
     label: "フォント",
     fonts: [
+      { label: "デフォルト", value: "normal 1em sans-serif" },
       { label: "ゴシック", value: loadFont({ Mplus1Bold }) },
       { label: "ゴシック/極太", value: loadFont({ Mplus1Black }) },
       { label: "丸ゴ", value: loadFont({ RoundedMPlusBold }) },
