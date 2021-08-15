@@ -31,6 +31,7 @@ export default defineComponent({
 .title {
   margin-bottom: var(--marginSmall);
   font-size: var(--fontSizeLarge);
+  font-weight: bold;
   line-height: 1;
 }
 
