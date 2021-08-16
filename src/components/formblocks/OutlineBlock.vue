@@ -35,7 +35,7 @@ export default defineComponent({
       )));
     },
     add(): void {
-      this.$emit("update:modelValue", [...this.modelValue, this.baseColor]);
+      this.$emit("update:modelValue", [...this.modelValue, "identical"]);
     },
     remove(ix: number): void {
       this.$emit("update:modelValue", this.modelValue.filter((_, i) => i !== ix));
