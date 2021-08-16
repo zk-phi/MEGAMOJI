@@ -2,7 +2,7 @@ import Space from "./Space.vue";
 import ColorSample from "./ColorSample.vue";
 
 export default {
-  title: "atoms/global/Space",
+  title: "utils/Space",
   component: Space,
 };
 

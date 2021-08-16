@@ -1,11 +1,11 @@
 import Card from "./Card.vue";
 
 export default {
-  title: "atoms/global/Card",
+  title: "molecules/global/Card",
   component: Card,
 };
 
-export const Template = () => ({
+export const Base = () => ({
   components: { Card },
   template: `
     <Card title="ほげほげ">

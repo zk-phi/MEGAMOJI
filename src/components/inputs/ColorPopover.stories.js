@@ -1,7 +1,7 @@
 import ColorPopover from "./ColorPopover.vue";
 
 export default {
-  title: "atoms/inputs/ColorPopover",
+  title: "molecules/inputs/ColorPopover",
   component: ColorPopover,
 };
 

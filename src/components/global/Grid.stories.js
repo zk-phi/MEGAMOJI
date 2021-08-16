@@ -2,7 +2,7 @@ import Grid from "./Grid.vue";
 import GridItem from "./GridItem.vue";
 
 export default {
-  title: "molecules/global/Grid",
+  title: "utils/Grid",
   component: Grid,
   subcomponents: { GridItem },
 };
