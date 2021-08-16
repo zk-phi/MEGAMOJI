@@ -86,8 +86,8 @@ export default defineComponent({
 <style scoped>
 .popover {
   position: absolute;
-  margin: var(--marginSmall) 0;
   padding: var(--paddingLarge);
+  margin: var(--marginSmall) 0;
   background-color: var(--bg);
   border-radius: var(--borderRadius);
   box-shadow: var(--popoverShadow);

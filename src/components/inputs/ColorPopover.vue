@@ -8,14 +8,17 @@ import { HEX2HWB, HWB2HEX } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    Popover, HueSlider, TonePicker Space,
+    Popover, HueSlider, TonePicker, Space,
   },
   props: {
-    el: { type: Object as PropTypes<HTMLElement>, default: null },
+    el: { type: Object as PropType<HTMLElement>, default: null },
     show: { type: Boolean, required: true },
     onHide: { type: Function, required: true },
     modelValue: { type: String, required: true },
   },
+  emits: [
+    "update:modelValue",
+  ],
   data: (props) => ({
     value: props.modelValue,
     hwb: HEX2HWB(props.modelValue),
@@ -56,7 +59,7 @@ export default defineComponent({
   <Popover :show="show" :el="el" :on-hide="onHide">
     <div class="container">
       <Space vertical full>
-        <TonePicker :h="hwb.h" v-model:w="hwb.w" v-model:b="hwb.b" :style="{ height: '180px' }" />
+        <TonePicker v-model:w="hwb.w" v-model:b="hwb.b" :h="hwb.h" :style="{ height: '180px' }" />
         <HueSlider v-model:h="hwb.h" :w="hwb.w" :b="hwb.b" />
         <slot />
       </Space>

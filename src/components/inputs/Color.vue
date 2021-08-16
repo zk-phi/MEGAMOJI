@@ -10,16 +10,19 @@ export default defineComponent({
   props: {
     modelValue: { type: String, required: true },
     block: { type: Boolean, default: false },
-    style: { type: [String, Object], default: {} },
+    style: { type: Object, default: () => ({}) },
   },
+  emits: [
+    "update:modelValue",
+  ],
+  data: () => ({
+    showPopover: false,
+  }),
   computed: {
     dark(): boolean {
       return HEX2HSL(this.modelValue).l < 50;
     },
   },
-  data: (props) => ({
-    showPopover: false,
-  }),
   methods: {
     hidePopover(): void {
       this.showPopover = false;
@@ -52,8 +55,8 @@ export default defineComponent({
   padding: var(--paddingMedium);
   font-size: var(--fontSizeMedium);
   line-height: 1;
-  cursor: pointer;
   color: var(--fg);
+  cursor: pointer;
   background-color: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);

@@ -209,7 +209,7 @@ export default defineComponent({
   --colorSliderRailHeight: 1.125em;
   --fieldsetBottomSpacing: 24px;
   --iconSize: 34px;
-  --popoverShadow: rgb(0 0 0 / 19%) 0px 10px 20px, rgb(0 0 0 / 23%) 0px 6px 6px;
+  --popoverShadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
 }
 
 /* stylelint-disable-next-line selector-max-type */

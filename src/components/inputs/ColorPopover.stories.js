@@ -14,7 +14,7 @@ export const Base = () => ({
   methods: {
     onHide() {
       this.showPopover = false;
-    }
+    },
   },
   template: `
     <button ref="btn" @click="showPopover = true">

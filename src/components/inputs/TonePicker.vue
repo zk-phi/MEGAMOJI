@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import { HWB2HEX } from "../../utils/color";
 
 export default defineComponent({
@@ -74,14 +74,14 @@ export default defineComponent({
 .tone-picker {
   position: relative;
   display: block;
-  height: 320px; /* override me */
   width: 100%;
+  height: 320px; /* override me */
 }
 
 .container {
   position: relative;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -89,17 +89,17 @@ export default defineComponent({
 
 .layer {
   position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
+  left: 0;
   border: 1px solid var(--border);
 }
 
 .knob {
   position: absolute;
-  left: calc(100% * var(--jsValueH));
   top: calc(100% * var(--jsValueV));
+  left: calc(100% * var(--jsValueH));
   display: inline-block;
   width: var(--sliderKnobSize);
   height: var(--sliderKnobSize);
@@ -110,8 +110,8 @@ export default defineComponent({
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
     0 0 0 1px inset var(--border),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
@@ -119,15 +119,15 @@ export default defineComponent({
 .knob:hover {
   box-shadow:
     0 0 0 1px inset var(--primary),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
 }
 
 .knob:active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
 }
 </style>

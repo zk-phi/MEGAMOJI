@@ -1,10 +1,7 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 
-type Pos = { left: string };
-
-const gradient =
-  `linear-gradient(90deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red)`;
+const gradient = "linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)";
 
 export default defineComponent({
   props: {
@@ -77,9 +74,9 @@ export default defineComponent({
   left: 0;
   width: calc(100%);
   height: var(--sliderKnobSize);
+  overflow: hidden;
   font-size: var(--fontSizeMedium);
   line-height: 1;
-  overflow: hidden;
 }
 
 .rail {
@@ -95,8 +92,8 @@ export default defineComponent({
 
 .knob {
   position: absolute;
-  left: calc(100% * var(--jsValue));
   top: 0;
+  left: calc(100% * var(--jsValue));
   display: inline-block;
   width: var(--sliderKnobSize);
   height: var(--sliderKnobSize);
@@ -106,8 +103,8 @@ export default defineComponent({
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
     0 0 0 1px inset var(--border),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
@@ -115,15 +112,15 @@ export default defineComponent({
 .knob:hover {
   box-shadow:
     0 0 0 1px inset var(--primary),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
 }
 
 .knob:active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),
-    0 0 0 2px inset white,
-    0 0 0 3px inset black;
+    0 0 0 2px inset #fff,
+    0 0 0 3px inset #000;
 }
 </style>
