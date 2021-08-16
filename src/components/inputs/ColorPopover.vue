@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Popover from "../utils/Popover.vue";
+import Popover from "../global/Popover.vue";
 import HueSlider from "./HueSlider.vue";
 import TonePicker from "./TonePicker.vue";
 import Space from "../global/Space.vue";
