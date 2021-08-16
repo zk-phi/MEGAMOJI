@@ -24,12 +24,6 @@ export default defineComponent({
     darker(): string {
       return absColor("darker", this.baseColor);
     },
-    identical(): string {
-      return absColor("identical", this.baseColor);
-    },
-    lighter(): string {
-      return absColor("lighter", this.baseColor);
-    },
     absColors(): string[] {
       return this.modelValue.map((color) => absColor(color, this.baseColor));
     },
