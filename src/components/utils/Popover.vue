@@ -2,6 +2,15 @@
 import { defineComponent, PropType } from "vue";
 import { elementIsContained } from "../../utils/dom";
 
+type Pos = {
+  left?: string,
+  right?: string,
+  top?: string,
+  bottom?: string,
+  width?: string,
+  height?: string,
+};
+
 export default defineComponent({
   props: {
     el: { type: Object as PropType<HTMLElement>, default: null },
@@ -10,8 +19,8 @@ export default defineComponent({
     refresh: { type: Number, default: null },
   },
   data: () => ({
-    style: {},
-    hideHandler: null,
+    style: {} as Pos,
+    hideHandler: null as ((e: PointerEvent) => void) | null,
   }),
   watch: {
     refresh: {
@@ -25,8 +34,8 @@ export default defineComponent({
       handler(): void {
         if (this.show) {
           this.refreshStyle();
-          this.hideHandler = (e) => {
-            if (!elementIsContained(e.target, this.$refs.popover)) {
+          this.hideHandler = (e: PointerEvent): void => {
+            if (!elementIsContained(e.target as Element, this.$refs.popover as Element)) {
               this.onHide();
             }
           };
@@ -55,7 +64,7 @@ export default defineComponent({
         this.style = {};
       } else {
         const rect = this.el.getBoundingClientRect();
-        const style = {};
+        const style: Pos = {};
         if (rect.left < window.innerWidth / 2) {
           style.left = `${rect.left + window.scrollX}px`;
         } else {

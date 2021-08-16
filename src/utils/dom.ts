@@ -1,4 +1,4 @@
-export const elementIsContained = (element: HTMLElement, parent: HTMLElement): boolean => {
+export const elementIsContained = (element: Element | null, parent: Element): boolean => {
   if (!element) {
     return false;
   } else if (element === parent) {
