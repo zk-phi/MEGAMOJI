@@ -1,13 +1,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NColorPicker, NSlider } from "naive-ui";
+import { NSlider } from "naive-ui";
 import { absColor } from "../../utils/color";
 import IconButton from "../inputs/IconButton.vue";
+import Color from "../inputs/Color.vue";
 import Delete from "../icons/Delete.vue";
 
 export default defineComponent({
   components: {
-    IconButton, Delete, NColorPicker, NSlider,
+    IconButton, Delete, Color, NSlider,
   },
   props: {
     modelValue: { type: Object, required: true },
@@ -35,12 +36,10 @@ export default defineComponent({
 
 <template>
   <div style="display: flex; align-items: center; width: 100%;">
-    <NColorPicker
-        :modes="['hex']"
-        :value="absColor"
-        :show-alpha="false"
+    <Color
+        :model-value="absColor"
         style="width: 128px; margin-right: 8px;"
-        @update:value="changeColor($event)" />
+        @update:model-value="changeColor($event)" />
     <NSlider
         :value="modelValue.pos"
         :min="1"

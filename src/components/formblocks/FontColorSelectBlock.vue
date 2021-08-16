@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { NColorPicker } from "naive-ui";
+import Color from "../inputs/Color.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import ColorSample from "../global/ColorSample.vue";
@@ -10,7 +10,7 @@ import fontcolors from "../../constants/fontcolors";
 
 export default defineComponent({
   components: {
-    ToggleButton, ColorSample, NColorPicker, Space, Fieldset, GradientBlock,
+    ToggleButton, ColorSample, Color, Space, Fieldset, GradientBlock,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -44,12 +44,11 @@ export default defineComponent({
           </ToggleButton>
         </Space>
       </Space>
-      <NColorPicker
+      <Color
           v-else
-          :modes="['hex']"
-          :value="modelValue"
-          :show-alpha="false"
-          @update:value="$emit('update:modelValue', $event)" />
+          block
+          :model-value="modelValue"
+          @update:model-value="$emit('update:modelValue', $event)" />
       <GradientBlock
           :show-details="showDetails"
           :model-value="gradient"

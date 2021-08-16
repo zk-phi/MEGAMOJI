@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { NColorPicker } from "naive-ui";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -8,6 +7,7 @@ import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Slider from "../inputs/Slider.vue";
 import Fieldset from "../inputs/Fieldset.vue";
+import Color from "../inputs/Color.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import Grid from "../global/Grid.vue";
@@ -50,7 +50,7 @@ const SPEED_OPTIONS = [
 
 export default defineComponent({
   components: {
-    NColorPicker,
+    Color,
     EffectBlock,
     Checkbox,
     CellcountBlock,
@@ -261,10 +261,7 @@ export default defineComponent({
           </Fieldset>
           <Fieldset label="背景色">
             <Space vertical full>
-              <NColorPicker
-                  v-model:value="conf.backgroundColor"
-                  :modes="['hex']"
-                  :show-alpha="false" />
+              <Color v-model="conf.backgroundColor" block />
               <Checkbox v-model="conf.transparent">
                 {{ "透過 (アニメ gif は非推奨)" }}
               </Checkbox>
