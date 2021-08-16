@@ -1,6 +1,7 @@
 import * as ColorConvert from "color-convert";
 
 export type HSV = { h: number, s: number, v: number };
+export type HSL = { h: number, s: number, l: number };
 export type RGB = { r: number, g: number, b: number };
 export type HWB = { h: number, w: number, b: number };
 
@@ -17,6 +18,16 @@ export const HWB2HEX = (hwb: HWB): string => {
 export const HEX2HWB = (hexColor: string): HWB => {
   const hwb = ColorConvert.hex.hwb(hexColor);
   return { h: hwb[0], w: hwb[1], b: hwb[2] };
+};
+
+export const HEX2HSL = (hexColor: string): HSL => {
+  const hsl = ColorConvert.hex.hsl(hexColor);
+  return { h: hsl[0], s: hsl[1], l: hsl[2] };
+};
+
+export const HSL2HEX = (hsl: HSL): string => {
+  const hex = ColorConvert.hsl.hex([hsl.h, hsl.s, hsl.l]);
+  return `#${hex}`;
 };
 
 const lighterColor = (hexColor: string): string => {
