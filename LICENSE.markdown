@@ -23,8 +23,6 @@
   - (c) Eli Grey, Licensed under the MIT License
 - jszip
   - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso, Licensed under the MIT License
-- Naive UI
-  - (c) TuSimple, Licensed under the MIT License
 - Rollbar
   - (c) Rollbar, Licensed under the MIT License
 - Vue.js
