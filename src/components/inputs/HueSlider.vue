@@ -105,6 +105,7 @@ export default defineComponent({
     0 0 0 3px inset #000;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
+  cursor: grab;
 }
 
 .knob:hover {

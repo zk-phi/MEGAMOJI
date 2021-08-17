@@ -190,6 +190,7 @@ export default defineComponent({
   text-align: center;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
+  cursor: grab;
 }
 
 .knob:hover {
