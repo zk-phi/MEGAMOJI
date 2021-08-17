@@ -15,14 +15,16 @@ const makeTextImageSingleLine = (
   ctx.font = font;
   ctx.textBaseline = "top";
 
+  const margin = fontHeight * 0.025;
+
   for (let i = outlineColors.length - 1; i >= 0; i -= 1) {
     ctx.strokeStyle = outlineColors[i];
     ctx.lineWidth = (i + 1) * 8;
-    ctx.strokeText(line, 25, 25);
+    ctx.strokeText(line, margin, margin);
   }
 
   if (gradient.length) {
-    const gradientObj = ctx.createLinearGradient(0, 0, 0, fontHeight + 50);
+    const gradientObj = ctx.createLinearGradient(0, 0, 0, fontHeight + margin * 2);
     gradient.forEach((colorStop) => {
       gradientObj.addColorStop(colorStop.pos / 100, colorStop.color);
     });
@@ -30,7 +32,7 @@ const makeTextImageSingleLine = (
   } else {
     ctx.fillStyle = color;
   }
-  ctx.fillText(line, 25, 25);
+  ctx.fillText(line, margin, margin);
 
   return shrinkCanvas(canvas);
 };
