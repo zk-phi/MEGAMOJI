@@ -1,15 +1,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { HWB2HEX } from "../../utils/color";
+import { HSV2HEX } from "../../utils/color";
 
 export default defineComponent({
   props: {
     h: { type: Number, required: true },
-    w: { type: Number, required: true },
-    b: { type: Number, required: true },
+    s: { type: Number, required: true },
+    v: { type: Number, required: true },
   },
   emits: [
-    "update:w", "update:b",
+    "update:s", "update:v",
   ],
   data: () => ({
     moveHandler: null as ((e: PointerEvent) => void) | null,
@@ -17,7 +17,7 @@ export default defineComponent({
   }),
   computed: {
     baseColor(): string {
-      return HWB2HEX({ h: this.h, w: 0, b: 0 });
+      return HSV2HEX({ h: this.h, s: 100, v: 100 });
     },
   },
   beforeUnmount() {
@@ -30,10 +30,10 @@ export default defineComponent({
       if (this.moveHandler) return;
       const rect = (this.$refs.container as HTMLDivElement).getBoundingClientRect();
       this.moveHandler = (e: PointerEvent) => {
-        const white = (1 - (e.clientX - rect.left) / rect.width);
-        const black = (e.clientY - rect.top) / rect.height;
-        this.$emit("update:w", 100 * Math.min(1, Math.max(0, white)));
-        this.$emit("update:b", 100 * Math.min(1, Math.max(0, black)));
+        const white = (e.clientX - rect.left) / rect.width;
+        const black = 1 - (e.clientY - rect.top) / rect.height;
+        this.$emit("update:s", 100 * Math.min(1, Math.max(0, white)));
+        this.$emit("update:v", 100 * Math.min(1, Math.max(0, black)));
         e.preventDefault();
       };
       this.upHandler = (e?: PointerEvent) => {
@@ -60,7 +60,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="tone-picker" :style="{ '--jsValueH': (1 - w / 100), '--jsValueV': b / 100 }">
+  <div class="tone-picker" :style="{ '--jsValueH': s / 100, '--jsValueV': 1 - v / 100 }">
     <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div class="layer" :style="{ background: baseColor }" />
       <div class="layer" :style="{ background: `linear-gradient(90deg, white, transparent)` }" />

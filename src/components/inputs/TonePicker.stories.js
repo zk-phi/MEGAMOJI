@@ -9,13 +9,13 @@ export const Base = (args) => ({
   components: { TonePicker },
   data: () => ({
     h: args.defaultValue.h,
-    w: args.defaultValue.w,
-    b: args.defaultValue.b,
+    s: args.defaultValue.s,
+    v: args.defaultValue.v,
   }),
   template: `
-    <TonePicker :h="h" v-model:w="w" v-model:b="b" />
+    <TonePicker :h="h" v-model:s="s" v-model:v="v" />
   `,
 });
 Base.args = {
-  defaultValue: { h: 100, w: 0, b: 0 },
+  defaultValue: { h: 100, s: 100, v: 100 },
 };

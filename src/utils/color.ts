@@ -10,14 +10,14 @@ export const HSV2RGB = (hsv: HSV): RGB => {
   return { r: ret[0], g: ret[1], b: ret[2] };
 };
 
-export const HWB2HEX = (hwb: HWB): string => {
-  const hex = ColorConvert.hwb.hex([hwb.h, hwb.w, hwb.b]);
-  return `#${hex}`;
+export const HEX2HSV = (hexColor: string): HSV => {
+  const hsv = ColorConvert.hex.hsv(hexColor);
+  return { h: hsv[0], s: hsv[1], v: hsv[2] };
 };
 
-export const HEX2HWB = (hexColor: string): HWB => {
-  const hwb = ColorConvert.hex.hwb(hexColor);
-  return { h: hwb[0], w: hwb[1], b: hwb[2] };
+export const HSV2HEX = (hsv: HSV): string => {
+  const hex = ColorConvert.hsv.hex([hsv.h, hsv.s, hsv.v]);
+  return `#${hex}`;
 };
 
 export const HEX2HSL = (hexColor: string): HSL => {

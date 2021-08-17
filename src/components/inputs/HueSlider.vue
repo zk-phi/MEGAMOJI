@@ -6,8 +6,6 @@ const gradient = "linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67
 export default defineComponent({
   props: {
     h: { type: Number, required: true },
-    w: { type: Number, required: true },
-    b: { type: Number, required: true },
   },
   emits: [
     "update:h",
