@@ -1,14 +1,13 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Button from "../inputs/Button.vue";
 import Checkbox from "../inputs/Checkbox.vue";
-import ColorStopBlock from "./ColorStopBlock.vue";
+import Gradient from "../inputs/Gradient.vue";
 import Space from "../global/Space.vue";
 import { ColorStop } from "../../types";
 
 export default defineComponent({
   components: {
-    ColorStopBlock, Button, Checkbox, Space,
+    Checkbox, Gradient, Space,
   },
   props: {
     modelValue: { type: Array as PropType<ColorStop[]>, required: true },
@@ -48,31 +47,22 @@ export default defineComponent({
         { color: "identical", pos: 50 },
       ]);
     },
+    clearGradient(): void {
+      this.$emit("update:modelValue", []);
+    },
   },
 });
 </script>
 
 <template>
-  <Checkbox v-if="!showDetails" :model-value="modelValue.length > 0" @update:model-value="toggle">
-    グラデーション
-  </Checkbox>
-  <Button
-      v-if="showDetails && modelValue.length == 0"
-      block
-      type="dashed"
-      @click="initializeGradient">
-    + グラデーションを追加
-  </Button>
-  <Space v-if="showDetails && modelValue.length > 0" vertical full>
-    <ColorStopBlock
-        v-for="(colorstop, ix) in modelValue"
-        :key="ix"
-        :model-value="colorstop"
+  <Space vertical full>
+    <Gradient
+        v-if="showDetails && modelValue.length > 0"
+        :model-value="modelValue"
         :base-color="baseColor"
-        @remove="remove(ix)"
-        @update:model-value="update(ix, $event)" />
-    <Button type="dashed" block @click="add">
-      + 色を追加
-    </Button>
+        @update:model-value="$emit('update:modelValue', $event)" />
+    <Checkbox :model-value="modelValue.length > 0" @update:model-value="toggle">
+      グラデーション
+    </Checkbox>
   </Space>
 </template>
