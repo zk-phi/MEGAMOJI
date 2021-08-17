@@ -103,8 +103,7 @@ export default defineComponent({
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
     0 0 0 1px inset var(--border),
-    0 0 0 2px inset #fff,
-    0 0 0 3px inset #000;
+    0 0 0 2px inset #fff;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
@@ -112,15 +111,13 @@ export default defineComponent({
 .knob:hover {
   box-shadow:
     0 0 0 1px inset var(--primary),
-    0 0 0 2px inset #fff,
-    0 0 0 3px inset #000;
+    0 0 0 2px inset #fff;
 }
 
 .knob.active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),
-    0 0 0 2px inset #fff,
-    0 0 0 3px inset #000;
+    0 0 0 2px inset #fff;
 }
 </style>
