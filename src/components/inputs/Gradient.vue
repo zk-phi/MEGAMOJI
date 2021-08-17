@@ -159,6 +159,8 @@ export default defineComponent({
   height: calc(var(--knobHeight));
   font-size: var(--fontSizeMedium);
   line-height: 1;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  touch-action: none;
 }
 
 .rail {
@@ -187,8 +189,6 @@ export default defineComponent({
   box-shadow:
     0 0 0 1px inset var(--border),
     0 0 0 2px inset #fff;
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-  touch-action: none;
 }
 
 .knob:hover {

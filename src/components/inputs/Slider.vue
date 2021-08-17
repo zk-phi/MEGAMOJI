@@ -149,6 +149,8 @@ export default defineComponent({
   font-size: var(--fontSizeMedium);
   line-height: 1;
   cursor: pointer;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  touch-action: none;
 }
 
 .rail {
@@ -190,8 +192,6 @@ export default defineComponent({
   margin-left: calc(-1 * var(--sliderValueWidth) / 2);
   color: var(--fg);
   text-align: center;
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-  touch-action: none;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   cursor: grab;
 }
