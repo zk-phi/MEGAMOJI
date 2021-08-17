@@ -56,19 +56,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <Popover :show="show" :el="el" :on-hide="onHide">
-    <div class="container">
-      <Space vertical full>
-        <TonePicker v-model:w="hwb.w" v-model:b="hwb.b" :h="hwb.h" :style="{ height: '180px' }" />
-        <HueSlider v-model:h="hwb.h" :w="hwb.w" :b="hwb.b" />
-        <slot />
-      </Space>
-    </div>
+  <Popover :show="show" :el="el" :on-hide="onHide" :style="{ width: '260px' }">
+    <Space vertical full>
+      <TonePicker v-model:w="hwb.w" v-model:b="hwb.b" :h="hwb.h" :style="{ height: '180px' }" />
+      <HueSlider v-model:h="hwb.h" :w="hwb.w" :b="hwb.b" />
+      <slot />
+    </Space>
   </Popover>
 </template>
-
-<style scoped>
-.container {
-  width: 260px;
-}
-</style>

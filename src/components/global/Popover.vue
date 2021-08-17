@@ -17,9 +17,10 @@ export default defineComponent({
     show: { type: Boolean, required: true },
     onHide: { type: Function, required: true },
     refresh: { type: Number, default: null },
+    style: { type: Object, default: () => ({}) },
   },
   data: () => ({
-    style: {} as Pos,
+    pos: {} as Pos,
     hideHandler: null as ((e: PointerEvent) => void) | null,
   }),
   watch: {
@@ -61,32 +62,47 @@ export default defineComponent({
   methods: {
     refreshStyle(): void {
       if (!this.el) {
-        this.style = {};
+        this.pos = {};
       } else {
         const rect = this.el.getBoundingClientRect();
-        const style: Pos = {};
+        const pos: Pos = {};
         if (rect.left < window.innerWidth / 2) {
-          style.left = `${rect.left + window.scrollX}px`;
+          pos.left = `${rect.left + window.scrollX}px`;
         } else {
-          style.right = `${document.documentElement.clientWidth - (rect.right + window.scrollX)}px`;
+          pos.right = `${document.documentElement.clientWidth - (rect.right + window.scrollX)}px`;
         }
         if (rect.top < window.innerHeight / 2) {
-          style.top = `${rect.bottom + window.scrollY}px`;
-          style.width = `${rect.width}`;
+          pos.top = `${rect.bottom + window.scrollY}px`;
+          pos.maxWidth = `${rect.width}px`;
         } else {
-          style.bottom = `${document.documentElement.clientHeight - (rect.top + window.scrollY)}px`;
-          style.width = `${rect.width}`;
+          pos.bottom = `${document.documentElement.clientHeight - (rect.top + window.scrollY)}px`;
+          pos.maxWidth = `${rect.width}px`;
         }
-        this.style = style;
+        this.pos = pos;
       }
     },
+  },
+  updated(): void {
+    if (this.show) {
+      const rect = this.$refs.popover.getBoundingClientRect();
+      const left = rect.left + window.scrollX;
+      const right = document.documentElement.clientWidth - (rect.right + window.scrollX);
+      if (left < 0) {
+        this.pos.left = 0;
+        delete this.pos.right;
+      }
+      if (right < 0) {
+        this.pos.right = 0;
+        delete this.pos.left;
+      }
+    }
   },
 });
 </script>
 
 <template>
   <teleport to="body">
-    <div v-if="show" ref="popover" class="popover" :style="style">
+    <div v-if="show" ref="popover" class="popover" :style="{ ...style, ...pos }">
       <slot />
     </div>
   </teleport>
