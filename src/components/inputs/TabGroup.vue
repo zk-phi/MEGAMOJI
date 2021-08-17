@@ -11,7 +11,7 @@ export default defineComponent({
 
 <template>
   <div class="tab-group">
-    <Space>
+    <Space small>
       <slot />
     </Space>
   </div>
