@@ -73,10 +73,8 @@ export default defineComponent({
         }
         if (rect.top < window.innerHeight / 2) {
           pos.top = `${rect.bottom + window.scrollY}px`;
-          pos.maxWidth = `${rect.width}px`;
         } else {
           pos.bottom = `${document.documentElement.clientHeight - (rect.top + window.scrollY)}px`;
-          pos.maxWidth = `${rect.width}px`;
         }
         this.pos = pos;
       }
