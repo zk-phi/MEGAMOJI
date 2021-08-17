@@ -152,6 +152,7 @@ export default defineComponent({
   --railHeight: 36px;
   --knobWidth: 18px;
   --knobHeight: 36px;
+  --knobTouchAreaWidth: 3em;
   display: block;
   width: 100%;
 }
@@ -182,10 +183,10 @@ export default defineComponent({
 .knob {
   position: absolute;
   top: 0;
-  width: 3em;
+  width: var(--knobTouchAreaWidth);
   height: var(--knobHeight);
   box-sizing: border-box;
-  margin-left: calc(-1 * 2em / 2);
+  margin-left: calc(-1 * var(--knobTouchAreaWidth) / 2);
   text-align: center;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   cursor: grab;
