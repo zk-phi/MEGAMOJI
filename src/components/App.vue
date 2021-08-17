@@ -172,6 +172,7 @@ export default defineComponent({
   --danger: #d03050;
   --dangerHover: #de576d;
   --dangerActive: #ab1f3f;
+  --dangerShadow: 0 0 0 2px rgba(208, 48, 80, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;

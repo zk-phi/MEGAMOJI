@@ -5,23 +5,23 @@ export default defineComponent({
   props: {
     type: { type: String, default: "default" },
     block: { type: Boolean, default: false },
-  },
-  computed: {
-    className(): string {
-      return `button ${this.type}${this.block ? " block" : ""}`;
-    },
+    danger: { type: Boolean, default: false },
   },
 });
 </script>
 
 <template>
-  <button :class="className">
+  <button :class="['button', type, { block, danger }]">
     <slot />
   </button>
 </template>
 
 <style scoped>
 .button {
+  --buttonColorBase: var(--primary);
+  --buttonColorHover: var(--primaryHover);
+  --buttonColorActive: var(--primaryActive);
+  --buttonShadow: var(--primaryShadow);
   display: inline-block;
   box-sizing: border-box;
   padding: var(--paddingMedium);
@@ -33,25 +33,32 @@ export default defineComponent({
   border-radius: var(--borderRadius);
 }
 
+.button.danger {
+  --buttonColorBase: var(--danger);
+  --buttonColorHover: var(--dangerHover);
+  --buttonColorActive: var(--dangerActive);
+  --buttonShadow: var(--dangerShadow);
+}
+
 .block {
   display: block;
   width: 100%;
 }
 
 .default {
-  color: var(--primary);
-  border-color: var(--primary);
+  color: var(--buttonColorBase);
+  border-color: var(--buttonColorBase);
 }
 
 .default:hover {
-  color: var(--primaryHover);
-  border-color: var(--primaryHover);
+  color: var(--buttonColorHover);
+  border-color: var(--buttonColorHover);
 }
 
 .default:active {
-  color: var(--primaryActive);
-  border-color: var(--primaryActive);
-  box-shadow: var(--primaryShadow);
+  color: var(--buttonColorActive);
+  border-color: var(--buttonColorActive);
+  box-shadow: var(--buttonShadow);
 }
 
 .text {
@@ -60,11 +67,11 @@ export default defineComponent({
 }
 
 .text:hover {
-  color: var(--primary);
+  color: var(--buttonColorBase);
 }
 
 .text:active {
-  color: var(--primaryActive);
+  color: var(--buttonColorActive);
 }
 
 .dashed {
@@ -74,27 +81,27 @@ export default defineComponent({
 }
 
 .dashed:hover {
-  color: var(--primary);
-  border-color: var(--primary);
+  color: var(--buttonColorBase);
+  border-color: var(--buttonColorBase);
 }
 
 .dashed:active {
-  color: var(--primaryActive);
-  border-color: var(--primaryActive);
-  box-shadow: var(--primaryShadow);
+  color: var(--buttonColorActive);
+  border-color: var(--buttonColorActive);
+  box-shadow: var(--buttonShadow);
 }
 
 .primary {
   color: var(--distantFg);
-  background-color: var(--primary);
+  background-color: var(--buttonColorBase);
 }
 
 .primary:hover {
-  background-color: var(--primaryHover);
+  background-color: var(--buttonColorHover);
 }
 
 .primary:active {
-  background-color: var(--primaryActive);
-  box-shadow: var(--primaryShadow);
+  background-color: var(--buttonColorActive);
+  box-shadow: var(--buttonShadow);
 }
 </style>

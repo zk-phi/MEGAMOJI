@@ -9,21 +9,21 @@ const Template = (args) => ({
   components: { Button },
   data: () => args,
   template: `
-    <Button :type="type" :block="block">ボタン</Button>
+    <Button :type="type" :block="block" :danger="danger">ボタン</Button>
   `,
 });
 
 export const Base = Template.bind({});
-Base.args = { type: "default", block: false };
+Base.args = { type: "default", danger: false, block: false };
 
 export const Primary = Template.bind({});
-Primary.args = { type: "primary", block: false };
+Primary.args = { type: "primary", danger: false, block: false };
 
 export const Dashed = Template.bind({});
-Dashed.args = { type: "dashed", block: false };
+Dashed.args = { type: "dashed", danger: false, block: false };
 
 export const Text = Template.bind({});
-Text.args = { type: "text", block: false };
+Text.args = { type: "text", danger: false, block: false };
 
 export const Block = Template.bind({});
-Block.args = { type: "default", block: true };
+Block.args = { type: "default", danger: false, block: true };
