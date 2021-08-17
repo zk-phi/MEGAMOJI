@@ -42,8 +42,8 @@ export default defineComponent({
 
 .icon {
   display: inline-block;
-  width: var(--iconSize);
-  height: var(--iconSize);
+  width: var(--mediaIconSize);
+  height: var(--mediaIconSize);
   background-size: cover;
   border-radius: var(--borderRadiusSmall);
   flex-shrink: 0;
