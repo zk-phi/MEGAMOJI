@@ -65,12 +65,12 @@ export default defineComponent({
     startDrag(evt: PointerEvent): void {
       if (this.moveHandler) return;
       const rect = (this.$refs.container as HTMLDivElement).getBoundingClientRect();
-      const pos = (evt.clientX - rect.left) / rect.width;
-      const value = pos * (this.max - this.min) + this.min;
+      const startPos = (evt.clientX - rect.left) / rect.width;
+      const startValue = startPos * (this.max - this.min) + this.min;
       if (!Array.isArray(this.modelValue)) {
         this.targetId = 0;
       } else {
-        this.targetId = nearestIndex(this.modelValue, value);
+        this.targetId = nearestIndex(this.modelValue, startValue);
       }
       this.moveHandler = (e: PointerEvent) => {
         const pos = (e.clientX - rect.left) / rect.width;
@@ -102,7 +102,7 @@ export default defineComponent({
       document.addEventListener("pointermove", this.moveHandler);
       document.addEventListener("pointerup", this.upHandler);
       document.addEventListener("pointerleave", this.upHandler);
-      return this.moveHandler(evt);
+      this.moveHandler(evt);
     },
   },
 });

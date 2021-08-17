@@ -59,6 +59,21 @@ export default defineComponent({
       window.removeEventListener("resize", this.refreshStyle);
     }
   },
+  updated(): void {
+    if (this.show) {
+      const rect = this.$refs.popover.getBoundingClientRect();
+      const left = rect.left + window.scrollX;
+      const right = document.documentElement.clientWidth - (rect.right + window.scrollX);
+      if (left < 0) {
+        this.pos.left = 0;
+        delete this.pos.right;
+      }
+      if (right < 0) {
+        this.pos.right = 0;
+        delete this.pos.left;
+      }
+    }
+  },
   methods: {
     refreshStyle(): void {
       if (!this.el) {
@@ -79,21 +94,6 @@ export default defineComponent({
         this.pos = pos;
       }
     },
-  },
-  updated(): void {
-    if (this.show) {
-      const rect = this.$refs.popover.getBoundingClientRect();
-      const left = rect.left + window.scrollX;
-      const right = document.documentElement.clientWidth - (rect.right + window.scrollX);
-      if (left < 0) {
-        this.pos.left = 0;
-        delete this.pos.right;
-      }
-      if (right < 0) {
-        this.pos.right = 0;
-        delete this.pos.left;
-      }
-    }
   },
 });
 </script>

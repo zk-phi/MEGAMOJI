@@ -46,7 +46,7 @@ export default defineComponent({
       document.addEventListener("pointermove", this.moveHandler);
       document.addEventListener("pointerup", this.upHandler);
       document.addEventListener("pointerleave", this.upHandler);
-      return this.moveHandler(evt);
+      this.moveHandler(evt);
     },
   },
 });
