@@ -52,7 +52,7 @@ export default defineComponent({
       this.showPopover = false;
     },
     refreshStyle(): void {
-      this.$refs.popover.refreshStyle();
+      (this.$refs.popover as Popover).refreshStyle();
     },
   },
 });

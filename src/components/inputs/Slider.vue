@@ -19,7 +19,7 @@ export default defineComponent({
   data: () => ({
     moveHandler: null as ((e: PointerEvent) => void) | null,
     upHandler: null as ((e?: PointerEvent) => void) | null,
-    targetId: null,
+    targetId: null as number | null,
   }),
   computed: {
     knobPos(): Pos[] {
@@ -89,11 +89,13 @@ export default defineComponent({
       this.upHandler = (e?: PointerEvent) => {
         if (this.moveHandler) {
           document.removeEventListener("pointermove", this.moveHandler);
+          this.moveHandler = null;
+          this.targetId = null;
+        }
+        if (this.upHandler) {
           document.removeEventListener("pointerup", this.upHandler);
           document.removeEventListener("pointerleave", this.upHandler);
-          this.moveHandler = null;
           this.upHandler = null;
-          this.targetId = null;
         }
         if (e) {
           e.preventDefault();

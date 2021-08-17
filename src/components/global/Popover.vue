@@ -61,15 +61,15 @@ export default defineComponent({
   },
   updated(): void {
     if (this.show) {
-      const rect = this.$refs.popover.getBoundingClientRect();
+      const rect = (this.$refs.popover as Element).getBoundingClientRect();
       const left = rect.left + window.scrollX;
       const right = document.documentElement.clientWidth - (rect.right + window.scrollX);
       if (left < 0) {
-        this.pos.left = 0;
+        this.pos.left = "0";
         delete this.pos.right;
       }
       if (right < 0) {
-        this.pos.right = 0;
+        this.pos.right = "0";
         delete this.pos.left;
       }
     }
