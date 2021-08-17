@@ -51,12 +51,15 @@ export default defineComponent({
     hidePopover(): void {
       this.showPopover = false;
     },
+    refreshStyle(): void {
+      this.$refs.popover.refreshStyle();
+    },
   },
 });
 </script>
 
 <template>
-  <Popover :show="show" :el="el" :on-hide="onHide" :style="{ width: '260px' }">
+  <Popover ref="popover" :show="show" :el="el" :on-hide="onHide" :style="{ width: '260px' }">
     <Space vertical full>
       <TonePicker v-model:s="hsv.s" v-model:v="hsv.v" :h="hsv.h" :style="{ height: '180px' }" />
       <HueSlider v-model:h="hsv.h" />
