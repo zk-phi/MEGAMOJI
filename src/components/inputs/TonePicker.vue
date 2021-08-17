@@ -53,7 +53,7 @@ export default defineComponent({
       document.addEventListener("pointermove", this.moveHandler);
       document.addEventListener("pointerup", this.upHandler);
       document.addEventListener("pointerleave", this.upHandler);
-      evt.preventDefault();
+      return this.moveHandler(evt);
     },
   },
 });
@@ -61,11 +61,11 @@ export default defineComponent({
 
 <template>
   <div class="tone-picker" :style="{ '--jsValueH': (1 - w / 100), '--jsValueV': b / 100 }">
-    <div ref="container" class="container">
+    <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div class="layer" :style="{ background: baseColor }" />
       <div class="layer" :style="{ background: `linear-gradient(90deg, white, transparent)` }" />
       <div class="layer" :style="{ background: `linear-gradient(0deg, black, transparent)` }" />
-      <div class="knob" @pointerdown="startDrag($event)" />
+      <div :class="['knob', { active: !!moveHandler }]" />
     </div>
   </div>
 </template>
@@ -85,6 +85,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .layer {
@@ -105,7 +106,6 @@ export default defineComponent({
   height: var(--sliderKnobSize);
   margin-top: calc(-1 * var(--sliderKnobSize) / 2);
   margin-left: calc(-1 * var(--sliderKnobSize) / 2);
-  cursor: pointer;
   background-color: transparent;
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
@@ -123,7 +123,7 @@ export default defineComponent({
     0 0 0 3px inset #000;
 }
 
-.knob:active {
+.knob.active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),

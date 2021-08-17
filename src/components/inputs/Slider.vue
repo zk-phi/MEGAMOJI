@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { nearestIndex } from "../../utils/array";
 
 type Pos = { left: string, width?: string };
 
@@ -18,6 +19,7 @@ export default defineComponent({
   data: () => ({
     moveHandler: null as ((e: PointerEvent) => void) | null,
     upHandler: null as ((e?: PointerEvent) => void) | null,
+    targetId: null,
   }),
   computed: {
     knobPos(): Pos[] {
@@ -50,42 +52,48 @@ export default defineComponent({
     }
   },
   methods: {
-    update(targetId: number, newValue: number): void {
+    update(newValue: number): void {
       if (Array.isArray(this.modelValue)) {
         this.$emit("update:modelValue", [
-          targetId === 0 ? newValue : this.modelValue[0],
-          targetId === 1 ? newValue : this.modelValue[1],
+          this.targetId === 0 ? newValue : this.modelValue[0],
+          this.targetId === 1 ? newValue : this.modelValue[1],
         ]);
       } else {
         this.$emit("update:modelValue", newValue);
       }
     },
-    startDrag(targetId: number, evt: PointerEvent): void {
+    startDrag(evt: PointerEvent): void {
       if (this.moveHandler) return;
       const rect = (this.$refs.container as HTMLDivElement).getBoundingClientRect();
+      const pos = (evt.clientX - rect.left) / rect.width;
+      const value = pos * (this.max - this.min) + this.min;
+      if (!Array.isArray(this.modelValue)) {
+        this.targetId = 0;
+      } else {
+        this.targetId = nearestIndex(this.modelValue, value);
+      }
       this.moveHandler = (e: PointerEvent) => {
         const pos = (e.clientX - rect.left) / rect.width;
         const value = pos * (this.max - this.min) + this.min;
         const rounded = Math.round(value / this.step) * this.step;
         const clamped = Math.min(
-          Array.isArray(this.modelValue) && targetId === 0 ? this.modelValue[1] : this.max,
+          Array.isArray(this.modelValue) && this.targetId === 0 ? this.modelValue[1] : this.max,
           Math.max(
-            Array.isArray(this.modelValue) && targetId === 1 ? this.modelValue[0] : this.min,
+            Array.isArray(this.modelValue) && this.targetId === 1 ? this.modelValue[0] : this.min,
             rounded,
           ),
         );
-        this.update(targetId, clamped);
+        this.update(clamped);
         e.preventDefault();
       };
       this.upHandler = (e?: PointerEvent) => {
         if (this.moveHandler) {
           document.removeEventListener("pointermove", this.moveHandler);
-          this.moveHandler = null;
-        }
-        if (this.upHandler) {
           document.removeEventListener("pointerup", this.upHandler);
           document.removeEventListener("pointerleave", this.upHandler);
+          this.moveHandler = null;
           this.upHandler = null;
+          this.targetId = null;
         }
         if (e) {
           e.preventDefault();
@@ -94,7 +102,7 @@ export default defineComponent({
       document.addEventListener("pointermove", this.moveHandler);
       document.addEventListener("pointerup", this.upHandler);
       document.addEventListener("pointerleave", this.upHandler);
-      evt.preventDefault();
+      return this.moveHandler(evt);
     },
   },
 });
@@ -102,16 +110,15 @@ export default defineComponent({
 
 <template>
   <div :class="['slider', { block }]">
-    <div ref="container" class="container">
+    <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div class="rail" />
       <div class="range" :style="range" />
       <div v-for="(pos, ix) in markPos" :key="ix" class="mark" :style="pos" />
       <div
           v-for="(pos, ix) in knobPos"
           :key="ix"
-          class="knob"
-          :style="pos"
-          @pointerdown="startDrag(ix, $event)">
+          :class="['knob', { active: targetId === ix }]"
+          :style="pos">
         <div class="knob-icon" />
         <div class="knob-value">
           {{ Array.isArray(modelValue) ? modelValue[ix] : modelValue }}
@@ -139,6 +146,7 @@ export default defineComponent({
   height: calc(var(--sliderKnobSize) + var(--sliderValueMargin) + 1em);
   font-size: var(--fontSizeMedium);
   line-height: 1;
+  cursor: pointer;
 }
 
 .rail {
@@ -180,7 +188,6 @@ export default defineComponent({
   margin-left: calc(-1 * var(--sliderValueWidth) / 2);
   color: var(--fg);
   text-align: center;
-  cursor: pointer;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
 }
@@ -189,7 +196,7 @@ export default defineComponent({
   color: var(--primary);
 }
 
-.knob:active {
+.knob.active {
   color: var(--primaryActive);
 }
 
@@ -207,7 +214,7 @@ export default defineComponent({
   border-color: var(--primary);
 }
 
-.knob:active .knob-icon {
+.knob.active .knob-icon {
   border-color: var(--primaryActive);
   box-shadow: var(--primaryShadow);
 }

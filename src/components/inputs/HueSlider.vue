@@ -48,7 +48,7 @@ export default defineComponent({
       document.addEventListener("pointermove", this.moveHandler);
       document.addEventListener("pointerup", this.upHandler);
       document.addEventListener("pointerleave", this.upHandler);
-      evt.preventDefault();
+      return this.moveHandler(evt);
     },
   },
 });
@@ -56,9 +56,9 @@ export default defineComponent({
 
 <template>
   <div class="slider" :style="{ '--jsValue': h / 360 }">
-    <div ref="container" class="container">
+    <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div class="rail" :style="{ background: gradient }" />
-      <div class="knob" @pointerdown="startDrag($event)" />
+      <div :class="['knob', { active: !!moveHandler }]" />
     </div>
   </div>
 </template>
@@ -77,6 +77,7 @@ export default defineComponent({
   overflow: hidden;
   font-size: var(--fontSizeMedium);
   line-height: 1;
+  cursor: pointer;
 }
 
 .rail {
@@ -98,7 +99,6 @@ export default defineComponent({
   width: var(--sliderKnobSize);
   height: var(--sliderKnobSize);
   margin-left: calc(-1 * var(--sliderKnobSize) / 2);
-  cursor: pointer;
   background-color: transparent;
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
@@ -116,7 +116,7 @@ export default defineComponent({
     0 0 0 3px inset #000;
 }
 
-.knob:active {
+.knob.active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),
