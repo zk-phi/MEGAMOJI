@@ -125,9 +125,13 @@ export default defineComponent({
           v-for="(colorStop, ix) in absColorStop"
           :ref="setKnobRef(ix)"
           :key="ix"
-          :class="['knob', { active: dragTarget === ix }]"
-          :style="{ left: `${colorStop.pos}%`, background: colorStop.color }"
-          @pointerdown="startDrag($event)" />
+          class="knob"
+          :style="{ left: `${colorStop.pos}%` }"
+          @pointerdown="startDrag($event)">
+        <div
+            :class="['knob-icon', { active: dragTarget === ix }]"
+            :style="{ background: colorStop.color }" />
+      </div>
     </div>
   </div>
   <ColorPopover
@@ -178,26 +182,32 @@ export default defineComponent({
 .knob {
   position: absolute;
   top: 0;
+  width: 3em;
+  height: var(--knobHeight);
+  box-sizing: border-box;
+  margin-left: calc(-1 * 2em / 2);
+  text-align: center;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  cursor: grab;
+}
+
+.knob-icon {
   display: inline-block;
   width: var(--knobWidth);
   height: var(--knobHeight);
-  box-sizing: border-box;
-  margin-left: calc(-1 * var(--knobWidth) / 2);
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-  cursor: grab;
   border-radius: var(--borderRadius);
   box-shadow:
     0 0 0 1px inset var(--border),
     0 0 0 2px inset #fff;
 }
 
-.knob:hover {
+.knob:hover > .knob-icon {
   box-shadow:
     0 0 0 1px inset var(--primary),
     0 0 0 2px inset #fff;
 }
 
-.knob.active {
+.knob-icon.active {
   box-shadow:
     var(--primaryShadow),
     0 0 0 1px inset var(--primaryActive),
