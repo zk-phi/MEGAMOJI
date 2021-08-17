@@ -97,6 +97,8 @@ export default defineComponent({
   width: var(--sliderKnobSize);
   height: var(--sliderKnobSize);
   margin-left: calc(-1 * var(--sliderKnobSize) / 2);
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  cursor: grab;
   background-color: transparent;
   border-radius: calc(var(--sliderKnobSize) / 2);
   box-shadow:
@@ -105,7 +107,6 @@ export default defineComponent({
     0 0 0 3px inset #000;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
-  cursor: grab;
 }
 
 .knob:hover {
