@@ -36,7 +36,7 @@ export default defineComponent({
           <ToggleButton
               v-for="color in row"
               :key="color"
-              size="small"
+              size="smallIcon"
               :model-value="modelValue"
               :value="color"
               @update:model-value="$emit('update:modelValue', $event)">

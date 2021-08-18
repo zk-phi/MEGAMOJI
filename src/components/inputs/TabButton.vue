@@ -27,7 +27,7 @@ export default defineComponent({
 .tab-button {
   display: inline-block;
   box-sizing: border-box;
-  padding: var(--paddingMinimal);
+  padding: var(--tabButtonPadding);
   font-size: var(--fontSizeMedium);
   color: var(--fg);
   cursor: pointer;

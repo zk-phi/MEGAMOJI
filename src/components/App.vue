@@ -22,6 +22,7 @@ import Image from "./icons/Image.vue";
 import Text from "./icons/Text.vue";
 import Emoji from "./icons/Emoji.vue";
 import { extension, prepareDownloadFile } from "../utils/file";
+import "../css/destyle.css";
 
 export default defineComponent({
   components: {
@@ -179,6 +180,7 @@ export default defineComponent({
   --fontSizeXLarge: 18px;
   --fontSizeLarge: 16px;
   --fontSizeMedium: 14px;
+  --fontSizeSmallIcon: 16px;
   --fontSizeIcon: 26px;
   --fontSizePart: 48px;
   --multilineTextLineHeight: 1.5;
@@ -211,17 +213,7 @@ export default defineComponent({
   --fieldsetBottomSpacing: 24px;
   --mediaIconSize: 34px;
   --popoverShadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
-}
-
-/* stylelint-disable-next-line selector-max-type */
-body {
-  margin: 0;
-}
-
-/* stylelint-disable-next-line selector-max-type */
-input,
-select {
-  font: inherit;
+  --tabButtonPadding: 0 4px 8px;
 }
 </style>
 
@@ -229,18 +221,12 @@ select {
 .app {
   padding: var(--paddingLarge);
   font-family:
-    v-sans,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol";
-
-  /* taken from naive-ui/global */
-  font-size: 14px;
-  line-height: 1.6;
+    "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+  line-height: 1;
 }
 </style>

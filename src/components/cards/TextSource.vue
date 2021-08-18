@@ -125,16 +125,16 @@ export default defineComponent({
             <Space vertical full>
               <Textarea v-model="conf.content" block autofocus :rows="5" />
               <Space small>
-                <ToggleButton v-model="conf.align" size="small" value="stretch">
+                <ToggleButton v-model="conf.align" size="smallIcon" value="stretch">
                   <AlignJustify />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="small" value="center">
+                <ToggleButton v-model="conf.align" size="smallIcon" value="center">
                   <AlignCenter />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="small" value="left">
+                <ToggleButton v-model="conf.align" size="smallIcon" value="left">
                   <AlignLeft />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="small" value="right">
+                <ToggleButton v-model="conf.align" size="smallIcon" value="right">
                   <AlignRight />
                 </ToggleButton>
               </Space>

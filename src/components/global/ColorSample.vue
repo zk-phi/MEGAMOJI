@@ -15,8 +15,8 @@ export default defineComponent({
 <style scoped>
 .color-sample {
   display: inline-block;
-  width: 1.6em;
-  height: 1em;
+  width: calc(1.6 * var(--fontSizeSmallIcon));
+  height: var(--fontSizeSmallIcon);
   vertical-align: middle;
   border: 1px solid var(--border);
   border-radius: var(--borderRadiusSmall);

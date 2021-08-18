@@ -27,6 +27,8 @@
   - (c) Rollbar, Licensed under the MIT License
 - Vue.js
   - (c) Evan You, Licensed under the MIT License
+- destyle.css
+  - (c) Nicolas Cusan, Licensed under the MIT License
 
 いくつかのエフェクトは glfx.js ((c) Evan Wallace, MIT License) から引用しています。
 

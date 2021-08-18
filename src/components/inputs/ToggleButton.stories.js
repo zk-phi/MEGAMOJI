@@ -19,9 +19,6 @@ const Single = (args) => ({
 export const Base = Single.bind({});
 Base.args = { size: undefined };
 
-export const Small = Single.bind({});
-Small.args = { size: "small" };
-
 const Multiple = (args) => ({
   components: { ToggleButton },
   data: () => ({

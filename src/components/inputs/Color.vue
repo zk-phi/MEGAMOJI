@@ -78,5 +78,6 @@ export default defineComponent({
 .block {
   display: block;
   width: 100%;
+  text-align: center;
 }
 </style>
