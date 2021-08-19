@@ -1,4 +1,4 @@
-name: Lint (PR)
+name: Lint PR
 
 on:
   pull_request:
@@ -20,3 +20,5 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           eslint_flags: '**/*.{js,ts}'
+      - run: npm run build-storybook
+      - run: npm run build
