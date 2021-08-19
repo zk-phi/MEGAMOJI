@@ -20,5 +20,6 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           eslint_flags: '**/*.{js,ts,vue}'
+      - run: npm run test
       - run: npm run build-storybook
       - run: npm run build

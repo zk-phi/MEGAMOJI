@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-node@v2.3.0
       - run: npm ci
       - run: npm run lint
+      - run: npm run test
       - run: npm run build-storybook
       - run: npm run build
         env:
