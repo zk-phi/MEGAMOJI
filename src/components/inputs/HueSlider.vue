@@ -53,9 +53,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="slider" :style="{ '--jsValue': h / 360 }">
+  <div class="slider" :style="{ '--jsValue': h / 360, background: gradient }">
     <div ref="container" class="container" @pointerdown="startDrag($event)">
-      <div class="rail" :style="{ background: gradient }" />
       <div :class="['knob', { active: !!moveHandler }]" />
     </div>
   </div>
@@ -65,6 +64,7 @@ export default defineComponent({
 .slider {
   display: block;
   width: 100%;
+  border: 1px solid var(--border);
 }
 
 .container {
@@ -78,17 +78,6 @@ export default defineComponent({
   cursor: pointer;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   touch-action: none;
-}
-
-.rail {
-  position: absolute;
-  top: calc((var(--sliderKnobSize) - var(--colorSliderRailHeight)) / 2);
-  left: 0;
-  width: 100%;
-  height: var(--colorSliderRailHeight);
-  box-sizing: border-box;
-  background-color: var(--bg);
-  border: 1px solid var(--border);
 }
 
 .knob {
