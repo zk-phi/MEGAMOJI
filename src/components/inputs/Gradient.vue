@@ -118,9 +118,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="gradient">
+  <div class="gradient" :style="{ background: gradient }">
     <div ref="container" class="container">
-      <div class="rail" :style="{ background: gradient }" @click="addColorStop" />
+      <div class="rail" @click="addColorStop" />
       <div
           v-for="(colorStop, ix) in absColorStop"
           :ref="setKnobRef(ix)"
@@ -155,6 +155,7 @@ export default defineComponent({
   --knobTouchAreaWidth: 3em;
   display: block;
   width: 100%;
+  border: 1px solid var(--border);
 }
 
 .container {
@@ -174,10 +175,8 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: var(--railHeight);
-  box-sizing: border-box;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   cursor: copy;
-  border: 1px solid var(--border);
 }
 
 .knob {
