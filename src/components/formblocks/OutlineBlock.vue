@@ -49,14 +49,14 @@ export default defineComponent({
     <Space small>
       <ToggleButton
           :model-value="modelValue"
-          size="small"
+          size="smallIcon"
           value="#000000"
           @update:modelValue="$emit('update:modelValue', $event)">
         <ColorSample color="#000000" />
       </ToggleButton>
       <ToggleButton
           :model-value="modelValue"
-          size="small"
+          size="smallIcon"
           value="darker"
           @update:model-value="$emit('update:modelValue', $event)">
         <ColorSample :color="darker" />
