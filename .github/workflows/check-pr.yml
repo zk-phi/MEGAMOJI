@@ -15,7 +15,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - npm run lint:css
+      - run: npm run lint:css
 
   lint-js:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - npm run lint:js
+      - run: npm run lint:js
 
   e2e-test:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - npm run test:e2e
+      - run: npm run test:e2e
 
   build-storybook:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - npm run build-storybook
+      - run: npm run build-storybook
 
   build-app:
     runs-on: ubuntu-latest
@@ -63,4 +63,4 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - npm run build
+      - run: npm run build
