@@ -219,6 +219,7 @@ export default defineComponent({
 
 <style scoped>
 .app {
+  line-height: 1;
   padding: var(--paddingLarge);
   font-family:
     "Helvetica Neue",
@@ -227,6 +228,5 @@ export default defineComponent({
     "Hiragino Sans",
     Meiryo,
     sans-serif;
-  line-height: 1;
 }
 </style>
