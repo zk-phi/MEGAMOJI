@@ -7,18 +7,74 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  lint-css:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.0
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - run: npm run lint:css
+
+  lint-js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.0
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - run: npm run lint:js
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.0
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+      - run: npm ci
+      - run: npm run test:e2e
+
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - run: npm run lint
-      - run: npm run test
+      - uses: actions/cache@v2
+        with:
+          path: dist
+          key: build-${{ github.sha }}
       - run: npm run build-storybook
       - run: npm run build
         env:
           ROLLBAR_TOKEN: ${{secrets.ROLLBAR_TOKEN}}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - lint-css
+      - lint-js
+      - e2e-test
+      - build
+    steps:
+      - uses: actions/cache@v2
+        with:
+          path: dist
+          key: build-${{ github.sha }}
       - uses: peaceiris/actions-gh-pages@v3.8.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
