@@ -20,10 +20,10 @@ export default defineComponent({
   methods: {
     initializeGradient(): void {
       this.$emit("update:modelValue", [
-        { color: "identical", pos: 0 },
+        { color: "lighter", pos: 0 },
         { color: "lighter", pos: 50 },
         { color: "darker", pos: 63 },
-        { color: "identical", pos: 100 },
+        { color: "lighter", pos: 100 },
       ]);
     },
     toggle(): void {
