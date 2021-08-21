@@ -12,6 +12,7 @@ import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import Grid from "../global/Grid.vue";
 import GridItem from "../global/GridItem.vue";
+import DevTool from "./DevTool.vue";
 
 import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
@@ -62,6 +63,7 @@ export default defineComponent({
     Space,
     Select,
     Slider,
+    DevTool,
   },
   props: {
     baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
@@ -98,6 +100,7 @@ export default defineComponent({
         transparent: false,
       },
       showDetails: false,
+      devMode: false,
     };
   },
   watch: {
@@ -123,6 +126,13 @@ export default defineComponent({
         this.render();
       },
       deep: true,
+    },
+    devMode: {
+      handler(): void {
+        this.conf.animation = null;
+        this.conf.effects = [];
+        this.conf.webglEffects = [];
+      },
     },
   },
   mounted() {
@@ -194,7 +204,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <Card v-if="show">
+  <Card v-if="show && !devMode">
     <Grid :columns="[[450, 1], [Infinity, 2]]">
       <GridItem>
         <Space vertical xlarge full>
@@ -209,10 +219,10 @@ export default defineComponent({
           <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
           <EffectBlock v-model="conf.effects" :effects="effects" />
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-          <Fieldset v-if="showDetails" label="開発者用">
-            <Checkbox v-model="conf.noCrop">
-              {{ "余白を切らない" }}
-            </Checkbox>
+          <Fieldset v-if="showDetails" label="開発者向け">
+            <Button danger type="text" @click="devMode = true">
+              開発者モード
+            </Button>
           </Fieldset>
         </Space>
       </GridItem>
@@ -278,4 +288,11 @@ export default defineComponent({
       </div>
     </template>
   </Card>
+  <DevTool
+      v-model:no-crop="conf.noCrop"
+      :show="show && devMode"
+      @close="devMode = false"
+      @build-animation="conf.animation = $event"
+      @build-effect="conf.effects = [$event]"
+      @build-shader="conf.webglEffects = [$event]" />
 </template>
