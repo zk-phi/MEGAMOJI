@@ -1,4 +1,5 @@
 <script lang="ts">
+import { WebGLEffect } from "../../types";
 import { defineComponent } from "vue";
 import {
   webglEffectShader,
@@ -80,7 +81,7 @@ export default defineComponent({
       this.$emit("buildEffect", { label: "カスタム", value: effect });
     },
     buildShader(): void {
-      const webglEffect = (keyframe, w, h) => {
+      const webglEffect: WebGLEffect = (keyframe, w, h) => {
         const program = webglLoadEffectShader(webglEffectShader(this.source.webgl));
         webglSetFloat(program, "keyframe", keyframe);
         webglSetVec2(program, "resolution", [w, h]);
