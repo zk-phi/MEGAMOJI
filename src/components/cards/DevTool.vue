@@ -1,6 +1,6 @@
 <script lang="ts">
-import { WebGLEffect } from "../../types";
 import { defineComponent } from "vue";
+import { WebGLEffect } from "../../types";
 import {
   webglEffectShader,
   webglLoadEffectShader,
