@@ -48,7 +48,11 @@ void main(void) {
   float y = mix(.25, .75, keyframe);
   pos.y += step2(y, y + WAVE_HEIGHT, pos.y) * WAVE_HEIGHT;
 
-  vec4 color = texture2D(texture, pos);
+  // color aberration
+  vec4 r = texture2D(texture, pos + vec2(.015, 0));
+  vec4 g = texture2D(texture, pos);
+  vec4 b = texture2D(texture, pos - vec2(.015, 0));
+  vec4 color = vec4(r.r, g.g, b.b, (r.a + g.a + b.a) / 3.);
 
   // scanline
   color = mix(color, vec4(vec3(0), 1.), SCANLINE_STRENGTH * sin(pos.y * 2. * PI * SCANLINE_FREQ));
