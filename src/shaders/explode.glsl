@@ -15,5 +15,5 @@ void main(void) {
     float d = v * keyframe;
 
     float flag = step(0., len - d);
-    gl_FragColor = flag * texture2D(texture, vUv - d * angle);
+    gl_FragColor = flag * texture2D(texture, vUv - d * angle - vec2(0., .2) * keyframe);
 }
