@@ -11,9 +11,9 @@ void main(void) {
     vec2 angle = normalize(vec);
     float len = length(vec);
 
-    float v = (1. - len) * random2(vUv);
+    float v = (1. - len) * random2(vUv) + .05;
     float d = v * keyframe;
 
     float flag = step(0., len - d);
-    gl_FragColor = flag * texture2D(texture, vUv - d * angle - vec2(0., .2) * keyframe);
+    gl_FragColor = flag * texture2D(texture, vUv - d * angle - vec2(0., .3) * keyframe);
 }
