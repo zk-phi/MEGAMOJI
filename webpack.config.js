@@ -5,7 +5,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const { EnvironmentPlugin, DefinePlugin } = require("webpack");
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => ({
   entry: "./src/megamoji.ts",
@@ -57,8 +57,12 @@ module.exports = (env, argv) => ({
       ROLLBAR_TOKEN: "",
     }),
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
+    new CopyWebpackPlugin({
+      patterns: [{
+        context: `${__dirname}/static`,
+        from: `*`,
+        to: `${__dirname}/dist`,
+      }],
     }),
   ],
 });
