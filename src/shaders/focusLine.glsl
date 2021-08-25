@@ -22,7 +22,7 @@ void main(void) {
   float prod = abs(cross2(vec2(cos(rad), sin(rad)), p));
   float flag = step(prod, .01 + .01 * length(p) * random1(rad + keyframe));
 
-  float strength = .7 * smoothstep(.1 + .05 * random1(rad + keyframe), sqrt(2.) * .25, length(p));
+  float strength = pow(smoothstep(.1 + .05 * random1(rad + keyframe), sqrt(2.) * .25, length(p)), 2.);
 
   vec4 texColor = texture2D(texture, vUv);
   gl_FragColor = mix(texColor, vec4(vec3(0.), 1.), flag * strength);
