@@ -60,7 +60,7 @@ module.exports = (env, argv) => ({
     new CopyWebpackPlugin({
       patterns: [{
         context: `${__dirname}/static`,
-        from: `*`,
+        from: "*",
         to: `${__dirname}/dist`,
       }],
     }),
