@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { WebGLEffect } from "../../types";
+import { Animation, Effect, WebGLEffect } from "../../types";
 import {
   webglEffectShader,
   webglLoadEffectShader,
@@ -63,32 +63,58 @@ export default defineComponent({
         this.buildShader();
       }
     },
+    /* eslint-disable no-console, no-new-func */
     buildAnimation(): void {
-      // eslint-disable-next-line no-new-func
-      const animation = new Function(
-        "keyframe", "ctx", "image",
-        "offsetH", "offsetV", "width", "height", "cellWidth", "cellHeight",
-        this.source.animation,
-      );
-      this.$emit("buildAnimation", { label: "カスタム", value: animation });
+      try {
+        const animationImpl = new Function(
+          "keyframe", "ctx", "image",
+          "offsetH", "offsetV", "width", "height", "cellWidth", "cellHeight",
+          this.source.animation,
+        );
+        const animation: Animation = (...args) => {
+          try {
+            animationImpl(...args);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        this.$emit("buildAnimation", { label: "カスタム", value: animation });
+      } catch (error) {
+        console.log(error);
+      }
     },
     buildEffect(): void {
-      // eslint-disable-next-line no-new-func
-      const effect = new Function(
-        "keyframe", "ctx", "cellWidth", "cellHeight",
-        this.source.effect,
-      );
-      this.$emit("buildEffect", { label: "カスタム", value: effect });
+      try {
+        const effectImpl = new Function(
+          "keyframe", "ctx", "cellWidth", "cellHeight",
+          this.source.effect,
+        );
+        const effect: Effect = (...args) => {
+          try {
+            effectImpl(...args);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        this.$emit("buildEffect", { label: "カスタム", value: effect });
+      } catch (error) {
+        console.log(error);
+      }
     },
     buildShader(): void {
-      const webglEffect: WebGLEffect = (keyframe, w, h) => {
-        const program = webglLoadEffectShader(webglEffectShader(this.source.webgl));
-        webglSetFloat(program, "keyframe", keyframe);
-        webglSetVec2(program, "resolution", [w, h]);
-        return program;
-      };
-      this.$emit("buildShader", { label: "カスタム", value: webglEffect });
+      try {
+        const program: WebGLProgram = webglLoadEffectShader(webglEffectShader(this.source.webgl));
+        const effect: WebGLEffect = (keyframe, w, h) => {
+          webglSetFloat(program, "keyframe", keyframe);
+          webglSetVec2(program, "resolution", [w, h]);
+          return program;
+        };
+        this.$emit("buildShader", { label: "カスタム", value: effect });
+      } catch (error) {
+        console.log(error);
+      }
     },
+    /* eslint-enable */
   },
 });
 </script>
