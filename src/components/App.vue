@@ -161,11 +161,11 @@ export default defineComponent({
 <style>
 :root {
   /* colors */
-  --fg: #333639;
+  --fg: #333;
   --bg: #fff;
   --accentBg: #fafafa;
   --distantFg: #fff;
-  --border: #aaa;
+  --border: #888;
   --primary: #18a058;
   --primaryHover: #36ad6a;
   --primaryActive: #0c7a43;
@@ -186,8 +186,8 @@ export default defineComponent({
   --multilineTextLineHeight: 1.5;
 
   /* layout */
-  --borderRadiusSmall: 2px;
-  --borderRadius: 4px;
+  --borderRadiusSmall: 1px;
+  --borderRadius: 2px;
   --paddingXLarge: 20px 22px;
   --paddingLarge: 14px 16px;
   --paddingMedium: 10px 12px;
