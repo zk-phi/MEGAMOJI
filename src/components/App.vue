@@ -161,19 +161,19 @@ export default defineComponent({
 <style>
 :root {
   /* colors */
-  --fg: #333;
+  --fg: #333639;
   --bg: #fff;
   --accentBg: #fafafa;
   --distantFg: #fff;
-  --border: #888;
-  --primary: #EDAD0B;
-  --primaryHover: #F2C145;
-  --primaryActive: #D59B0A;
-  --primaryShadow: 0 0 0 2px rgba(237, 173, 11, 0.2);
-  --danger: #C7243A;
-  --dangerHover: #D04255;
-  --dangerActive: #B32034;
-  --dangerShadow: 0 0 0 2px rgba(199, 36, 58, 0.2);
+  --border: #aaa;
+  --primary: #18a058;
+  --primaryHover: #36ad6a;
+  --primaryActive: #0c7a43;
+  --primaryShadow: 0 0 0 2px rgba(24, 160, 88, 0.2);
+  --danger: #d03050;
+  --dangerHover: #de576d;
+  --dangerActive: #ab1f3f;
+  --dangerShadow: 0 0 0 2px rgba(208, 48, 80, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
@@ -186,8 +186,8 @@ export default defineComponent({
   --multilineTextLineHeight: 1.5;
 
   /* layout */
-  --borderRadiusSmall: 1px;
-  --borderRadius: 2px;
+  --borderRadiusSmall: 2px;
+  --borderRadius: 4px;
   --paddingXLarge: 20px 22px;
   --paddingLarge: 14px 16px;
   --paddingMedium: 10px 12px;
