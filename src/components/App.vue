@@ -166,13 +166,13 @@ export default defineComponent({
   --accentBg: #fafafa;
   --distantFg: #fff;
   --border: #888;
-  --primary: #edad0b;
-  --primaryHover: #f2c145;
-  --primaryActive: #d59b0a;
+  --primary: #EDAD0B;
+  --primaryHover: #F2C145;
+  --primaryActive: #D59B0A;
   --primaryShadow: 0 0 0 2px rgba(237, 173, 11, 0.2);
-  --danger: #c7243a;
-  --dangerHover: #d04255;
-  --dangerActive: #b32034;
+  --danger: #C7243A;
+  --dangerHover: #D04255;
+  --dangerActive: #B32034;
   --dangerShadow: 0 0 0 2px rgba(199, 36, 58, 0.2);
 
   /* typography */
