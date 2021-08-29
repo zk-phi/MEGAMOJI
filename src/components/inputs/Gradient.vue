@@ -156,6 +156,7 @@ export default defineComponent({
   display: block;
   width: 100%;
   border: 1px solid var(--border);
+  border-radius: var(--borderRadius);
 }
 
 .container {
