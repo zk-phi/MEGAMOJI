@@ -33,21 +33,24 @@ export default defineComponent({
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-bottom: 3px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 
 .tab-button:hover {
   color: var(--primary);
   border-color: var(--primary);
+  box-shadow: 0 1px 0 0 var(--primary)
 }
 
 .tab-button:active {
   color: var(--primaryActive);
   border-color: var(--primaryActive);
+  box-shadow: 0 1px 0 0 var(--primaryActive)
 }
 
 .tab-button.selected {
   font-weight: bold;
   border-color: var(--primary);
+  box-shadow: 0 1px 0 0 var(--primary)
 }
 </style>
