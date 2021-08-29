@@ -30,11 +30,9 @@ export default defineComponent({
 
 <style scoped>
 .footer {
-  padding-top: var(--marginMedium);
   font-size: var(--fontSizeMedium);
   line-height: var(--multilineTextLineHeight);
   color: var(--fg);
-  border-top: 1px solid var(--border);
 }
 
 .p {
