@@ -166,14 +166,14 @@ export default defineComponent({
   --accentBg: #fafafa;
   --distantFg: #fff;
   --border: #888;
-  --primary: #18a058;
-  --primaryHover: #36ad6a;
-  --primaryActive: #0c7a43;
-  --primaryShadow: 0 0 0 2px rgba(24, 160, 88, 0.2);
-  --danger: #d03050;
-  --dangerHover: #de576d;
-  --dangerActive: #ab1f3f;
-  --dangerShadow: 0 0 0 2px rgba(208, 48, 80, 0.2);
+  --primary: #edad0b;
+  --primaryHover: #f2c145;
+  --primaryActive: #d59b0a;
+  --primaryShadow: 0 0 0 2px rgba(237, 173, 11, 0.2);
+  --danger: #c7243a;
+  --dangerHover: #d04255;
+  --dangerActive: #b32034;
+  --dangerShadow: 0 0 0 2px rgba(199, 36, 58, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
