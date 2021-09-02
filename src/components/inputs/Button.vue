@@ -48,7 +48,7 @@ export default defineComponent({
 
 .default {
   color: var(--fg);
-  border-color: var(--border);
+  border-color: var(--fg);
 }
 
 .default:hover {
