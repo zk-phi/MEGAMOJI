@@ -94,6 +94,10 @@ function renderAllCellsFixedSize(
   backgroundColor: string,
   transparent: boolean,
 ) {
+  if (encoders) {
+    encoders.forEach((row) => { row.forEach((encoder) => encoder.abort()); });
+    encoders = null;
+  }
   if (!animated) {
     const img = renderFrameUncut(
       0, image,
@@ -114,9 +118,6 @@ function renderAllCellsFixedSize(
       )))
     )));
   } else {
-    if (encoders) {
-      encoders.forEach((row) => { row.forEach((encoder) => encoder.abort()); });
-    }
     encoders = [];
     /* instantiate GIF encoders for each cells */
     for (let y = 0; y < vCells; y += 1) {
