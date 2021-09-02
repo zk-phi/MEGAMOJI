@@ -18,8 +18,8 @@ export default defineComponent({
   display: block;
   margin-bottom: var(--marginMedium);
   font-size: var(--fontSizeMedium);
-  color: var(--fg);
   font-weight: bold;
   line-height: 1;
+  color: var(--fg);
 }
 </style>
