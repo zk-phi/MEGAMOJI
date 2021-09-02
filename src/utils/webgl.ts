@@ -104,6 +104,8 @@ export function webglEffectShader(fragmentShader: string): EffectShader {
       const uv = gl.getAttribLocation(program, "uv");
       gl.enableVertexAttribArray(uv);
       gl.vertexAttribPointer(uv, 2, gl.FLOAT, false, 4 * u, 2 * u);
+      const texture = gl.getUniformLocation(program, "texture");
+      gl.uniform1i(texture, 0);
       return program;
     }
   };
@@ -180,6 +182,7 @@ function webglDeleteFrameBuffer(buf: FrameBufferWithTexture) {
 // render texture in framebuffer (or webglCanvas if frame=null)
 function draw(texture: WebGLTexture, frame: WebGLFramebuffer | null) {
   if (!gl) throw new Error("WebGL not initialized");
+  gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.bindFramebuffer(gl.FRAMEBUFFER, frame);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
