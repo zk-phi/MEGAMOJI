@@ -106,13 +106,22 @@ export default defineComponent({
 
       <TabGroup>
         <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
-          <Text /> テキスト絵文字
+          <template #icon>
+            <Text />
+          </template>
+          テキスト絵文字
         </TabButton>
         <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
-          <Image /> 画像絵文字
+          <template #icon>
+            <Image />
+          </template>
+          画像絵文字
         </TabButton>
         <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
-          <Emoji /> キメラ絵文字
+          <template #icon>
+            <Emoji />
+          </template>
+          キメラ絵文字
         </TabButton>
       </TabGroup>
 
@@ -137,16 +146,23 @@ export default defineComponent({
           <Space v-else vertical>
             <Result :images="resultImageUrls" />
             <Space>
-              <Button @click="onSetShowTarget(!ui.showTargetPanel)">
-                <span v-if="ui.showTargetPanel">
-                  <Back /> もどる
-                </span>
-                <span v-else>
-                  <Effect /> 効果をつける
-                </span>
+              <Button v-if="ui.showTargetPanel" @click="onSetShowTarget(!ui.showTargetPanel)">
+                <template #icon>
+                  <Back />
+                </template>
+                もどる
+              </Button>
+              <Button v-else @click="onSetShowTarget(!ui.showTargetPanel)">
+                <template #icon>
+                  <Effect />
+                </template>
+                効果をつける
               </Button>
               <Button v-if="baseImage" type="primary" @click="onDownload">
-                <Save /> 絵文字を保存
+                <template #icon>
+                  <Save />
+                </template>
+                絵文字を保存
               </Button>
             </Space>
           </Space>

@@ -12,6 +12,9 @@ export default defineComponent({
 
 <template>
   <button :class="['button', type, { block, danger }]">
+    <span class="icon">
+      <slot name="icon" />
+    </span>
     <slot />
   </button>
 </template>
@@ -38,6 +41,13 @@ export default defineComponent({
   --buttonColorHover: var(--dangerHover);
   --buttonColorActive: var(--dangerActive);
   --buttonShadow: var(--dangerShadow);
+}
+
+.icon {
+  display: inline-block;
+  font-size: var(--fontSizeSmallIcon);
+  line-height: 0;
+  vertical-align: text-bottom;
 }
 
 .block {

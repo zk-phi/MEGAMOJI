@@ -19,6 +19,9 @@ export default defineComponent({
 
 <template>
   <button :class="['tab-button', { selected }]" @click="$emit('update:modelValue', value)">
+    <span class="icon">
+      <slot name="icon" />
+    </span>
     <slot />
   </button>
 </template>
@@ -33,7 +36,14 @@ export default defineComponent({
   cursor: pointer;
   background-color: transparent;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
+}
+
+.icon {
+  display: inline-block;
+  font-size: var(--fontSizeSmallIcon);
+  line-height: 0;
+  vertical-align: text-bottom;
 }
 
 .tab-button:hover {
