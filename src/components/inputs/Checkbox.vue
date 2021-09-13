@@ -96,6 +96,9 @@ export default defineComponent({
 
 .checkbox:active {
   color: var(--primaryActive);
+}
+
+.checkbox:active .check {
   border-color: var(--primaryActive);
 }
 </style>
