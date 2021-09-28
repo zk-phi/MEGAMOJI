@@ -1,3 +1,5 @@
+[ネタ帳はこちら](https://scrapbox.io/MEGAMOJI/)
+
 ## 2021/9/17
 ### Thanks 10k MAU 🎉
 
