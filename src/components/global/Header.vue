@@ -22,7 +22,7 @@ export default defineComponent({
     <p class="description">
       カスタム絵文字をサクッと作れる🐱
       <Button type="text" @click="openNews">
-        🎉更新履歴
+        🗞更新履歴
       </Button>
     </p>
   </header>
