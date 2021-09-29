@@ -1,19 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-import Button from "../inputs/Button.vue";
-
-export default defineComponent({
-  components: {
-    Button,
-  },
-  methods: {
-    openNews() {
-      window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/NEWS.markdown");
-    },
-  },
-});
-</script>
-
 <template>
   <header class="header">
     <h1 class="title">
@@ -21,9 +5,6 @@ export default defineComponent({
     </h1>
     <p class="description">
       カスタム絵文字をサクッと作れる🐱
-      <Button type="text" @click="openNews">
-        🗞更新履歴
-      </Button>
     </p>
   </header>
 </template>
