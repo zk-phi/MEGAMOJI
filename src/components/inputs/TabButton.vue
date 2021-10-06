@@ -48,14 +48,10 @@ export default defineComponent({
 
 .tab-button:hover {
   color: var(--primary);
-  border-color: var(--primary);
-  box-shadow: 0 1px var(--primary);
 }
 
 .tab-button:active {
   color: var(--primaryActive);
-  border-color: var(--primaryActive);
-  box-shadow: 0 1px var(--primaryActive);
 }
 
 .tab-button.selected {

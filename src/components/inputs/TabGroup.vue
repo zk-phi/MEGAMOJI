@@ -1,19 +1,6 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-import Space from "../global/Space.vue";
-
-export default defineComponent({
-  components: {
-    Space,
-  },
-});
-</script>
-
 <template>
   <div class="tab-group">
-    <Space small>
-      <slot />
-    </Space>
+    <slot />
   </div>
 </template>
 

@@ -109,19 +109,19 @@ export default defineComponent({
           <template #icon>
             <Text />
           </template>
-          テキスト絵文字
+          テキスト
         </TabButton>
         <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
           <template #icon>
             <Image />
           </template>
-          画像絵文字
+          画像ファイル
         </TabButton>
         <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
           <template #icon>
             <Emoji />
           </template>
-          キメラ絵文字
+          パーツ
         </TabButton>
       </TabGroup>
 
@@ -229,7 +229,7 @@ export default defineComponent({
   --fieldsetBottomSpacing: 24px;
   --mediaIconSize: 34px;
   --popoverShadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
-  --tabButtonPadding: 0 4px 8px;
+  --tabButtonPadding: 0 6px 8px;
 }
 </style>
 
