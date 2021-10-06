@@ -2,13 +2,13 @@
 
 (画像から絵文字を作る場合、使う素材の権利は守ってください)
 
-「キメラ絵文字」はパーツが CC-BY ライセンスで提供されているので、再配布等には権利表示が必要になります。
+「パーツ」タブで選べるパーツは CC-BY ライセンスで提供されているので、再配布等には権利表示が必要になります。
 
 # このツール自体のライセンス
 
 このソフトウェアは以下のライセンスのもと自由に改変、再配布できます。
 
-- 「キメラ絵文字」の素材 (./src/parts) ... CC-BY
+- 「パーツ」タブの素材 (./src/parts) ... CC-BY
 - フォント (./src/fonts) ... フォントごとのライセンス (下記参照)
 - それ以外 ... MIT License
 
@@ -33,7 +33,7 @@
 いくつかのエフェクトは glfx.js ((c) Evan Wallace, MIT License) から引用しています。
 
 画像素材
-- Twemoji ("キメラ絵文字" 機能のために改変)
+- Twemoji (パーツを抜き出す改変を加えた)
   - (c) Twitter, Licensed under the CC-BY License
 - Material Design Icons
   - (c) Google, Licensed under the Apache License
