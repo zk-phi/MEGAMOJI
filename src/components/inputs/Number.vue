@@ -86,7 +86,7 @@ export default defineComponent({
 .buttons {
   position: absolute;
   top: var(--paddingV);
-  right: var(--paddingH);
+  right: calc(var(--paddingH) - var(--spacingInlineSmall));
 }
 
 .button {
