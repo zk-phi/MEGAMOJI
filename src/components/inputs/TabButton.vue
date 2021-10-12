@@ -19,7 +19,7 @@ export default defineComponent({
 
 <template>
   <button :class="['tab-button', { selected }]" @click="$emit('update:modelValue', value)">
-    <span class="icon">
+    <span v-if="$slots.icon" class="icon">
       <slot name="icon" />
     </span>
     <slot />

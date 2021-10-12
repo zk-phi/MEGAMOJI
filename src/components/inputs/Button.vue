@@ -12,7 +12,7 @@ export default defineComponent({
 
 <template>
   <button :class="['button', type, { block, danger }]">
-    <span class="icon">
+    <span v-if="$slots.icon" class="icon">
       <slot name="icon" />
     </span>
     <slot />
