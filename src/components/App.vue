@@ -226,8 +226,7 @@ export default defineComponent({
   --colorSliderRailHeight: 1.125em;
   --mediaIconSize: 34px;
   --popoverShadow: rgb(0 0 0 / 19%) 0 10px 20px, rgb(0 0 0 / 23%) 0 6px 6px;
-  /* -3px for borders */
-  --tabButtonPadding: 0 var(--paddingH) calc(var(--paddingV) - 3px);
+  --tabButtonPadding: 0 var(--paddingH) calc(var(--paddingV) - 3px); /* -3px for borders */
 }
 
 /* stylelint-disable-next-line selector-max-type */
