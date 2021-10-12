@@ -52,7 +52,7 @@ export default defineComponent({
   display: inline-block;
   min-width: 90px;
   box-sizing: border-box;
-  padding: var(--paddingMedium);
+  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
   color: var(--fg);

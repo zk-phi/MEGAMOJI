@@ -32,7 +32,7 @@ export default defineComponent({
 .textarea {
   display: inline-block;
   box-sizing: border-box;
-  padding: var(--paddingMedium);
+  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: var(--textareaLineHeight);
   color: var(--fg);

@@ -47,7 +47,7 @@ export default defineComponent({
 
 <style scoped>
 .file {
-  margin-top: var(--marginSmall);
+  margin-top: var(--spacingMedium);
   font-size: var(--fontSizeMedium);
   color: var(--fg);
   user-select: none;

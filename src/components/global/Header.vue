@@ -15,7 +15,7 @@
   flex-wrap: wrap;
   color: var(--fg);
   align-items: flex-end;
-  gap: var(--marginSmall);
+  gap: var(--spacingMedium);
 }
 
 .title {

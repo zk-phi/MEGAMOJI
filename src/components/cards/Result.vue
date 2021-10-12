@@ -33,7 +33,7 @@ export default defineComponent({
 
 <template>
   <Card :style="transparentBg" title="絵文字">
-    <Space vertical>
+    <Space vertical large>
       <RawResult v-if="!previewMode" :images="images" />
       <Preview v-if="previewMode" :images="images" :dark-mode="false" />
       <Preview v-if="previewMode" :images="images" :dark-mode="true" />

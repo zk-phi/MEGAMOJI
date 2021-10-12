@@ -25,11 +25,11 @@ export default defineComponent({
 .media {
   display: flex;
   color: var(--fg);
-  gap: var(--marginMedium);
+  gap: var(--spacingLarge);
 }
 
 .title {
-  margin-bottom: var(--marginSmall);
+  margin-bottom: var(--spacingMedium);
   font-size: var(--fontSizeLarge);
   font-weight: bold;
   line-height: 1;

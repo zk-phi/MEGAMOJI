@@ -70,7 +70,7 @@ export default defineComponent({
 
 .check {
   display: inline-block;
-  margin-right: var(--marginSmall);
+  margin-right: var(--spacingInlineSmall);
   line-height: 0;
   color: transparent;
   background-color: var(--bg);
@@ -79,7 +79,8 @@ export default defineComponent({
 }
 
 .check.radio {
-  border-radius: calc((var(--fontSizeMedium) + var(--paddingMinimal)) / 2);
+  /* +2px for borders */
+  border-radius: calc((var(--fontSizeMedium) + 2px) / 2);
 }
 
 .check.selected {

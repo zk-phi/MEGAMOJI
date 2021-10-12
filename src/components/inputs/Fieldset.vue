@@ -16,7 +16,7 @@ export default defineComponent({
 <style scoped>
 .title {
   display: block;
-  margin-bottom: var(--marginMedium);
+  margin-bottom: var(--spacingLarge);
   font-size: var(--fontSizeMedium);
   font-weight: bold;
   line-height: 1;

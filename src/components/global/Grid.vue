@@ -43,6 +43,6 @@ export default defineComponent({
 <style scoped>
 .grid {
   display: grid;
-  gap: var(--marginXLarge);
+  gap: var(--spacingLarge);
 }
 </style>

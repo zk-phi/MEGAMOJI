@@ -27,7 +27,7 @@ export default defineComponent({
   --buttonShadow: var(--primaryShadow);
   display: inline-block;
   box-sizing: border-box;
-  padding: var(--paddingMedium);
+  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
   cursor: pointer;

@@ -31,18 +31,18 @@ export default defineComponent({
 }
 
 .content {
-  padding: var(--paddingXLarge);
+  padding: var(--spacingXLarge);
 }
 
 .title {
-  margin: 0 0 var(--marginLarge);
+  margin: 0 0 var(--spacingLarge);
   font-size: var(--fontSizeXLarge);
   font-weight: bold;
   color: var(--fg);
 }
 
 .footer {
-  padding: var(--paddingXLarge);
+  padding: var(--spacingXLarge);
   border-top: 1px solid var(--border);
 }
 </style>

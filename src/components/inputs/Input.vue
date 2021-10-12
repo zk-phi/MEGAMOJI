@@ -29,7 +29,7 @@ export default defineComponent({
 .input {
   display: inline-block;
   box-sizing: border-box;
-  padding: var(--paddingMedium);
+  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
   color: var(--fg);

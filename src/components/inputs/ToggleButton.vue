@@ -66,7 +66,7 @@ export default defineComponent({
 }
 
 .default {
-  padding: var(--paddingMedium);
+  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
 }

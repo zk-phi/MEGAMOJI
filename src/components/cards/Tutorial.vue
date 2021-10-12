@@ -29,7 +29,7 @@ export default defineComponent({
 
 <template>
   <Card>
-    <Space vertical large>
+    <Space vertical xlarge>
       <Media title="テキスト" :icon="textSample">
         文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
       </Media>

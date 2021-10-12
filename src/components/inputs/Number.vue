@@ -85,8 +85,8 @@ export default defineComponent({
 
 .buttons {
   position: absolute;
-  top: var(--inputAddonTop);
-  right: var(--marginXSmall);
+  top: var(--paddingV);
+  right: var(--paddingH);
 }
 
 .button {

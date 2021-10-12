@@ -36,6 +36,6 @@ export default defineComponent({
 }
 
 .p {
-  margin: 0 0 var(--marginXSmall);
+  margin: 0 0 var(--spacingMedium);
 }
 </style>

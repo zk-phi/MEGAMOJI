@@ -23,7 +23,7 @@ export default defineComponent({
     <Color
         block
         :model-value="modelValue"
-        style="margin-right: 8px;"
+        style="margin-right: var(--spacingInlineSmall);"
         @update:model-value="$emit('update:modelValue', $event)" />
     <IconButton type="danger" @click="$emit('remove')">
       <Delete />

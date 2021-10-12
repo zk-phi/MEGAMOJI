@@ -36,8 +36,7 @@ export default defineComponent({
   flex-flow: row wrap;
   justify-content: flex-start;
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-  column-gap: var(--marginMedium);
-  row-gap: var(--marginSmall);
+  gap: var(--spacingMedium);
 }
 
 .child {
@@ -49,15 +48,15 @@ export default defineComponent({
 }
 
 .space.xlarge {
-  gap: var(--marginXLarge);
+  gap: var(--spacingXLarge);
 }
 
 .space.large {
-  gap: var(--marginLarge);
+  gap: var(--spacingLarge);
 }
 
 .space.small {
-  gap: var(--marginXSmall);
+  gap: var(--spacingSmall);
 }
 
 .vertical {

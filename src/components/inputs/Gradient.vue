@@ -149,9 +149,9 @@ export default defineComponent({
 
 <style scoped>
 .gradient {
-  --railHeight: 36px;
-  --knobWidth: 18px;
-  --knobHeight: 36px;
+  --railHeight: 2.5rem;
+  --knobWidth: 1.25rem;
+  --knobHeight: 2.5rem;
   --knobTouchAreaWidth: 3em;
   display: block;
   width: 100%;
