@@ -231,7 +231,7 @@ export default defineComponent({
 
 /* stylelint-disable-next-line selector-max-type */
 html {
-  padding: var(--spacingXLarge);
+  padding: var(--spacingLarge);
   font-family:
     "Helvetica Neue",
     Arial,
