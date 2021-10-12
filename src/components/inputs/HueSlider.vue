@@ -64,7 +64,6 @@ export default defineComponent({
 .slider {
   display: block;
   width: 100%;
-  border: 1px solid var(--border);
 }
 
 .container {
