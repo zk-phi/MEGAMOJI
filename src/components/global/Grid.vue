@@ -9,6 +9,7 @@ export default defineComponent({
   },
   props: {
     columns: { type: Array as PropType<number[][]>, required: true },
+    xlarge: { type: Boolean, default: false },
   },
   data: () => ({
     width: 0,
@@ -35,7 +36,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="grid" :style="{ gridTemplateColumns: `repeat(${numColumns}, 1fr)` }">
+  <div :class="['grid', { xlarge }]" :style="{ gridTemplateColumns: `repeat(${numColumns}, 1fr)` }">
     <slot />
   </div>
 </template>
@@ -44,5 +45,9 @@ export default defineComponent({
 .grid {
   display: grid;
   gap: var(--spacingLarge);
+}
+
+.xlarge {
+  gap: var(--spacingXLarge);
 }
 </style>

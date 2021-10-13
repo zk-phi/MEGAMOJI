@@ -205,7 +205,7 @@ export default defineComponent({
 
 <template>
   <Card v-if="show && !devMode">
-    <Grid :columns="[[450, 1], [Infinity, 2]]">
+    <Grid :columns="[[450, 1], [Infinity, 2]]" xlarge>
       <GridItem>
         <Space vertical xlarge full>
           <Fieldset label="アニメーション">

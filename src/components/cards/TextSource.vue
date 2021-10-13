@@ -113,7 +113,7 @@ export default defineComponent({
 
 <template>
   <Card v-if="show">
-    <Grid :columns="[[450, 1], [Infinity, 3]]">
+    <Grid :columns="[[450, 1], [Infinity, 3]]" xlarge>
       <GridItem>
         <FontSelectBlock
             v-model="conf.font"
