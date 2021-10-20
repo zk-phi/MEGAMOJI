@@ -231,6 +231,17 @@ export default defineComponent({
   --tabButtonPadding: 0 calc(var(--paddingH) * 0.75) calc(var(--paddingV) - 3px);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #ccc;
+    --bg: #333;
+    --accentBg: #3a3a3a;
+    --light: var(--fg);
+    --dark: var(--bg);
+    --border: #666;
+  }
+}
+
 /* stylelint-disable-next-line selector-max-type */
 html {
   padding: var(--spacingXLarge);
