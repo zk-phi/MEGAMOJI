@@ -89,5 +89,6 @@ export default defineComponent({
 <style scoped>
 .img {
   height: 1em;
+  background-color: #fff;
 }
 </style>
