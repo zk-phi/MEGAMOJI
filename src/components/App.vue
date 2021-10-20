@@ -243,5 +243,7 @@ html {
     sans-serif;
   font-size: var(--fontSizeMedium);
   line-height: 1;
+  color: var(--fg);
+  background-color: var(--bg);
 }
 </style>
