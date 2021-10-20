@@ -4,13 +4,12 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     title: { type: String, default: null },
-    style: { type: [Object, String], default: "" },
   },
 });
 </script>
 
 <template>
-  <div class="card" :style="style">
+  <div class="card">
     <div class="content">
       <h3 v-if="title" class="title">
         {{ title }}
