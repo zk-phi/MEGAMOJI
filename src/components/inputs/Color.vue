@@ -55,7 +55,7 @@ export default defineComponent({
   padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
-  color: var(--fg);
+  color: var(--dark);
   cursor: pointer;
   background-color: var(--bg);
   border: 1px solid var(--border);
@@ -63,7 +63,7 @@ export default defineComponent({
 }
 
 .color.dark {
-  color: var(--distantFg);
+  color: var(--light);
 }
 
 .color:hover {

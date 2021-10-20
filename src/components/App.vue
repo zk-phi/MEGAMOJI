@@ -180,6 +180,8 @@ export default defineComponent({
   --fg: #333;
   --bg: #fff;
   --accentBg: #fafafa;
+  --light: var(--bg);
+  --dark: var(--fg);
   --distantFg: var(--bg);
   --border: #888;
   --primary: #edad0b;
