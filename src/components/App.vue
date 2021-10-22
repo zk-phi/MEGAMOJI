@@ -180,18 +180,19 @@ export default defineComponent({
   --fg: #333;
   --bg: #fff;
   --accentBg: #fafafa;
+  --elevatedBg: var(--bg);
   --light: var(--bg);
   --dark: var(--fg);
   --distantFg: var(--bg);
-  --border: #888;
-  --primary: #edad0b;
-  --primaryHover: #f2c145;
-  --primaryActive: #d59b0a;
-  --primaryShadow: 0 0 0 2px rgba(237, 173, 11, 0.2);
-  --danger: #c7243a;
-  --dangerHover: #d04255;
-  --dangerActive: #b32034;
-  --dangerShadow: 0 0 0 2px rgba(199, 36, 58, 0.2);
+  --border: #aaa;
+  --primary: #eba800; /* 43deg 46% */
+  --primaryHover: #ffb700; /* 43deg 50% */
+  --primaryActive: #e0a100; /* 43deg 44% */
+  --primaryShadow: 0 0 0 2px rgba(235, 168, 0, 0.2);
+  --danger: #eb0000; /* 0deg 46% */
+  --dangerHover: #ff0000; /* 0deg 50% */
+  --dangerActive: #d60000; /* 0deg 44% */
+  --dangerShadow: 0 0 0 2px rgba(235, 0, 0, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
@@ -233,12 +234,14 @@ export default defineComponent({
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fg: #ccc;
-    --bg: #333;
-    --accentBg: #3a3a3a;
+    --fg: #eee;
+    --bg: #000;
+    --accentBg: #222;
+    --elevatedBg: #555;
     --light: var(--fg);
     --dark: var(--bg);
-    --border: #666;
+    --border: #888;
+    --popoverShadow: none;
   }
 }
 

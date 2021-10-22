@@ -111,7 +111,7 @@ export default defineComponent({
   position: absolute;
   padding: var(--spacingLarge);
   margin: var(--spacingSmall) 0;
-  background-color: var(--bg);
+  background-color: var(--elevatedBg);
   border-radius: var(--borderRadius);
   box-shadow: var(--popoverShadow);
 }
