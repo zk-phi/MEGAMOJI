@@ -185,14 +185,14 @@ export default defineComponent({
   --dark: var(--fg);
   --distantFg: var(--bg);
   --border: #aaa;
-  --primary: #eba800; /* 43deg 46% */
-  --primaryHover: #ffb700; /* 43deg 50% */
-  --primaryActive: #e0a100; /* 43deg 44% */
-  --primaryShadow: 0 0 0 2px rgba(235, 168, 0, 0.2);
-  --danger: #eb0000; /* 0deg 46% */
-  --dangerHover: #f00; /* 0deg 50% */
-  --dangerActive: #d60000; /* 0deg 44% */
-  --dangerShadow: 0 0 0 2px rgba(235, 0, 0, 0.2);
+  --primary: #ea0; /* okhsv(80, 100, 94) */
+  --primaryHover: #f9b200; /* v = 98 */
+  --primaryActive: #e3a200; /* v = 90 */
+  --primaryShadow: 0 0 0 2px rgba(238, 170, 0, 0.2);
+  --danger: #ef007f; /* h = 0 */
+  --dangerHover: #fa0085;
+  --dangerActive: #e40079;
+  --dangerShadow: 0 0 0 2px rgba(239, 0, 127, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
