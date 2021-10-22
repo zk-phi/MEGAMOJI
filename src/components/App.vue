@@ -236,11 +236,11 @@ export default defineComponent({
   :root {
     --fg: #eee;
     --bg: #000;
-    --accentBg: #282828;
-    --elevatedBg: #555;
+    --accentBg: #222;
+    --elevatedBg: #444;
     --light: var(--fg);
     --dark: var(--bg);
-    --border: #888;
+    --border: #666;
     --popoverShadow: none;
   }
 }
