@@ -67,7 +67,7 @@ export default defineComponent({
 }
 
 .color:hover {
-  border-color: var(--primaryHover);
+  border-color: var(--primary);
 }
 
 .color:active {
