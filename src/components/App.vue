@@ -236,7 +236,7 @@ export default defineComponent({
   :root {
     --fg: #eee;
     --bg: #000;
-    --accentBg: #222;
+    --accentBg: #282828;
     --elevatedBg: #555;
     --light: var(--fg);
     --dark: var(--bg);
