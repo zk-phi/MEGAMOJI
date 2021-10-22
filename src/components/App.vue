@@ -190,7 +190,7 @@ export default defineComponent({
   --primaryActive: #e0a100; /* 43deg 44% */
   --primaryShadow: 0 0 0 2px rgba(235, 168, 0, 0.2);
   --danger: #eb0000; /* 0deg 46% */
-  --dangerHover: #ff0000; /* 0deg 50% */
+  --dangerHover: #f00; /* 0deg 50% */
   --dangerActive: #d60000; /* 0deg 44% */
   --dangerShadow: 0 0 0 2px rgba(235, 0, 0, 0.2);
 
