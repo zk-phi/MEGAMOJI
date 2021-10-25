@@ -185,14 +185,14 @@ export default defineComponent({
   --dark: var(--fg);
   --distantFg: var(--bg);
   --border: #aaa;
-  --primary: #ea0; /* okhsv(80, 100, 94) */
-  --primaryHover: #f9b200; /* v = 98 */
-  --primaryActive: #e3a200; /* v = 90 */
+  --primary: #ea0; /* okhsl(80, 100, 75) */
+  --primaryHover: #ffb81c; /* v = 80 */
+  --primaryActive: #de9e00; /* v = 70 */
   --primaryShadow: 0 0 0 2px rgba(238, 170, 0, 0.2);
-  --danger: #ef007f; /* h = 0 */
-  --dangerHover: #fa0085;
-  --dangerActive: #e40079;
-  --dangerShadow: 0 0 0 2px rgba(239, 0, 127, 0.2);
+  --danger: #ff91b4; /* h = 0 */
+  --dangerHover: #ffaac4;
+  --dangerActive: #ff77a7;
+  --dangerShadow: 0 0 0 2px rgba(255, 145, 180, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
@@ -235,12 +235,12 @@ export default defineComponent({
 @media (prefers-color-scheme: dark) {
   :root {
     --fg: #eee;
-    --bg: #000;
-    --accentBg: #222;
-    --elevatedBg: #444;
+    --bg: #222;
+    --accentBg: #333;
+    --elevatedBg: #555;
     --light: var(--fg);
     --dark: var(--bg);
-    --border: #666;
+    --border: #777;
     --popoverShadow: none;
   }
 }
