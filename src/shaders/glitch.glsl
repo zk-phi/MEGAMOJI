@@ -1,6 +1,7 @@
 // ideas are based on https://qiita.com/uriuriuriu/items/7be0ed117ab8ae3e7f79
 
 #define WAVE_HEIGHT 0.05
+#define COLOR_ABERR_STRENGTH .01
 #define HORIZ_NOISE_STRENGTH 0.015
 #define WARP_COUNT 2
 #define WARP_MAX_WIDTH .35
@@ -51,9 +52,9 @@ void main(void) {
   pos.y += step2(y, y + WAVE_HEIGHT, pos.y) * WAVE_HEIGHT;
 
   // color aberration
-  vec4 r = texture2D(texture, pos + vec2(.015, 0));
+  vec4 r = texture2D(texture, pos + vec2(COLOR_ABERR_STRENGTH, 0));
   vec4 g = texture2D(texture, pos);
-  vec4 b = texture2D(texture, pos - vec2(.015, 0));
+  vec4 b = texture2D(texture, pos - vec2(COLOR_ABERR_STRENGTH, 0));
   vec4 color = vec4(r.r, g.g, b.b, (r.a + g.a + b.a) / 3.);
 
   // scanline
