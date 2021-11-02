@@ -9,6 +9,7 @@
 #define SCANLINE_STRENGTH 0.02
 #define SCANLINE_FREQ 50.
 #define WHITE_NOISE_STRENGTH .025
+#define VIGNETTE_STRENGTH .05
 
 precision highp float;
 uniform sampler2D texture;
@@ -62,6 +63,10 @@ void main(void) {
 
   // white noise
   color = mix(color, vec4(vec3(step(.5, random2(vUv + keyframe))), 1.), WHITE_NOISE_STRENGTH);
+
+  // vignette
+  float dist = 1. - distance(pos, vec2(.5)) / distance(vec2(.25), vec2(.5));
+  color.rgb *= pow(clamp(0., 1., dist), VIGNETTE_STRENGTH);
 
   gl_FragColor = color;
 }
