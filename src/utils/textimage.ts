@@ -14,6 +14,7 @@ const makeTextImageSingleLine = (
   const ctx = canvas.getContext("2d")!;
   ctx.font = font;
   ctx.textBaseline = "top";
+  ctx.miterLimit = 6.0;
 
   const margin = fontHeight * 0.025;
 
