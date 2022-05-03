@@ -67,8 +67,6 @@ function renderFrameUncut(
   }
 }
 
-let encoders: GIF[][] | null = null;
-
 /**
  * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
@@ -94,10 +92,6 @@ function renderAllCellsFixedSize(
   backgroundColor: string,
   transparent: boolean,
 ) {
-  if (encoders) {
-    encoders.forEach((row) => { row.forEach((encoder) => encoder.abort()); });
-    encoders = null;
-  }
   if (!animated) {
     const img = renderFrameUncut(
       0, image,
@@ -118,8 +112,8 @@ function renderAllCellsFixedSize(
       )))
     )));
   } else {
-    encoders = [];
     /* instantiate GIF encoders for each cells */
+    const encoders = [];
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
@@ -159,10 +153,7 @@ function renderAllCellsFixedSize(
     }
     return Promise.all<Blob[]>(encoders.map((row) => Promise.all<Blob>(row.map((cell) => (
       new Promise((resolve) => {
-        cell.on("finished", (ret) => {
-          resolve(ret);
-          encoders = null;
-        });
+        cell.on("finished", resolve);
         cell.render();
       })
     )))));

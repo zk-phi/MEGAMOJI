@@ -35,6 +35,9 @@ type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
 type SpeedOption = { label: string, value: number };
 
+type Handler<T> = (ret: T) => void;
+type AbortableHandler<T> = Handler<T> & { abort: () => void };
+
 const TRIMMING_OPTIONS = [
   { label: "ぴっちり", value: "" },
   { label: "はみだす (アス比維持)", value: "cover" },
@@ -48,6 +51,14 @@ const SPEED_OPTIONS = [
   { label: "速い", value: 0.3 },
   { label: "爆速", value: 0.1 },
 ];
+
+const abortable = <T>(handler: Handler<T>): AbortableHandler<T> => {
+  let aborted = false;
+  const abortableHandler = (ret: T) => {
+    if (!aborted) handler(ret);
+  };
+  return Object.assign(abortableHandler, { abort: () => { aborted = true; } });
+};
 
 export default defineComponent({
   components: {
@@ -101,6 +112,8 @@ export default defineComponent({
       },
       showDetails: false,
       devMode: false,
+      /* internals */
+      lastHandler: null as (AbortableHandler<Blob[][]> | null),
     };
   },
   watch: {
@@ -179,6 +192,9 @@ export default defineComponent({
         const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
         const framecount = Math.floor(this.conf.duration * framerate);
 
+        if (this.lastHandler) this.lastHandler.abort();
+        this.lastHandler = abortable(((res: Blob[][]) => { this.$emit("render", res); }));
+
         const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         renderAllCells(
           this.baseImage,
@@ -194,9 +210,7 @@ export default defineComponent({
           this.conf.webglEffects.map((eff) => eff.value),
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
-        ).then((res) => {
-          this.$emit("render", res);
-        });
+        ).then(this.lastHandler);
       }
     },
   },
