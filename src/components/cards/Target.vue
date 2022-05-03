@@ -30,6 +30,8 @@ import {
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
+import { NODE_ENV } from "../../utils/env";
+
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
@@ -92,6 +94,7 @@ export default defineComponent({
       webgleffects,
       TRIMMING_OPTIONS,
       SPEED_OPTIONS,
+      isDev: NODE_ENV == "development",
       conf: {
         /* basic */
         trimming: TRIMMING_OPTIONS[0],
@@ -233,7 +236,7 @@ export default defineComponent({
           <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
           <EffectBlock v-model="conf.effects" :effects="effects" />
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-          <Fieldset v-if="showDetails" label="開発者向け">
+          <Fieldset v-if="showDetails && isDev" label="開発者向け">
             <Button danger type="text" @click="devMode = true">
               開発者モード
             </Button>
