@@ -94,7 +94,7 @@ export default defineComponent({
       webgleffects,
       TRIMMING_OPTIONS,
       SPEED_OPTIONS,
-      isDev: NODE_ENV == "development",
+      isDev: NODE_ENV === "development",
       conf: {
         /* basic */
         trimming: TRIMMING_OPTIONS[0],
