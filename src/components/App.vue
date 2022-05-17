@@ -71,6 +71,9 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
       }
+      if (window.gtag) {
+        window.gtag("event", "switch_mode", { mode: value ? "target" : this.ui.mode });
+      }
     },
     onSelectMode(value: string): void {
       this.ui.mode = value;
@@ -78,11 +81,17 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "pageview", `/${value}`);
       }
+      if (window.gtag) {
+        window.gtag("event", "switch_mode", { mode: value });
+      }
     },
     onRenderTarget(imgs: Blob[][]): void {
       this.resultImages = imgs;
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "render");
+      }
+      if (window.gtag) {
+        window.gtag("event", "render_emoji", { mode: this.ui.mode });
       }
     },
     onRender(img: HTMLImageElement): void {
@@ -93,6 +102,9 @@ export default defineComponent({
       download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "download");
+      }
+      if (window.gtag) {
+        window.gtag("event", "download", { mode: this.ui.mode });
       }
     },
   },
