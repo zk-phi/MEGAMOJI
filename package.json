@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@dhdbstjr98/gif.js": "^1.0.2",
+    "@types/gtag.js": "^0.0.10",
     "color-convert": "^2.0.1",
     "file-saver": "^2.0.5",
     "jszip": "^3.7.1",
