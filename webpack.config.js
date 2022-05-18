@@ -55,6 +55,7 @@ module.exports = (env, argv) => ({
     new EnvironmentPlugin({
       NODE_ENV: argv.mode,
       ROLLBAR_TOKEN: "",
+      GA4_TOKEN: "",
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin({

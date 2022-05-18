@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { saveAs } from "file-saver";
+import gtag from "../utils/analytics";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
 import TextSource from "./cards/TextSource.vue";
@@ -71,8 +72,8 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
       }
-      if (window.gtag) {
-        window.gtag("event", "switch_mode", { mode: value ? "target" : this.ui.mode });
+      if (gtag) {
+        gtag("event", "switch_mode", { mode: value ? "target" : this.ui.mode });
       }
     },
     onSelectMode(value: string): void {
@@ -81,8 +82,8 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "pageview", `/${value}`);
       }
-      if (window.gtag) {
-        window.gtag("event", "switch_mode", { mode: value });
+      if (gtag) {
+        gtag("event", "switch_mode", { mode: value });
       }
     },
     onRenderTarget(imgs: Blob[][]): void {
@@ -90,8 +91,8 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "render");
       }
-      if (window.gtag) {
-        window.gtag("event", "render_emoji", { mode: this.ui.mode });
+      if (gtag) {
+        gtag("event", "render_emoji", { mode: this.ui.mode });
       }
     },
     onRender(img: HTMLImageElement): void {
@@ -103,8 +104,8 @@ export default defineComponent({
       if (window.ga) {
         window.ga("send", "event", this.ui.mode, "download");
       }
-      if (window.gtag) {
-        window.gtag("event", "download", { mode: this.ui.mode });
+      if (gtag) {
+        gtag("event", "download", { mode: this.ui.mode });
       }
     },
   },
