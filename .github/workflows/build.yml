@@ -83,6 +83,7 @@ jobs:
       - run: npm run build
         env:
           ROLLBAR_TOKEN: ${{ secrets.ROLLBAR_TOKEN }}
+          GA4_TOKEN: ${{ secrets.GA4_TOKEN }}
       - uses: actions/upload-artifact@v2
         with:
           name: app
