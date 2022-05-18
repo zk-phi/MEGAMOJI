@@ -4,7 +4,8 @@ export default (() => {
   if (GA4_TOKEN) {
     gtag("js", new Date());
     gtag("config", GA4_TOKEN);
-    console.log("GA4 initialized");
+    // eslint-disable-next-line no-console
+    console.log("GA4 initialized.");
     return gtag;
   } else {
     return null;
