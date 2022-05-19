@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import Analytics from "../../utils/analytics";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
@@ -78,18 +79,14 @@ export default defineComponent({
   watch: {
     conf: {
       handler(): void {
-        if (window.ga) {
-          window.ga("set", "dimension1", this.conf.font);
-        }
+        Analytics && Analytics.changeFont(this.conf.font);
         this.render();
       },
       deep: true,
     },
   },
   mounted() {
-    if (window.ga) {
-      window.ga("set", "dimension1", this.conf.font);
-    }
+    Analytics && Analytics.changeFont(this.conf.font);
   },
   methods: {
     render(): void {

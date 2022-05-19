@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { saveAs } from "file-saver";
-import gtag from "../utils/analytics";
+import Analytics from "../utils/analytics";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
 import TextSource from "./cards/TextSource.vue";
@@ -56,34 +56,22 @@ export default defineComponent({
       return this.resultImages.map((row) => row.map((cell) => URL.createObjectURL(cell)));
     },
   },
+  mounted() {
+    Analytics && Analytics.switchMode("text");
+  },
   methods: {
     onSetShowTarget(value: boolean): void {
       this.ui.showTargetPanel = value;
-      if (window.ga) {
-        window.ga("send", "pageview", value ? "/target" : (`/${this.ui.mode}`));
-      }
-      if (gtag) {
-        gtag("event", "switch_mode", { mode: value ? "target" : this.ui.mode });
-      }
+      Analytics && Analytics.switchMode(value ? "target" : this.ui.mode, true);
     },
     onSelectMode(value: string): void {
       this.ui.mode = value;
       this.ui.showTargetPanel = false;
-      if (window.ga) {
-        window.ga("send", "pageview", `/${value}`);
-      }
-      if (gtag) {
-        gtag("event", "switch_mode", { mode: value });
-      }
+      Analytics && Analytics.switchMode(value, true);
     },
     onRenderTarget(imgs: Blob[][]): void {
       this.resultImages = imgs;
-      if (window.ga) {
-        window.ga("send", "event", this.ui.mode, "render");
-      }
-      if (gtag) {
-        gtag("event", "render_emoji", { mode: this.ui.mode });
-      }
+      Analytics && Analytics.render();
     },
     onRender(img: HTMLImageElement): void {
       this.baseImage = img;
@@ -91,12 +79,7 @@ export default defineComponent({
     onDownload(): void {
       const download = prepareDownloadFile(this.resultImages);
       download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
-      if (window.ga) {
-        window.ga("send", "event", this.ui.mode, "download");
-      }
-      if (gtag) {
-        gtag("event", "download", { mode: this.ui.mode });
-      }
+      Analytics && Analytics.download();
     },
   },
 });

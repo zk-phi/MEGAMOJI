@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import Analytics from "../../utils/analytics";
 import EffectBlock from "../formblocks/EffectBlock.vue";
 import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
@@ -130,15 +131,13 @@ export default defineComponent({
     },
     conf: {
       handler(): void {
-        if (window.ga) {
-          const animationName = this.conf.animation ? this.conf.animation.label : "";
-          const effectNames = [
-            this.conf.staticEffects.map((e) => e.label).join(","),
-            this.conf.effects.map((e) => e.label).join(","),
-            this.conf.webglEffects.map((e) => e.label).join(","),
-          ].join("/");
-          window.ga("set", "dimension2", `${animationName}/${effectNames}`);
-        }
+        const animationName = this.conf.animation ? this.conf.animation.label : "";
+        const effectNames = [
+          ...this.conf.staticEffects.map((e) => e.label),
+          ...this.conf.effects.map((e) => e.label),
+          ...this.conf.webglEffects.map((e) => e.label),
+        ];
+        Analytics && Analytics.changeAnimation(animationName, effectNames);
         this.render();
       },
       deep: true,
@@ -152,9 +151,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    if (window.ga) {
-      window.ga("set", "dimension2", "///");
-    }
+    Analytics && Analytics.changeAnimation("", []);
   },
   methods: {
     refreshDefaultSettings(): void {
