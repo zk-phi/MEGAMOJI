@@ -2,7 +2,6 @@
 import { defineComponent } from "vue";
 import Space from "./Space.vue";
 import TabButton from "../inputs/TabButton.vue";
-import TabGroup from "../inputs/TabGroup.vue";
 import Image from "../icons/Image.vue";
 import Text from "../icons/Text.vue";
 import Emoji from "../icons/Emoji.vue";
@@ -11,7 +10,6 @@ export default defineComponent({
   components: {
     Space,
     TabButton,
-    TabGroup,
     Image,
     Text,
     Emoji,
@@ -102,7 +100,7 @@ export default defineComponent({
 }
 
 .nya:hover::after {
-  content: " < nya!";
   color: var(--border);
+  content: " < nya!";
 }
 </style>
