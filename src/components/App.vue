@@ -11,17 +11,12 @@ import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import Button from "./inputs/Button.vue";
-import TabButton from "./inputs/TabButton.vue";
-import TabGroup from "./inputs/TabGroup.vue";
 import Space from "./global/Space.vue";
 import Grid from "./global/Grid.vue";
 import GridItem from "./global/GridItem.vue";
 import Effect from "./icons/Effect.vue";
 import Back from "./icons/Back.vue";
 import Save from "./icons/Save.vue";
-import Image from "./icons/Image.vue";
-import Text from "./icons/Text.vue";
-import Emoji from "./icons/Emoji.vue";
 import { extension, prepareDownloadFile } from "../utils/file";
 import "../css/destyle.css";
 
@@ -39,14 +34,9 @@ export default defineComponent({
     Grid,
     GridItem,
     Button,
-    TabButton,
-    TabGroup,
     Effect,
     Back,
     Save,
-    Text,
-    Image,
-    Emoji,
   },
   data() {
     return {
@@ -115,28 +105,7 @@ export default defineComponent({
 <template>
   <div class="app">
     <Space vertical large full>
-      <Header />
-
-      <TabGroup>
-        <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
-          <template #icon>
-            <Text />
-          </template>
-          テキスト
-        </TabButton>
-        <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
-          <template #icon>
-            <Image />
-          </template>
-          画像ファイル
-        </TabButton>
-        <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
-          <template #icon>
-            <Emoji />
-          </template>
-          パーツ
-        </TabButton>
-      </TabGroup>
+      <Header :model-value="ui.mode" @update:model-value="onSelectMode" />
 
       <Grid :columns="[[760, 1], [Infinity, 3]]">
         <GridItem :span="2">
