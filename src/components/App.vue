@@ -104,55 +104,53 @@ export default defineComponent({
 
 <template>
   <div class="app">
-    <Space vertical large full>
-      <Header :model-value="ui.mode" @update:model-value="onSelectMode" />
+    <Header :model-value="ui.mode" @update:model-value="onSelectMode" />
 
-      <Grid :columns="[[760, 1], [Infinity, 3]]">
-        <GridItem :span="2">
-          <TextSource
-              :show="ui.mode == 'text' && !ui.showTargetPanel"
-              @render="onRender" />
-          <FileSource
-              :show="ui.mode == 'file' && !ui.showTargetPanel"
-              @render="onRender" />
-          <FukumojiSource
-              :show="ui.mode == 'parts' && !ui.showTargetPanel"
-              @render="onRender" />
-          <Target
-              :show="ui.showTargetPanel"
-              :base-image="baseImage"
-              @render="onRenderTarget" />
-        </GridItem>
-        <GridItem>
-          <Tutorial v-if="!baseImage" />
-          <Space v-else large vertical>
-            <Result :images="resultImageUrls" />
-            <Space>
-              <Button v-if="ui.showTargetPanel" @click="onSetShowTarget(!ui.showTargetPanel)">
-                <template #icon>
-                  <Back />
-                </template>
-                もどる
-              </Button>
-              <Button v-else @click="onSetShowTarget(!ui.showTargetPanel)">
-                <template #icon>
-                  <Effect />
-                </template>
-                効果をつける
-              </Button>
-              <Button v-if="baseImage" type="primary" @click="onDownload">
-                <template #icon>
-                  <Save />
-                </template>
-                絵文字を保存
-              </Button>
-            </Space>
+    <Grid class="content" :columns="[[760, 1], [Infinity, 3]]">
+      <GridItem :span="2">
+        <TextSource
+            :show="ui.mode == 'text' && !ui.showTargetPanel"
+            @render="onRender" />
+        <FileSource
+            :show="ui.mode == 'file' && !ui.showTargetPanel"
+            @render="onRender" />
+        <FukumojiSource
+            :show="ui.mode == 'parts' && !ui.showTargetPanel"
+            @render="onRender" />
+        <Target
+            :show="ui.showTargetPanel"
+            :base-image="baseImage"
+            @render="onRenderTarget" />
+      </GridItem>
+      <GridItem>
+        <Tutorial v-if="!baseImage" />
+        <Space v-else large vertical>
+          <Result :images="resultImageUrls" />
+          <Space>
+            <Button v-if="ui.showTargetPanel" @click="onSetShowTarget(!ui.showTargetPanel)">
+              <template #icon>
+                <Back />
+              </template>
+              もどる
+            </Button>
+            <Button v-else @click="onSetShowTarget(!ui.showTargetPanel)">
+              <template #icon>
+                <Effect />
+              </template>
+              効果をつける
+            </Button>
+            <Button v-if="baseImage" type="primary" @click="onDownload">
+              <template #icon>
+                <Save />
+              </template>
+              絵文字を保存
+            </Button>
           </Space>
-        </GridItem>
-      </Grid>
+        </Space>
+      </GridItem>
+    </Grid>
 
-      <Footer />
-    </Space>
+    <Footer />
   </div>
 </template>
 
@@ -229,7 +227,6 @@ export default defineComponent({
 
 /* stylelint-disable-next-line selector-max-type */
 html {
-  padding: var(--spacingLarge);
   font-family:
     "Helvetica Neue",
     Arial,
@@ -241,5 +238,11 @@ html {
   line-height: 1;
   color: var(--fg);
   background-color: var(--bg);
+}
+</style>
+
+<style scoped>
+.content {
+  padding: var(--spacingLarge);
 }
 </style>
