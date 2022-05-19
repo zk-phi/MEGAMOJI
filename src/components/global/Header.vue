@@ -96,7 +96,7 @@ export default defineComponent({
 }
 
 .nya {
-  cursor: grab;
+  cursor: pointer;
 }
 
 .nya:hover::after {
