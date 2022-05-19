@@ -30,6 +30,8 @@ const download = () => {
 
 export default (() => {
   if (GA4_TOKEN) {
+    ga("create", "UA-121793995-1", "auto");
+    ga("send", "pageview", "/");
     gtag("js", new Date());
     gtag("config", GA4_TOKEN);
     // eslint-disable-next-line no-console
