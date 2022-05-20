@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { saveAs } from "file-saver";
 import Analytics from "../utils/analytics";
 import Header from "./global/Header.vue";
 import Footer from "./global/Footer.vue";
@@ -10,14 +9,9 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
-import Button from "./inputs/Button.vue";
 import Space from "./global/Space.vue";
 import Grid from "./global/Grid.vue";
 import GridItem from "./global/GridItem.vue";
-import Effect from "./icons/Effect.vue";
-import Back from "./icons/Back.vue";
-import Save from "./icons/Save.vue";
-import { extension, prepareDownloadFile } from "../utils/file";
 import "../css/destyle.css";
 
 export default defineComponent({
@@ -33,10 +27,6 @@ export default defineComponent({
     Space,
     Grid,
     GridItem,
-    Button,
-    Effect,
-    Back,
-    Save,
   },
   data() {
     return {
@@ -51,18 +41,13 @@ export default defineComponent({
       },
     };
   },
-  computed: {
-    resultImageUrls(): string[][] {
-      return this.resultImages.map((row) => row.map((cell) => URL.createObjectURL(cell)));
-    },
-  },
   mounted() {
     Analytics && Analytics.switchMode("text");
   },
   methods: {
-    onSetShowTarget(value: boolean): void {
-      this.ui.showTargetPanel = value;
-      Analytics && Analytics.switchMode(value ? "target" : this.ui.mode, true);
+    onToggleShowTarget(): void {
+      this.ui.showTargetPanel = !this.ui.showTargetPanel;
+      Analytics && Analytics.switchMode(this.ui.showTargetPanel ? "target" : this.ui.mode, true);
     },
     onSelectMode(value: string): void {
       this.ui.mode = value;
@@ -75,11 +60,6 @@ export default defineComponent({
     },
     onRender(img: HTMLImageElement): void {
       this.baseImage = img;
-    },
-    onDownload(): void {
-      const download = prepareDownloadFile(this.resultImages);
-      download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
-      Analytics && Analytics.download();
     },
   },
 });
@@ -107,29 +87,11 @@ export default defineComponent({
       </GridItem>
       <GridItem>
         <Tutorial v-if="!baseImage" />
-        <Space v-else large vertical>
-          <Result :images="resultImageUrls" />
-          <Space>
-            <Button v-if="ui.showTargetPanel" @click="onSetShowTarget(!ui.showTargetPanel)">
-              <template #icon>
-                <Back />
-              </template>
-              もどる
-            </Button>
-            <Button v-else @click="onSetShowTarget(!ui.showTargetPanel)">
-              <template #icon>
-                <Effect />
-              </template>
-              効果をつける
-            </Button>
-            <Button v-if="baseImage" type="primary" @click="onDownload">
-              <template #icon>
-                <Save />
-              </template>
-              絵文字を保存
-            </Button>
-          </Space>
-        </Space>
+        <Result
+            v-else
+            :images="resultImages"
+            :show-target="ui.showTargetPanel"
+            @toggle-show-target="onToggleShowTarget" />
       </GridItem>
     </Grid>
 
