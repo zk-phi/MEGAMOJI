@@ -28,7 +28,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <Card>
+  <Card title="遊び方">
     <Space vertical xlarge>
       <Media title="テキスト" :icon="textSample">
         文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。

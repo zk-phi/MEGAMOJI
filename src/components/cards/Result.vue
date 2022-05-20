@@ -22,13 +22,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <Card class="result" title="絵文字">
+  <Card class="result" title="プレビュー">
     <Space vertical large>
       <RawResult v-if="!previewMode" :images="images" />
       <Preview v-if="previewMode" :images="images" :dark-mode="false" />
       <Preview v-if="previewMode" :images="images" :dark-mode="true" />
       <Checkbox v-model="previewMode">
-        {{ "プレビューモード" }}
+        {{ "サンプル表示" }}
       </Checkbox>
     </Space>
   </Card>
