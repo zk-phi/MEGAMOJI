@@ -7,10 +7,13 @@ import Button from "../inputs/Button.vue";
 import textSample from "../../samples/text.png";
 import imageSample from "../../samples/image.png";
 import fukumojiSample from "../../samples/fukumoji.png";
+import Image from "../icons/Image.vue";
+import Text from "../icons/Text.vue";
+import Emoji from "../icons/Emoji.vue";
 
 export default defineComponent({
   components: {
-    Card, Space, Button, Media,
+    Card, Space, Button, Media, Image, Text, Emoji,
   },
   data() {
     return {
@@ -30,13 +33,16 @@ export default defineComponent({
 <template>
   <Card title="遊び方">
     <Space vertical xlarge>
-      <Media title="テキスト" :icon="textSample">
+      <Media :icon="textSample">
+        <template #title><Text /> テキスト</template>
         文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
       </Media>
-      <Media title="画像ファイル" :icon="imageSample">
+      <Media :icon="imageSample">
+        <template #title><Image /> 画像ファイル</template>
         好きな画像を正方形にトリミングしてスタンプにします。
       </Media>
-      <Media title="パーツ" :icon="fukumojiSample">
+      <Media :icon="fukumojiSample">
+        <template #title><Emoji /> パーツ</template>
         既存の絵文字を合成してスタンプを作ります。
       </Media>
       <Button type="text" @click="openLicense">

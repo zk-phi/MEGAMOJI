@@ -14,7 +14,7 @@ export default defineComponent({
     <span v-if="icon" class="icon" :style="{ backgroundImage: `url(${icon})` }" />
     <div class="body">
       <div class="title">
-        {{ title }}
+        <slot name="title" />
       </div>
       <slot />
     </div>
