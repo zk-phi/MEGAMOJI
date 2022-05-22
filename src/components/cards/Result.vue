@@ -24,21 +24,21 @@ export default defineComponent({
   emits: [
     "toggleShowTarget",
   ],
-  computed: {
-    resultImageUrls(): string[][] {
-      return this.images.map((row) => row.map((cell) => URL.createObjectURL(cell)));
-    },
-  },
   data() {
     return {
       previewMode: false,
     };
   },
+  computed: {
+    resultImageUrls(): string[][] {
+      return this.images.map((row) => row.map((cell) => URL.createObjectURL(cell)));
+    },
+  },
   methods: {
     onDownload(): void {
       const download = prepareDownloadFile(this.images);
       download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
-      Analytics && Analytics.download();
+      Analytics.download();
     },
   },
 });

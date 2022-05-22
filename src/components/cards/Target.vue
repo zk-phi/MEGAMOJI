@@ -137,7 +137,7 @@ export default defineComponent({
           ...this.conf.effects.map((e) => e.label),
           ...this.conf.webglEffects.map((e) => e.label),
         ];
-        Analytics && Analytics.changeAnimation(animationName, effectNames);
+        Analytics.changeAnimation(animationName, effectNames);
         this.render();
       },
       deep: true,
@@ -151,7 +151,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    Analytics && Analytics.changeAnimation("", []);
+    Analytics.changeAnimation("", []);
   },
   methods: {
     refreshDefaultSettings(): void {

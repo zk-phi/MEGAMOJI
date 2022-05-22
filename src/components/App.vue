@@ -9,7 +9,6 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
-import Space from "./global/Space.vue";
 import Grid from "./global/Grid.vue";
 import GridItem from "./global/GridItem.vue";
 import "../css/destyle.css";
@@ -24,7 +23,6 @@ export default defineComponent({
     Tutorial,
     Header,
     Footer,
-    Space,
     Grid,
     GridItem,
   },
@@ -42,21 +40,21 @@ export default defineComponent({
     };
   },
   mounted() {
-    Analytics && Analytics.switchMode("text");
+    Analytics.switchMode("text");
   },
   methods: {
     onToggleShowTarget(): void {
       this.ui.showTargetPanel = !this.ui.showTargetPanel;
-      Analytics && Analytics.switchMode(this.ui.showTargetPanel ? "target" : this.ui.mode, true);
+      Analytics.switchMode(this.ui.showTargetPanel ? "target" : this.ui.mode, true);
     },
     onSelectMode(value: string): void {
       this.ui.mode = value;
       this.ui.showTargetPanel = false;
-      Analytics && Analytics.switchMode(value, true);
+      Analytics.switchMode(value, true);
     },
     onRenderTarget(imgs: Blob[][]): void {
       this.resultImages = imgs;
-      Analytics && Analytics.render();
+      Analytics.render();
     },
     onRender(img: HTMLImageElement): void {
       this.baseImage = img;
@@ -194,11 +192,11 @@ html {
 <style scoped>
 .item {
   height: 100%;
+
   /* box-shadow as collapsed border */
   box-shadow:
     -1px 0 0 0 var(--border),
     0 1px 0 0 var(--border),
-    0 -1px 0 0 var(--border)
-  ;
+    0 -1px 0 0 var(--border);
 }
 </style>

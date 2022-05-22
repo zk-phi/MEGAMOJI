@@ -79,14 +79,14 @@ export default defineComponent({
   watch: {
     conf: {
       handler(): void {
-        Analytics && Analytics.changeFont(this.conf.font);
+        Analytics.changeFont(this.conf.font);
         this.render();
       },
       deep: true,
     },
   },
   mounted() {
-    Analytics && Analytics.changeFont(this.conf.font);
+    Analytics.changeFont(this.conf.font);
   },
   methods: {
     render(): void {
