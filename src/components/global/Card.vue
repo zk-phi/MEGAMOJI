@@ -25,8 +25,6 @@ export default defineComponent({
 <style scoped>
 .card {
   background-color: var(--accentBg);
-  border: 1px solid var(--border);
-  border-radius: var(--borderRadius);
 }
 
 .content {
@@ -42,6 +40,6 @@ export default defineComponent({
 
 .footer {
   padding: var(--spacingXLarge);
-  border-top: 1px solid var(--border);
+  border-top: 1px dotted var(--border);
 }
 </style>

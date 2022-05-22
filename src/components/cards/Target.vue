@@ -218,8 +218,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <Card v-if="show && !devMode">
-    <Grid :columns="[[450, 1], [Infinity, 2]]" xlarge>
+  <Card v-if="show">
+    <Grid v-if="!devMode" :columns="[[450, 1], [Infinity, 2]]" spaced>
       <GridItem>
         <Space vertical xlarge full>
           <Fieldset label="アニメーション">
@@ -297,19 +297,20 @@ export default defineComponent({
         </Space>
       </GridItem>
     </Grid>
-    <template #footer>
+    <template v-if="!devMode" #footer>
       <div style="text-align: center;">
         <Button type="text" @click="showDetails = !showDetails">
           {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
         </Button>
       </div>
     </template>
+    <DevTool
+        v-if="devMode"
+        v-model:no-crop="conf.noCrop"
+        :show="show && devMode"
+        @close="devMode = false"
+        @build-animation="conf.animation = $event"
+        @build-effect="conf.effects = [$event]"
+        @build-shader="conf.webglEffects = [$event]" />
   </Card>
-  <DevTool
-      v-model:no-crop="conf.noCrop"
-      :show="show && devMode"
-      @close="devMode = false"
-      @build-animation="conf.animation = $event"
-      @build-effect="conf.effects = [$event]"
-      @build-shader="conf.webglEffects = [$event]" />
 </template>

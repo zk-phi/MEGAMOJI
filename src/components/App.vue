@@ -69,26 +69,31 @@ export default defineComponent({
   <div class="app">
     <Header :model-value="ui.mode" @update:model-value="onSelectMode" />
 
-    <Grid class="content" :columns="[[760, 1], [Infinity, 3]]">
+    <Grid :columns="[[760, 1], [Infinity, 3]]">
       <GridItem :span="2">
         <TextSource
+            class="item"
             :show="ui.mode == 'text' && !ui.showTargetPanel"
             @render="onRender" />
         <FileSource
+            class="item"
             :show="ui.mode == 'file' && !ui.showTargetPanel"
             @render="onRender" />
         <FukumojiSource
+            class="item"
             :show="ui.mode == 'parts' && !ui.showTargetPanel"
             @render="onRender" />
         <Target
+            class="item"
             :show="ui.showTargetPanel"
             :base-image="baseImage"
             @render="onRenderTarget" />
       </GridItem>
       <GridItem>
-        <Tutorial v-if="!baseImage" />
+        <Tutorial v-if="!baseImage" class="item" />
         <Result
             v-else
+            class="item"
             :images="resultImages"
             :show-target="ui.showTargetPanel"
             @toggle-show-target="onToggleShowTarget" />
@@ -187,7 +192,11 @@ html {
 </style>
 
 <style scoped>
-.content {
-  padding: var(--spacingLarge);
+.item {
+  height: 100%;
+  /* box-shadow as collapsed border */
+  box-shadow:
+    1px 1px 0 0 var(--border),
+    inset 1px 1px 0 0 var(--border);
 }
 </style>

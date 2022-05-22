@@ -70,7 +70,6 @@ export default defineComponent({
 <style scoped>
 .header {
   padding: var(--spacingLarge) var(--spacingLarge) 0;
-  border-bottom: 1px solid var(--border);
 }
 
 .brand {
