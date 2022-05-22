@@ -4,9 +4,11 @@ let mode = "";
 
 const switchMode = (value: string, interactive?: boolean) => {
   mode = value;
-  if (interactive) {
+  if (GA4_TOKEN && interactive) {
     ga("send", "pageview", `/${value}`);
     gtag("event", "switch_mode", { mode: value });
+  } else {
+    console.log("switch_mode", { mode: value });
   }
 };
 
@@ -20,12 +22,20 @@ const changeAnimation = (animationName: string, effectNames: string[]) => {
 
 const render = () => {
   ga("send", "event", mode, "render");
-  gtag("event", "render_emoji", { mode: mode });
+  if (GA4_TOKEN) {
+    gtag("event", "render_emoji", { mode: mode });
+  } else {
+    console.log("render_emoji", { mode: mode });
+  }
 };
 
 const download = () => {
   ga("send", "event", mode, "download");
-  gtag("event", "download", { mode: mode });
+  if (GA4_TOKEN) {
+    gtag("event", "download", { mode: mode });
+  } else {
+    console.log("download", { mode: mode });
+  }
 };
 
 export default (() => {
@@ -36,8 +46,8 @@ export default (() => {
     gtag("config", GA4_TOKEN);
     // eslint-disable-next-line no-console
     console.log("GA4 initialized.");
-    return { switchMode, changeFont, changeAnimation, render, download };
   } else {
-    return null;
+    console.log("Specify GA4_TOKEN to enable analytics.");
   }
+  return { switchMode, changeFont, changeAnimation, render, download };
 })();
