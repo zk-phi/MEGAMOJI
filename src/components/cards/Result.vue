@@ -45,36 +45,38 @@ export default defineComponent({
 </script>
 
 <template>
-  <Card class="result" title="プレビュー">
-    <Space vertical large>
-      <RawResult v-if="!previewMode" :images="resultImageUrls" />
-      <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="false" />
-      <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="true" />
-      <Checkbox v-model="previewMode">
-        {{ "サンプル表示" }}
-      </Checkbox>
-      <Space class="buttons">
-        <Button v-if="showTarget" @click="$emit('toggleShowTarget', $event)">
-          <template #icon>
-            <Back />
-          </template>
-          もどる
-        </Button>
-        <Button v-else @click="$emit('toggleShowTarget', $event)">
-          <template #icon>
-            <Effect />
-          </template>
-          効果をつける
-        </Button>
-        <Button type="primary" @click="onDownload">
-          <template #icon>
-            <Save />
-          </template>
-          絵文字を保存
-        </Button>
+  <Space vertical large>
+    <Card class="result" title="プレビュー">
+      <Space vertical large>
+        <RawResult v-if="!previewMode" :images="resultImageUrls" />
+        <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="false" />
+        <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="true" />
+        <Checkbox v-model="previewMode">
+          {{ "サンプル表示" }}
+        </Checkbox>
       </Space>
+    </Card>
+    <Space class="buttons">
+      <Button v-if="showTarget" @click="$emit('toggleShowTarget', $event)">
+        <template #icon>
+          <Back />
+        </template>
+        もどる
+      </Button>
+      <Button v-else @click="$emit('toggleShowTarget', $event)">
+        <template #icon>
+          <Effect />
+        </template>
+        効果をつける
+      </Button>
+      <Button type="primary" @click="onDownload">
+        <template #icon>
+          <Save />
+        </template>
+        絵文字を保存
+      </Button>
     </Space>
-  </Card>
+  </Space>
 </template>
 
 <style scoped>

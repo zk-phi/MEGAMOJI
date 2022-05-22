@@ -37,7 +37,6 @@ export default defineComponent({
 
 <style scoped>
 .footer {
-  padding: var(--spacingLarge);
   font-size: var(--fontSizeMedium);
   line-height: var(--multilineTextLineHeight);
   color: var(--fg);

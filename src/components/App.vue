@@ -9,8 +9,14 @@ import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
 import Tutorial from "./cards/Tutorial.vue";
+import TabButton from "./inputs/TabButton.vue";
+import TabGroup from "./inputs/TabGroup.vue";
+import Space from "./global/Space.vue";
 import Grid from "./global/Grid.vue";
 import GridItem from "./global/GridItem.vue";
+import Image from "./icons/Image.vue";
+import Text from "./icons/Text.vue";
+import Emoji from "./icons/Emoji.vue";
 import "../css/destyle.css";
 
 export default defineComponent({
@@ -21,10 +27,16 @@ export default defineComponent({
     Target,
     Result,
     Tutorial,
+    TabButton,
+    TabGroup,
     Header,
     Footer,
+    Space,
     Grid,
     GridItem,
+    Image,
+    Text,
+    Emoji,
   },
   data() {
     return {
@@ -65,40 +77,58 @@ export default defineComponent({
 
 <template>
   <div class="app">
-    <Header :model-value="ui.mode" @update:model-value="onSelectMode" />
+    <Space vertical large full>
+      <Header />
 
-    <Grid :columns="[[760, 1], [Infinity, 3]]">
-      <GridItem :span="2">
-        <TextSource
-            class="item"
-            :show="ui.mode == 'text' && !ui.showTargetPanel"
-            @render="onRender" />
-        <FileSource
-            class="item"
-            :show="ui.mode == 'file' && !ui.showTargetPanel"
-            @render="onRender" />
-        <FukumojiSource
-            class="item"
-            :show="ui.mode == 'parts' && !ui.showTargetPanel"
-            @render="onRender" />
-        <Target
-            class="item"
-            :show="ui.showTargetPanel"
-            :base-image="baseImage"
-            @render="onRenderTarget" />
-      </GridItem>
-      <GridItem>
-        <Tutorial v-if="!baseImage" class="item" />
-        <Result
-            v-else
-            class="item"
-            :images="resultImages"
-            :show-target="ui.showTargetPanel"
-            @toggle-show-target="onToggleShowTarget" />
-      </GridItem>
-    </Grid>
+      <TabGroup>
+        <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
+          <template #icon>
+            <Text />
+          </template>
+          テキスト
+        </TabButton>
+        <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
+          <template #icon>
+            <Image />
+          </template>
+          画像ファイル
+        </TabButton>
+        <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
+          <template #icon>
+            <Emoji />
+          </template>
+          パーツ
+        </TabButton>
+      </TabGroup>
 
-    <Footer />
+      <Grid :columns="[[760, 1], [Infinity, 3]]" spaced>
+        <GridItem :span="2">
+          <TextSource
+              :show="ui.mode == 'text' && !ui.showTargetPanel"
+              @render="onRender" />
+          <FileSource
+              :show="ui.mode == 'file' && !ui.showTargetPanel"
+              @render="onRender" />
+          <FukumojiSource
+              :show="ui.mode == 'parts' && !ui.showTargetPanel"
+              @render="onRender" />
+          <Target
+              :show="ui.showTargetPanel"
+              :base-image="baseImage"
+              @render="onRenderTarget" />
+        </GridItem>
+        <GridItem>
+          <Tutorial v-if="!baseImage" />
+          <Result
+              v-else
+              :images="resultImages"
+              :show-target="ui.showTargetPanel"
+              @toggle-show-target="onToggleShowTarget" />
+        </GridItem>
+      </Grid>
+
+      <Footer />
+    </Space>
   </div>
 </template>
 
@@ -186,17 +216,6 @@ html {
   line-height: 1;
   color: var(--fg);
   background-color: var(--bg);
-}
-</style>
-
-<style scoped>
-.item {
-  height: 100%;
-
-  /* box-shadow as collapsed border */
-  box-shadow:
-    -1px 0 0 0 var(--border),
-    0 1px 0 0 var(--border),
-    0 -1px 0 0 var(--border);
+  padding: var(--spacingLarge);
 }
 </style>

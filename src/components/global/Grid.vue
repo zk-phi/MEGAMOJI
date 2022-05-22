@@ -47,6 +47,6 @@ export default defineComponent({
 }
 
 .spaced {
-  gap: var(--spacingXLarge);
+  gap: var(--spacingLarge);
 }
 </style>
