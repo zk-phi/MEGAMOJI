@@ -196,7 +196,9 @@ html {
   height: 100%;
   /* box-shadow as collapsed border */
   box-shadow:
-    1px 1px 0 0 var(--border),
-    inset 1px 1px 0 0 var(--border);
+    -1px 0 0 0 var(--border),
+    0 1px 0 0 var(--border),
+    0 -1px 0 0 var(--border)
+  ;
 }
 </style>
