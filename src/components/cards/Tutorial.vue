@@ -34,15 +34,21 @@ export default defineComponent({
   <Card title="遊び方">
     <Space vertical xlarge>
       <Media :icon="textSample">
-        <template #title><Text /> テキスト</template>
+        <template #title>
+          <Text /> テキスト
+        </template>
         文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
       </Media>
       <Media :icon="imageSample">
-        <template #title><Image /> 画像ファイル</template>
+        <template #title>
+          <Image /> 画像ファイル
+        </template>
         好きな画像を正方形にトリミングしてスタンプにします。
       </Media>
       <Media :icon="fukumojiSample">
-        <template #title><Emoji /> パーツ</template>
+        <template #title>
+          <Emoji /> パーツ
+        </template>
         既存の絵文字を合成してスタンプを作ります。
       </Media>
       <Button type="text" @click="openLicense">

@@ -205,6 +205,7 @@ export default defineComponent({
 
 /* stylelint-disable-next-line selector-max-type */
 html {
+  padding: var(--spacingLarge);
   font-family:
     "Helvetica Neue",
     Arial,
@@ -216,6 +217,5 @@ html {
   line-height: 1;
   color: var(--fg);
   background-color: var(--bg);
-  padding: var(--spacingLarge);
 }
 </style>
