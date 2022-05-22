@@ -32,7 +32,7 @@ export default defineComponent({
 }
 
 .title {
-  margin: 0 0 var(--spacingLarge);
+  margin: 0 0 var(--spacingXLarge);
   font-size: var(--fontSizeXLarge);
   font-weight: bold;
   color: var(--fg);
