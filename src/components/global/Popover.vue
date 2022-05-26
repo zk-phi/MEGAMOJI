@@ -7,8 +7,6 @@ type Pos = {
   right?: string,
   top?: string,
   bottom?: string,
-  width?: string,
-  height?: string,
 };
 
 export default defineComponent({
