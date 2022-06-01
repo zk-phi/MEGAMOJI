@@ -63,6 +63,8 @@ export default defineComponent({
         lineSpacing: 0.05,
       },
       showDetails: false,
+      timer: null as (number | null),
+      modified: false,
     };
   },
   computed: {
@@ -80,13 +82,24 @@ export default defineComponent({
     conf: {
       handler(): void {
         Analytics.changeFont(this.conf.font);
-        this.render();
+        this.modified = true;
       },
       deep: true,
     },
   },
   mounted() {
     Analytics.changeFont(this.conf.font);
+    this.timer = window.setInterval(() => {
+      if (this.modified) {
+        this.modified = false;
+        this.render();
+      }
+    }, 100);
+  },
+  beforeUnmount() {
+    if (this.timer) {
+      window.clearInterval(this.timer);
+    }
   },
   methods: {
     render(): void {
