@@ -27,7 +27,6 @@ export default defineComponent({
       this.moveHandler = (e: PointerEvent) => {
         const left = (e.clientX - rect.left) / rect.width;
         this.$emit("update:h", 360 * Math.min(1, Math.max(0, left)));
-        e.preventDefault();
       };
       this.upHandler = (e?: PointerEvent) => {
         if (this.moveHandler) {
@@ -38,9 +37,6 @@ export default defineComponent({
           document.removeEventListener("pointerup", this.upHandler);
           document.removeEventListener("pointerleave", this.upHandler);
           this.upHandler = null;
-        }
-        if (e) {
-          e.preventDefault();
         }
       };
       document.addEventListener("pointermove", this.moveHandler);
