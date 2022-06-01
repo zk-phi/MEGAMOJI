@@ -5,22 +5,18 @@ export default defineComponent({
   props: {
     modelValue: { type: String, default: "" },
     block: { type: Boolean, default: false },
+    small: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
   ],
-  computed: {
-    className(): string {
-      return `input${this.block ? " block" : ""}`;
-    },
-  },
 });
 </script>
 
 <template>
   <input
       type="text"
-      :class="className"
+      :class="['input', { block, small }]"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)">
 </template>
@@ -37,6 +33,10 @@ export default defineComponent({
   border: 1px solid var(--border);
   border-radius: var(--borderRadius);
   outline: none;
+}
+
+.small {
+  padding: var(--paddingMinimal);
 }
 
 .input:hover {

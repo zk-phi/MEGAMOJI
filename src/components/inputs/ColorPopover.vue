@@ -3,12 +3,13 @@ import { defineComponent, PropType } from "vue";
 import Popover from "../global/Popover.vue";
 import HueSlider from "./HueSlider.vue";
 import TonePicker from "./TonePicker.vue";
+import Input from "./Input.vue";
 import Space from "../global/Space.vue";
 import { HEX2HSV, HSV2HEX } from "../../utils/color";
 
 export default defineComponent({
   components: {
-    Popover, HueSlider, TonePicker, Space,
+    Popover, HueSlider, TonePicker, Input, Space,
   },
   props: {
     el: { type: Object as PropType<HTMLElement>, default: null },
@@ -63,6 +64,11 @@ export default defineComponent({
     <Space vertical full>
       <TonePicker v-model:s="hsv.s" v-model:v="hsv.v" :h="hsv.h" :style="{ height: '180px' }" />
       <HueSlider v-model:h="hsv.h" />
+      <Input
+          block
+          small
+          :model-value="modelValue"
+          @update:model-value="$emit('update:modelValue', $event)" />
       <slot />
     </Space>
   </Popover>
