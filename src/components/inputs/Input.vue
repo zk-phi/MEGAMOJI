@@ -6,6 +6,7 @@ export default defineComponent({
     modelValue: { type: String, default: "" },
     block: { type: Boolean, default: false },
     small: { type: Boolean, default: false },
+    error: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
@@ -16,13 +17,17 @@ export default defineComponent({
 <template>
   <input
       type="text"
-      :class="['input', { block, small }]"
+      :class="['input', { block, error, small }]"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)">
 </template>
 
 <style scoped>
 .input {
+  --inputColorBase: var(--border);
+  --inputColorHover: var(--primary);
+  --inputColorActive: var(--primaryActive);
+  --inputColorShadow: var(--primaryShadow);
   display: inline-block;
   box-sizing: border-box;
   padding: var(--padding);
@@ -30,9 +35,16 @@ export default defineComponent({
   line-height: 1;
   color: var(--fg);
   background-color: var(--bg);
-  border: 1px solid var(--border);
+  border: 1px solid var(--inputColorBase);
   border-radius: var(--borderRadius);
   outline: none;
+}
+
+.error {
+  --inputColorBase: var(--danger);
+  --inputColorHover: var(--dangerHover);
+  --inputColorActive: var(--dangerActive);
+  --inputColorShadow: var(--dangerShadow);
 }
 
 .small {
@@ -40,17 +52,17 @@ export default defineComponent({
 }
 
 .input:hover {
-  border-color: var(--primary);
+  border-color: var(--inputColorHover);
 }
 
 .input:focus {
-  border-color: var(--primary);
-  box-shadow: var(--primaryShadow);
+  border-color: var(--inputColorHover);
+  box-shadow: var(--inputColorShadow);
 }
 
 .input:active {
-  border-color: var(--primaryActive);
-  box-shadow: var(--primaryShadow);
+  border-color: var(--inputColorActive);
+  box-shadow: var(--inputColorShadow);
 }
 
 .block {

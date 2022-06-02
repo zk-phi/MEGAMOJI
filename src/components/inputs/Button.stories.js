@@ -16,6 +16,9 @@ const Template = (args) => ({
 export const Base = Template.bind({});
 Base.args = { type: "default", danger: false, block: false };
 
+export const Danger = Template.bind({});
+Danger.args = { type: "default", danger: true, block: false };
+
 export const Primary = Template.bind({});
 Primary.args = { type: "primary", danger: false, block: false };
 
