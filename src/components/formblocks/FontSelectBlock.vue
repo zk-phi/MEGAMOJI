@@ -57,7 +57,7 @@ export default defineComponent({
             :model-value="modelValue"
             :value="font.value"
             @update:model-value="$emit('update:modelValue', $event)">
-          <span :style="{ font: font.value }">{{ font.label }}</span>
+          <span :style="{ font: font.value, lineHeight: 1 }">{{ font.label }}</span>
         </Checkbox>
       </Space>
     </Fieldset>
