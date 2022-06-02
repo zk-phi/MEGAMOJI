@@ -6,6 +6,12 @@ import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 import fonts from "../../constants/fonts";
 
+const validateFont = (font: string): boolean => {
+  const s = new Option().style;
+  s.font = font;
+  return s.font !== "";
+}
+
 export default defineComponent({
   components: {
     Checkbox, Input, Space, Fieldset,
@@ -17,10 +23,18 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
-  data() {
-    return {
-      fonts,
-    };
+  data: (props) => ({
+    fonts,
+    stringValue: props.modelValue,
+  }),
+  watch: {
+    stringValue: {
+      handler() {
+        if (validateFont(this.stringValue)) {
+          this.$emit("update:modelValue", this.stringValue);
+        }
+      }
+    }
   },
 });
 </script>
@@ -40,10 +54,7 @@ export default defineComponent({
       </Space>
     </Fieldset>
     <Fieldset v-if="showDetails" label="その他のフォント">
-      <Input
-          block
-          :model-value="modelValue"
-          @update:model-value="$emit('update:modelValue', $event)" />
+      <Input block v-model="stringValue" />
     </Fieldset>
   </Space>
 </template>
