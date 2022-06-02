@@ -27,39 +27,32 @@ export default defineComponent({
     "update:modelValue",
   ],
   data: (props) => ({
-    value: props.modelValue,
     hsv: HEX2HSV(props.modelValue),
     stringValue: props.modelValue,
-    reset: false,
+    stringIsValid: true,
     showPopover: false,
   }),
   watch: {
     modelValue: {
       handler() {
-        if (this.modelValue !== this.value) {
-          this.value = this.modelValue;
+        if (this.modelValue.match(/^#/)) {
           this.hsv = HEX2HSV(this.modelValue);
-          this.stringValue = this.modelValue;
-          this.reset = true;
         }
+        this.stringValue = this.modelValue;
+        this.stringIsValid = true;
       },
     },
     hsv: {
       handler() {
-        if (this.reset) {
-          this.reset = false;
-          return;
-        }
-        this.value = HSV2HEX(this.hsv);
-        this.$emit("update:modelValue", this.value);
+        this.$emit("update:modelValue", HSV2HEX(this.hsv));
       },
       deep: true,
     },
     stringValue: {
       handler() {
-        if (validateColor(this.stringValue)) {
-          this.value = this.stringValue;
-          this.$emit("update:modelValue", this.value);
+        this.stringIsValid = validateColor(this.stringValue);
+        if (this.stringIsValid) {
+          this.$emit("update:modelValue", this.stringValue);
         }
       },
     },
@@ -80,7 +73,7 @@ export default defineComponent({
     <Space vertical full>
       <TonePicker v-model:s="hsv.s" v-model:v="hsv.v" :h="hsv.h" :style="{ height: '180px' }" />
       <HueSlider v-model:h="hsv.h" />
-      <Input v-model="stringValue" block small />
+      <Input v-model="stringValue" block small :error="!stringIsValid" />
       <slot />
     </Space>
   </Popover>

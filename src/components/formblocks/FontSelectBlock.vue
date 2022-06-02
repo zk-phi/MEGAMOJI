@@ -26,11 +26,19 @@ export default defineComponent({
   data: (props) => ({
     fonts,
     stringValue: props.modelValue,
+    stringIsValid: true,
   }),
   watch: {
+    modelValue: {
+      handler() {
+        this.stringValue = this.modelValue;
+        this.stringIsValid = true;
+      },
+    },
     stringValue: {
       handler() {
-        if (validateFont(this.stringValue)) {
+        this.stringIsValid = validateFont(this.stringValue);
+        if (this.stringIsValid) {
           this.$emit("update:modelValue", this.stringValue);
         }
       },
@@ -54,7 +62,7 @@ export default defineComponent({
       </Space>
     </Fieldset>
     <Fieldset v-if="showDetails" label="その他のフォント">
-      <Input v-model="stringValue" block />
+      <Input v-model="stringValue" block :error="!stringIsValid" />
     </Fieldset>
   </Space>
 </template>
