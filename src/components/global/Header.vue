@@ -36,8 +36,19 @@
   cursor: pointer;
 }
 
+.nya:hover {
+  display: inline-block;
+  animation: nya 300ms ease-out;
+}
+
 .nya:hover::after {
   color: var(--border);
   content: " < nya!";
+}
+
+@keyframes nya {
+  50% {
+    transform: translateY(-2px);
+  }
 }
 </style>
