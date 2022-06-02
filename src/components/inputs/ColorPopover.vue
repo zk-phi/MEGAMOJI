@@ -61,7 +61,7 @@ export default defineComponent({
           this.value = this.stringValue;
           this.$emit("update:modelValue", this.value);
         }
-      }
+      },
     },
   },
   methods: {
@@ -80,7 +80,7 @@ export default defineComponent({
     <Space vertical full>
       <TonePicker v-model:s="hsv.s" v-model:v="hsv.v" :h="hsv.h" :style="{ height: '180px' }" />
       <HueSlider v-model:h="hsv.h" />
-      <Input block small v-model="stringValue" />
+      <Input v-model="stringValue" block small />
       <slot />
     </Space>
   </Popover>

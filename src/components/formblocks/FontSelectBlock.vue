@@ -10,7 +10,7 @@ const validateFont = (font: string): boolean => {
   const s = new Option().style;
   s.font = font;
   return s.font !== "";
-}
+};
 
 export default defineComponent({
   components: {
@@ -33,8 +33,8 @@ export default defineComponent({
         if (validateFont(this.stringValue)) {
           this.$emit("update:modelValue", this.stringValue);
         }
-      }
-    }
+      },
+    },
   },
 });
 </script>
@@ -54,7 +54,7 @@ export default defineComponent({
       </Space>
     </Fieldset>
     <Fieldset v-if="showDetails" label="その他のフォント">
-      <Input block v-model="stringValue" />
+      <Input v-model="stringValue" block />
     </Fieldset>
   </Space>
 </template>

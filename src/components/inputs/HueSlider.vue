@@ -13,7 +13,7 @@ export default defineComponent({
   data: () => ({
     gradient,
     moveHandler: null as ((e: PointerEvent) => void) | null,
-    upHandler: null as ((e?: PointerEvent) => void) | null,
+    upHandler: null as (() => void) | null,
   }),
   beforeUnmount() {
     if (this.upHandler) {
@@ -28,7 +28,7 @@ export default defineComponent({
         const left = (e.clientX - rect.left) / rect.width;
         this.$emit("update:h", 360 * Math.min(1, Math.max(0, left)));
       };
-      this.upHandler = (e?: PointerEvent) => {
+      this.upHandler = () => {
         if (this.moveHandler) {
           document.removeEventListener("pointermove", this.moveHandler);
           this.moveHandler = null;

@@ -13,7 +13,7 @@ export default defineComponent({
   ],
   data: () => ({
     moveHandler: null as ((e: PointerEvent) => void) | null,
-    upHandler: null as ((e?: PointerEvent) => void) | null,
+    upHandler: null as (() => void) | null,
   }),
   computed: {
     baseColor(): string {
@@ -35,7 +35,7 @@ export default defineComponent({
         this.$emit("update:s", 100 * Math.min(1, Math.max(0, white)));
         this.$emit("update:v", 100 * Math.min(1, Math.max(0, black)));
       };
-      this.upHandler = (e?: PointerEvent) => {
+      this.upHandler = () => {
         if (this.moveHandler) {
           document.removeEventListener("pointermove", this.moveHandler);
           this.moveHandler = null;
