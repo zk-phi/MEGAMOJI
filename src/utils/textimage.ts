@@ -12,7 +12,7 @@ const makeTextImageSingleLine = (
   canvas.height = fontHeight * 2;
 
   const ctx = canvas.getContext("2d")!;
-  ctx.font = font;
+  ctx.font = font.replace(/([0-9.]+)em/, (_, emHeight) => `${fontHeight * emHeight}px`);
   ctx.textBaseline = "top";
   ctx.miterLimit = 6.0;
 

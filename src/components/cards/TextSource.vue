@@ -94,7 +94,7 @@ export default defineComponent({
         const blobUrl = makeTextImage(
           this.conf.content,
           this.conf.color,
-          this.conf.font.replace(/1em/, `${EMOJI_SIZE}px`),
+          this.conf.font,
           EMOJI_SIZE,
           this.conf.align,
           Number(this.conf.lineSpacing) * EMOJI_SIZE,
