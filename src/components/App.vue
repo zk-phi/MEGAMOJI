@@ -144,13 +144,13 @@ export default defineComponent({
   --distantFg: var(--bg);
   --border: #aaa;
   --primary: #ea0; /* okhsl(80, 100, 75) */
-  --primaryHover: #ffb81c; /* v = 80 */
-  --primaryActive: #de9e00; /* v = 70 */
+  --primaryHover: #ffb81c; /* l = 80 */
+  --primaryActive: #de9e00; /* l = 70 */
   --primaryShadow: 0 0 0 2px rgba(238, 170, 0, 0.2);
-  --danger: #ff91b4; /* h = 0 */
-  --dangerHover: #ffaac4;
-  --dangerActive: #ff77a7;
-  --dangerShadow: 0 0 0 2px rgba(255, 145, 180, 0.2);
+  --danger: #ff6261; /* h = 24, l = 65 */
+  --dangerHover: #ff7f7a; /* l = 70 */
+  --dangerActive: #ff3a45; /* l = 60 */
+  --dangerShadow: 0 0 0 2px rgba(255, 98, 97, 0.2);
 
   /* typography */
   --fontSizeTitle: 28px;
