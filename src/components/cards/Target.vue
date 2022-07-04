@@ -15,7 +15,7 @@ import Grid from "../global/Grid.vue";
 import GridItem from "../global/GridItem.vue";
 import DevTool from "./DevTool.vue";
 
-import { Animation, Effect, WebGLEffect, Easing } from "../../types";
+import { Animation, Effect, WebGLEffect } from "../../types";
 import animations from "../../constants/animations";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
