@@ -7,7 +7,7 @@ const shader = webglEffectShader(shaderZoomBlur.sourceCode);
 const webglZoom: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shader);
 
-  const strength = 0.25 + 0.25 * Math.sin(2 * Math.PI * keyframe);
+  const strength = 0.25 - 0.25 * Math.cos(2 * Math.PI * keyframe);
   webglSetVec2(program, "center", [0.5, 0.5]);
   webglSetFloat(program, "strength", strength);
 

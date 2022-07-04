@@ -8,7 +8,7 @@ const shader = webglEffectShader(shaderWarp.sourceCode);
 const webglDokaben: WebGLEffect = (keyframe) => {
   const program = webglLoadEffectShader(shader);
 
-  const pos = 0.5 + 0.5 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 1 */
+  const pos = 0.5 + 0.5 * Math.cos(Math.PI * keyframe); /* 0 ~ 1 */
   const diffH = 0.3 * pos / 2;
   const diffV = 1.0 * pos / 2;
   const m = matrixPerspective(
