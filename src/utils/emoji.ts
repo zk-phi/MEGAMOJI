@@ -1,5 +1,5 @@
 import GIF from "@dhdbstjr98/gif.js";
-import { Animation, Effect, WebGLEffect } from "../types";
+import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
 import { cropCanvas, cutoutCanvasIntoCells, fillTransparentPixels } from "./canvas";
 
@@ -87,6 +87,7 @@ function renderAllCellsFixedSize(
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
+  easing: Easing,
   framerate: number,
   framecount: number,
   backgroundColor: string,
@@ -128,7 +129,7 @@ function renderAllCellsFixedSize(
     }
     const delayPerFrame = 1000 / framerate;
     for (let i = 0; i < framecount; i += 1) {
-      const keyframe = animationInvert ? 1 - (i / framecount) : i / framecount;
+      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
       const frame = renderFrameUncut(
         keyframe, image,
         offsetH, offsetV, srcWidth, srcHeight,
@@ -176,6 +177,7 @@ export function renderAllCells(
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
+  easing: Easing,
   framerate: number,
   framecount: number,
   backgroundColor: string,
@@ -185,7 +187,7 @@ export function renderAllCells(
   return new Promise((resolve) => {
     renderAllCellsFixedSize(
       image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize, noCrop,
-      animated, animation, animationInvert, effects, webglEffects,
+      animated, animation, animationInvert, effects, webglEffects, easing,
       framerate, framecount,
       backgroundColor, transparent,
     ).then((ret) => {
@@ -199,7 +201,7 @@ export function renderAllCells(
       if (shouldRetry) {
         renderAllCells(
           image, offsetH, offsetV, hCells, vCells, srcWidth, srcHeight, maxSize * 0.9, noCrop,
-          animated, animation, animationInvert, effects, webglEffects,
+          animated, animation, animationInvert, effects, webglEffects, easing,
           framerate, framecount,
           backgroundColor, transparent,
           binarySizeLimit,

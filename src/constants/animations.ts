@@ -4,16 +4,12 @@ import animationKanpai from "../animations/kanpai";
 import animationKanpaiLefty from "../animations/kanpaiLefty";
 import animationScroll from "../animations/scroll";
 import animationScrollVertical from "../animations/scrollVertical";
-import animationPush from "../animations/push";
-import animationPushVertical from "../animations/pushVertical";
 import animationXile from "../animations/xile";
 import animationScrollFull from "../animations/scrollFull";
 
 export default [
   { label: "スクロール", value: animationScroll },
   { label: "スクロール (縦)", value: animationScrollVertical },
-  { label: "押し出し", value: animationPush },
-  { label: "押し出し (縦)", value: animationPushVertical },
   { label: "謁見", value: animationEkken },
   { label: "謁見バーティカル", value: animationEkkenVertical },
   { label: "通過 ('はみだす'向け)", value: animationScrollFull },

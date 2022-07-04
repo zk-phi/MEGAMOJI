@@ -4,7 +4,7 @@ import { flipContext } from "../utils/canvas";
 const animationKanpai: Animation = (
   keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight,
 ) => {
-  const size = 0.35 + 0.25 * Math.cos(2 * Math.PI * keyframe); /* 0 ~ 0.6 */
+  const size = 0.35 - 0.25 * Math.cos(Math.PI * keyframe); /* 0 ~ 0.6 */
   flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
