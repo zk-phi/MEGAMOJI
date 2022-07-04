@@ -18,7 +18,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run lint:css
 
@@ -32,7 +32,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run lint:js
 
@@ -46,7 +46,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run test:e2e
 
@@ -60,7 +60,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build-storybook
       - uses: actions/upload-artifact@v2
@@ -78,7 +78,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build
         env:
