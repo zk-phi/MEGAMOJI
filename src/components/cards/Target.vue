@@ -15,12 +15,13 @@ import Grid from "../global/Grid.vue";
 import GridItem from "../global/GridItem.vue";
 import DevTool from "./DevTool.vue";
 
-import { Animation, Effect, WebGLEffect } from "../../types";
+import { Animation, Effect, WebGLEffect, Easing } from "../../types";
 import animations from "../../constants/animations";
 import effects from "../../constants/effects";
 import bgeffects from "../../constants/bgeffects";
 import staticeffects from "../../constants/staticeffects";
 import webgleffects from "../../constants/webgleffects";
+import easings from "../../constants/easings";
 
 import { renderAllCells } from "../../utils/emoji";
 import {
@@ -48,11 +49,11 @@ const TRIMMING_OPTIONS = [
 ];
 
 const SPEED_OPTIONS = [
-  { label: "コマ送り", value: 2.0 },
-  { label: "遅い", value: 1.3 },
-  { label: "ふつう", value: 0.8 },
-  { label: "速い", value: 0.3 },
-  { label: "爆速", value: 0.1 },
+  { label: "コマ送りで", value: 2.0 },
+  { label: "ゆっくり", value: 1.3 },
+  { label: "ふつうに", value: 0.8 },
+  { label: "高速で", value: 0.3 },
+  { label: "爆速で", value: 0.1 },
 ];
 
 const abortable = <T>(handler: Handler<T>): AbortableHandler<T> => {
@@ -93,6 +94,7 @@ export default defineComponent({
       bgeffects,
       staticeffects,
       webgleffects,
+      easings,
       TRIMMING_OPTIONS,
       SPEED_OPTIONS,
       isDev: NODE_ENV === "development",
@@ -110,6 +112,7 @@ export default defineComponent({
         trimH: [0, 0],
         trimV: [0, 0],
         noCrop: false,
+        easing: easings[0],
         duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
         transparent: false,
@@ -208,6 +211,7 @@ export default defineComponent({
           this.conf.animationInvert,
           this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.value),
           this.conf.webglEffects.map((eff) => eff.value),
+          this.conf.easing.value,
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
         ).then(this.lastHandler);
@@ -269,19 +273,24 @@ export default defineComponent({
                 :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
           </Fieldset>
           <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-          <Fieldset v-if="!showDetails" label="アニメ速度">
+          <Fieldset v-if="!showDetails" label="速度 (アニメ)">
             <Select
                 v-model="conf.speed"
                 :options="SPEED_OPTIONS"
                 @update:model-value="selectSpeed($event)" />
+            {{ " " }}
+            <Select v-model="conf.easing" :options="easings" />
           </Fieldset>
-          <Fieldset v-if="showDetails" label="アニメ長さ">
+          <Fieldset v-if="showDetails" label="長さ (アニメ)">
             <Slider
                 v-model="conf.duration"
                 block
                 :min="0.1"
                 :step="0.1"
                 :max="2.0" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="イージング (アニメ)">
+            <Select v-model="conf.easing" :options="easings" />
           </Fieldset>
           <Fieldset label="背景色">
             <Space vertical full>
