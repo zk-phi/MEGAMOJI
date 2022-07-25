@@ -63,6 +63,9 @@ export default defineComponent({
         lineSpacing: 0.05,
       },
       showDetails: false,
+      /* internals */
+      running: false,
+      dirty: false,
     };
   },
   computed: {
@@ -90,6 +93,12 @@ export default defineComponent({
   },
   methods: {
     render(): void {
+      if (this.running) {
+        this.dirty = true;
+        return;
+      }
+      this.running = true;
+      this.dirty = false;
       if (this.conf.content) {
         const blobUrl = makeTextImage(
           this.conf.content,
@@ -103,6 +112,12 @@ export default defineComponent({
         );
         urlToImg(blobUrl, (img) => this.$emit("render", img));
       }
+      window.setTimeout(() => {
+        this.running = false;
+        if (this.dirty) {
+          this.render();
+        }
+      }, 50);
     },
   },
 });
