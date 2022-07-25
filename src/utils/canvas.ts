@@ -1,5 +1,3 @@
-import * as ColorConvert from "color-convert";
-
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number, cellHeight: number,

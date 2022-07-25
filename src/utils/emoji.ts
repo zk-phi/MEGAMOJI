@@ -1,4 +1,3 @@
-import { GIFEncoder, quantize, applyPalette } from "gifenc";
 import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
 import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
