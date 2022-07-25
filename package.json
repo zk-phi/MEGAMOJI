@@ -18,10 +18,10 @@
     "not IE 11"
   ],
   "dependencies": {
-    "@dhdbstjr98/gif.js": "^1.0.2",
     "@types/gtag.js": "^0.0.10",
     "color-convert": "^2.0.1",
     "file-saver": "^2.0.5",
+    "gifenc": "^1.0.3",
     "jszip": "^3.7.1",
     "rollbar": "^2.24.0",
     "vue": "^3.1.5"

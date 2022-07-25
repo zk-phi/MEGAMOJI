@@ -8,13 +8,16 @@ const { EnvironmentPlugin, DefinePlugin } = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => ({
-  entry: "./src/megamoji.ts",
+  entry: {
+    bundle: "./src/megamoji",
+    gifworker: "./src/gifworker",
+  },
   devServer: {
     contentBase: "dist",
   },
   output: {
     path: `${__dirname}/dist`,
-    filename: "bundle.js",
+    filename: "[name].js",
     assetModuleFilename: "assets/[hash][ext][query]",
   },
   devtool: "source-map",

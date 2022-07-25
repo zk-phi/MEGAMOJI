@@ -1,7 +1,7 @@
-import GIF from "@dhdbstjr98/gif.js";
+import { GIFEncoder, quantize, applyPalette } from "gifenc";
 import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
-import { cropCanvas, cutoutCanvasIntoCells, fillTransparentPixels } from "./canvas";
+import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
 
 const webglEnabled = webglInitialize();
 
@@ -115,15 +115,11 @@ function renderAllCellsFixedSize(
   } else {
     /* instantiate GIF encoders for each cells */
     const encoders = [];
+    const size = targetSize * (noCrop ? 2 : 1);
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
-        const encoder = new GIF({
-          transparent: transparent ? 0xffffff : null,
-          width: targetSize * (noCrop ? 2 : 1),
-          height: targetSize * (noCrop ? 2 : 1),
-        });
-        row.push(encoder);
+        row.push(new Worker("./gifworker.js"));
       }
       encoders.push(row);
     }
@@ -138,24 +134,30 @@ function renderAllCellsFixedSize(
         framerate, framecount,
         transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
-      if (transparent) {
-        fillTransparentPixels(frame, "#ffffff");
-      }
-      const imgCells = noCrop ? (
-        cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
-      ) : (
-        cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, targetSize, targetSize)
-      );
+      const imgCells = cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, size, size);
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          encoders[y][x].addFrame(imgCells[y][x].getContext("2d")!, { delay: delayPerFrame });
+          encoders[y][x].postMessage({
+            addFrame: {
+              data: imgCells[y][x].getContext("2d")!.getImageData(0, 0, size, size).data,
+              height: size,
+              width: size,
+              delay: delayPerFrame,
+              transparent,
+            },
+          });
         }
       }
     }
     return Promise.all<Blob[]>(encoders.map((row) => Promise.all<Blob>(row.map((cell) => (
       new Promise((resolve) => {
-        cell.on("finished", resolve);
-        cell.render();
+        cell.addEventListener("message", (res) => {
+          cell.terminate();
+          resolve(res.data);
+        });
+        return cell.postMessage({
+          finish: true,
+        });
       })
     )))));
   }
