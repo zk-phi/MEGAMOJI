@@ -46,8 +46,6 @@ https://github.com/nodeca/pako/blob/master/LICENSE
  * Released under the MIT License.
  */
 
-/*! For license information please see gif.js.LICENSE.txt */
-
 /** @license React v0.19.1
  * scheduler.production.min.js
  *
