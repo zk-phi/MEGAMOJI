@@ -39,9 +39,6 @@ type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
 type SpeedOption = { label: string, value: number };
 
-type Handler<T> = (ret: T) => void;
-type AbortableHandler<T> = Handler<T> & { abort: () => void };
-
 const TRIMMING_OPTIONS = [
   { label: "ぴっちり", value: "" },
   { label: "はみだす (アス比維持)", value: "cover" },
@@ -55,14 +52,6 @@ const SPEED_OPTIONS = [
   { label: "高速で", value: 0.3 },
   { label: "爆速で", value: 0.1 },
 ];
-
-const abortable = <T>(handler: Handler<T>): AbortableHandler<T> => {
-  let aborted = false;
-  const abortableHandler = (ret: T) => {
-    if (!aborted) handler(ret);
-  };
-  return Object.assign(abortableHandler, { abort: () => { aborted = true; } });
-};
 
 export default defineComponent({
   components: {
@@ -120,7 +109,8 @@ export default defineComponent({
       showDetails: false,
       devMode: false,
       /* internals */
-      lastHandler: null as (AbortableHandler<Blob[][]> | null),
+      running: false,
+      dirty: false,
     };
   },
   watch: {
@@ -185,6 +175,12 @@ export default defineComponent({
       this.conf.duration = speed.value;
     },
     render(): void {
+      if (this.running) {
+        this.dirty = true;
+        return;
+      }
+      this.running = true;
+      this.dirty = false;
       if (this.baseImage) {
         const animated = !!(
           this.conf.animation
@@ -194,9 +190,6 @@ export default defineComponent({
 
         const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
         const framecount = Math.floor(this.conf.duration * framerate);
-
-        if (this.lastHandler) this.lastHandler.abort();
-        this.lastHandler = abortable(((res: Blob[][]) => { this.$emit("render", res); }));
 
         const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
         renderAllCells(
@@ -214,7 +207,13 @@ export default defineComponent({
           this.conf.easing.value,
           framerate, framecount,
           this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
-        ).then(this.lastHandler);
+        ).then((res) => {
+          this.$emit("render", res);
+          this.running = false;
+          if (this.dirty) {
+            this.render();
+          }
+        });
       }
     },
   },
