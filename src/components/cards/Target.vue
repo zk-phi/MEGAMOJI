@@ -150,19 +150,19 @@ export default defineComponent({
     refreshDefaultSettings(): void {
       if (this.baseImage) {
         const image = this.baseImage;
-        const h = EMOJI_SIZE * this.conf.cells[0];
-        const v = EMOJI_SIZE * this.conf.cells[1];
-        let widthRatio = h / image.naturalWidth;
-        let heightRatio = v / image.naturalHeight;
+        const hCells = this.conf.cells[0];
+        const vCells = this.conf.cells[1];
+        let widthPerCell = image.naturalWidth / hCells;
+        let heightPerCell = image.naturalHeight / vCells;
         if (this.conf.trimming.value === "cover") {
-          widthRatio = Math.max(widthRatio, heightRatio);
-          heightRatio = widthRatio;
+          widthPerCell = Math.min(widthPerCell, heightPerCell);
+          heightPerCell = widthPerCell;
         } else if (this.conf.trimming.value === "contain") {
-          widthRatio = Math.min(widthRatio, heightRatio);
-          heightRatio = widthRatio;
+          widthPerCell = Math.max(widthPerCell, heightPerCell);
+          heightPerCell = widthPerCell;
         }
-        const offsetH = Math.floor((image.naturalWidth - h / widthRatio) / 2);
-        const offsetV = Math.floor((image.naturalHeight - v / heightRatio) / 2);
+        const offsetH = Math.floor((image.naturalWidth - widthPerCell * hCells) / 2);
+        const offsetV = Math.floor((image.naturalHeight - heightPerCell * vCells) / 2);
         this.conf.trimH = [offsetH, image.naturalWidth - offsetH];
         this.conf.trimV = offsetV < 0 ? (
           [offsetV, image.naturalHeight - offsetV]
