@@ -6,6 +6,7 @@ import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
+import Number from "../inputs/Number.vue";
 import Slider from "../inputs/Slider.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Color from "../inputs/Color.vue";
@@ -61,6 +62,7 @@ export default defineComponent({
     CellcountBlock,
     Card,
     Button,
+    Number,
     Grid,
     GridItem,
     Fieldset,
@@ -105,6 +107,7 @@ export default defineComponent({
         duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
         transparent: false,
+        binarySizeLimit: BINARY_SIZE_LIMIT,
       },
       showDetails: false,
       devMode: false,
@@ -206,7 +209,7 @@ export default defineComponent({
           this.conf.webglEffects.map((eff) => eff.value),
           this.conf.easing.value,
           framerate, framecount,
-          this.conf.backgroundColor, this.conf.transparent, BINARY_SIZE_LIMIT,
+          this.conf.backgroundColor, this.conf.transparent, this.conf.binarySizeLimit,
         ).then((res) => {
           this.$emit("render", res);
           this.running = false;
@@ -236,6 +239,9 @@ export default defineComponent({
           <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
           <EffectBlock v-model="conf.effects" :effects="effects" />
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
+          <Fieldset v-if="showDetails" label="最大ファイルサイズ">
+            <Number v-model="conf.binarySizeLimit" :min="1" />
+          </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
             <Button danger type="text" @click="devMode = true">
               開発者モード
