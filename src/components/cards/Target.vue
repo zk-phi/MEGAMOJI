@@ -46,11 +46,11 @@ const TRIMMING_OPTIONS = [
 ];
 
 const SPEED_OPTIONS = [
-  { label: "コマ送りで", value: 2.0 },
+  { label: "コマ送り", value: 2.0 },
   { label: "ゆっくり", value: 1.3 },
-  { label: "ふつうに", value: 0.8 },
-  { label: "高速で", value: 0.3 },
-  { label: "爆速で", value: 0.1 },
+  { label: "ふつう", value: 0.8 },
+  { label: "はやい", value: 0.3 },
+  { label: "爆速", value: 0.1 },
 ];
 
 export default defineComponent({
@@ -255,7 +255,7 @@ export default defineComponent({
               v-if="showDetails"
               v-model="conf.cells"
               @update:model-value="refreshDefaultSettings" />
-          <Fieldset v-if="showDetails" label="トリミング 横">
+          <Fieldset v-if="showDetails" label="トリミング (横)">
             <Slider
                 v-model="conf.trimH"
                 block
@@ -263,7 +263,7 @@ export default defineComponent({
                 :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
                 :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
           </Fieldset>
-          <Fieldset v-if="showDetails" label="トリミング 縦">
+          <Fieldset v-if="showDetails" label="トリミング (縦)">
             <Slider
                 v-model="conf.trimV"
                 block
@@ -277,8 +277,6 @@ export default defineComponent({
                 v-model="conf.speed"
                 :options="SPEED_OPTIONS"
                 @update:model-value="selectSpeed($event)" />
-            {{ " " }}
-            <Select v-model="conf.easing" :options="easings" />
           </Fieldset>
           <Fieldset v-if="showDetails" label="長さ (アニメ)">
             <Slider
