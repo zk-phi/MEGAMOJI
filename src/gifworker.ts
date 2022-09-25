@@ -13,6 +13,6 @@ ctx.addEventListener("message", (msg) => {
     encoder.writeFrame(index, width, height, { palette, delay, transparent });
   } else if (msg.data.finish) {
     encoder.finish();
-    ctx.postMessage(new Blob([encoder.bytes()]));
+    ctx.postMessage(new Blob([encoder.bytes()], { type: "image/gif" }));
   }
 });
