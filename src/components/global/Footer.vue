@@ -32,6 +32,9 @@ export default defineComponent({
     <p class="p">
       このページでは Cookie (アクセス数などの集計に Google Analytics、エラーの検知に Rollbar) を使用しています。
     </p>
+    <p class="p footnote">
+      Peace, Love, Unity, Respect 🫶
+    </p>
   </footer>
 </template>
 
@@ -40,6 +43,11 @@ export default defineComponent({
   font-size: var(--fontSizeMedium);
   line-height: var(--multilineTextLineHeight);
   color: var(--fg);
+}
+
+.footnote {
+  color: var(--border);
+  font-style: italic;
 }
 
 .p {
