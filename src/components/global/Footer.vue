@@ -46,8 +46,8 @@ export default defineComponent({
 }
 
 .footnote {
-  color: var(--border);
   font-style: italic;
+  color: var(--border);
 }
 
 .p {
