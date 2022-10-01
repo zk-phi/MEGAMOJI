@@ -4,45 +4,10 @@
       MEGAMOJI
     </h1>
     <p class="description">
-      カスタム絵文字をサクッと作れる
-      <span class="nya" @mouseover="show" @mouseleave="hide">
-        🐱
-        <span class="message">{{ showMessage ? MESSAGES[messageIndex] : "" }}</span>
-      </span>
+      カスタム絵文字をサクッと作れる<span class="nya">🐱</span>
     </p>
   </header>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-const MESSAGES = [
-  "< Peace! ✌️",
-  "< Love! 🫶",
-  "< Unity! 🙏",
-  "< Respect! 🤝",
-  "< Nya! 💗",
-];
-
-export default defineComponent({
-  data() {
-    return {
-      MESSAGES,
-      showMessage: false,
-      messageIndex: 0,
-    };
-  },
-  methods: {
-    show(): void {
-      this.showMessage = true;
-    },
-    hide(): void {
-      this.showMessage = false;
-      this.messageIndex = (this.messageIndex + 1) % (MESSAGES.length);
-    },
-  },
-});
-</script>
 
 <style scoped>
 .header {
@@ -76,8 +41,9 @@ export default defineComponent({
   animation: nya 300ms ease-out;
 }
 
-.message {
+.nya:hover::after {
   color: var(--border);
+  content: " < nya!";
 }
 
 @keyframes nya {
