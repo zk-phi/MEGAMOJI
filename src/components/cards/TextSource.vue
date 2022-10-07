@@ -23,7 +23,7 @@ import Text from "../icons/Text.vue";
 
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
-import { makeTextImageSVG } from "../../utils/textimage";
+import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
@@ -132,7 +132,7 @@ export default defineComponent({
       this.running = true;
       this.dirty = false;
       if (this.conf.content) {
-        const blobUrl = makeTextImageSVG(
+        const blobUrl = makeTextImage(
           this.conf.content,
           this.conf.color,
           // i don't know why but "as Font" is needed here

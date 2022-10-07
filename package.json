@@ -35,7 +35,6 @@
     "@storybook/manager-webpack5": "^6.3.5",
     "@storybook/vue3": "^6.3.5",
     "@types/color-convert": "^2.0.0",
-    "@types/css-font-loading-module": "^0.0.6",
     "@types/file-saver": "^2.0.3",
     "@types/google.analytics": "^0.0.42",
     "@types/jest": "^26.0.24",
