@@ -59,7 +59,7 @@ export default defineComponent({
   <Card v-if="show">
     <Space vertical xlarge full>
       <Fieldset label="ファイル">
-        <FileSelect @load="conf.img = $event">
+        <FileSelect type="img" @load="conf.img = $event">
           <Image /> ファイルを選ぶ
         </FileSelect>
       </Fieldset>

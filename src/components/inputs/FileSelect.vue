@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { urlToImg } from "../../utils/canvas";
-import { loadFileAsBlobURL } from "../../utils/file";
+import { loadFileAsBlobURL, loadFileAsBuffer } from "../../utils/file";
 import Button from "./Button.vue";
 import File from "../icons/File.vue";
 
@@ -11,6 +11,7 @@ export default defineComponent({
   },
   props: {
     label: { type: String, default: undefined },
+    type: { type: String, required: true },
   },
   emits: [
     "load",
@@ -27,9 +28,13 @@ export default defineComponent({
     onChange(e: { target: { files: FileList } }): void {
       if (e.target.files[0]) {
         this.file = e.target.files[0];
-        loadFileAsBlobURL(this.file).then((blobUrl) => {
-          urlToImg(blobUrl, (img) => this.$emit("load", img));
-        });
+        if (this.type === "img") {
+          loadFileAsBlobURL(this.file).then((blobUrl) => {
+            urlToImg(blobUrl, (img) => this.$emit("load", img));
+          });
+        } else if (this.type === "buffer") {
+          loadFileAsBuffer(this.file).then(buffer => this.$emit("load", buffer));
+        }
       }
     },
   },
