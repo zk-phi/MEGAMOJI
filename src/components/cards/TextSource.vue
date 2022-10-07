@@ -83,7 +83,7 @@ export default defineComponent({
     conf: {
       handler(): void {
         Analytics.changeFont(this.conf.font);
-        this.render();
+        this.render(true);
       },
       deep: true,
     },
@@ -92,9 +92,11 @@ export default defineComponent({
     Analytics.changeFont(this.conf.font);
   },
   methods: {
-    render(): void {
-      if (this.running) {
+    render(dirty?: boolean): void {
+      if (dirty) {
         this.dirty = true;
+      }
+      if (!this.dirty || this.running) {
         return;
       }
       this.running = true;
@@ -114,9 +116,7 @@ export default defineComponent({
       }
       window.setTimeout(() => {
         this.running = false;
-        if (this.dirty) {
-          this.render();
-        }
+        this.render();
       }, 50);
     },
   },

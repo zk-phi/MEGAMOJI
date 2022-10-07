@@ -121,7 +121,7 @@ export default defineComponent({
       handler(): void {
         if (this.baseImage) {
           this.refreshDefaultSettings();
-          this.render();
+          this.render(true);
         }
       },
     },
@@ -134,7 +134,7 @@ export default defineComponent({
           ...this.conf.webglEffects.map((e) => e.label),
         ];
         Analytics.changeAnimation(animationName, effectNames);
-        this.render();
+        this.render(true);
       },
       deep: true,
     },
@@ -177,9 +177,11 @@ export default defineComponent({
     selectSpeed(speed: SpeedOption): void {
       this.conf.duration = speed.value;
     },
-    render(): void {
-      if (this.running) {
+    render(dirty?: boolean): void {
+      if (dirty) {
         this.dirty = true;
+      }
+      if (!this.dirty || this.running) {
         return;
       }
       this.running = true;
@@ -213,9 +215,7 @@ export default defineComponent({
         ).then((res) => {
           this.$emit("render", res);
           this.running = false;
-          if (this.dirty) {
-            this.render();
-          }
+          this.render();
         });
       }
     },
