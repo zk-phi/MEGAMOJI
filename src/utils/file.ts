@@ -13,3 +13,18 @@ export const prepareDownloadFile = (images: Blob[][]): Promise<Blob> => {
     return zip.generateAsync({ type: "blob" });
   }
 };
+
+/* Load a local file via specified path and call-back with the BlobURL. */
+export const loadFileAsBlobURL = (file: File): Promise<string> => (
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target && e.target.result) {
+        resolve(e.target.result as string);
+      } else {
+        throw new Error("Failed to load file");
+      }
+    };
+    reader.readAsDataURL(file);
+  })
+);

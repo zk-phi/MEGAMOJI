@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { urlToImg, loadFileAsBlobURL } from "../../utils/canvas";
+import { urlToImg } from "../../utils/canvas";
+import { loadFileAsBlobURL } from "../../utils/file";
 import Button from "./Button.vue";
 import File from "../icons/File.vue";
 
