@@ -18,7 +18,7 @@
     "not IE 11"
   ],
   "dependencies": {
-    "@svgdotjs/svg.js": "^3.1.2",
+    "@svgdotjs/svg.js": "zk-phi/svg.js#36398589dff5f6000afce71e364263ca3e6f8dde",
     "@types/gtag.js": "^0.0.10",
     "color-convert": "^2.0.1",
     "file-saver": "^2.0.5",
