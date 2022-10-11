@@ -1,3 +1,5 @@
+import { SVG, Matrix } from "@svgdotjs/svg.js";
+
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number, cellHeight: number,
@@ -105,31 +107,46 @@ export const cutoutCanvasIntoCells = (
   return cells;
 };
 
-/* Merge images into one image and return as a BlobURL. */
-export const mergeImages = (
-  w: number, h: number, srcs: string[], callback: (bloburl: string) => void,
-): void => {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d")!;
+type Size = { width: number, height: number };
 
-  canvas.width = w;
-  canvas.height = h;
+const parseSize = (svgString: string): Size => {
+  const rootString = svgString.match("<svg[^>]+>");
+  if (!rootString) {
+    throw new Error("Failed to get SVG size: the root SVG element is not found.");
+  }
 
-  let ix = 0;
-  const img = document.createElement("img");
+  const width = rootString[0].match("width[\s\t]*=[\s\t]*[\"']([0-9.\\+-]+)(px)?['\"]");
+  const height = rootString[0].match("height[\s\t]*=[\s\t]*[\"']([0-9.\\+-]+)(px)?['\"]");
+  if (!width || !height) {
+    throw new Error("Failed to get SVG size: both width and height must be specified absolutely.");
+  }
 
-  img.onload = () => {
-    ctx.drawImage(img, 0, 0, w, h);
-    ix += 1;
-    if (ix === srcs.length) {
-      callback(canvas.toDataURL());
-    } else {
-      img.src = srcs[ix];
+  return { width: Number(width[1]), height: Number(height[1]) };
+}
+
+export const mergeSVGs = (srcs: string[]): Promise<HTMLImageElement> => (
+  new Promise(async (resolve) => {
+    const draw = SVG();
+
+    let maxSize = { width: 0, height: 0 };
+    for (var i = 0; i < srcs.length; i++) {
+      const res = await fetch(srcs[i]);
+      const data = await res.text();
+
+      const svg = draw.svg(data);
+      svg.flattenNoTransform(svg, 1);
+
+      const size = parseSize(data);
+      maxSize.width = Math.max(maxSize.width, size.width);
+      maxSize.height = Math.max(maxSize.height, size.height);
     }
-  };
+    draw.size(maxSize.width, maxSize.height);
 
-  img.src = srcs[0];
-};
+    urlToImg(`data:image/svg+xml;base64,${btoa(draw.svg())}`, (img) => {
+      resolve(img);
+    });
+  })
+);
 
 /* Create an img object, set src attr to the specified url, and return it. */
 export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {

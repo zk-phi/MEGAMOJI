@@ -7,7 +7,7 @@ import TabGroup from "../inputs/TabGroup.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import { EMOJI_SIZE } from "../../constants/emoji";
-import { mergeImages, urlToImg } from "../../utils/canvas";
+import { mergeSVGs, urlToImg } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
 import empty from "../../parts/void.svg";
 
@@ -44,14 +44,14 @@ export default defineComponent({
   },
   methods: {
     render(): void {
-      mergeImages(EMOJI_SIZE, EMOJI_SIZE, [
+      mergeSVGs([
         this.conf.base,
         this.conf.textures,
         this.conf.mouths,
         this.conf.eyes,
         this.conf.others,
-      ], (blobUrl) => {
-        urlToImg(blobUrl, (img) => this.$emit("render", img));
+      ]).then((img) => {
+        this.$emit("render", img);
       });
     },
   },
