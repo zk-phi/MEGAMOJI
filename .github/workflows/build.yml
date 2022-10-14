@@ -63,7 +63,7 @@ jobs:
       - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build-storybook
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: storybook
           path: dist/storybook
@@ -84,7 +84,7 @@ jobs:
         env:
           ROLLBAR_TOKEN: ${{ secrets.ROLLBAR_TOKEN }}
           GA4_TOKEN: ${{ secrets.GA4_TOKEN }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: app
           path: dist
