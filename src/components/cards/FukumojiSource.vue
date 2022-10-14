@@ -6,8 +6,7 @@ import Fieldset from "../inputs/Fieldset.vue";
 import TabGroup from "../inputs/TabGroup.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
-import { EMOJI_SIZE } from "../../constants/emoji";
-import { mergeSVGs, urlToImg } from "../../utils/canvas";
+import { mergeSVGs } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
 import empty from "../../parts/void.svg";
 

@@ -22,15 +22,15 @@ export const loadFileAsBlobURL = (file: File): Promise<string> => (
       if (e.target && e.target.result) {
         resolve(e.target.result as string);
       } else {
-        throw new Error("Failed to load file");
+        reject(new Error("Failed to load file"));
       }
     };
     reader.readAsDataURL(file);
   })
 );
 
-export const loadFileAsBuffer = (file: File): Promise<ArrayBuffer> => {
-  return new Promise((resolve, reject) => {
+export const loadFileAsBuffer = (file: File): Promise<ArrayBuffer> => (
+  new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target && e.target.result) {
@@ -40,5 +40,5 @@ export const loadFileAsBuffer = (file: File): Promise<ArrayBuffer> => {
       }
     };
     reader.readAsArrayBuffer(file);
-  });
-};
+  })
+);

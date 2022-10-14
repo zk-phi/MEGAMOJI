@@ -33,7 +33,7 @@ export default defineComponent({
             urlToImg(blobUrl, (img) => this.$emit("load", img));
           });
         } else if (this.type === "buffer") {
-          loadFileAsBuffer(this.file).then(buffer => this.$emit("load", buffer));
+          loadFileAsBuffer(this.file).then((buffer) => this.$emit("load", buffer));
         }
       }
     },

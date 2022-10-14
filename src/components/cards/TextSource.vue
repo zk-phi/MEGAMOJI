@@ -25,7 +25,6 @@ import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
-import { EMOJI_SIZE } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
 
 const fontCache: Record<string, Font> = {};
@@ -115,7 +114,7 @@ export default defineComponent({
   },
   mounted() {
     Analytics.changeFont(this.conf.font);
-    fonts.forEach(category => category.fonts.forEach(async font => {
+    fonts.forEach((category) => category.fonts.forEach(async (font) => {
       const fontObj = await loadFont(font.uri);
       fontCache[font.label] = fontObj;
       this.fontPreviews[font.label] = makeFontPreview(font.label, fontObj);
@@ -150,9 +149,9 @@ export default defineComponent({
       }, 50);
     },
     fontLoaded(buffer: ArrayBuffer) {
-      const fontObj = parseFont(buffer)
+      const fontObj = parseFont(buffer);
       fontCache.custom = fontObj;
-      this.fontPreviews.custom = makeFontPreview("その他", fontObj)
+      this.fontPreviews.custom = makeFontPreview("その他", fontObj);
       this.conf.font = "custom";
     },
   },
@@ -164,12 +163,12 @@ export default defineComponent({
     <Grid :columns="[[450, 1], [Infinity, 3]]" spaced>
       <GridItem>
         <Space vertical xlarge full>
-          <Fieldset v-for="(category, ix) in fonts" :key="category.label" :label="category.label">
+          <Fieldset v-for="category in fonts" :key="category.label" :label="category.label">
             <Space vertical>
               <Checkbox
                   v-for="font in category.fonts"
-                  v-model="conf.font"
                   :key="font.label"
+                  v-model="conf.font"
                   :value="font.label">
                 <svg
                     v-if="fontPreviews[font.label]"
@@ -185,7 +184,7 @@ export default defineComponent({
           </Fieldset>
           <Fieldset v-if="showDetails" label="その他のフォント">
             <Space vertical>
-              <Checkbox v-if="fontPreviews.custom" v-model="conf.font" key="custom" value="custom">
+              <Checkbox v-if="fontPreviews.custom" key="custom" v-model="conf.font" value="custom">
                 <svg class="font-preview" :viewBox="fontPreviews.custom.viewBox">
                   <path fill="currentColor" :d="fontPreviews.custom.pathData" />
                 </svg>

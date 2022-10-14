@@ -1,6 +1,5 @@
 import { Font } from "opentype.js";
 import { SVG } from "@svgdotjs/svg.js";
-import { shrinkCanvas } from "./canvas";
 
 type GradientColorStop = { color: string, pos: number };
 
@@ -24,8 +23,8 @@ export const makeTextImage = (
       linejoin: "round",
     }));
     if (gradient.length) {
-      const gradObj = group.gradient("linear", add => {
-        gradient.forEach(item => add.stop(item.pos / 100, item.color));
+      const gradObj = group.gradient("linear", (add) => {
+        gradient.forEach((item) => add.stop(item.pos / 100, item.color));
       }).to(0, 1);
       group.path(pathData).fill(gradObj);
     } else {
@@ -35,11 +34,10 @@ export const makeTextImage = (
     return group;
   };
 
-  const lines = text.split("\n").map(line => {
-    if (line !== "") {
-      const obj = drawString(line);
-      return { obj, box: obj.bbox() };
-    }
+  const lines = text.split("\n").map((line) => {
+    if (line === "") return null;
+    const obj = drawString(line);
+    return { obj, box: obj.bbox() };
   });
   const maxWidth = lines.reduce((l, r) => Math.max(l, r ? r.box.width + outlineTotal * 2 : 0), 0);
   let yposn = 0;
@@ -61,5 +59,5 @@ export const makeTextImage = (
   });
 
   draw.size(maxWidth, yposn);
-  return "data:image/svg+xml;base64," + btoa(draw.svg());
+  return `data:image/svg+xml;base64,${btoa(draw.svg())}`;
 };

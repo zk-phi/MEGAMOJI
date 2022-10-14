@@ -1,4 +1,4 @@
-import { SVG, Matrix } from "@svgdotjs/svg.js";
+import { SVG } from "@svgdotjs/svg.js";
 
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
@@ -115,38 +115,14 @@ const parseSize = (svgString: string): Size => {
     throw new Error("Failed to get SVG size: the root SVG element is not found.");
   }
 
-  const width = rootString[0].match("width[\s\t]*=[\s\t]*[\"']([0-9.\\+-]+)(px)?['\"]");
-  const height = rootString[0].match("height[\s\t]*=[\s\t]*[\"']([0-9.\\+-]+)(px)?['\"]");
+  const width = rootString[0].match("width[ \t]*=[ \t]*[\"']([0-9.\\+-]+)(px)?['\"]");
+  const height = rootString[0].match("height[ \t]*=[ \t]*[\"']([0-9.\\+-]+)(px)?['\"]");
   if (!width || !height) {
     throw new Error("Failed to get SVG size: both width and height must be specified absolutely.");
   }
 
   return { width: Number(width[1]), height: Number(height[1]) };
-}
-
-export const mergeSVGs = (srcs: string[]): Promise<HTMLImageElement> => (
-  new Promise(async (resolve) => {
-    const draw = SVG();
-
-    let maxSize = { width: 0, height: 0 };
-    for (var i = 0; i < srcs.length; i++) {
-      const res = await fetch(srcs[i]);
-      const data = await res.text();
-
-      const svg = draw.svg(data);
-      svg.flattenNoTransform(svg, 1);
-
-      const size = parseSize(data);
-      maxSize.width = Math.max(maxSize.width, size.width);
-      maxSize.height = Math.max(maxSize.height, size.height);
-    }
-    draw.size(maxSize.width, maxSize.height);
-
-    urlToImg(`data:image/svg+xml;base64,${btoa(draw.svg())}`, (img) => {
-      resolve(img);
-    });
-  })
-);
+};
 
 /* Create an img object, set src attr to the specified url, and return it. */
 export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {
@@ -154,3 +130,23 @@ export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void
   img.src = url;
   img.onload = () => cb(img);
 };
+
+export const mergeSVGs = (srcs: string[]): Promise<HTMLImageElement> => new Promise((resolve) => {
+  Promise.all(
+    srcs.map((src) => fetch(src).then((res) => res.text())),
+  ).then((svgStrings) => {
+    const draw = SVG();
+    const maxSize = { width: 0, height: 0 };
+    svgStrings.forEach((svgString) => {
+      const svg = draw.svg(svgString);
+      svg.flattenNoTransform(svg, 1);
+      const size = parseSize(svgString);
+      maxSize.width = Math.max(maxSize.width, size.width);
+      maxSize.height = Math.max(maxSize.height, size.height);
+    });
+    draw.size(maxSize.width, maxSize.height);
+    urlToImg(`data:image/svg+xml;base64,${btoa(draw.svg())}`, (img) => {
+      resolve(img);
+    });
+  });
+});
