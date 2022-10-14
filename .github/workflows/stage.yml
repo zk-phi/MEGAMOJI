@@ -1,0 +1,43 @@
+name: Stage
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+
+  build-app-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.0
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+      - run: npm ci --legacy-peer-deps
+        if: steps.cache.outputs.cache-hit != 'true'
+      - run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: app-dev
+          path: dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build-app-dev
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: app-dev
+          path: dist
+      - uses: peaceiris/actions-gh-pages@v3.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          destination_dir: beta
+          keep_files: true
