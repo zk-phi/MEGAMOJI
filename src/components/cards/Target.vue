@@ -107,7 +107,7 @@ export default defineComponent({
         duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
         transparent: false,
-        binarySizeLimit: BINARY_SIZE_LIMIT,
+        emojiSize: null as (number | null),
       },
       showDetails: false,
       devMode: false,
@@ -177,6 +177,9 @@ export default defineComponent({
     selectSpeed(speed: SpeedOption): void {
       this.conf.duration = speed.value;
     },
+    toggleAutoSize(value: boolean): void {
+      this.conf.emojiSize = value ? null : EMOJI_SIZE;
+    },
     render(dirty?: boolean): void {
       if (dirty) {
         this.dirty = true;
@@ -196,7 +199,8 @@ export default defineComponent({
         const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
         const framecount = Math.floor(this.conf.duration * framerate);
 
-        const maxSize = animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE;
+        const maxSize = this.conf.emojiSize || (animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE);
+        const binarySizeLimit = this.conf.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
         renderAllCells(
           this.baseImage,
           this.conf.trimH[0], this.conf.trimV[0],
@@ -211,7 +215,7 @@ export default defineComponent({
           this.conf.webglEffects.map((eff) => eff.value),
           this.conf.easing.value,
           framerate, framecount,
-          this.conf.backgroundColor, this.conf.transparent, this.conf.binarySizeLimit,
+          this.conf.backgroundColor, this.conf.transparent, binarySizeLimit,
         ).then((res) => {
           this.$emit("render", res);
           this.running = false;
@@ -239,8 +243,13 @@ export default defineComponent({
           <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
           <EffectBlock v-model="conf.effects" :effects="effects" />
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-          <Fieldset v-if="showDetails" label="最大ファイルサイズ">
-            <Number v-model="conf.binarySizeLimit" :min="1" />
+          <Fieldset v-if="showDetails && isDev" label="画像サイズ">
+            <Space vertical full>
+              <Checkbox :model-value="conf.emojiSize === null" @update:model-value="toggleAutoSize">
+                自動
+              </Checkbox>
+              <Number v-if="conf.emojiSize !== null" v-model="conf.emojiSize" :min="1" />
+            </Space>
           </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
             <Button danger type="text" @click="devMode = true">
