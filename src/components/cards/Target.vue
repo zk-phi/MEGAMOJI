@@ -243,7 +243,7 @@ export default defineComponent({
           <EffectBlock v-model="conf.webglEffects" :effects="webgleffects" />
           <EffectBlock v-model="conf.effects" :effects="effects" />
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
-          <Fieldset v-if="showDetails && isDev" label="画像サイズ">
+          <Fieldset v-if="showDetails" label="画像サイズ">
             <Space vertical full>
               <Checkbox :model-value="conf.emojiSize === null" @update:model-value="toggleAutoSize">
                 自動
