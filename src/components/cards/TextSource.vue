@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { load as loadFont, parse as parseFont, Font } from "opentype.js";
+import { load as loadFont, Font } from "opentype.js";
 import Analytics from "../../utils/analytics";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
@@ -148,8 +148,7 @@ export default defineComponent({
         this.render();
       }, 50);
     },
-    fontLoaded(buffer: ArrayBuffer) {
-      const fontObj = parseFont(buffer);
+    fontLoaded(fontObj: Font) {
       fontCache.custom = fontObj;
       this.fontPreviews.custom = makeFontPreview("その他", fontObj);
       this.conf.font = "custom";
@@ -189,7 +188,7 @@ export default defineComponent({
                   <path fill="currentColor" :d="fontPreviews.custom.pathData" />
                 </svg>
               </Checkbox>
-              <FileSelect type="buffer" @load="fontLoaded">
+              <FileSelect type="font" @load="fontLoaded">
                 <Text /> ファイルを選ぶ
               </FileSelect>
             </Space>

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { parse as parseFont } from "opentype.js";
 import { urlToImg } from "../../utils/canvas";
 import { loadFileAsBlobURL, loadFileAsBuffer } from "../../utils/file";
 import Button from "./Button.vue";
@@ -21,6 +22,17 @@ export default defineComponent({
       file: null as File | null,
     };
   },
+  computed: {
+    accept(): (string | null) {
+      if (this.type === "img") {
+        return "image/*";
+      } else if (this.type === "font") {
+        return "font/otf,font/ttf,font/woff";
+      } else {
+        return null;
+      }
+    },
+  },
   methods: {
     onClick(): void {
       (this.$refs.input as HTMLInputElement).click();
@@ -32,8 +44,10 @@ export default defineComponent({
           loadFileAsBlobURL(this.file).then((blobUrl) => {
             urlToImg(blobUrl, (img) => this.$emit("load", img));
           });
-        } else if (this.type === "buffer") {
-          loadFileAsBuffer(this.file).then((buffer) => this.$emit("load", buffer));
+        } else if (this.type === "font") {
+          loadFileAsBuffer(this.file).then((buffer) => {
+            this.$emit("load", parseFont(buffer));
+          });
         }
       }
     },
@@ -42,7 +56,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <input ref="input" type="file" style="display: none;" @change="onChange">
+  <input ref="input" type="file" style="display: none;" :accept="accept" @change="onChange">
   <Button type="dashed" @click="onClick">
     <slot />
   </Button>
