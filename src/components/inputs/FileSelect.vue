@@ -42,7 +42,11 @@ export default defineComponent({
         this.file = e.target.files[0];
         if (this.type === "img") {
           loadFileAsBlobURL(this.file).then((blobUrl) => {
-            urlToImg(blobUrl, (img) => this.$emit("load", img));
+            urlToImg(blobUrl, (img) => {
+              if (img.naturalWidth !== 0 && img.naturalHeight !== 0) {
+                this.$emit("load", img);
+              }
+            });
           });
         } else if (this.type === "font") {
           loadFileAsBuffer(this.file).then((buffer) => {
