@@ -274,6 +274,7 @@ export default defineComponent({
             <Slider
                 v-model="conf.trimH"
                 block
+                nonzero
                 :marks="[0, baseImage.width]"
                 :min="baseImage ? - Math.floor(baseImage.width * 0.5) : 0"
                 :max="baseImage ? Math.ceil(baseImage.width * 1.5) : 0" />
@@ -282,6 +283,7 @@ export default defineComponent({
             <Slider
                 v-model="conf.trimV"
                 block
+                nonzero
                 :marks="[0, baseImage.height]"
                 :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
                 :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />

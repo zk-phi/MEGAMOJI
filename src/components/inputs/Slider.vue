@@ -12,6 +12,7 @@ export default defineComponent({
     min: { type: Number, required: true },
     max: { type: Number, required: true },
     block: { type: Boolean, default: false },
+    nonzero: { type: Boolean, default: false },
   },
   emits: [
     "update:modelValue",
@@ -76,14 +77,20 @@ export default defineComponent({
         const pos = (e.clientX - rect.left) / rect.width;
         const value = pos * (this.max - this.min) + this.min;
         const rounded = Math.round(value / this.step) * this.step;
-        const clamped = Math.min(
-          Array.isArray(this.modelValue) && this.targetId === 0 ? this.modelValue[1] : this.max,
-          Math.max(
-            Array.isArray(this.modelValue) && this.targetId === 1 ? this.modelValue[0] : this.min,
+        if (Array.isArray(this.modelValue)) {
+          const upperClamped = Math.max(
+            this.targetId === 1 ? this.modelValue[0] + (this.nonzero ? this.step : 0) : this.min,
             rounded,
-          ),
-        );
-        this.update(clamped);
+          );
+          const bothClamped = Math.min(
+            this.targetId === 0 ? this.modelValue[1] - (this.nonzero ? this.step : 0) : this.max,
+            upperClamped,
+          )
+          this.update(bothClamped);
+        } else {
+          const clamped = Math.min(this.max, Math.max(this.min, rounded));
+          this.update(clamped);
+        }
         e.preventDefault();
       };
       this.upHandler = (e?: PointerEvent) => {
