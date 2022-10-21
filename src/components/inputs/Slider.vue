@@ -85,7 +85,7 @@ export default defineComponent({
           const bothClamped = Math.min(
             this.targetId === 0 ? this.modelValue[1] - (this.nonzero ? this.step : 0) : this.max,
             upperClamped,
-          )
+          );
           this.update(bothClamped);
         } else {
           const clamped = Math.min(this.max, Math.max(this.min, rounded));
