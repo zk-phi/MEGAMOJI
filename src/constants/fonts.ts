@@ -15,7 +15,7 @@ import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
 
 export default [
   {
-    label: "フォント",
+    label: "定番フォント",
     fonts: [
       { label: "ゴシック", uri: Mplus1Bold },
       { label: "ゴシック/極太", uri: Mplus1Black },
