@@ -1,15 +1,13 @@
 <script lang="ts">
-import { defineComponent } from "vue";
-import { HSV2HEX } from "../../utils/color";
+import { defineComponent, PropType } from "vue";
+import { HSV, HSV2HEX } from "../../utils/color";
 
 export default defineComponent({
   props: {
-    h: { type: Number, required: true },
-    s: { type: Number, required: true },
-    v: { type: Number, required: true },
+    modelValue: { type: Object as PropType<HSV>, required: true },
   },
   emits: [
-    "update:s", "update:v",
+    "update:modelValue",
   ],
   data: () => ({
     moveHandler: null as ((e: PointerEvent) => void) | null,
@@ -17,7 +15,7 @@ export default defineComponent({
   }),
   computed: {
     baseColor(): string {
-      return HSV2HEX({ h: this.h, s: 100, v: 100 });
+      return HSV2HEX({ h: this.modelValue.h, s: 100, v: 100 });
     },
   },
   beforeUnmount() {
@@ -32,8 +30,11 @@ export default defineComponent({
       this.moveHandler = (e: PointerEvent) => {
         const white = (e.clientX - rect.left) / rect.width;
         const black = 1 - (e.clientY - rect.top) / rect.height;
-        this.$emit("update:s", 100 * Math.min(1, Math.max(0, white)));
-        this.$emit("update:v", 100 * Math.min(1, Math.max(0, black)));
+        this.$emit("update:modelValue", {
+          h: this.modelValue.h,
+          s: 100 * Math.min(1, Math.max(0, white)),
+          v: 100 * Math.min(1, Math.max(0, black)),
+        });
       };
       this.upHandler = () => {
         if (this.moveHandler) {
@@ -56,7 +57,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="tone-picker" :style="{ '--jsValueH': s / 100, '--jsValueV': 1 - v / 100 }">
+  <div
+      class="tone-picker"
+      :style="{ '--jsValueH': modelValue.s / 100, '--jsValueV': 1 - modelValue.v / 100 }">
     <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div class="layer" :style="{ background: baseColor }" />
       <div class="layer" :style="{ background: `linear-gradient(90deg, white, transparent)` }" />

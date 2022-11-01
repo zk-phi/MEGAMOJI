@@ -1,14 +1,15 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import { HSV } from "../../utils/color";
 
 const gradient = "linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)";
 
 export default defineComponent({
   props: {
-    h: { type: Number, required: true },
+    modelValue: { type: Object as PropType<HSV>, required: true },
   },
   emits: [
-    "update:h",
+    "update:modelValue",
   ],
   data: () => ({
     gradient,
@@ -26,7 +27,11 @@ export default defineComponent({
       const rect = (this.$refs.container as HTMLDivElement).getBoundingClientRect();
       this.moveHandler = (e: PointerEvent) => {
         const left = (e.clientX - rect.left) / rect.width;
-        this.$emit("update:h", 360 * Math.min(1, Math.max(0, left)));
+        this.$emit("update:modelValue", {
+          h: 360 * Math.min(1, Math.max(0, left)),
+          s: this.modelValue.s,
+          v: this.modelValue.v,
+        });
       };
       this.upHandler = () => {
         if (this.moveHandler) {
@@ -49,7 +54,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="slider" :style="{ '--jsValue': h / 360, background: gradient }">
+  <div class="slider" :style="{ '--jsValue': modelValue.h / 360, background: gradient }">
     <div ref="container" class="container" @pointerdown="startDrag($event)">
       <div :class="['knob', { active: !!moveHandler }]" />
     </div>
