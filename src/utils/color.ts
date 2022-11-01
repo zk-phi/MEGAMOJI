@@ -36,6 +36,12 @@ const lighterColor = (hexColor: string): string => {
   return `#${newColor}`;
 };
 
+const lightererColor = (hexColor: string): string => {
+  const hsl = ColorConvert.hex.hsl(hexColor);
+  const newColor = ColorConvert.hsl.hex([hsl[0], hsl[1], Math.min(100, hsl[2] + 40)]);
+  return `#${newColor}`;
+};
+
 const darkerColor = (hexColor: string): string => {
   const hsl = ColorConvert.hex.hsl(hexColor);
   const newColor = ColorConvert.hsl.hex([hsl[0], hsl[1], Math.max(0, hsl[2] - 15)]);
@@ -47,6 +53,8 @@ export const absColor = (relColor: string, baseColor: string): string => {
     return darkerColor(baseColor);
   } else if (relColor === "lighter") {
     return lighterColor(baseColor);
+  } else if (relColor === "lighterer") {
+    return lightererColor(baseColor);
   } else if (relColor === "identical") {
     return baseColor;
   } else {
