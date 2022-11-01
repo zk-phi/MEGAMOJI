@@ -5,7 +5,7 @@ import HueSlider from "./HueSlider.vue";
 import TonePicker from "./TonePicker.vue";
 import Input from "./Input.vue";
 import Space from "../global/Space.vue";
-import { HEX2HSV, HSV2HEX } from "../../utils/color";
+import { HSV, HEX2HSV, HSV2HEX } from "../../utils/color";
 
 const validateColor = (color: string): boolean => {
   const s = new Option().style;
@@ -42,20 +42,6 @@ export default defineComponent({
         this.stringIsValid = true;
       },
     },
-    hsv: {
-      handler() {
-        this.$emit("update:modelValue", HSV2HEX(this.hsv));
-      },
-      deep: true,
-    },
-    stringValue: {
-      handler() {
-        this.stringIsValid = validateColor(this.stringValue);
-        if (this.stringIsValid) {
-          this.$emit("update:modelValue", this.stringValue);
-        }
-      },
-    },
   },
   methods: {
     hidePopover(): void {
@@ -64,6 +50,16 @@ export default defineComponent({
     refreshStyle(): void {
       (this.$refs.popover as Popover).refreshStyle();
     },
+    onPickHSV(hsv: HSV): void {
+      this.$emit("update:modelValue", HSV2HEX(hsv));
+    },
+    onInputString(value: string): void {
+      this.stringValue = value;
+      this.stringIsValid = validateColor(value);
+      if (this.stringIsValid) {
+        this.$emit("update:modelValue", this.stringValue);
+      }
+    },
   },
 });
 </script>
@@ -71,9 +67,14 @@ export default defineComponent({
 <template>
   <Popover ref="popover" :show="show" :el="el" :on-hide="onHide" :style="{ width: '260px' }">
     <Space vertical full>
-      <TonePicker v-model="hsv" :style="{ height: '180px' }" />
-      <HueSlider v-model="hsv" />
-      <Input v-model="stringValue" block small :error="!stringIsValid" />
+      <TonePicker :model-value="hsv" :style="{ height: '180px' }" @update:model-value="onPickHSV" />
+      <HueSlider :model-value="hsv" @update:model-value="onPickHSV" />
+      <Input
+          block
+          small
+          :model-value="stringValue"
+          :error="!stringIsValid"
+          @update:model-value="onInputString" />
       <slot />
     </Space>
   </Popover>
