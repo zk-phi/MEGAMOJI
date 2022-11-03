@@ -15,8 +15,12 @@
 # 権利表示
 
 バンドルに含まれるライブラリ
-- gif.js
-  - (c) Johan Nordberg, Licensed under the MIT License
+- svg.js
+  - (c) Wout Fierens, Licensed under the MIT License
+- gifenc
+  - (c) Matt DesLauriers, Licensed under the MIT License
+- opentype.js
+  - (c) Frederik De Bleser, Licensed under the MIT License
 - color-convert
   - (c) Josh Junon, Licensed under the MIT License
 - file-saver
@@ -33,8 +37,9 @@
 いくつかのエフェクトは glfx.js ((c) Evan Wallace, MIT License) から引用しています。
 
 画像素材
-- Twemoji (パーツを抜き出す改変を加えた)
+- Twemoji
   - (c) Twitter, Licensed under the CC-BY License
+  - パーツを個別に抜き出す改変を加えています
 - Material Design Icons
   - (c) Google, Licensed under the Apache License
 
