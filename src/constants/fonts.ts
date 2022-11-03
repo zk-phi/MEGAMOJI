@@ -7,11 +7,12 @@ import DelaGothic from "../fonts/DelaGothicOne-Regular.woff";
 import AkazukinPOP from "../fonts/AkazukiPOP.woff";
 import ZeroGothic from "../fonts/ZeroGothic.woff";
 import KurobaraCinderella from "../fonts/kurobara-cinderella.woff";
-import AoyagiReishoSIMO from "../fonts/aoyagireisyosimo_ttf_2_01.woff";
 import PixelMplus from "../fonts/PixelMplus12-Bold.woff";
 import Reggae from "../fonts/ReggaeOne-Regular.woff";
 import Rampart from "../fonts/RampartOne-Regular.woff";
 import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
+import Dohetaji from "../fonts/doheta_j.woff";
+import TamanegiKaishoGeki from "../fonts/TamanegiKaishoGekiV6.woff";
 
 export default [
   {
@@ -31,7 +32,8 @@ export default [
       { label: "零ゴシック", uri: ZeroGothic },
       { label: "黒薔薇シンデレラ", uri: KurobaraCinderella },
       { label: "はちまるポップ", uri: HachiMaruPop },
-      { label: "青柳隷書しも", uri: AoyagiReishoSIMO },
+      { label: "ドヘタ字 J", uri: Dohetaji },
+      { label: "玉ねぎ楷書「激」", uri: TamanegiKaishoGeki },
       { label: "PixelMplus", uri: PixelMplus },
       { label: "レゲエ", uri: Reggae },
       { label: "ランパート", uri: Rampart },
