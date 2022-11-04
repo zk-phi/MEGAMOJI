@@ -172,8 +172,9 @@ export default defineComponent({
   --paddingH: 1rem;
   --padding: var(--paddingV) var(--paddingH);
   --paddingMinimal: 4px;
-  --borderRadiusSmall: 1px;
-  --borderRadius: 2px;
+  --borderRadiusMicro: 4px; /* elements that should not be "too rounded" (eg. checkboxes) */
+  --borderRadiusSmall: 4px;
+  --borderRadius: 8px;
 
   /* other */
   --textareaLineHeight: 1.4;

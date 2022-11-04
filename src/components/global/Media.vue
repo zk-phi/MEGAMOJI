@@ -44,7 +44,7 @@ export default defineComponent({
   width: var(--mediaIconSize);
   height: var(--mediaIconSize);
   background-size: cover;
-  border-radius: var(--borderRadiusSmall);
+  border-radius: var(--borderRadiusMicro);
   flex-shrink: 0;
 }
 </style>

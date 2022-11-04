@@ -75,7 +75,7 @@ export default defineComponent({
   color: transparent;
   background-color: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--borderRadiusSmall);
+  border-radius: var(--borderRadiusMicro);
 }
 
 .check.radio {
