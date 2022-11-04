@@ -28,7 +28,7 @@ export default defineComponent({
       this.moveHandler = (e: PointerEvent) => {
         const left = (e.clientX - rect.left) / rect.width;
         this.$emit("update:modelValue", {
-          h: 360 * Math.min(1, Math.max(0, left)),
+          h: 359.7 * Math.min(1, Math.max(0, left)), // #FF0001 max
           s: this.modelValue.s,
           v: this.modelValue.v,
         });
