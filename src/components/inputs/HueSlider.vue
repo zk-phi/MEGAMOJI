@@ -70,7 +70,7 @@ export default defineComponent({
 .container {
   position: relative;
   left: 0;
-  width: calc(100%);
+  width: 100%;
   height: var(--sliderKnobSize);
   overflow: hidden;
   font-size: var(--fontSizeMedium);
