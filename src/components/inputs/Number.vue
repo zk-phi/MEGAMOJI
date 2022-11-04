@@ -16,10 +16,27 @@ export default defineComponent({
   emits: [
     "update:modelValue",
   ],
+  data: (props) => ({
+    stringValue: String(props.modelValue),
+    stringIsValid: true,
+  }),
+  watch: {
+    modelValue: {
+      handler() {
+        this.stringValue = String(this.modelValue);
+        this.stringIsValid = true;
+      },
+    },
+  },
   methods: {
     onChange(value: string): void {
       const number = Number(value);
-      if (!Number.isNaN(number)) {
+      this.stringValue = value;
+      this.stringIsValid = value !== ""
+                        && Number.isInteger(number)
+                        && this.min <= number
+                        && number <= this.max;
+      if (this.stringIsValid) {
         this.$emit("update:modelValue", Math.min(this.max, Math.max(this.min, number)));
       }
     },
@@ -28,11 +45,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="['wrapper', { block }]">
+  <div :class="['wrapper', { error: !stringIsValid }]">
     <input
         class="number"
         type="text"
-        :value="modelValue"
+        :value="stringValue"
         @input="onChange($event.target.value)">
     <div class="buttons">
       <button class="button" @click="onChange(modelValue - 1)">
@@ -47,8 +64,19 @@ export default defineComponent({
 
 <style scoped>
 .wrapper {
+  --inputColorBase: var(--border);
+  --inputColorHover: var(--primary);
+  --inputColorActive: var(--primaryActive);
+  --inputColorShadow: var(--primaryShadow);
   position: relative;
   display: inline-block;
+}
+
+.error {
+  --inputColorBase: var(--danger);
+  --inputColorHover: var(--dangerHover);
+  --inputColorActive: var(--dangerActive);
+  --inputColorShadow: var(--dangerShadow);
 }
 
 .block {
@@ -64,23 +92,23 @@ export default defineComponent({
   line-height: 1;
   color: var(--fg);
   background-color: var(--bg);
-  border: 1px solid var(--border);
+  border: 1px solid var(--inputColorBase);
   border-radius: var(--borderRadius);
   outline: none;
 }
 
 .number:hover {
-  border-color: var(--primary);
+  border-color: var(--inputColorHover);
 }
 
 .number:focus {
-  border-color: var(--primary);
-  box-shadow: var(--primaryShadow);
+  border-color: var(--inputColorHover);
+  box-shadow: var(--inputColorShadow);
 }
 
 .number:active {
-  border-color: var(--primaryActive);
-  box-shadow: var(--primaryShadow);
+  border-color: var(--inputColorActive);
+  box-shadow: var(--inputColorShadow);
 }
 
 .buttons {
@@ -100,10 +128,10 @@ export default defineComponent({
 }
 
 .button:hover {
-  color: var(--primary);
+  color: var(--inputColorHover);
 }
 
 .button:active {
-  color: var(--primaryActive);
+  color: var(--inputColorActive);
 }
 </style>
