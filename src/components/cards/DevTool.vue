@@ -66,8 +66,15 @@ export default defineComponent({
     buildAnimation(): void {
       try {
         const animationImpl = new Function(
-          "keyframe", "ctx", "image",
-          "offsetH", "offsetV", "width", "height", "cellWidth", "cellHeight",
+          "keyframe",
+          "ctx",
+          "image",
+          "offsetH",
+          "offsetV",
+          "width",
+          "height",
+          "cellWidth",
+          "cellHeight",
           this.source.animation,
         );
         const animation: Animation = (...args) => {
@@ -85,7 +92,10 @@ export default defineComponent({
     buildEffect(): void {
       try {
         const effectImpl = new Function(
-          "keyframe", "ctx", "cellWidth", "cellHeight",
+          "keyframe",
+          "ctx",
+          "cellWidth",
+          "cellHeight",
           this.source.effect,
         );
         const effect: Effect = (...args) => {

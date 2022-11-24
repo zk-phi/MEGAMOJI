@@ -33,7 +33,11 @@ module.exports = {
 
     // allow importing devDependencies from inside "tests" dir
     "import/no-extraneous-dependencies": ["error", {
-      devDependencies: ["**/*.spec.ts"],
+      devDependencies: [
+        "**/*.spec.ts",
+        "webpack.config.js",
+        "playwright.config.ts",
+      ],
       optionalDependencies: false,
     }],
 

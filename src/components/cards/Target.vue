@@ -203,19 +203,25 @@ export default defineComponent({
         const binarySizeLimit = this.conf.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
         renderAllCells(
           this.baseImage,
-          this.conf.trimH[0], this.conf.trimV[0],
-          this.conf.cells[0], this.conf.cells[1],
+          this.conf.trimH[0],
+          this.conf.trimV[0],
+          this.conf.cells[0],
+          this.conf.cells[1],
           this.conf.trimH[1] - this.conf.trimH[0],
           this.conf.trimV[1] - this.conf.trimV[0],
-          maxSize, this.conf.noCrop,
+          maxSize,
+          this.conf.noCrop,
           animated,
           this.conf.animation ? this.conf.animation.value : null,
           this.conf.animationInvert,
           this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.value),
           this.conf.webglEffects.map((eff) => eff.value),
           this.conf.easing.value,
-          framerate, framecount,
-          this.conf.backgroundColor, this.conf.transparent, binarySizeLimit,
+          framerate,
+          framecount,
+          this.conf.backgroundColor,
+          this.conf.transparent,
+          binarySizeLimit,
         ).then((res) => {
           this.$emit("render", res);
           this.running = false;

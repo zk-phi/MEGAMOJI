@@ -2,14 +2,18 @@ import { SVG } from "@svgdotjs/svg.js";
 
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
-  cellWidth: number, cellHeight: number,
-  hScale: number, vScale: number,
+  cellWidth: number,
+  cellHeight: number,
+  hScale: number,
+  vScale: number,
 ): void => {
   ctx.transform(
     hScale,
-    0, 0,
+    0,
+    0,
     vScale,
-    cellWidth * (1 - hScale) / 2, cellHeight * (1 - vScale) / 2,
+    cellWidth * (1 - hScale) / 2,
+    cellHeight * (1 - vScale) / 2,
   );
 };
 
@@ -21,7 +25,10 @@ export const flipContext = (ctx: CanvasRenderingContext2D, width: number): void 
 /* Create a new canvas and render specified region of the source canvas. */
 export const cropCanvas = (
   source: HTMLCanvasElement,
-  left: number, top: number, w: number, h: number,
+  left: number,
+  top: number,
+  w: number,
+  h: number,
   fillStyle?: string,
 ): HTMLCanvasElement => {
   const target = document.createElement("canvas");
@@ -87,8 +94,12 @@ export const shrinkCanvas = (source: HTMLCanvasElement): HTMLCanvasElement => {
 /* Split canvas into a 2d-array of canvases */
 export const cutoutCanvasIntoCells = (
   source: HTMLCanvasElement,
-  offsetH: number, offsetV: number,
-  hCells: number, vCells: number, cellWidth: number, cellHeight: number,
+  offsetH: number,
+  offsetV: number,
+  hCells: number,
+  vCells: number,
+  cellWidth: number,
+  cellHeight: number,
 ): HTMLCanvasElement[][] => {
   const cells = [];
   for (let y = 0; y < vCells; y += 1) {
@@ -97,8 +108,10 @@ export const cutoutCanvasIntoCells = (
       row.push(
         cropCanvas(
           source,
-          offsetH + x * cellWidth, offsetV + y * cellHeight,
-          cellWidth, cellHeight,
+          offsetH + x * cellWidth,
+          offsetV + y * cellHeight,
+          cellWidth,
+          cellHeight,
         ),
       );
     }

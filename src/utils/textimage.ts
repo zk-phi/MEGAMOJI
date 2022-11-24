@@ -7,8 +7,13 @@ const OUTLINE_THICKNESS = 1;
 const FONT_SIZE = 32;
 
 export const makeTextImage = (
-  text: string, color: string, font: Font, align: string,
-  lineSpacing: number, outlineColors: string[], gradient: GradientColorStop[],
+  text: string,
+  color: string,
+  font: Font,
+  align: string,
+  lineSpacing: number,
+  outlineColors: string[],
+  gradient: GradientColorStop[],
 ): string => {
   const draw = SVG();
 

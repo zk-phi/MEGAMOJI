@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-const sleep = async (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
+const sleep = async (delay: number) => new Promise((resolve) => {
+  setTimeout(resolve, delay);
+});
 
 test("ページが表示される", async ({ page }) => {
   await page.goto("/");

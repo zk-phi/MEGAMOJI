@@ -8,9 +8,11 @@ const effectPoyonBounce: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   const ratio = Math.sin(Math.PI * keyframe) / 2;
   ctx.transform(
     1 + ratio,
-    0, 0,
+    0,
+    0,
     1 - ratio,
-    -ratio * cellWidth / 2, ratio * cellHeight * 3 / 4,
+    -ratio * cellWidth / 2,
+    ratio * cellHeight * 3 / 4,
   );
 };
 

@@ -192,7 +192,9 @@ function draw(texture: WebGLTexture, frame: WebGLFramebuffer | null) {
 
 // apply effects on image and render in webglCanvas
 export function webglApplyEffects(
-  image: HTMLCanvasElement, keyframe: number, effects: WebGLEffect[],
+  image: HTMLCanvasElement,
+  keyframe: number,
+  effects: WebGLEffect[],
 ): HTMLCanvasElement {
   if (!webglCanvas || !gl) throw new Error("WebGL not initialized");
 
