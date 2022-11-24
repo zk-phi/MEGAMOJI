@@ -31,6 +31,12 @@ module.exports = {
     // allow named export
     "import/prefer-default-export": "off",
 
+    // allow importing devDependencies from inside "tests" dir
+    "import/no-extraneous-dependencies": ["error", {
+      devDependencies: ["**/*.spec.ts"],
+      optionalDependencies: false,
+    }],
+
     // fns and classes can be referred before defined
     "no-use-before-define": ["error", {
       // functions: true,

@@ -6,7 +6,7 @@ const config: PlaywrightTestConfig = {
   timeout: 60 * 1000,
   workers: 1,
   expect: {
-    timeout: 5 * 1000
+    timeout: 5 * 1000,
   },
   use: {
     actionTimeout: 0,
