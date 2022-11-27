@@ -1,4 +1,7 @@
+import * as Path from "path";
 import { test, expect } from "@playwright/test";
+import ssim from "ssim.js";
+import { loadFromPath } from "../utils/image";
 
 const sleep = async (delay: number) => new Promise((resolve) => {
   setTimeout(resolve, delay);
@@ -14,19 +17,27 @@ test("ファーストビューに textarea が存在し、フォーカスが当�
   await expect(page.locator("textarea")).toBeFocused();
 });
 
-test("textarea に文字列を入力すると何らかの画像が表示される", async ({ page }) => {
+test("シンプルなテキスト絵文字を作成して、ダウンロードできる", async ({ page }) => {
   await page.goto("/");
-  await page.locator("textarea").fill("hoge\nhoge");
+  await page.locator("textarea").fill("hoge\nほげ");
+
+  // プレビュー画像が更新される
   const src = await page.locator("img").evaluate((el) => (el as HTMLImageElement).src);
   expect(src).toMatch(/^blob:/);
-});
 
-test("保存ボタンを押すと何らかの PNG ファイルがダウンロードされる", async ({ page }) => {
-  await page.goto("/");
-  await page.locator("textarea").fill("hoge\nhoge");
+  // 何らかのファイルがダウンロードできる
   const [ download ] = await Promise.all([
     page.waitForEvent("download"),
     page.locator("button", { hasText: "保存" }).click(),
   ]);
+  const path = await download.path();
+
+  // ダウンロードしたファイルが PNG
   expect(download.suggestedFilename()).toMatch(/\.png$/);
+
+  // ダウンロードしたファイルがお手本と十分似ている
+  const data1 = await loadFromPath(Path.resolve(__dirname, "./assets/textsample.png"));
+  const data2 = await loadFromPath(path!);
+  const { mssim } = ssim(data1, data2);
+  expect(mssim).toBeGreaterThanOrEqual(0.95);
 });
