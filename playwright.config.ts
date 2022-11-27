@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
   webServer: {
     command: "npm run start",
     port: 8080,
-    timeout: 60 * 1000,
+    timeout: 2 * 60 * 1000,
   },
 };
 
