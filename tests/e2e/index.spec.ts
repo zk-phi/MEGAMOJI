@@ -3,10 +3,6 @@ import { test, expect } from "@playwright/test";
 import ssim from "ssim.js";
 import { loadFromPath } from "../utils/image";
 
-const sleep = async (delay: number) => new Promise((resolve) => {
-  setTimeout(resolve, delay);
-});
-
 test("ページタイトルが表示されている", async ({ page }) => {
   await page.goto("/");
   await expect(await page.getByRole("heading", { level: 1 })).toHaveText(/MEGAMOJI/);
@@ -26,7 +22,7 @@ test("シンプルなテキスト絵文字を作成して、ダウンロード�
   expect(src).toMatch(/^blob:/);
 
   // 何らかのファイルがダウンロードできる
-  const [ download ] = await Promise.all([
+  const [download] = await Promise.all([
     page.waitForEvent("download"),
     page.locator("button", { hasText: "保存" }).click(),
   ]);

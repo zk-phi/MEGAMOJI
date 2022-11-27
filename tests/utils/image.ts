@@ -11,5 +11,5 @@ const decodeImage = (buf: Buffer): Promise<ImageData> => new Promise((resolve) =
 });
 
 export const loadFromPath = async (path: string): Promise<ImageData> => (
-  await decodeImage(await readFile(path))
+  decodeImage(await readFile(path))
 );
