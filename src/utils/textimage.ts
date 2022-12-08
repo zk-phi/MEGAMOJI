@@ -14,7 +14,7 @@ const makeTextImageSingleLine = (
   const ctx = canvas.getContext("2d")!;
   ctx.font = font.replace(/([0-9.]+)em/, (_, emHeight) => `${fontHeight * emHeight}px`);
   ctx.textBaseline = "top";
-  ctx.miterLimit = 6.0;
+  ctx.lineJoin = "round";
 
   const margin = fontHeight * 0.025;
 

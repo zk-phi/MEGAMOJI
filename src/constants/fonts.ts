@@ -14,29 +14,39 @@ import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
 import Dohetaji from "../fonts/doheta_j.woff";
 import TamanegiKaishoGeki from "../fonts/TamanegiKaishoGekiV6.woff";
 
+const loadFont = (font: Record<string, string>) => {
+  const family = Object.keys(font)[0];
+  const url = font[family];
+  const fontFace = new FontFace(family, `url('${url}')`);
+  fontFace.load().then(() => {
+    document.fonts.add(fontFace);
+  });
+  return `normal 1em '${family}'`;
+};
+
 export default [
   {
     label: "定番フォント",
     fonts: [
-      { label: "ゴシック", uri: Mplus1Bold },
-      { label: "ゴシック/極太", uri: Mplus1Black },
-      { label: "丸ゴ", uri: RoundedMPlusBold },
-      { label: "丸ゴ/極太", uri: RoundedMPlusBlack },
-      { label: "明朝", uri: NotoSerifBlack },
+      { label: "ゴシック", value: loadFont({ Mplus1Bold }) },
+      { label: "ゴシック/極太", value: loadFont({ Mplus1Black }) },
+      { label: "丸ゴ", value: loadFont({ RoundedMPlusBold }) },
+      { label: "丸ゴ/極太", value: loadFont({ RoundedMPlusBlack }) },
+      { label: "明朝", value: loadFont({ NotoSerifBlack }) },
     ],
   }, {
     label: "デザインフォント",
     fonts: [
-      { label: "デラゴシック", uri: DelaGothic },
-      { label: "あかずきんポップ", uri: AkazukinPOP },
-      { label: "零ゴシック", uri: ZeroGothic },
-      { label: "黒薔薇シンデレラ", uri: KurobaraCinderella },
-      { label: "はちまるポップ", uri: HachiMaruPop },
-      { label: "ドヘタ字 J", uri: Dohetaji },
-      { label: "玉ねぎ楷書「激」", uri: TamanegiKaishoGeki },
-      { label: "PixelMplus", uri: PixelMplus },
-      { label: "レゲエ", uri: Reggae },
-      { label: "ランパート", uri: Rampart },
+      { label: "デラゴシック", value: loadFont({ DelaGothic }) },
+      { label: "あかずきんポップ", value: loadFont({ AkazukinPOP }) },
+      { label: "零ゴシック", value: loadFont({ ZeroGothic }) },
+      { label: "黒薔薇シンデレラ", value: loadFont({ KurobaraCinderella }) },
+      { label: "はちまるポップ", value: loadFont({ HachiMaruPop }) },
+      { label: "ドヘタ字 J", value: loadFont({ Dohetaji }) },
+      { label: "玉ねぎ楷書「激」", value: loadFont({ TamanegiKaishoGeki }) },
+      { label: "PixelMplus", value: loadFont({ PixelMplus }) },
+      { label: "レゲエ", value: loadFont({ Reggae }) },
+      { label: "ランパート", value: loadFont({ Rampart }) },
     ],
   },
 ];

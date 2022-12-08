@@ -1,15 +1,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { load as loadFont, Font } from "opentype.js";
 import Analytics from "../../utils/analytics";
+import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
 import Button from "../inputs/Button.vue";
-import Checkbox from "../inputs/Checkbox.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
-import FileSelect from "../inputs/FileSelect.vue";
 import Slider from "../inputs/Slider.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
@@ -19,33 +17,22 @@ import AlignJustify from "../icons/AlignJustify.vue";
 import AlignCenter from "../icons/AlignCenter.vue";
 import AlignLeft from "../icons/AlignLeft.vue";
 import AlignRight from "../icons/AlignRight.vue";
-import Text from "../icons/Text.vue";
 
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
-import { makeTextImage } from "../../utils/textimageSVG";
+import { makeTextImage } from "../../utils/textimage";
 import { urlToImg } from "../../utils/canvas";
+import { EMOJI_SIZE } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
-
-const fontCache: Record<string, Font> = {};
-
-type FontPreview = { viewBox: string, pathData: string };
-const makeFontPreview = (label: string, font: Font) => {
-  const path = font.getPath(label, 0, 0, 32);
-  const box = path.getBoundingBox();
-  const viewBox = `${box.x1} ${box.y1} ${box.x2 - box.x1} ${box.y2 - box.y1}`;
-  return { viewBox, pathData: path.toPathData(2) };
-};
 
 export default defineComponent({
   components: {
+    FontSelectBlock,
     FontColorSelectBlock,
     OutlineBlock,
     Fieldset,
-    FileSelect,
     Slider,
     Button,
-    Checkbox,
     Textarea,
     Grid,
     GridItem,
@@ -56,7 +43,6 @@ export default defineComponent({
     AlignCenter,
     AlignLeft,
     AlignRight,
-    Text,
   },
   props: {
     show: { type: Boolean, required: true },
@@ -66,8 +52,6 @@ export default defineComponent({
   ],
   data() {
     return {
-      fonts,
-      fontPreviews: {} as Record<string, FontPreview>,
       conf: {
         /* basic */
         content: "",
@@ -75,7 +59,7 @@ export default defineComponent({
         color: "#ffda00",
         gradient: [] as ColorStop[],
         outlines: [] as string[],
-        font: fonts[0].fonts[0].label,
+        font: fonts[0].fonts[0].value,
         /* advanced */
         lineSpacing: 0.05,
       },
@@ -104,28 +88,16 @@ export default defineComponent({
       },
       deep: true,
     },
-    // render when a font is loaded (and dirty = true)
-    fontPreviews: {
-      handler(): void {
-        this.render();
-      },
-      deep: true,
-    },
   },
   mounted() {
     Analytics.changeFont(this.conf.font);
-    fonts.forEach((category) => category.fonts.forEach(async (font) => {
-      const fontObj = await loadFont(font.uri);
-      fontCache[font.label] = fontObj;
-      this.fontPreviews[font.label] = makeFontPreview(font.label, fontObj);
-    }));
   },
   methods: {
     render(dirty?: boolean): void {
       if (dirty) {
         this.dirty = true;
       }
-      if (!this.dirty || this.running || !fontCache[this.conf.font]) {
+      if (!this.dirty || this.running) {
         return;
       }
       this.running = true;
@@ -134,10 +106,10 @@ export default defineComponent({
         const blobUrl = makeTextImage(
           this.conf.content,
           this.conf.color,
-          // i don't know why but "as Font" is needed here
-          fontCache[this.conf.font] as Font,
+          this.conf.font,
+          EMOJI_SIZE,
           this.conf.align,
-          Number(this.conf.lineSpacing),
+          Number(this.conf.lineSpacing) * EMOJI_SIZE,
           this.absoluteOutlines,
           this.absoluteGradient,
         );
@@ -148,11 +120,6 @@ export default defineComponent({
         this.render();
       }, 50);
     },
-    fontLoaded(fontObj: Font) {
-      fontCache.custom = fontObj;
-      this.fontPreviews.custom = makeFontPreview("その他", fontObj);
-      this.conf.font = "custom";
-    },
   },
 });
 </script>
@@ -161,39 +128,9 @@ export default defineComponent({
   <Card v-if="show">
     <Grid :columns="[[450, 1], [Infinity, 3]]" spaced>
       <GridItem>
-        <Space vertical xlarge full>
-          <Fieldset v-for="category in fonts" :key="category.label" :label="category.label">
-            <Space vertical>
-              <Checkbox
-                  v-for="font in category.fonts"
-                  :key="font.label"
-                  v-model="conf.font"
-                  :value="font.label">
-                <svg
-                    v-if="fontPreviews[font.label]"
-                    class="font-preview"
-                    :viewBox="fontPreviews[font.label].viewBox">
-                  <path
-                      fill="currentColor"
-                      :d="fontPreviews[font.label].pathData" />
-                </svg>
-                <span v-else>{{ font.label }}</span>
-              </Checkbox>
-            </Space>
-          </Fieldset>
-          <Fieldset v-if="showDetails" label="その他のフォント">
-            <Space vertical>
-              <Checkbox v-if="fontPreviews.custom" key="custom" v-model="conf.font" value="custom">
-                <svg class="font-preview" :viewBox="fontPreviews.custom.viewBox">
-                  <path fill="currentColor" :d="fontPreviews.custom.pathData" />
-                </svg>
-              </Checkbox>
-              <FileSelect type="font" @load="fontLoaded">
-                <Text /> ファイルを選ぶ
-              </FileSelect>
-            </Space>
-          </Fieldset>
-        </Space>
+        <FontSelectBlock
+            v-model="conf.font"
+            :show-details="showDetails" />
       </GridItem>
       <GridItem :span="2">
         <Space vertical xlarge full>
