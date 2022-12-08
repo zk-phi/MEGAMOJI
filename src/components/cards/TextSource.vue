@@ -23,7 +23,7 @@ import Text from "../icons/Text.vue";
 
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
-import { makeTextImage } from "../../utils/textimage";
+import { makeTextImage } from "../../utils/textimageSVG";
 import { urlToImg } from "../../utils/canvas";
 import fonts from "../../constants/fonts";
 
