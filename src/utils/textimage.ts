@@ -4,8 +4,12 @@ type GradientColorStop = { color: string, pos: number };
 
 /* Create a new canvas and render a single-line text. Returns the cropped canvas object. */
 const makeTextImageSingleLine = (
-  line: string, color: string, font: string,
-  fontHeight: number, outlineColors: string[], gradient: GradientColorStop[],
+  line: string,
+  color: string,
+  font: string,
+  fontHeight: number,
+  outlineColors: string[],
+  gradient: GradientColorStop[],
 ): HTMLCanvasElement => {
   const canvas = document.createElement("canvas");
   canvas.width = fontHeight * (line.length || 1) * 2;
@@ -40,8 +44,14 @@ const makeTextImageSingleLine = (
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
 export const makeTextImage = (
-  text: string, color: string, font: string, fontHeight: number,
-  align: string, lineSpacing: number, outlineColors: string[], gradient: GradientColorStop[],
+  text: string,
+  color: string,
+  font: string,
+  fontHeight: number,
+  align: string,
+  lineSpacing: number,
+  outlineColors: string[],
+  gradient: GradientColorStop[],
 ): string => {
   const images = text.split("\n").map((line) => (
     makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)

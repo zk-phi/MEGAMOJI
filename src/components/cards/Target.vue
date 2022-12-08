@@ -268,8 +268,8 @@ export default defineComponent({
               <Number
                   v-if="emojiSize !== null"
                   :model-value="emojiSize"
-                  @update:model-value="changeEmojiSize"
-                  :min="1" />
+                  :min="1"
+                  @update:model-value="changeEmojiSize" />
             </Space>
           </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
