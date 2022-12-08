@@ -43,6 +43,7 @@ export default defineComponent({
       baseImage: null as (HTMLImageElement | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
+      emojiSize: null as (number | null),
       /* ui */
       ui: {
         mode: "text",
@@ -105,6 +106,7 @@ export default defineComponent({
         <GridItem :span="2">
           <TextSource
               :show="ui.mode == 'text' && !ui.showTargetPanel"
+              :emoji-size="emojiSize"
               @render="onRender" />
           <FileSource
               :show="ui.mode == 'file' && !ui.showTargetPanel"
@@ -113,6 +115,7 @@ export default defineComponent({
               :show="ui.mode == 'parts' && !ui.showTargetPanel"
               @render="onRender" />
           <Target
+              v-model:emoji-size="emojiSize"
               :show="ui.showTargetPanel"
               :base-image="baseImage"
               @render="onRenderTarget" />

@@ -46,6 +46,7 @@ export default defineComponent({
   },
   props: {
     show: { type: Boolean, required: true },
+    emojiSize: { type: Number, default: null },
   },
   emits: [
     "render",
@@ -88,6 +89,11 @@ export default defineComponent({
       },
       deep: true,
     },
+    emojiSize: {
+      handler(): void {
+        this.render(true);
+      },
+    },
   },
   mounted() {
     Analytics.changeFont(this.conf.font);
@@ -107,9 +113,9 @@ export default defineComponent({
           this.conf.content,
           this.conf.color,
           this.conf.font,
-          EMOJI_SIZE,
+          this.emojiSize || EMOJI_SIZE,
           this.conf.align,
-          Number(this.conf.lineSpacing) * EMOJI_SIZE,
+          Number(this.conf.lineSpacing) * (this.emojiSize || EMOJI_SIZE),
           this.absoluteOutlines,
           this.absoluteGradient,
         );

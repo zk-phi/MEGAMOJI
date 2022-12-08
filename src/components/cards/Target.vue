@@ -6,7 +6,7 @@ import CellcountBlock from "../formblocks/CellcountBlock.vue";
 import Button from "../inputs/Button.vue";
 import Select from "../inputs/Select.vue";
 import Checkbox from "../inputs/Checkbox.vue";
-import Number from "../inputs/Number.vue";
+import NumberInput from "../inputs/Number.vue";
 import Slider from "../inputs/Slider.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Color from "../inputs/Color.vue";
@@ -62,7 +62,7 @@ export default defineComponent({
     CellcountBlock,
     Card,
     Button,
-    Number,
+    Number: NumberInput,
     Grid,
     GridItem,
     Fieldset,
@@ -74,9 +74,11 @@ export default defineComponent({
   props: {
     baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
     show: { type: Boolean, required: true },
+    emojiSize: { type: Number, default: null },
   },
   emits: [
     "render",
+    "update:emojiSize",
   ],
   data() {
     return {
@@ -107,7 +109,6 @@ export default defineComponent({
         duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
         transparent: false,
-        emojiSize: null as (number | null),
       },
       showDetails: false,
       devMode: false,
@@ -121,6 +122,13 @@ export default defineComponent({
       handler(): void {
         if (this.baseImage) {
           this.refreshDefaultSettings();
+          this.render(true);
+        }
+      },
+    },
+    emojiSize: {
+      handler(): void {
+        if (this.baseImage) {
           this.render(true);
         }
       },
@@ -178,7 +186,10 @@ export default defineComponent({
       this.conf.duration = speed.value;
     },
     toggleAutoSize(value: boolean): void {
-      this.conf.emojiSize = value ? null : EMOJI_SIZE;
+      this.$emit("update:emojiSize", value ? null : EMOJI_SIZE);
+    },
+    changeEmojiSize(value: number): void {
+      this.$emit("update:emojiSize", value);
     },
     render(dirty?: boolean): void {
       if (dirty) {
@@ -199,8 +210,8 @@ export default defineComponent({
         const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
         const framecount = Math.floor(this.conf.duration * framerate);
 
-        const maxSize = this.conf.emojiSize || (animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE);
-        const binarySizeLimit = this.conf.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
+        const maxSize = this.emojiSize || (animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE);
+        const binarySizeLimit = this.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
         renderAllCells(
           this.baseImage,
           this.conf.trimH[0],
@@ -251,10 +262,14 @@ export default defineComponent({
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
           <Fieldset v-if="showDetails" label="画像サイズ">
             <Space vertical full>
-              <Checkbox :model-value="conf.emojiSize === null" @update:model-value="toggleAutoSize">
+              <Checkbox :model-value="emojiSize === null" @update:model-value="toggleAutoSize">
                 自動
               </Checkbox>
-              <Number v-if="conf.emojiSize !== null" v-model="conf.emojiSize" :min="1" />
+              <Number
+                  v-if="emojiSize !== null"
+                  :model-value="emojiSize"
+                  @update:model-value="changeEmojiSize"
+                  :min="1" />
             </Space>
           </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
