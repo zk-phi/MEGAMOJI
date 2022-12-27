@@ -49,8 +49,8 @@ export default defineComponent({
 .footer-content {
   display: inline-block;
   padding: var(--spacingMedium);
-  border-top-left-radius: var(--borderRadius);
-  border-left: 1px dotted var(--border);
   border-top: 1px dotted var(--border);
+  border-left: 1px dotted var(--border);
+  border-top-left-radius: var(--borderRadius);
 }
 </style>
