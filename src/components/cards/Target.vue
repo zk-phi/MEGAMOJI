@@ -342,11 +342,9 @@ export default defineComponent({
       </GridItem>
     </Grid>
     <template v-if="!devMode" #footer>
-      <div style="text-align: center;">
-        <Button type="text" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </Button>
-      </div>
+      <Checkbox v-model="showDetails">
+        {{ "職人モード" }}
+      </Checkbox>
     </template>
     <DevTool
         v-if="devMode"

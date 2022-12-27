@@ -4,7 +4,7 @@ import Analytics from "../../utils/analytics";
 import FontSelectBlock from "../formblocks/FontSelectBlock.vue";
 import FontColorSelectBlock from "../formblocks/FontColorSelectBlock.vue";
 import OutlineBlock from "../formblocks/OutlineBlock.vue";
-import Button from "../inputs/Button.vue";
+import Checkbox from "../inputs/Checkbox.vue";
 import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
@@ -32,7 +32,7 @@ export default defineComponent({
     OutlineBlock,
     Fieldset,
     Slider,
-    Button,
+    Checkbox,
     Textarea,
     Grid,
     GridItem,
@@ -179,11 +179,9 @@ export default defineComponent({
       </GridItem>
     </Grid>
     <template #footer>
-      <div style="text-align: center;">
-        <Button type="text" @click="showDetails = !showDetails">
-          {{ showDetails ? '- 詳細を閉じる' : '+ 詳細オプション' }}
-        </Button>
-      </div>
+      <Checkbox v-model="showDetails">
+        {{ "職人モード" }}
+      </Checkbox>
     </template>
   </Card>
 </template>

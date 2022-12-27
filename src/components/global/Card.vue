@@ -17,7 +17,9 @@ export default defineComponent({
       <slot />
     </div>
     <div v-if="$slots.footer" class="footer">
-      <slot name="footer" />
+      <div class="footer-content">
+        <slot name="footer" />
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +43,14 @@ export default defineComponent({
 }
 
 .footer {
-  padding: var(--spacingXLarge);
+  text-align: right;
+}
+
+.footer-content {
+  display: inline-block;
+  padding: var(--spacingMedium);
+  border-top-left-radius: var(--borderRadius);
+  border-left: 1px dotted var(--border);
   border-top: 1px dotted var(--border);
 }
 </style>
