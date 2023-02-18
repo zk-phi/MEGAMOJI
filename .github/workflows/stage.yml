@@ -23,7 +23,7 @@ jobs:
       - run: npm ci --legacy-peer-deps
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: app-dev
           path: dist
