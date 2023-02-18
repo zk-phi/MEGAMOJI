@@ -109,11 +109,11 @@ jobs:
       - build-app
       - build-storybook
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: app
           path: dist
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: storybook
           path: dist/storybook
