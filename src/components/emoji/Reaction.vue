@@ -10,7 +10,7 @@ export default defineComponent({
 
 <template>
   <div class="reaction">
-    <img class="reaction_icon" :src="src"> 5
+    <div class="reaction_icon" :style="{ backgroundImage: `url(${src})` }" /> 5
   </div>
 </template>
 
@@ -33,7 +33,12 @@ export default defineComponent({
 }
 
 .reaction_icon {
+  display: inline-block;
+  height: 19px;
   width: 19px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   vertical-align: -5px;
 }
 </style>

@@ -44,6 +44,7 @@ const TRIMMING_OPTIONS = [
   { label: "ぴっちり", value: "" },
   { label: "はみだす (アス比維持)", value: "cover" },
   { label: "おさめる (アス比維持)", value: "contain" },
+  { label: "そのまま (長方形)", value: "stretch" },
 ];
 
 const SPEED_OPTIONS = [
@@ -94,6 +95,7 @@ export default defineComponent({
       conf: {
         /* basic */
         trimming: TRIMMING_OPTIONS[0],
+        targetAspect: 1,
         speed: SPEED_OPTIONS[2],
         cells: [1, 1],
         animation: null as (AnimationOption | null),
@@ -154,6 +156,11 @@ export default defineComponent({
       },
     },
   },
+  computed: {
+    naturalAspect(): number {
+      return (this.conf.trimH[1] - this.conf.trimH[0]) / (this.conf.trimV[1] - this.conf.trimV[0]);
+    },
+  },
   mounted() {
     Analytics.changeAnimation("", []);
   },
@@ -165,12 +172,15 @@ export default defineComponent({
         const vCells = this.conf.cells[1];
         let widthPerCell = image.naturalWidth / hCells;
         let heightPerCell = image.naturalHeight / vCells;
+        let aspect = 1;
         if (this.conf.trimming.value === "cover") {
           widthPerCell = Math.min(widthPerCell, heightPerCell);
           heightPerCell = widthPerCell;
         } else if (this.conf.trimming.value === "contain") {
           widthPerCell = Math.max(widthPerCell, heightPerCell);
           heightPerCell = widthPerCell;
+        } else if (this.conf.trimming.value === "stretch") {
+          aspect = image.naturalWidth / image.naturalHeight;
         }
         const offsetH = Math.floor((image.naturalWidth - widthPerCell * hCells) / 2);
         const offsetV = Math.floor((image.naturalHeight - heightPerCell * vCells) / 2);
@@ -180,6 +190,7 @@ export default defineComponent({
         ) : (
           [0, image.naturalHeight - offsetV * 2]
         );
+        this.conf.targetAspect = aspect;
       }
     },
     selectSpeed(speed: SpeedOption): void {
@@ -211,6 +222,7 @@ export default defineComponent({
         const framecount = Math.floor(this.conf.duration * framerate);
 
         const maxSize = this.emojiSize || (animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE);
+        const aspectCoef = Math.sqrt(this.conf.targetAspect);
         const binarySizeLimit = this.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
         renderAllCells(
           this.baseImage,
@@ -220,8 +232,8 @@ export default defineComponent({
           this.conf.cells[1],
           this.conf.trimH[1] - this.conf.trimH[0],
           this.conf.trimV[1] - this.conf.trimV[0],
-          maxSize,
-          maxSize,
+          maxSize * aspectCoef,
+          maxSize / aspectCoef,
           this.conf.noCrop,
           animated,
           this.conf.animation ? this.conf.animation.value : null,
@@ -309,6 +321,16 @@ export default defineComponent({
                 :marks="[0, baseImage.height]"
                 :min="baseImage ? - Math.floor(baseImage.height * 0.5) : 0"
                 :max="baseImage ? Math.ceil(baseImage.height * 1.5) : 0" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="アス比">
+            <Slider
+                v-model="conf.targetAspect"
+                block
+                nonzero
+                :step="0.01"
+                :marks="[1, naturalAspect]"
+                :min="Math.min(0.2, naturalAspect)"
+                :max="Math.max(5, naturalAspect)" />
           </Fieldset>
           <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
           <Fieldset v-if="!showDetails" label="速度 (アニメ)">
