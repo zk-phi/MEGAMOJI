@@ -9,7 +9,17 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-for="(row, i) in images" :key="i" style="line-height: 0;">
-    <img v-for="(col, j) in row" :key="j" style="border: 1px solid #aaa;" :src="col">
+  <div v-for="(row, i) in images" :key="i" class="result-raw">
+    <img v-for="(col, j) in row" :key="j" class="result-cell" :src="col">
   </div>
 </template>
+
+<style scoped>
+.result-raw {
+  line-height: 0;
+}
+
+.result-cell {
+  border: 1px solid #aaa;
+}
+</style>
