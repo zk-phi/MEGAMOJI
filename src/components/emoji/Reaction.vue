@@ -34,11 +34,11 @@ export default defineComponent({
 
 .reaction_icon {
   display: inline-block;
-  height: 19px;
   width: 19px;
-  background-size: contain;
+  height: 19px;
+  vertical-align: -5px;
   background-repeat: no-repeat;
   background-position: center;
-  vertical-align: -5px;
+  background-size: contain;
 }
 </style>

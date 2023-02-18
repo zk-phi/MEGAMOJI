@@ -119,6 +119,11 @@ export default defineComponent({
       dirty: false,
     };
   },
+  computed: {
+    naturalAspect(): number {
+      return (this.conf.trimH[1] - this.conf.trimH[0]) / (this.conf.trimV[1] - this.conf.trimV[0]);
+    },
+  },
   watch: {
     baseImage: {
       handler(): void {
@@ -154,11 +159,6 @@ export default defineComponent({
         this.conf.effects = [];
         this.conf.webglEffects = [];
       },
-    },
-  },
-  computed: {
-    naturalAspect(): number {
-      return (this.conf.trimH[1] - this.conf.trimH[0]) / (this.conf.trimV[1] - this.conf.trimV[0]);
     },
   },
   mounted() {

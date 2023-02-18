@@ -71,19 +71,19 @@ export default defineComponent({
 
 .img {
   display: inline-block;
-  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 
 .large {
-  height: 32px;
   width: 32px;
+  height: 32px;
 }
 
 .in_text {
-  height: 24px;
   width: 24px;
+  height: 24px;
   vertical-align: bottom;
 }
 </style>

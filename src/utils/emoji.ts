@@ -170,17 +170,25 @@ function renderAllCellsFixedSize(
         transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
       const imgCells = cutoutCanvasIntoCells(
-        frame, 0, 0, hCells, vCells, croppedWidth, croppedHeight,
+        frame,
+        0,
+        0,
+        hCells,
+        vCells,
+        croppedWidth,
+        croppedHeight,
       );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          const data = imgCells[y][x].getContext("2d")!.getImageData(
-            0, 0,
-            croppedWidth, croppedHeight,
-          ).data;
+          const { data } = imgCells[y][x].getContext("2d")!.getImageData(
+            0,
+            0,
+            croppedWidth,
+            croppedHeight,
+          );
           encoders[y][x].postMessage({
             addFrame: {
-              data: data,
+              data,
               height: croppedHeight,
               width: croppedWidth,
               delay: delayPerFrame,
