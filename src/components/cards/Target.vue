@@ -221,6 +221,7 @@ export default defineComponent({
           this.conf.trimH[1] - this.conf.trimH[0],
           this.conf.trimV[1] - this.conf.trimV[0],
           maxSize,
+          maxSize,
           this.conf.noCrop,
           animated,
           this.conf.animation ? this.conf.animation.value : null,

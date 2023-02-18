@@ -95,7 +95,8 @@ function renderAllCellsFixedSize(
   vCells: number,
   srcWidth: number,
   srcHeight: number,
-  targetSize: number,
+  targetWidth: number,
+  targetHeight: number,
   noCrop: boolean,
   animated: boolean,
   animation: Animation | null,
@@ -108,6 +109,8 @@ function renderAllCellsFixedSize(
   backgroundColor: string,
   transparent: boolean,
 ) {
+  const croppedWidth = targetWidth * (noCrop ? 2 : 1);
+  const croppedHeight = targetHeight * (noCrop ? 2 : 1);
   if (!animated) {
     const img = renderFrameUncut(
       0,
@@ -116,8 +119,8 @@ function renderAllCellsFixedSize(
       offsetV,
       srcWidth,
       srcHeight,
-      targetSize * hCells,
-      targetSize * vCells,
+      targetWidth * hCells,
+      targetHeight * vCells,
       noCrop,
       animation,
       animationInvert,
@@ -127,11 +130,7 @@ function renderAllCellsFixedSize(
       framecount,
       transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
     );
-    const cells = noCrop ? (
-      cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize * 2, targetSize * 2)
-    ) : (
-      cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, targetSize, targetSize)
-    );
+    const cells = cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, croppedWidth, croppedHeight);
     return Promise.all<Blob[]>(cells.map((row) => (
       Promise.all<Blob>(row.map((cell) => (
         new Promise((resolve) => {
@@ -142,7 +141,6 @@ function renderAllCellsFixedSize(
   } else {
     /* instantiate GIF encoders for each cells */
     const encoders = [];
-    const size = targetSize * (noCrop ? 2 : 1);
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
@@ -160,8 +158,8 @@ function renderAllCellsFixedSize(
         offsetV,
         srcWidth,
         srcHeight,
-        targetSize * hCells,
-        targetSize * vCells,
+        targetWidth * hCells,
+        targetHeight * vCells,
         noCrop,
         animation,
         animationInvert,
@@ -171,14 +169,20 @@ function renderAllCellsFixedSize(
         framecount,
         transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
-      const imgCells = cutoutCanvasIntoCells(frame, 0, 0, hCells, vCells, size, size);
+      const imgCells = cutoutCanvasIntoCells(
+        frame, 0, 0, hCells, vCells, croppedWidth, croppedHeight,
+      );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
+          const data = imgCells[y][x].getContext("2d")!.getImageData(
+            0, 0,
+            croppedWidth, croppedHeight,
+          ).data;
           encoders[y][x].postMessage({
             addFrame: {
-              data: imgCells[y][x].getContext("2d")!.getImageData(0, 0, size, size).data,
-              height: size,
-              width: size,
+              data: data,
+              height: croppedHeight,
+              width: croppedWidth,
               delay: delayPerFrame,
               transparent,
             },
@@ -209,7 +213,8 @@ export function renderAllCells(
   vCells: number,
   srcWidth: number,
   srcHeight: number,
-  maxSize: number,
+  maxWidth: number,
+  maxHeight: number,
   noCrop: boolean,
   animated: boolean,
   animation: Animation | null,
@@ -232,7 +237,8 @@ export function renderAllCells(
       vCells,
       srcWidth,
       srcHeight,
-      maxSize,
+      maxWidth,
+      maxHeight,
       noCrop,
       animated,
       animation,
@@ -261,7 +267,8 @@ export function renderAllCells(
           vCells,
           srcWidth,
           srcHeight,
-          maxSize * 0.9,
+          maxWidth * 0.9,
+          maxHeight * 0.9,
           noCrop,
           animated,
           animation,
