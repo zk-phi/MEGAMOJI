@@ -52,7 +52,6 @@ const SPEED_OPTIONS = [
   { label: "ゆっくり", value: 1.3 },
   { label: "ふつう", value: 0.8 },
   { label: "はやい", value: 0.3 },
-  { label: "爆速", value: 0.1 },
 ];
 
 export default defineComponent({
