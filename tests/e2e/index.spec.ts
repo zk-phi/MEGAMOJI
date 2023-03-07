@@ -43,7 +43,7 @@ test("絵文字フォントを使用した絵文字を作成して、ダウン�
   await page.locator("textarea").fill("👍");
 
   // 生成待ち
-  const src = await page.locator("img").evaluate((el) => (el as HTMLImageElement).src);
+  await page.locator("img").evaluate((el) => (el as HTMLImageElement).src);
 
   // ダウンロード待ち
   const [download] = await Promise.all([
