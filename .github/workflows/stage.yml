@@ -18,7 +18,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}-18
-      - run: npm ci --legacy-peer-deps
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build
       - uses: actions/upload-artifact@v3
