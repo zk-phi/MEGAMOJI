@@ -25,6 +25,7 @@ export default defineComponent({
   --buttonColorHover: var(--primaryHover);
   --buttonColorActive: var(--primaryActive);
   --buttonShadow: var(--primaryShadow);
+
   display: inline-block;
   box-sizing: border-box;
   padding: var(--padding);

@@ -153,6 +153,7 @@ export default defineComponent({
   --knobWidth: 1.25rem;
   --knobHeight: 2.5rem;
   --knobTouchAreaWidth: 3em;
+
   display: block;
   width: 100%;
   border-radius: var(--borderRadius);

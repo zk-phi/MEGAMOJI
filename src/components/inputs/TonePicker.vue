@@ -99,7 +99,9 @@ export default defineComponent({
 
 .knob {
   position: absolute;
+  /* stylelint-disable-next-line primer/no-undefined-vars */
   top: calc(100% * var(--jsValueV));
+  /* stylelint-disable-next-line primer/no-undefined-vars */
   left: calc(100% * var(--jsValueH));
   display: inline-block;
   width: var(--sliderKnobSize);
