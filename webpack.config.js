@@ -13,7 +13,9 @@ module.exports = (env, argv) => ({
     gifworker: "./src/gifworker",
   },
   devServer: {
-    contentBase: "dist",
+    static: {
+      directory: "dist",
+    },
   },
   output: {
     path: `${__dirname}/dist`,
