@@ -14,6 +14,16 @@ http://zk-phi.github.io/MEGAMOJI
 
 ソースをいじるとすぐに反映されます。
 
+***** M1 Mac で npm install にコケる場合
+
+=node-canvas= パッケージが arm64 に対応していないのが原因の可能性があります。
+
+x86_64 な node を入れてみてください。
+
+=asdf= でインストールする例：
+
+: arch -x86_64 asdf install nodejs <version>
+
 **** ビルド
 
 : npm run build

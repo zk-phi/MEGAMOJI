@@ -10,14 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
       - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci --legacy-peer-deps
+          key: node_modules-${{ hashFiles('package-lock.json') }}-18
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run lint:css
 
@@ -26,14 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
       - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci --legacy-peer-deps
+          key: node_modules-${{ hashFiles('package-lock.json') }}-18
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run lint:js
 
@@ -42,14 +38,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
       - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci --legacy-peer-deps
+          key: node_modules-${{ hashFiles('package-lock.json') }}-18
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npx playwright install --with-deps
       - run: npm run test:e2e
@@ -59,14 +53,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
       - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci --legacy-peer-deps
+          key: node_modules-${{ hashFiles('package-lock.json') }}-18
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build-storybook
 
@@ -75,13 +67,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.4.0
-        with:
-          node-version: 16
       - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
-          key: node_modules-${{ hashFiles('package-lock.json') }}
-      - run: npm ci --legacy-peer-deps
+          key: node_modules-${{ hashFiles('package-lock.json') }}-18
+      - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build
