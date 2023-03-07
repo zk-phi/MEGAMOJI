@@ -8,7 +8,7 @@ jobs:
   lint-css:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2.4.0
       - uses: actions/cache@v3
         id: cache
@@ -22,7 +22,7 @@ jobs:
   lint-js:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2.4.0
       - uses: actions/cache@v3
         id: cache
@@ -36,7 +36,7 @@ jobs:
   e2e-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2.4.0
       - uses: actions/cache@v3
         id: cache
@@ -51,7 +51,7 @@ jobs:
   build-storybook:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2.4.0
       - uses: actions/cache@v3
         id: cache
@@ -65,7 +65,7 @@ jobs:
   build-app:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2.4.0
       - uses: actions/cache@v3
         id: cache
