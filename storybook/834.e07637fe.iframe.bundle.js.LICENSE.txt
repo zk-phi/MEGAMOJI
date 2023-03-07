@@ -1,5 +1,6 @@
-/** @license React v0.19.1
- * scheduler.production.min.js
+/**
+ * @license React
+ * react-dom.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -7,8 +8,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v16.14.0
- * react-dom.production.min.js
+/**
+ * @license React
+ * scheduler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
