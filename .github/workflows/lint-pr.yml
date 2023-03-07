@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v2.4.0
         with:
           node-version: 16
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v2.4.0
         with:
           node-version: 16
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/setup-node@v2.4.0
         with:
           node-version: 16
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/setup-node@v2.4.0
         with:
           node-version: 16
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
@@ -77,7 +77,7 @@ jobs:
       - uses: actions/setup-node@v2.4.0
         with:
           node-version: 16
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: node_modules
