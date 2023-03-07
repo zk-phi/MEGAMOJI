@@ -1,5 +1,8 @@
 module.exports = {
-  extends: "stylelint-config-primer",
+  extends: [
+    "@primer/stylelint-config",
+    "stylelint-config-html/vue",
+  ],
   rules: {
 
     // stylelint-config-primer dropped these rules from v11
@@ -15,5 +18,17 @@ module.exports = {
       severity: "error",
       ignore: ["css-gradients"],
     }],
+
+    // scan all .vue files to resolve css vars
+    "primer/no-undefined-vars": [true, {
+      files: ["**/*.vue", "!node_modules"],
+    }],
+
+    // stop forcing to use primer/css vars
+    "primer/box-shadow": null,
+    "primer/spacing": null,
+    "primer/borders": null,
+    "primer/typography": null,
+    "primer/colors": null,
   },
 };
