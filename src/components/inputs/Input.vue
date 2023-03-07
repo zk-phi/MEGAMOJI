@@ -28,6 +28,7 @@ export default defineComponent({
   --inputColorHover: var(--primary);
   --inputColorActive: var(--primaryActive);
   --inputColorShadow: var(--primaryShadow);
+
   display: inline-block;
   box-sizing: border-box;
   padding: var(--padding);

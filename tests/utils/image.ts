@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { createCanvas, loadImage, Image } from "canvas";
+import { createCanvas, loadImage, Image, ImageData } from "canvas";
 
 const decodeImage = (buf: Buffer): Promise<ImageData> => new Promise((resolve) => {
   loadImage(buf).then((img: Image) => {
