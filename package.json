@@ -47,7 +47,7 @@
     "canvas": "^2.10.2",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
-    "eslint": "^7.31.0",
+    "eslint": "^8.35.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-compat": "^3.11.1",
