@@ -56,7 +56,7 @@
     "postcss": "8.x",
     "postcss-html": "1.x",
     "ssim.js": "^3.5.0",
-    "stylelint": "14.x",
+    "stylelint": "15.x",
     "stylelint-config-html": "1.x",
     "stylelint-no-unsupported-browser-features": "6.x",
     "ts-loader": "^9.2.5",
