@@ -80,7 +80,7 @@ export default defineComponent({
 
 .check.radio {
   /* +2px for borders */
-  border-radius: calc((var(--fontSizeMedium) + 2px) / 2);
+  border-radius: 50%;
 }
 
 .check.selected {
