@@ -138,23 +138,60 @@ export default defineComponent({
 <style>
 :root {
   /* colors */
-  --fg: #333;
-  --bg: #fff;
-  --accentBg: #fafafa;
-  --elevatedBg: var(--bg);
-  --light: var(--bg);
-  --dark: var(--fg);
-  --distantFg: var(--bg);
-  --border: #aaa;
-  --primary: #ea0; /* okhsl(80, 100, 75) */
-  --primaryHover: #ffb81c; /* l = 80 */
-  --primaryActive: #de9e00; /* l = 70 */
-  --primaryShadow: 0 0 0 2px rgba(238, 170, 0, 0.2);
-  --danger: #ff6261; /* h = 24, l = 65 */
-  --dangerHover: #ff7f7a; /* l = 70 */
-  --dangerActive: #ff3a45; /* l = 60 */
-  --dangerShadow: 0 0 0 2px rgba(255, 98, 97, 0.2);
+  --fg:             #000000d0;
+  --bg:             #ffffffff;
+  --accentBg:       #00000004;
+  --elevatedBg:     #ffffffff;
+  --border:         #00000040;
+  --primaryLighter: #ffb81c; /* l = 80 */
+  --primary:        #eeaa00; /* okhsl(80, 100, 75) */
+  --primaryDarker:  #cd9200; /* l = 65 */
+  --dangerLighter:  #fa837e; /* l = 70 */
+  --danger:         #f76b68; /* okhsl(24, 90, 65) */
+  --dangerDarker:   #e53c42; /* l = 55 */
+  --primaryShadow:  0 0 0 2px #eeaa0030;
+  --dangerShadow:   0 0 0 2px #f76b6830;
 
+  --distantFg:     var(--bg);
+  --light:         var(--bg);
+  --dark:          var(--fg);
+  --primaryHover:  var(--primaryLighter);
+  --primaryActive: var(--primaryDarker);
+  --dangerHover:   var(--dangerLighter);
+  --dangerActive:  var(--dangerDarker);
+
+  --popoverShadow: rgb(0 0 0 / 0.19) 0 10px 20px, rgb(0 0 0 / 0.23) 0 6px 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg:             #ffffffd0;
+    --bg:             #222222ff;
+    --accentBg:       #ffffff08;
+    --elevatedBg:     #555555ff;
+    --border:         #ffffff40;
+    --primaryLighter: #e6af47; /* l = 75 */
+    --primary:        #d7a139; /* okhsl(80, 80, 70) */
+    --primaryDarker:  #c79431; /* l = 65 */
+    --dangerLighter:  #f38882; /* l = 70 */
+    --danger:         #ee736e; /* okhsl(24, 80, 65) */
+    --dangerDarker:   #e65f5c; /* k = 60 */
+    --primaryShadow:  0 0 0 2px #e6af4730;
+    --dangerShadow:   0 0 0 2px #ee736e30;
+
+    --distantFg:     var(--bg);
+    --light:         var(--fg);
+    --dark:          var(--bg);
+    --primaryHover:  var(--primaryDarker);
+    --primaryActive: var(--primaryLighter);
+    --dangerHover:   var(--dangerDarker);
+    --dangerActive:  var(--dangerLighter);
+
+    --popoverShadow: none;
+  }
+}
+
+:root {
   /* typography */
   --fontSizeTitle: 28px;
   --fontSizeXLarge: 18px;
@@ -190,21 +227,7 @@ export default defineComponent({
   --sliderValueWidth: 2.5em;
   --colorSliderRailHeight: 1.125em;
   --mediaIconSize: 34px;
-  --popoverShadow: rgb(0 0 0 / 0.19) 0 10px 20px, rgb(0 0 0 / 0.23) 0 6px 6px;
   --tabButtonPadding: 0 calc(var(--paddingH) * 0.75) calc(var(--paddingV) - 3px);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fg: #eee;
-    --bg: #222;
-    --accentBg: #333;
-    --elevatedBg: #555;
-    --light: var(--fg);
-    --dark: var(--bg);
-    --border: #777;
-    --popoverShadow: none;
-  }
 }
 
 /* stylelint-disable-next-line selector-max-type */
