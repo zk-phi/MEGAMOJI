@@ -141,7 +141,6 @@ export default defineComponent({
   --fg:             #000000d0;
   --bg:             #ffffffff;
   --accentBg:       #00000004;
-  --elevatedBg:     #ffffffff;
   --border:         #00000040;
   --primaryLighter: #ffb81c; /* l = 80 */
   --primary:        #eeaa00; /* okhsl(80, 100, 75) */
@@ -152,6 +151,9 @@ export default defineComponent({
   --primaryShadow:  0 0 0 2px #eeaa0030;
   --dangerShadow:   0 0 0 2px #f76b6830;
 
+  --elevatedBg:      #ffffffff;
+  --elevationShadow: rgb(0 0 0 / 0.19) 0 10px 20px, rgb(0 0 0 / 0.23) 0 6px 6px;
+
   --distantFg:     var(--bg);
   --light:         var(--bg);
   --dark:          var(--fg);
@@ -159,8 +161,6 @@ export default defineComponent({
   --primaryActive: var(--primaryDarker);
   --dangerHover:   var(--dangerLighter);
   --dangerActive:  var(--dangerDarker);
-
-  --popoverShadow: rgb(0 0 0 / 0.19) 0 10px 20px, rgb(0 0 0 / 0.23) 0 6px 6px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -168,7 +168,6 @@ export default defineComponent({
     --fg:             #ffffffd0;
     --bg:             #222222ff;
     --accentBg:       #ffffff08;
-    --elevatedBg:     #555555ff;
     --border:         #ffffff40;
     --primaryLighter: #e6af47; /* l = 75 */
     --primary:        #d7a139; /* okhsl(80, 80, 70) */
@@ -179,6 +178,9 @@ export default defineComponent({
     --primaryShadow:  0 0 0 2px #e6af4730;
     --dangerShadow:   0 0 0 2px #ee736e30;
 
+    --elevatedBg:      #555555ff;
+    --elevationShadow: none;
+
     --distantFg:     var(--bg);
     --light:         var(--fg);
     --dark:          var(--bg);
@@ -186,8 +188,6 @@ export default defineComponent({
     --primaryActive: var(--primaryLighter);
     --dangerHover:   var(--dangerDarker);
     --dangerActive:  var(--dangerLighter);
-
-    --popoverShadow: none;
   }
 }
 
