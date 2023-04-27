@@ -22,11 +22,17 @@ export default defineComponent({
     <p class="p">
       Built with ♡ by zk-phi
       <Button type="text" @click="donation">
-        💝投げ銭箱
+        <template #icon>
+          💝
+        </template>
+        投げ銭箱
       </Button>
       /
       <Button type="text" @click="backstage">
-        🛠開発室
+        <template #icon>
+          🛠
+        </template>
+        開発室
       </Button>
     </p>
     <p class="p">

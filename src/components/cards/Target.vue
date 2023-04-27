@@ -286,6 +286,9 @@ export default defineComponent({
           </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
             <Button danger type="text" @click="devMode = true">
+              <template #icon>
+                🔨
+              </template>
               開発者モード
             </Button>
           </Fieldset>

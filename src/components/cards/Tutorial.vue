@@ -52,6 +52,9 @@ export default defineComponent({
         既存の絵文字を合成してスタンプを作ります。
       </Media>
       <Button type="text" @click="openLicense">
+        <template #icon>
+          ⚖️
+        </template>
         ライセンス表示
       </Button>
     </Space>

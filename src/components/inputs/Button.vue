@@ -44,17 +44,17 @@ export default defineComponent({
   --buttonShadow: var(--dangerShadow);
 }
 
-.icon {
-  display: inline-block;
-  font-size: var(--fontSizeSmallIcon);
-  line-height: 0;
-  vertical-align: text-bottom;
-}
-
 .block {
   display: block;
   width: 100%;
   text-align: center;
+}
+
+.icon {
+  display: inline-block;
+  font-size: var(--fontSizeSmallIcon);
+  line-height: 0;
+  vertical-align: -0.05em;
 }
 
 .default {

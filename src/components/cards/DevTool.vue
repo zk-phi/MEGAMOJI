@@ -164,6 +164,9 @@ export default defineComponent({
       </Checkbox>
     </Fieldset>
     <Button type="text" @click="$emit('close')">
+      <template #icon>
+        ↩︎
+      </template>
       開発者モードを終わる
     </Button>
   </Space>
