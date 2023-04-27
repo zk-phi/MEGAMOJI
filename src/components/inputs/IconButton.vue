@@ -22,7 +22,7 @@ export default defineComponent({
 <style scoped>
 .icon-button {
   display: inline-block;
-  padding: 0;
+  padding: var(--paddingMinimal);
   font-size: var(--fontSizeIcon);
   line-height: 1;
   cursor: pointer;
