@@ -13,6 +13,18 @@ module.exports = {
     // do not require newlines for inline styles
     "declaration-block-semicolon-newline-after": null,
 
+    // do not force using short/long notation for hex colors
+    "color-hex-length": null,
+
+    // allow aligning property values
+    "declaration-colon-space-after": null,
+
+    // allow factoring properties with empty lines
+    "custom-property-empty-line-before": null,
+
+    // allow two or more blocks with an identical selector
+    "no-duplicate-selectors": null,
+
     // allow css-gradients, which is not allowed by default
     "plugin/no-unsupported-browser-features": [true, {
       severity: "error",

@@ -63,8 +63,8 @@ export default defineComponent({
   color: var(--fg);
   background-color: var(--bg);
   border: 1px solid var(--fg);
-  box-shadow: var(--pressableShadowDefault);
   border-radius: var(--borderRadius);
+  box-shadow: var(--pressableShadowDefault);
   transform: translateY(-1px);
 }
 
@@ -83,7 +83,7 @@ export default defineComponent({
   padding: 0;
   color: var(--fg);
   background-color: transparent;
-  border: none;
+  border: 0;
   border-bottom: 1px dotted currentColor;
   border-radius: 0;
 }
@@ -121,8 +121,8 @@ export default defineComponent({
   color: var(--distantFg);
   background-color: var(--buttonColorBase);
   border: 1px solid var(--buttonColorBase);
-  box-shadow: var(--buttonPressableShadow);
   border-radius: var(--borderRadius);
+  box-shadow: var(--buttonPressableShadow);
   transform: translateY(-1px);
 }
 

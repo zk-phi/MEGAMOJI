@@ -86,8 +86,8 @@ export default defineComponent({
 }
 
 .toggle-button:active {
-  border-color: var(--primaryActive);
   background-color: var(--primaryBg);
+  border-color: var(--primaryActive);
 }
 
 .toggle-button.selected:not(:hover) {
