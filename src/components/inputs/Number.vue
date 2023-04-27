@@ -127,12 +127,4 @@ export default defineComponent({
   background-color: transparent;
   border: 0;
 }
-
-.button:hover {
-  color: var(--inputColorHover);
-}
-
-.button:active {
-  color: var(--inputColorActive);
-}
 </style>
