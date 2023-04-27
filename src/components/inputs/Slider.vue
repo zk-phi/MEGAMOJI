@@ -209,6 +209,7 @@ export default defineComponent({
 
 .knob.active {
   color: var(--primaryActive);
+  transform: translateY(-1px);
 }
 
 .knob-icon {
