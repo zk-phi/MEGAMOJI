@@ -24,23 +24,20 @@ export default defineComponent({
   --buttonColorBase: var(--primary);
   --buttonColorHover: var(--primaryHover);
   --buttonColorActive: var(--primaryActive);
+  --buttonColorBg: var(--primaryBg);
   --buttonShadow: var(--primaryShadow);
 
   display: inline-block;
-  box-sizing: border-box;
-  padding: var(--padding);
   font-size: var(--fontSizeMedium);
   line-height: 1;
   cursor: pointer;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--borderRadius);
 }
 
 .button.danger {
   --buttonColorBase: var(--danger);
   --buttonColorHover: var(--dangerHover);
   --buttonColorActive: var(--dangerActive);
+  --buttonColorBg: var(--dangerBg);
   --buttonShadow: var(--dangerShadow);
 }
 
@@ -58,8 +55,11 @@ export default defineComponent({
 }
 
 .default {
+  padding: var(--padding);
   color: var(--fg);
-  border-color: var(--fg);
+  background-color: var(--bg);
+  border: 1px solid var(--fg);
+  border-radius: var(--borderRadius);
 }
 
 .default:hover {
@@ -76,6 +76,10 @@ export default defineComponent({
 .text {
   padding: 0;
   color: var(--fg);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px dotted currentColor;
+  border-radius: 0;
 }
 
 .text:hover {
@@ -84,12 +88,15 @@ export default defineComponent({
 
 .text:active {
   color: var(--buttonColorActive);
+  background-color: var(--buttonColorBg);
 }
 
 .dashed {
+  padding: var(--padding);
   color: var(--fg);
-  border-color: var(--border);
-  border-style: dashed;
+  background-color: transparent;
+  border: 1px dashed var(--border);
+  border-radius: var(--borderRadius);
 }
 
 .dashed:hover {
@@ -99,13 +106,16 @@ export default defineComponent({
 
 .dashed:active {
   color: var(--buttonColorActive);
+  background-color: var(--buttonColorBg);
   border-color: var(--buttonColorActive);
-  box-shadow: var(--buttonShadow);
 }
 
 .primary {
+  padding: var(--padding);
   color: var(--distantFg);
   background-color: var(--buttonColorBase);
+  border: none;
+  border-radius: var(--borderRadius);
 }
 
 .primary:hover {

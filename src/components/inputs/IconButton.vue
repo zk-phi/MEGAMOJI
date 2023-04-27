@@ -28,6 +28,7 @@ export default defineComponent({
   cursor: pointer;
   background-color: transparent;
   border: 0;
+  border-radius: 50%;
 }
 
 .default {
@@ -40,6 +41,7 @@ export default defineComponent({
 
 .default:active {
   color: var(--primaryActive);
+  background-color: var(--primaryBg);
 }
 
 .danger {
@@ -52,5 +54,6 @@ export default defineComponent({
 
 .danger:active {
   color: var(--dangerActive);
+  background-color: var(--dangerBg);
 }
 </style>

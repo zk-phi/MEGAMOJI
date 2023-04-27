@@ -34,7 +34,7 @@ export default defineComponent({
   font-size: var(--fontSizeMedium);
   color: var(--fg);
   cursor: pointer;
-  background-color: transparent;
+  background: transparent;
   border: 0;
   border-bottom: 3px solid transparent;
 }
@@ -52,11 +52,18 @@ export default defineComponent({
 
 .tab-button:active {
   color: var(--primaryActive);
+  background: linear-gradient(to bottom, transparent 0%, var(--primaryBg) 50%);
+  border-color: var(--primaryBg);
 }
 
 .tab-button.selected {
   font-weight: bold;
   border-color: var(--primary);
   box-shadow: 0 1px var(--primary);
+}
+
+.tab-button.selected:active {
+  border-color: var(--primaryActive);
+  box-shadow: 0 1px var(--primaryActive);
 }
 </style>

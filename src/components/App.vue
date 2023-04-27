@@ -148,6 +148,8 @@ export default defineComponent({
   --dangerLighter:  #fa837e; /* l = 70 */
   --danger:         #f76b68; /* okhsl(24, 90, 65) */
   --dangerDarker:   #e53c42; /* l = 55 */
+  --primaryBg:      #eeaa0020;
+  --dangerBg:       #f76b6820;
   --primaryShadow:  0 0 0 2px #eeaa0030;
   --dangerShadow:   0 0 0 2px #f76b6830;
 
@@ -175,6 +177,8 @@ export default defineComponent({
     --dangerLighter:  #f38882; /* l = 70 */
     --danger:         #ee736e; /* okhsl(24, 80, 65) */
     --dangerDarker:   #e65f5c; /* k = 60 */
+    --primaryBg:      #d7a13920;
+    --dangerBg:       #ee736e20;
     --primaryShadow:  0 0 0 2px #e6af4730;
     --dangerShadow:   0 0 0 2px #ee736e30;
 
