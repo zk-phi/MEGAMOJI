@@ -1,41 +1,21 @@
-このツールで作った絵文字について、ツール作者がなにか権利を主張することはありません。
+このツールで作った絵文字について、ツール作者がなにか権利を主張することは原則ありません。
 
-(画像から絵文字を作る場合、使う素材の権利は守ってください)
+好きなツールに登録して遊んであげてください。有料コンテンツ（メンバー限定絵文字など）に使っていただいても結構です。
 
-「パーツ」タブで選べるパーツは CC-BY ライセンスで提供されているので、再配布等には権利表示が必要になります。
+※ どこかで拾ってきた画像素材から絵文字を作る場合、素材の権利は尊重するよう注意してください。
 
-# 権利表示
+※ 「パーツ」タブで選べるパーツについては、 Twemoji ((c) Twitter) がベースとなっているため、再配布等には権利表示 (CC-BY) が必要になります。
 
-バンドルに含まれるライブラリ
-- svg.js
-  - (c) Wout Fierens / MIT License
-- gifenc
-  - (c) Matt DesLauriers / MIT License
-- opentype.js
-  - (c) Frederik De Bleser / MIT License
-- color-convert
-  - (c) Josh Junon / MIT License
-- file-saver
-  - (c) Eli Grey / MIT License
-- jszip
-  - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso / MIT License
-- Rollbar
-  - (c) Rollbar / MIT License
-- Vue.js
-  - (c) Evan You / MIT License
-- destyle.css
-  - (c) Nicolas Cusan / MIT License
+# このソフトウェア自体のライセンス
 
-いくつかのエフェクトは glfx.js ((c) Evan Wallace / MIT License) から引用しています。
+以下のライセンスのもと自由に改変、再配布できます。
 
-画像素材
-- Twemoji
-  - (c) Twitter / CC-BY License
-  - パーツを個別に抜き出す改変を加えています
-- Material Design Icons
-  - (c) Google / Apache License
+- 「パーツ」タブの素材 (./src/parts 以下) ... CC-BY
+- フォント (./src/fonts 以下) ... 各フォントのライセンスに従ってください (下記参照)
+- ソースコード (上記以外) ... MIT License
 
-フォント
+## フォント
+
 - Mplus 1
   - (c) The M+ FONTS Project Authors / SIL OFL (without RFN)
 - Rounded M+ 1c
@@ -63,10 +43,33 @@
 - ランパート
   - (c) The Rampart Project Authors / SIL OFL (without RFN)
 
-# このソフトウェア自体のライセンス
+## 画像素材
 
-以下のライセンスのもと自由に改変、再配布できます。
+- Twemoji
+  - (c) Twitter / CC-BY License
+  - パーツを個別に抜き出す改変を加えています
+- Material Design Icons
+  - (c) Google / Apache License
 
-- 「パーツ」タブの素材 (./src/parts 以下) ... CC-BY
-- フォント (./src/fonts 以下) ... 各フォントのライセンスに従ってください (上記参照)
-- それ以外 ... MIT License
+## バンドルに含まれる各種ライブラリ
+
+- svg.js
+  - (c) Wout Fierens / MIT License
+- gifenc
+  - (c) Matt DesLauriers / MIT License
+- opentype.js
+  - (c) Frederik De Bleser / MIT License
+- color-convert
+  - (c) Josh Junon / MIT License
+- file-saver
+  - (c) Eli Grey / MIT License
+- jszip
+  - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso / MIT License
+- Rollbar
+  - (c) Rollbar / MIT License
+- Vue.js
+  - (c) Evan You / MIT License
+- destyle.css
+  - (c) Nicolas Cusan / MIT License
+
+いくつかのエフェクトは glfx.js ((c) Evan Wallace / MIT License) から引用しています。
