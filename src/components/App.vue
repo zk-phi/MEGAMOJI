@@ -156,6 +156,12 @@ export default defineComponent({
   --elevatedBg:      #ffffffff;
   --elevationShadow: rgb(0 0 0 / 0.19) 0 10px 20px, rgb(0 0 0 / 0.23) 0 6px 6px;
 
+  --pressableShadowDefault:      0 1px #00000040;
+  --pressableShadowPrimary:      0 1px #00000020, 0 1px var(--primary);
+  --pressableShadowPrimaryHover: 0 1px #00000020, 0 1px var(--primaryLighter);
+  --pressableShadowDanger:       0 1px #00000020, 0 1px var(--danger);
+  --pressableShadowDangerHover:  0 1px #00000020, 0 1px var(--dangerLighter);
+
   --distantFg:     var(--bg);
   --light:         var(--bg);
   --dark:          var(--fg);
@@ -184,6 +190,12 @@ export default defineComponent({
 
     --elevatedBg:      #555555ff;
     --elevationShadow: none;
+
+    --pressableShadowDefault:      0 1px #00000080;
+    --pressableShadowPrimary:      0 1px #00000040, 0 1px var(--primary);
+    --pressableShadowPrimaryHover: 0 1px #00000040, 0 1px var(--primaryDarker);
+    --pressableShadowDanger:       0 1px #00000040, 0 1px var(--danger);
+    --pressableShadowDangerHover:  0 1px #00000040, 0 1px var(--dangerDarker);
 
     --distantFg:     var(--bg);
     --light:         var(--fg);

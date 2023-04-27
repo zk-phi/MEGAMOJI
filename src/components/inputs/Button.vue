@@ -26,6 +26,8 @@ export default defineComponent({
   --buttonColorActive: var(--primaryActive);
   --buttonColorBg: var(--primaryBg);
   --buttonShadow: var(--primaryShadow);
+  --buttonPressableShadow: var(--pressableShadowPrimary);
+  --buttonPressableShadowHover: var(--pressableShadowPrimaryHover);
 
   display: inline-block;
   font-size: var(--fontSizeMedium);
@@ -39,6 +41,8 @@ export default defineComponent({
   --buttonColorActive: var(--dangerActive);
   --buttonColorBg: var(--dangerBg);
   --buttonShadow: var(--dangerShadow);
+  --buttonPressableShadow: var(--pressableShadowDanger);
+  --buttonPressableShadowHover: var(--pressableShadowDangerHover);
 }
 
 .block {
@@ -59,18 +63,20 @@ export default defineComponent({
   color: var(--fg);
   background-color: var(--bg);
   border: 1px solid var(--fg);
+  box-shadow: var(--pressableShadowDefault);
   border-radius: var(--borderRadius);
+  transform: translateY(-1px);
 }
 
 .default:hover {
   color: var(--buttonColorBase);
   border-color: var(--buttonColorBase);
+  box-shadow: var(--buttonPressableShadow);
 }
 
 .default:active {
-  color: var(--buttonColorActive);
-  border-color: var(--buttonColorActive);
-  box-shadow: var(--buttonShadow);
+  box-shadow: none;
+  transform: none;
 }
 
 .text {
@@ -114,16 +120,20 @@ export default defineComponent({
   padding: var(--padding);
   color: var(--distantFg);
   background-color: var(--buttonColorBase);
-  border: none;
+  border: 1px solid var(--buttonColorBase);
+  box-shadow: var(--buttonPressableShadow);
   border-radius: var(--borderRadius);
+  transform: translateY(-1px);
 }
 
 .primary:hover {
   background-color: var(--buttonColorHover);
+  border-color: var(--buttonColorHover);
+  box-shadow: var(--buttonPressableShadowHover);
 }
 
 .primary:active {
-  background-color: var(--buttonColorActive);
-  box-shadow: var(--buttonShadow);
+  box-shadow: none;
+  transform: none;
 }
 </style>
