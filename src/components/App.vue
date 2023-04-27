@@ -175,7 +175,7 @@ export default defineComponent({
   :root {
     --fg:             #ffffffd0;
     --bg:             #222222ff;
-    --accentBg:       #ffffff08;
+    --accentBg:       #ffffff10;
     --border:         #ffffff40;
     --primaryLighter: #e6af47; /* l = 75 */
     --primary:        #d7a139; /* okhsl(80, 80, 70) */
