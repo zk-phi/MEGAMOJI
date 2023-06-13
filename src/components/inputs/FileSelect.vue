@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { parse as parseFont } from "opentype.js";
 import { urlToImg } from "../../utils/canvas";
 import { loadFileAsBlobURL, loadFileAsBuffer } from "../../utils/file";
 import Button from "./Button.vue";
@@ -47,10 +46,6 @@ export default defineComponent({
                 this.$emit("load", img);
               }
             });
-          });
-        } else if (this.type === "font") {
-          loadFileAsBuffer(this.file).then((buffer) => {
-            this.$emit("load", parseFont(buffer));
           });
         }
       }

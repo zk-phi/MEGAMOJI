@@ -53,12 +53,8 @@
 
 ## バンドルに含まれる各種ライブラリ
 
-- svg.js
-  - (c) Wout Fierens / MIT License
 - gifenc
   - (c) Matt DesLauriers / MIT License
-- opentype.js
-  - (c) Frederik De Bleser / MIT License
 - color-convert
   - (c) Josh Junon / MIT License
 - file-saver

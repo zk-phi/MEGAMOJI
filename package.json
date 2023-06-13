@@ -18,13 +18,11 @@
     "not IE 11"
   ],
   "dependencies": {
-    "@svgdotjs/svg.js": "zk-phi/svg.js#36398589dff5f6000afce71e364263ca3e6f8dde",
     "@types/gtag.js": "^0.0.12",
     "color-convert": "^2.0.1",
     "file-saver": "^2.0.5",
     "gifenc": "mattdesl/gifenc#64842fca317b112a8590f8fef2bf3825da8f6fe3",
     "jszip": "^3.7.1",
-    "opentype.js": "^1.3.4",
     "rollbar": "^2.24.0",
     "vue": "^3.1.5"
   },
@@ -40,7 +38,6 @@
     "@types/css-font-loading-module": "^0.0.7",
     "@types/file-saver": "^2.0.3",
     "@types/google.analytics": "^0.0.42",
-    "@types/opentype.js": "^1.3.4",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.33.0",
     "@vue/compiler-sfc": "^3.1.4",

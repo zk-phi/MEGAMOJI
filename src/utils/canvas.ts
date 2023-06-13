@@ -1,5 +1,3 @@
-import { SVG } from "@svgdotjs/svg.js";
-
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number,
@@ -167,24 +165,4 @@ export const mergeImages = (
     }
   };
   img.src = srcs[0];
-});
-
-export const mergeSVGs = (srcs: string[]): Promise<HTMLImageElement> => new Promise((resolve) => {
-  Promise.all(
-    srcs.map((src) => fetch(src).then((res) => res.text())),
-  ).then((svgStrings) => {
-    const draw = SVG();
-    const maxSize = { width: 0, height: 0 };
-    svgStrings.forEach((svgString) => {
-      const svg = draw.svg(svgString);
-      svg.flattenNoTransform(svg, 1);
-      const size = parseSize(svgString);
-      maxSize.width = Math.max(maxSize.width, size.width);
-      maxSize.height = Math.max(maxSize.height, size.height);
-    });
-    draw.size(maxSize.width, maxSize.height);
-    urlToImg(`data:image/svg+xml;base64,${btoa(draw.svg())}`, (img) => {
-      resolve(img);
-    });
-  });
 });
