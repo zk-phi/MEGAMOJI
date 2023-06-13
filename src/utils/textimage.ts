@@ -52,7 +52,7 @@ export const makeTextImage = (
   lineSpacing: number,
   outlineColors: string[],
   gradient: GradientColorStop[],
-): string => {
+): HTMLCanvasElement => {
   const images = text.split("\n").map((line) => (
     makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)
   ));
@@ -86,5 +86,5 @@ export const makeTextImage = (
     ctx.restore();
   });
 
-  return canvas.toDataURL();
+  return canvas;
 };

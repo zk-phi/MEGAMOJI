@@ -49,7 +49,7 @@ const filterChromakey: Filter = (image) => {
   }
 
   ctx.putImageData(imageData, 0, 0);
-  return canvas.toDataURL("image/png");
+  return canvas;
 };
 
 export default filterChromakey;

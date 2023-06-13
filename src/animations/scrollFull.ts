@@ -13,7 +13,8 @@ const animationScrollFull: Animation = (
 ) => {
   const kf = (keyframe + 0.75) % 1;
   const ratio = (cellWidth / 2) / width;
-  const srcWidth = image.naturalWidth + width; // add margin at the end
+  const naturalWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
+  const srcWidth = naturalWidth + width; // add margin at the end
   let x = -kf * srcWidth;
   while (x < width * 2) {
     ctx.drawImage(

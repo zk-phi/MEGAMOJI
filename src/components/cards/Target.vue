@@ -72,7 +72,7 @@ export default defineComponent({
     DevTool,
   },
   props: {
-    baseImage: { type: Object as PropType<HTMLImageElement>, default: null },
+    baseImage: { type: Object as PropType<HTMLImageElement | HTMLCanvasElement>, default: null },
     show: { type: Boolean, required: true },
     emojiSize: { type: Number, default: null },
   },
@@ -167,10 +167,12 @@ export default defineComponent({
     refreshDefaultSettings(): void {
       if (this.baseImage) {
         const image = this.baseImage;
+        const height = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
+        const width = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
         const hCells = this.conf.cells[0];
         const vCells = this.conf.cells[1];
-        let widthPerCell = image.naturalWidth / hCells;
-        let heightPerCell = image.naturalHeight / vCells;
+        let widthPerCell = width / hCells;
+        let heightPerCell = height / vCells;
         let aspect = 1;
         if (this.conf.trimming.value === "cover") {
           widthPerCell = Math.min(widthPerCell, heightPerCell);
@@ -179,15 +181,15 @@ export default defineComponent({
           widthPerCell = Math.max(widthPerCell, heightPerCell);
           heightPerCell = widthPerCell;
         } else if (this.conf.trimming.value === "stretch") {
-          aspect = image.naturalWidth / image.naturalHeight;
+          aspect = width / height;
         }
-        const offsetH = Math.floor((image.naturalWidth - widthPerCell * hCells) / 2);
-        const offsetV = Math.floor((image.naturalHeight - heightPerCell * vCells) / 2);
-        this.conf.trimH = [offsetH, image.naturalWidth - offsetH];
+        const offsetH = Math.floor((width - widthPerCell * hCells) / 2);
+        const offsetV = Math.floor((height - heightPerCell * vCells) / 2);
+        this.conf.trimH = [offsetH, width - offsetH];
         this.conf.trimV = offsetV < 0 ? (
-          [offsetV, image.naturalHeight - offsetV]
+          [offsetV, height - offsetV]
         ) : (
-          [0, image.naturalHeight - offsetV * 2]
+          [0, height - offsetV * 2]
         );
         this.conf.targetAspect = aspect;
       }

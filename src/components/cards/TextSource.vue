@@ -109,7 +109,7 @@ export default defineComponent({
       this.running = true;
       this.dirty = false;
       if (this.conf.content) {
-        const blobUrl = makeTextImage(
+        const canvas = makeTextImage(
           this.conf.content,
           this.conf.color,
           this.conf.font,
@@ -119,7 +119,7 @@ export default defineComponent({
           this.absoluteOutlines,
           this.absoluteGradient,
         );
-        urlToImg(blobUrl, (img) => this.$emit("render", img));
+        this.$emit("render", canvas);
       }
       window.setTimeout(() => {
         this.running = false;

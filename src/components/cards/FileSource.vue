@@ -43,9 +43,7 @@ export default defineComponent({
     render(): void {
       if (this.conf.img) {
         if (this.conf.filter) {
-          urlToImg(this.conf.filter.value(this.conf.img), (filteredImg) => {
-            this.$emit("render", filteredImg);
-          });
+          this.$emit("render", this.conf.filter.value(this.conf.img));
         } else {
           this.$emit("render", this.conf.img);
         }

@@ -3,7 +3,7 @@ type DataURL = string;
 // A filter takes an image, and returns filtered image as an DataURL.
 export type Filter = (
   image: HTMLImageElement,
-) => DataURL;
+) => HTMLCanvasElement;
 
 // An animation takes a CanvasRenderingContext2D and an image, and render
 // image to the canvas.
@@ -13,7 +13,7 @@ export type Animation = (
   // a (possively) effected 2d rendering context
   ctx: CanvasRenderingContext2D,
   // the source image to be rendered
-  image: HTMLImageElement,
+  image: HTMLImageElement | HTMLCanvasElement,
   // range of the source image to be rendered
   offsetH: number, offsetV: number, width: number, height: number,
 // size of the image to be rendered

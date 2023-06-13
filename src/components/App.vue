@@ -40,7 +40,7 @@ export default defineComponent({
   },
   data() {
     return {
-      baseImage: null as (HTMLImageElement | null),
+      baseImage: null as (HTMLImageElement | HTMLCanvasElement | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
       emojiSize: null as (number | null),
