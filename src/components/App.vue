@@ -113,6 +113,7 @@ export default defineComponent({
               @render="onRender" />
           <FukumojiSource
               :show="ui.mode == 'parts' && !ui.showTargetPanel"
+              :emoji-size="emojiSize"
               @render="onRender" />
           <Target
               v-model:emoji-size="emojiSize"

@@ -144,6 +144,31 @@ export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void
   img.onload = () => cb(img);
 };
 
+export const mergeImages = (
+  w: number,
+  h: number,
+  srcs: string[],
+): Promise<HTMLCanvasElement> => new Promise((resolve) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+
+  const ctx = canvas.getContext("2d")!;
+
+  let ix = 0;
+  const img = document.createElement("img");
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0, w, h);
+    ix += 1;
+    if (ix === srcs.length) {
+      resolve(canvas);
+    } else {
+      img.src = srcs[ix];
+    }
+  };
+  img.src = srcs[0];
+});
+
 export const mergeSVGs = (srcs: string[]): Promise<HTMLImageElement> => new Promise((resolve) => {
   Promise.all(
     srcs.map((src) => fetch(src).then((res) => res.text())),

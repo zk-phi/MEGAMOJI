@@ -6,8 +6,9 @@ import Fieldset from "../inputs/Fieldset.vue";
 import TabGroup from "../inputs/TabGroup.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
-import { mergeSVGs } from "../../utils/canvas";
+import { mergeImages } from "../../utils/canvas";
 import * as parts from "../../constants/parts";
+import { EMOJI_SIZE } from "../../constants/emoji";
 import empty from "../../parts/void.svg";
 
 export default defineComponent({
@@ -16,6 +17,7 @@ export default defineComponent({
   },
   props: {
     show: { type: Boolean, required: true },
+    emojiSize: { type: Number, default: null },
   },
   emits: [
     "render",
@@ -43,7 +45,8 @@ export default defineComponent({
   },
   methods: {
     render(): void {
-      mergeSVGs([
+      const emojiSize = this.emojiSize || EMOJI_SIZE;
+      mergeImages(emojiSize, emojiSize, [
         this.conf.base,
         this.conf.textures,
         this.conf.mouths,
