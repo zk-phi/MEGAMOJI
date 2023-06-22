@@ -26,6 +26,9 @@ export default defineComponent({
     openLicense() {
       window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown");
     },
+    openArticle() {
+      window.open("https://note.com/zk_phi/n/n5aaff539db5a");
+    },
   },
 });
 </script>
@@ -51,6 +54,9 @@ export default defineComponent({
         </template>
         既存の絵文字を合成してスタンプを作ります。
       </Media>
+      <Button type="text" @click="openArticle">
+        ５周年振り返り記事を書きました 🎉
+      </Button>
       <Button type="text" @click="openLicense">
         <template #icon>
           ⚖️
