@@ -30,8 +30,6 @@ https://github.com/nodeca/pako/blob/main/LICENSE
  * Released under the MIT License.
  */
 
-/*! https://mths.be/codepointat v0.2.0 by @mathias */
-
 /**
  * @license React
  * react.production.min.js
