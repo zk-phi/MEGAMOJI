@@ -118,23 +118,6 @@ export const cutoutCanvasIntoCells = (
   return cells;
 };
 
-type Size = { width: number, height: number };
-
-const parseSize = (svgString: string): Size => {
-  const rootString = svgString.match("<svg[^>]+>");
-  if (!rootString) {
-    throw new Error("Failed to get SVG size: the root SVG element is not found.");
-  }
-
-  const width = rootString[0].match("width[ \t]*=[ \t]*[\"']([0-9.\\+-]+)(px)?['\"]");
-  const height = rootString[0].match("height[ \t]*=[ \t]*[\"']([0-9.\\+-]+)(px)?['\"]");
-  if (!width || !height) {
-    throw new Error("Failed to get SVG size: both width and height must be specified absolutely.");
-  }
-
-  return { width: Number(width[1]), height: Number(height[1]) };
-};
-
 /* Create an img object, set src attr to the specified url, and return it. */
 export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {
   const img = document.createElement("img");

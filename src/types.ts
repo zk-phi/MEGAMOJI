@@ -1,5 +1,3 @@
-type DataURL = string;
-
 // A filter takes an image, and returns filtered image as an DataURL.
 export type Filter = (
   image: HTMLImageElement,

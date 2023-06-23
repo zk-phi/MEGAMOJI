@@ -6,7 +6,6 @@ import Select from "../inputs/Select.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
 import Image from "../icons/Image.vue";
-import { urlToImg } from "../../utils/canvas";
 import { Filter } from "../../types";
 import filters from "../../constants/filters";
 

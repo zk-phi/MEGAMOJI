@@ -21,7 +21,6 @@ import AlignRight from "../icons/AlignRight.vue";
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
-import { urlToImg } from "../../utils/canvas";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
 

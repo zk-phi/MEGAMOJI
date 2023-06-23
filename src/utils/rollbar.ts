@@ -2,6 +2,7 @@ import * as Rollbar from "rollbar";
 import { NODE_ENV, ROLLBAR_TOKEN, CODE_VERSION } from "./env";
 
 export default (() => {
+  // eslint-disable-next-line no-console
   console.log(`Code version: ${CODE_VERSION}`);
 
   if (ROLLBAR_TOKEN) {
