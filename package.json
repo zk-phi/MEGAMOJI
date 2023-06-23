@@ -5,7 +5,7 @@
     "start": "CODE_VERSION=\"$(git rev-parse HEAD)\" webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint '**/*.{css,vue}'",
-    "lint:js": "eslint '**/*.{js,ts,vue}'",
+    "lint:js": "eslint '**/*.{js,ts,vue}' --max-warnings 0",
     "fix": "npm run fix:css && npm run fix:js",
     "fix:css": "stylelint --fix '**/*.{css,vue}'",
     "fix:js": "eslint --fix '**/*.{js,ts,vue}'",
