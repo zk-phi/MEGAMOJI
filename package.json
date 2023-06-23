@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "CODE_VERSION=\"$(git rev-parse HEAD)\" webpack --mode production",
     "build-storybook": "build-storybook -o dist/storybook",
-    "start": "webpack serve --mode development",
+    "start": "CODE_VERSION=\"$(git rev-parse HEAD)\" webpack serve --mode development",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint '**/*.{css,vue}'",
     "lint:js": "eslint '**/*.{js,ts,vue}'",

@@ -6,3 +6,6 @@ export const GA4_TOKEN: (string | undefined) = process.env.GA4_TOKEN;
 
 // eslint-disable-next-line prefer-destructuring
 export const NODE_ENV: (string | undefined) = process.env.NODE_ENV;
+
+// eslint-disable-next-line prefer-destructuring
+export const CODE_VERSION: (string | undefined) = process.env.CODE_VERSION;
