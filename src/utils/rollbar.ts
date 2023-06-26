@@ -14,7 +14,6 @@ export default (() => {
     });
     // eslint-disable-next-line no-console
     console.log("Rollbar initialized.");
-    rollbar;
   } else {
     // eslint-disable-next-line no-console
     console.log("Specify ROLLBAR_TOKEN to track errors.");
