@@ -2,11 +2,10 @@ import * as Rollbar from "rollbar";
 import { NODE_ENV, ROLLBAR_TOKEN, CODE_VERSION } from "./env";
 
 export default (() => {
-  // eslint-disable-next-line no-console
-  console.log(`Code version: ${CODE_VERSION}`);
+  let rollbar;
 
   if (ROLLBAR_TOKEN) {
-    const rollbar = new Rollbar({
+    rollbar = new Rollbar({
       accessToken: ROLLBAR_TOKEN,
       captureUncaught: true,
       captureUnhandledRejections: true,
@@ -15,10 +14,14 @@ export default (() => {
     });
     // eslint-disable-next-line no-console
     console.log("Rollbar initialized.");
-    return rollbar;
+    rollbar;
   } else {
     // eslint-disable-next-line no-console
     console.log("Specify ROLLBAR_TOKEN to track errors.");
-    return null;
   }
+
+  // eslint-disable-next-line no-console
+  console.log(`Code version: ${CODE_VERSION}`);
+
+  return rollbar;
 })();
