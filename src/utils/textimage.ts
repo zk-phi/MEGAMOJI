@@ -15,7 +15,11 @@ const makeTextImageSingleLine = (
   canvas.width = fontHeight * (line.length || 1) * 2;
   canvas.height = fontHeight * 2;
 
-  const ctx = canvas.getContext("2d")!;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
+
   ctx.font = font.replace(/([0-9.]+)em/, (_, emHeight) => `${fontHeight * emHeight}px`);
   ctx.textBaseline = "top";
   ctx.lineJoin = "round";
@@ -66,7 +70,10 @@ export const makeTextImage = (
   canvas.width = maxWidth;
   canvas.height = totalHeight;
 
-  const ctx = canvas.getContext("2d")!;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
 
   let currentHeight = 0;
   images.forEach((image, ix) => {

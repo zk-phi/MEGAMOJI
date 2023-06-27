@@ -22,12 +22,15 @@ function renderFrameUncut(
   framecount: number,
   fillStyle: string,
 ) {
-  let canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d")!;
-
   /* use larger canvas, because some effects may translate the canvas */
+  let canvas = document.createElement("canvas");
   canvas.width = targetWidth * 2;
   canvas.height = targetHeight * 2;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
 
   effects.forEach((effect) => {
     effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
@@ -180,12 +183,18 @@ function renderAllCellsFixedSize(
       );
       for (let y = 0; y < vCells; y += 1) {
         for (let x = 0; x < hCells; x += 1) {
-          const { data } = imgCells[y][x].getContext("2d")!.getImageData(
+          const ctx = imgCells[y][x].getContext("2d");
+          if (!ctx) {
+            throw new Error("Failed to get rendering context.");
+          }
+
+          const { data } = ctx.getImageData(
             0,
             0,
             croppedWidth,
             croppedHeight,
           );
+
           encoders[y][x].postMessage({
             addFrame: {
               data,

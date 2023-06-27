@@ -14,6 +14,9 @@ export function webglInitialize(): boolean {
     gl = webglCanvas.getContext("experimental-webgl", {
       premultipliedAlpha: false,
     }) as (WebGLRenderingContext | null);
+    if (!gl) {
+      throw new Error("Failed to get webgl rendering context.");
+    }
   } catch (e) {
     /* do nothing */
   }

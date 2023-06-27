@@ -2,9 +2,13 @@ import { Filter } from "../types";
 
 const filterChromakey: Filter = (image) => {
   const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d")!;
   canvas.width = image.naturalWidth;
   canvas.height = image.naturalHeight;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
 
   ctx.drawImage(image, 0, 0);
 
