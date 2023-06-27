@@ -67,11 +67,12 @@ function renderFrameUncut(
   }
 
   if (webglEffects.length && webglEnabled) {
+    // canvas here is a webgl canvas
     canvas = webglApplyEffects(canvas, keyframe, webglEffects);
   }
 
   if (noCrop) {
-    // copy webglCanvas content with background
+    // copy webgl canvas with background to a 2d canvas
     return cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
   } else {
     return cropCanvas(
