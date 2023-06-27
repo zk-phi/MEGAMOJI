@@ -9,8 +9,15 @@ export default (() => {
       accessToken: ROLLBAR_TOKEN,
       captureUncaught: true,
       captureUnhandledRejections: true,
-      environment: NODE_ENV,
-      codeVersion: CODE_VERSION,
+      payload: {
+        environment: NODE_ENV,
+        client: {
+          javascript: {
+            code_version: CODE_VERSION,
+            guess_uncaught_frames: true,
+          },
+        },
+      },
     });
     // eslint-disable-next-line no-console
     console.log("Rollbar initialized.");
