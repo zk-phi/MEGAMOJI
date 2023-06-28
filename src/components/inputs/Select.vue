@@ -7,6 +7,7 @@ type Option = { label: string, value: unknown };
 export default defineComponent({
   props: {
     modelValue: { type: Object as PropType<Option>, default: null },
+    name: { type: String, default: "" },
     options: { type: Array as PropType<Option[]>, required: true },
     block: { type: Boolean, default: false },
     nullable: { type: Boolean, default: false },
@@ -38,6 +39,7 @@ export default defineComponent({
 <template>
   <select
       :class="['select', { block }]"
+      :name="name"
       :value="value"
       :style="{ backgroundImage: `url(${Expand})` }"
       @change="onChange($event.target.value)">

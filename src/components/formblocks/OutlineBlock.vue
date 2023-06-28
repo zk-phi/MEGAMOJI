@@ -55,6 +55,7 @@ export default defineComponent({
     <Space small>
       <ToggleButton
           v-for="option in options"
+          name="アウトライン"
           :key="option.value"
           :model-value="modelValue"
           size="smallIcon"
@@ -72,7 +73,7 @@ export default defineComponent({
           :model-value="absColors[ix]"
           @update:model-value="update(ix, $event)"
           @remove="remove(ix) " />
-      <Button type="dashed" block @click="add">
+      <Button type="dashed" name="アウトライン (追加)" block @click="add">
         + アウトラインを追加
       </Button>
     </Space>

@@ -5,6 +5,7 @@ export default defineComponent({
   props: {
     modelValue: { type: undefined, required: true },
     value: { type: undefined, default: null },
+    name: { type: String, default: "" },
     size: { type: String, default: "default" },
   },
   emits: [
@@ -43,7 +44,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="className" @click="toggle">
+  <button :class="className" :name="name" @click="toggle">
     <slot />
   </button>
 </template>

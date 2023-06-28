@@ -82,19 +82,31 @@ export default defineComponent({
       <Header />
 
       <TabGroup>
-        <TabButton :model-value="ui.mode" value="text" @update:model-value="onSelectMode">
+        <TabButton
+            :model-value="ui.mode"
+            name="タブ(テキスト)"
+            value="text"
+            @update:model-value="onSelectMode">
           <template #icon>
             <Text />
           </template>
           テキスト
         </TabButton>
-        <TabButton :model-value="ui.mode" value="file" @update:model-value="onSelectMode">
+        <TabButton
+            :model-value="ui.mode"
+            name="タブ(画像ファイル)"
+            value="file"
+            @update:model-value="onSelectMode">
           <template #icon>
             <Image />
           </template>
           画像ファイル
         </TabButton>
-        <TabButton :model-value="ui.mode" value="parts" @update:model-value="onSelectMode">
+        <TabButton
+            :model-value="ui.mode"
+            name="タブ(パーツ)"
+            value="parts"
+            @update:model-value="onSelectMode">
           <template #icon>
             <Emoji />
           </template>

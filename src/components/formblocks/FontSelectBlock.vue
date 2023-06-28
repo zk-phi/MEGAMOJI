@@ -54,6 +54,7 @@ export default defineComponent({
         <Checkbox
             v-for="font in category.fonts"
             :key="font.label"
+            :name="font.label"
             :model-value="modelValue"
             :value="font.value"
             @update:model-value="$emit('update:modelValue', $event)">
@@ -62,7 +63,7 @@ export default defineComponent({
       </Space>
     </Fieldset>
     <Fieldset v-if="showDetails" label="その他のフォント">
-      <Input v-model="stringValue" block :error="!stringIsValid" />
+      <Input v-model="stringValue" name="その他のフォント" block :error="!stringIsValid" />
     </Fieldset>
   </Space>
 </template>

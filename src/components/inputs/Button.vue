@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     type: { type: String, default: "default" },
+    name: { type: String, default: "" },
     block: { type: Boolean, default: false },
     danger: { type: Boolean, default: false },
   },
@@ -11,7 +12,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="['button', type, { block, danger }]">
+  <button :class="['button', type, { block, danger }]" :name="name">
     <span v-if="$slots.icon" class="icon">
       <slot name="icon" />
     </span>

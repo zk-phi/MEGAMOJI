@@ -57,19 +57,25 @@ export default defineComponent({
       </Space>
     </Card>
     <Space class="buttons">
-      <Button v-if="showTarget" @click="$emit('toggleShowTarget', $event)">
+      <Button
+          v-if="showTarget"
+          name="効果をつける(戻る)"
+          @click="$emit('toggleShowTarget', $event)">
         <template #icon>
           <Back />
         </template>
         もどる
       </Button>
-      <Button v-else @click="$emit('toggleShowTarget', $event)">
+      <Button
+          v-else
+          name="効果をつける"
+          @click="$emit('toggleShowTarget', $event)">
         <template #icon>
           <Effect />
         </template>
         効果をつける
       </Button>
-      <Button type="primary" @click="onDownload">
+      <Button type="primary" name="保存" @click="onDownload">
         <template #icon>
           <Save />
         </template>

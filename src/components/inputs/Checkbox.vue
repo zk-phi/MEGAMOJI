@@ -10,6 +10,7 @@ export default defineComponent({
   props: {
     modelValue: { type: undefined, required: true },
     value: { type: undefined, default: null },
+    name: { type: String, default: "" },
   },
   emits: [
     "update:modelValue",
@@ -47,7 +48,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button class="checkbox" @click="toggle">
+  <button class="checkbox" :name="name" @click="toggle">
     <span :class="['check', { selected, radio: isRadio }]">
       <RadioCheck v-if="isRadio" />
       <Check v-else />

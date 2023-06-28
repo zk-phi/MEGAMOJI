@@ -265,8 +265,11 @@ export default defineComponent({
         <Space vertical xlarge full>
           <Fieldset label="アニメーション">
             <Space vertical full>
-              <Select v-model="conf.animation" nullable :options="animations" />
-              <Checkbox v-model="conf.animationInvert">
+              <Select
+                  v-model="conf.animation"
+                  name="アニメーション"
+                  nullable :options="animations" />
+              <Checkbox v-model="conf.animationInvert" name="逆再生">
                 {{ "逆再生" }}
               </Checkbox>
             </Space>
@@ -287,7 +290,7 @@ export default defineComponent({
             </Space>
           </Fieldset>
           <Fieldset v-if="showDetails && isDev" label="開発者向け">
-            <Button danger type="text" @click="devMode = true">
+            <Button danger type="text" name="開発者モード" @click="devMode = true">
               <template #icon>
                 🔨
               </template>
@@ -301,6 +304,7 @@ export default defineComponent({
           <Fieldset v-if="!showDetails" label="切り抜き">
             <Select
                 v-model="conf.trimming"
+                name="切り抜き"
                 :options="TRIMMING_OPTIONS"
                 @update:model-value="refreshDefaultSettings" />
           </Fieldset>
@@ -340,6 +344,7 @@ export default defineComponent({
           <Fieldset v-if="!showDetails" label="速度 (アニメ)">
             <Select
                 v-model="conf.speed"
+                name="速度(アニメ)"
                 :options="SPEED_OPTIONS"
                 @update:model-value="selectSpeed($event)" />
           </Fieldset>
@@ -352,15 +357,16 @@ export default defineComponent({
                 :max="2.0" />
           </Fieldset>
           <Fieldset v-if="showDetails" label="イージング (アニメ)">
-            <Select v-model="conf.easing" :options="easings" />
+            <Select v-model="conf.easing" name="イージング" :options="easings" />
           </Fieldset>
           <Fieldset label="背景色">
             <Space vertical full>
               <Color
                   v-model="conf.backgroundColor"
+                  name="背景色"
                   block
                   @update:model-value="conf.transparent = false" />
-              <Checkbox v-model="conf.transparent">
+              <Checkbox v-model="conf.transparent" name="背景色(透過)">
                 {{ "透過 (アニメ gif は非推奨)" }}
               </Checkbox>
             </Space>
@@ -369,7 +375,7 @@ export default defineComponent({
       </GridItem>
     </Grid>
     <template v-if="!devMode" #footer>
-      <Checkbox v-model="showDetails">
+      <Checkbox v-model="showDetails" name="職人モード(効果)">
         {{ "職人モード" }}
       </Checkbox>
     </template>

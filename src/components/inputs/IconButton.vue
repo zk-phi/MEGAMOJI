@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     type: { type: String, default: "default" },
+    name: { type: String, default: "" },
   },
   computed: {
     className(): string {
@@ -14,7 +15,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="className">
+  <button :class="className" :name="name">
     <slot />
   </button>
 </template>

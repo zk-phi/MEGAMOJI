@@ -11,6 +11,7 @@ export default defineComponent({
     modelValue: { type: String, required: true },
     block: { type: Boolean, default: false },
     style: { type: Object, default: () => ({}) },
+    name: { type: String, default: "" },
   },
   emits: [
     "update:modelValue",
@@ -36,6 +37,7 @@ export default defineComponent({
       ref="input"
       :class="['color', { block, dark }]"
       :style="{ ...style, backgroundColor: modelValue }"
+      :name="name"
       @click="showPopover = !showPopover">
     {{ modelValue }}
   </button>

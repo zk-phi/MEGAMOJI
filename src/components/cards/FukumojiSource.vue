@@ -67,6 +67,7 @@ export default defineComponent({
         <TabGroup>
           <TabButton
               v-for="category in parts.categories"
+              :name="category.label"
               :key="category.value"
               v-model="tab"
               :value="category.value">
@@ -77,6 +78,7 @@ export default defineComponent({
           <ToggleButton
               v-for="p in parts[tab]"
               :key="p"
+              name="パーツ"
               v-model="conf[tab]"
               size="part"
               :value="p">

@@ -141,18 +141,39 @@ export default defineComponent({
         <Space vertical xlarge full>
           <Fieldset label="テキスト (改行可)">
             <Space vertical full>
-              <Textarea v-model="conf.content" block autofocus :rows="5" />
+              <Textarea
+                  v-model="conf.content"
+                  name="テキスト"
+                  block
+                  autofocus
+                  :rows="5" />
               <Space small>
-                <ToggleButton v-model="conf.align" size="smallIcon" value="stretch">
+                <ToggleButton
+                    v-model="conf.align"
+                    name="両端揃え"
+                    size="smallIcon"
+                    value="stretch">
                   <AlignJustify />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="smallIcon" value="center">
+                <ToggleButton
+                    v-model="conf.align"
+                    name="中央揃え"
+                    size="smallIcon"
+                    value="center">
                   <AlignCenter />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="smallIcon" value="left">
+                <ToggleButton
+                    v-model="conf.align"
+                    name="左揃え"
+                    size="smallIcon"
+                    value="left">
                   <AlignLeft />
                 </ToggleButton>
-                <ToggleButton v-model="conf.align" size="smallIcon" value="right">
+                <ToggleButton
+                    v-model="conf.align"
+                    name="右揃え"
+                    size="smallIcon"
+                    value="right">
                   <AlignRight />
                 </ToggleButton>
               </Space>
@@ -178,7 +199,7 @@ export default defineComponent({
       </GridItem>
     </Grid>
     <template #footer>
-      <Checkbox v-model="showDetails">
+      <Checkbox v-model="showDetails" name="職人モード(テキスト)">
         {{ "職人モード" }}
       </Checkbox>
     </template>

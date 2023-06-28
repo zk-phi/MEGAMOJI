@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
     block: { type: Boolean, default: false },
     small: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
@@ -17,6 +18,7 @@ export default defineComponent({
 <template>
   <input
       type="text"
+      :name="name"
       :class="['input', { block, error, small }]"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)">

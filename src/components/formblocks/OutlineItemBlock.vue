@@ -22,10 +22,11 @@ export default defineComponent({
   <div style="display: flex; align-items: center; width: 100%;">
     <Color
         block
+        name="アウトライン(色)"
         :model-value="modelValue"
         style="margin-right: var(--spacingInlineSmall);"
         @update:model-value="$emit('update:modelValue', $event)" />
-    <IconButton type="danger" @click="$emit('remove')">
+    <IconButton type="danger" name="アウトライン(削除)" @click="$emit('remove')">
       <Delete />
     </IconButton>
   </div>

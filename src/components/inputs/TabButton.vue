@@ -5,6 +5,7 @@ export default defineComponent({
   props: {
     modelValue: { type: String, required: true },
     value: { type: String, default: null },
+    name: { type: String, default: "" },
   },
   emits: [
     "update:modelValue",
@@ -18,7 +19,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="['tab-button', { selected }]" @click="$emit('update:modelValue', value)">
+  <button
+      :class="['tab-button', { selected }]"
+      :name="name"
+      @click="$emit('update:modelValue', value)">
     <span v-if="$slots.icon" class="icon">
       <slot name="icon" />
     </span>

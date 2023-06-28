@@ -12,6 +12,7 @@ export default defineComponent({
   props: {
     label: { type: String, default: undefined },
     type: { type: String, required: true },
+    name: { type: String, default: "" },
   },
   emits: [
     "load",
@@ -56,7 +57,7 @@ export default defineComponent({
 
 <template>
   <input ref="input" type="file" style="display: none;" :accept="accept" @change="onChange">
-  <Button type="dashed" @click="onClick">
+  <Button type="dashed" :name="name" @click="onClick">
     <slot />
   </Button>
   <div v-if="file" class="file">

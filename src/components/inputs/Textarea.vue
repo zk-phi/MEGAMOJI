@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     modelValue: { type: String, default: "" },
+    name: { type: String, default: "" },
     rows: { type: Number, required: true },
     block: { type: Boolean, default: false },
     autofocus: { type: Boolean, default: false },
@@ -21,6 +22,7 @@ export default defineComponent({
 
 <template>
   <textarea
+      :name="name"
       :rows="rows"
       :class="className"
       :value="modelValue"

@@ -37,6 +37,7 @@ export default defineComponent({
               v-for="color in row"
               :key="color"
               size="smallIcon"
+              name="文字色"
               :model-value="modelValue"
               :value="color"
               @update:model-value="$emit('update:modelValue', $event)">
@@ -47,6 +48,7 @@ export default defineComponent({
       <Color
           v-else
           block
+          name="文字色"
           :model-value="modelValue"
           @update:model-value="$emit('update:modelValue', $event)" />
       <GradientBlock

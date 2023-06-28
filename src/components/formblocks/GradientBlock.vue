@@ -61,7 +61,10 @@ export default defineComponent({
         :model-value="modelValue"
         :base-color="baseColor"
         @update:model-value="$emit('update:modelValue', $event)" />
-    <Checkbox :model-value="modelValue.length > 0" @update:model-value="toggle">
+    <Checkbox
+        name="グラデーション"
+        :model-value="modelValue.length > 0"
+        @update:model-value="toggle">
       {{ "グラデーション" }}
     </Checkbox>
   </Space>

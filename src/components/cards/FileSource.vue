@@ -56,12 +56,12 @@ export default defineComponent({
   <Card v-if="show">
     <Space vertical xlarge full>
       <Fieldset label="ファイル">
-        <FileSelect type="img" @load="conf.img = $event">
+        <FileSelect type="img" name="ファイルを選ぶ" @load="conf.img = $event">
           <Image /> ファイルを選ぶ
         </FileSelect>
       </Fieldset>
       <Fieldset label="前処理">
-        <Select v-model="conf.filter" nullable :options="FILTER_OPTIONS" />
+        <Select v-model="conf.filter" name="前処理" nullable :options="FILTER_OPTIONS" />
       </Fieldset>
     </Space>
   </Card>

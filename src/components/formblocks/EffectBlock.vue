@@ -25,6 +25,7 @@ export default defineComponent({
         <Checkbox
             v-for="effect in category.effects"
             :key="effect.label"
+            :name="effects.label"
             :value="effect"
             :model-value="modelValue"
             @update:model-value="$emit('update:modelValue', $event)">
