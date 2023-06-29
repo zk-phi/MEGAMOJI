@@ -55,8 +55,8 @@ export default defineComponent({
     <Space small>
       <ToggleButton
           v-for="option in options"
-          name="アウトライン"
           :key="option.value"
+          name="アウトライン"
           :model-value="modelValue"
           size="smallIcon"
           :value="option.value"
