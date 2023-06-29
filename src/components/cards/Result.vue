@@ -51,7 +51,7 @@ export default defineComponent({
         <RawResult v-if="!previewMode" :images="resultImageUrls" />
         <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="false" />
         <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="true" />
-        <Checkbox v-model="previewMode">
+        <Checkbox v-model="previewMode" name="サンプル表示">
           {{ "サンプル表示" }}
         </Checkbox>
       </Space>

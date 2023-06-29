@@ -159,7 +159,10 @@ export default defineComponent({
       </Space>
     </Fieldset>
     <Fieldset label="デバッグ">
-      <Checkbox :model-value="noCrop" @update:model-value="$emit('update:noCrop', $event)">
+      <Checkbox
+          :model-value="noCrop"
+          name="余白を切らない"
+          @update:model-value="$emit('update:noCrop', $event)">
         {{ "余白を切らない" }}
       </Checkbox>
     </Fieldset>

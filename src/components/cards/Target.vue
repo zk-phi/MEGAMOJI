@@ -279,7 +279,10 @@ export default defineComponent({
           <EffectBlock v-if="showDetails" v-model="conf.effects" :effects="bgeffects" />
           <Fieldset v-if="showDetails" label="画像サイズ">
             <Space vertical full>
-              <Checkbox :model-value="emojiSize === null" @update:model-value="toggleAutoSize">
+              <Checkbox
+                  :model-value="emojiSize === null"
+                  name="画像サイズ自動"
+                  @update:model-value="toggleAutoSize">
                 自動
               </Checkbox>
               <Number
