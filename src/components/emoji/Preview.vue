@@ -19,11 +19,11 @@ export default defineComponent({
       <b>ほげほげさん</b> <small>1:23 AM</small>
     </div>
     <div v-for="(row, i) in images" :key="i" class="row">
-      <div
+      <img
           v-for="(col, j) in row"
           :key="j"
           class="img large"
-          :style="{ backgroundImage: `url(${col})` }" />
+          :src="col" />
     </div>
     <div>
       ほげほげほげほげほげほげほげほげ。
@@ -31,11 +31,11 @@ export default defineComponent({
     <div>
       文章中で使うとこんな
       <span v-for="(row, i) in images" :key="i">
-        <div
+        <img
             v-for="(col, j) in row"
             :key="j"
             class="img in_text"
-            :style="{ backgroundImage: `url(${col})` }" />
+            :src="col" />
       </span>
       感じ。
     </div>
@@ -77,12 +77,10 @@ export default defineComponent({
 }
 
 .large {
-  width: 32px;
   height: 32px;
 }
 
 .in_text {
-  width: 24px;
   height: 24px;
   vertical-align: bottom;
 }
