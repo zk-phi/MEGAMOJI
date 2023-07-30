@@ -23,7 +23,7 @@ export default defineComponent({
           v-for="(col, j) in row"
           :key="j"
           class="img large"
-          :src="col" />
+          :src="col">
     </div>
     <div>
       ほげほげほげほげほげほげほげほげ。
@@ -35,7 +35,7 @@ export default defineComponent({
             v-for="(col, j) in row"
             :key="j"
             class="img in_text"
-            :src="col" />
+            :src="col">
       </span>
       感じ。
     </div>

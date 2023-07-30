@@ -10,7 +10,7 @@ export default defineComponent({
 
 <template>
   <div class="reaction">
-    <img class="reaction_icon" :src="src" /> 5
+    <img class="reaction_icon" :src="src"> 5
   </div>
 </template>
 
