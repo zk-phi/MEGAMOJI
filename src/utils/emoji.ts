@@ -153,8 +153,14 @@ function renderAllCellsFixedSize(
       encoders.push(row);
     }
     const delayPerFrame = 1000 / framerate;
-    for (let i = 0; i < framecount; i += 1) {
-      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
+    const keyframes = [...Array(framecount).keys()].map((i) => (
+      animationInvert ? 1 - easing(i / framecount) : easing(i / framecount)
+    ));
+    const lastKeyframe = keyframes.pop();
+    if (lastKeyframe !== undefined) {
+      keyframes.unshift(lastKeyframe);
+    }
+    for (const keyframe of keyframes) {
       const frame = renderFrameUncut(
         keyframe,
         image,
