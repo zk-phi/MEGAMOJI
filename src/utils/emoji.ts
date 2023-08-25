@@ -1,6 +1,6 @@
 import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
-import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
+import { cropCanvas, cutoutCanvasIntoCells, isCanvasBlank } from "./canvas";
 
 const webglEnabled = webglInitialize();
 
@@ -153,15 +153,9 @@ function renderAllCellsFixedSize(
       encoders.push(row);
     }
     const delayPerFrame = 1000 / framerate;
-    const keyframes = [...Array(framecount).keys()].map((i) => (
-      animationInvert ? 1 - easing(i / framecount) : easing(i / framecount)
-    ));
-    const lastKeyframe = keyframes.pop();
-    if (lastKeyframe !== undefined) {
-      keyframes.unshift(lastKeyframe);
-    }
-    for (const keyframe of keyframes) {
-      const frame = renderFrameUncut(
+    const frames = [...Array(framecount).keys()].map((i) => {
+      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount)
+      return renderFrameUncut(
         keyframe,
         image,
         offsetH,
@@ -179,6 +173,14 @@ function renderAllCellsFixedSize(
         framecount,
         transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
       );
+    });
+    if (isCanvasBlank(frames[0])) {
+      const lastFrame = frames.pop();
+      if (lastFrame !== undefined) {
+        frames.unshift(lastFrame);
+      }
+    }
+    for (const frame of frames) {
       const imgCells = cutoutCanvasIntoCells(
         frame,
         0,

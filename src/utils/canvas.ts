@@ -126,6 +126,30 @@ export const cutoutCanvasIntoCells = (
   return cells;
 };
 
+/* Determine if canvas is blank. */
+export const isCanvasBlank = (source: HTMLCanvasElement): boolean => {
+  const ctx = source.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
+
+  const { data } = ctx.getImageData(0, 0, source.width, source.height);
+  const [firstR, firstG, firstB, firstA] = data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    if (
+      data[i] !== firstR
+      || data[i + 1] !== firstG
+      || data[i + 2] !== firstB
+      || data[i + 3] !== firstA
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
 /* Create an img object, set src attr to the specified url, and return it. */
 export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {
   const img = document.createElement("img");
