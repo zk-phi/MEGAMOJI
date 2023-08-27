@@ -144,7 +144,7 @@ function renderAllCellsFixedSize(
     )));
   } else {
     /* instantiate GIF encoders for each cells */
-    const encoders = [];
+    const encoders: Worker[][] = [];
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
@@ -154,7 +154,7 @@ function renderAllCellsFixedSize(
     }
     const delayPerFrame = 1000 / framerate;
     const frames = [...Array(framecount).keys()].map((i) => {
-      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount)
+      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
       return renderFrameUncut(
         keyframe,
         image,
@@ -180,7 +180,7 @@ function renderAllCellsFixedSize(
         frames.unshift(lastFrame);
       }
     }
-    for (const frame of frames) {
+    frames.forEach((frame) => {
       const imgCells = cutoutCanvasIntoCells(
         frame,
         0,
@@ -215,7 +215,7 @@ function renderAllCellsFixedSize(
           });
         }
       }
-    }
+    });
     return Promise.all<Blob[]>(encoders.map((row) => Promise.all<Blob>(row.map((cell) => (
       new Promise((resolve) => {
         cell.addEventListener("message", (res) => {
