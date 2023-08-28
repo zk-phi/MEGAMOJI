@@ -53,7 +53,7 @@ export default defineComponent({
         this.conf.eyes,
         this.conf.others,
       ]).then((img) => {
-        this.$emit("render", img);
+        this.$emit("render", img, null);
       });
     },
   },

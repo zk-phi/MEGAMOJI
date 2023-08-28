@@ -19,6 +19,7 @@ export default defineComponent({
   },
   props: {
     images: { type: Array as PropType<Blob[][]>, required: true },
+    name: { type: String, default: null },
     showTarget: { type: Boolean, required: false },
   },
   emits: [
@@ -37,7 +38,7 @@ export default defineComponent({
   methods: {
     onDownload(): void {
       const download = prepareDownloadFile(this.images);
-      download.then((res) => saveAs(res, `megamoji.${extension(res)}`));
+      download.then((res) => saveAs(res, `${this.name || "megamoji"}.${extension(res)}`));
       Analytics.download();
     },
   },
