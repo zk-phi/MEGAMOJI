@@ -58,8 +58,8 @@ MEGAMOJI の派生サービスをガッツリ継続して運用したい場合�
   - (c) MODI工場 / M+ Fonts License
 - はちまるポップ
   - (c) The Hachi Maru Pop Project Authors / SIL OFL (without RFN)
-- ドヘタ字 J
-  - (c) えみりあ / [ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/dohetaji.txt)
+- 851チカラヨワク
+  - (c) 8:51:22 pm / [ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/chikarayowaku.txt)
 - 玉ねぎ楷書「激」
   - (c) 玉ねぎ / [ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/TamanegiKaishoGeki.txt)
 - PixelMplus

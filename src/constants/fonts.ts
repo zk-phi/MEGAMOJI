@@ -11,7 +11,7 @@ import PixelMplus from "../fonts/PixelMplus12-Bold.woff";
 import Reggae from "../fonts/ReggaeOne-Regular.woff";
 import Rampart from "../fonts/RampartOne-Regular.woff";
 import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
-import Dohetaji from "../fonts/doheta_j.woff";
+import ChikaraYowaku from "../fonts/ChikaraYowaku.woff";
 import TamanegiKaishoGeki from "../fonts/TamanegiKaishoGekiV6.woff";
 
 const loadFont = (font: Record<string, string>) => {
@@ -42,7 +42,7 @@ export default [
       { label: "零ゴシック", value: loadFont({ ZeroGothic }) },
       { label: "黒薔薇シンデレラ", value: loadFont({ KurobaraCinderella }) },
       { label: "はちまるポップ", value: loadFont({ HachiMaruPop }) },
-      { label: "ドヘタ字 J", value: loadFont({ Dohetaji }) },
+      { label: "851チカラヨワク", value: loadFont({ ChikaraYowaku }) },
       { label: "玉ねぎ楷書「激」", value: loadFont({ TamanegiKaishoGeki }) },
       { label: "PixelMplus", value: loadFont({ PixelMplus }) },
       { label: "レゲエ", value: loadFont({ Reggae }) },
