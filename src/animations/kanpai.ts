@@ -12,7 +12,7 @@ const animationKanpai: Animation = (
   cellWidth,
   cellHeight,
 ) => {
-  const size = 0.35 - 0.25 * Math.cos(Math.PI * keyframe); /* 0 ~ 0.6 */
+  const size = 0.6 - 0.6 * Math.sin(Math.PI * keyframe); /* 0.6 -> 0 -> 0.6 */
   flipContext(ctx, cellWidth);
   ctx.drawImage(
     image,
