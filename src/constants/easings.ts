@@ -12,6 +12,6 @@ export default [
   { label: "ニュルニュル", value: easingExponent },
   { label: "ボテボテ", value: easingBounce },
   ...(NODE_ENV === "development" ? [
-    { label: "１フレーム目固定 (デバッグ用)", value: easingStop }
+    { label: "１フレーム目固定 (デバッグ用)", value: easingStop },
   ] : []),
 ];
