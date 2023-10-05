@@ -21,9 +21,9 @@ const changeFont = (value: string) => {
 };
 
 const changeAnimation = (animationName: string, effectNames: string[]) => {
-  effects = `${animationName}/${effectNames.join(',')}`;
+  effects = `${animationName}/${effectNames.join(",")}`;
   // eslint-disable-next-line no-console
-  console.log("change_animation", { effects: effects });
+  console.log("change_animation", { effects });
 };
 
 const render = () => {
