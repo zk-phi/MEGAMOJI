@@ -13,9 +13,13 @@ const switchMode = (value: string, interactive?: boolean) => {
 };
 
 const changeFont = (value: string) => {
+  // eslint-disable-next-line no-console
+  console.log("change_font", { font: value });
 };
 
 const changeAnimation = (animationName: string, effectNames: string[]) => {
+  // eslint-disable-next-line no-console
+  console.log("change_animation", { animation: animationName, effects: effectNames });
 };
 
 const render = () => {
