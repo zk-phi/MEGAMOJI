@@ -1,11 +1,13 @@
 import { GA4_TOKEN } from "./env";
 
 let mode = "";
+let font = "";
+let effects = "";
 
 const switchMode = (value: string, interactive?: boolean) => {
   mode = value;
   if (GA4_TOKEN && interactive) {
-    gtag("event", "switch_mode", { mode: value });
+    gtag("event", "switch_mode", { mode: value, font, effects });
   } else {
     // eslint-disable-next-line no-console
     console.log("switch_mode", { mode: value });
@@ -13,30 +15,32 @@ const switchMode = (value: string, interactive?: boolean) => {
 };
 
 const changeFont = (value: string) => {
+  font = value;
   // eslint-disable-next-line no-console
   console.log("change_font", { font: value });
 };
 
 const changeAnimation = (animationName: string, effectNames: string[]) => {
+  effects = `${animationName}/${effectNames.join(',')}`;
   // eslint-disable-next-line no-console
-  console.log("change_animation", { animation: animationName, effects: effectNames });
+  console.log("change_animation", { effects: effects });
 };
 
 const render = () => {
   if (GA4_TOKEN) {
-    gtag("event", "render_emoji", { mode });
+    gtag("event", "render_emoji", { mode, font, effects });
   } else {
     // eslint-disable-next-line no-console
-    console.log("render_emoji", { mode });
+    console.log("render_emoji", { mode, font, effects });
   }
 };
 
 const download = () => {
   if (GA4_TOKEN) {
-    gtag("event", "download", { mode });
+    gtag("event", "download", { mode, font, effects });
   } else {
     // eslint-disable-next-line no-console
-    console.log("download", { mode });
+    console.log("download", { mode, font, effects });
   }
 };
 
