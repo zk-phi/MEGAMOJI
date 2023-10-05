@@ -1,13 +1,17 @@
 import { GA4_TOKEN } from "./env";
 
 let mode = "";
+let type = "";
 let font = "";
 let effects = "";
 
 const switchMode = (value: string, interactive?: boolean) => {
   mode = value;
+  if (value !== "target") {
+    type = value;
+  }
   if (GA4_TOKEN && interactive) {
-    gtag("event", "switch_mode", { mode: value, font, effects });
+    gtag("event", "switch_mode", { mode: value, font, effects, type });
   } else {
     // eslint-disable-next-line no-console
     console.log("switch_mode", { mode: value });
@@ -28,19 +32,19 @@ const changeAnimation = (animationName: string, effectNames: string[]) => {
 
 const render = () => {
   if (GA4_TOKEN) {
-    gtag("event", "render_emoji", { mode, font, effects });
+    gtag("event", "render_emoji", { mode, font, effects, type });
   } else {
     // eslint-disable-next-line no-console
-    console.log("render_emoji", { mode, font, effects });
+    console.log("render_emoji", { mode, font, effects, type });
   }
 };
 
 const download = () => {
   if (GA4_TOKEN) {
-    gtag("event", "download", { mode, font, effects });
+    gtag("event", "download", { mode, font, effects, type });
   } else {
     // eslint-disable-next-line no-console
-    console.log("download", { mode, font, effects });
+    console.log("download", { mode, font, effects, type });
   }
 };
 
