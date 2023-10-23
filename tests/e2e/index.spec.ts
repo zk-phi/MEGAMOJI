@@ -15,7 +15,9 @@ test("ファーストビューに textarea が存在し、フォーカスが当�
 
 test("シンプルなテキスト絵文字を作成して、ダウンロードできる", async ({ page }) => {
   await page.goto("/");
-  await page.locator("textarea").fill("hoge\nほげ");
+
+  const filenameReservedChars = '/?<>';
+  await page.locator("textarea").fill(`hoge\n${filenameReservedChars}`);
 
   // プレビュー画像が更新される
   const src = await page.locator("img").evaluate((el) => (el as HTMLImageElement).src);
@@ -28,8 +30,8 @@ test("シンプルなテキスト絵文字を作成して、ダウンロード�
   ]);
   const path = await download.path();
 
-  // ダウンロードしたファイルが PNG
-  expect(download.suggestedFilename()).toMatch(/\.png$/);
+  // ダウンロードしたファイル名が テキスト.png
+  expect(download.suggestedFilename()).toMatchSnapshot();
 
   // ダウンロードしたファイルがお手本と十分似ている
   const data1 = await loadFromPath(Path.resolve(__dirname, "./assets/textsample.png"));

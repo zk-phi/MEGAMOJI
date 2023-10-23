@@ -42,9 +42,9 @@ export default defineComponent({
     render(): void {
       if (this.conf.img) {
         if (this.conf.filter) {
-          this.$emit("render", this.conf.filter.value(this.conf.img));
+          this.$emit("render", this.conf.filter.value(this.conf.img), null);
         } else {
-          this.$emit("render", this.conf.img);
+          this.$emit("render", this.conf.img, null);
         }
       }
     },

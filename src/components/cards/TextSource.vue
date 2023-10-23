@@ -118,7 +118,8 @@ export default defineComponent({
           this.absoluteOutlines,
           this.absoluteGradient,
         );
-        this.$emit("render", canvas);
+        const name = this.conf.content.replace(/\n/g, "");
+        this.$emit("render", canvas, name);
       }
       window.setTimeout(() => {
         this.running = false;

@@ -41,6 +41,7 @@ export default defineComponent({
   data() {
     return {
       baseImage: null as (HTMLImageElement | HTMLCanvasElement | null),
+      name: null as (string | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
       emojiSize: null as (number | null),
@@ -69,8 +70,9 @@ export default defineComponent({
       this.resultImages = imgs;
       Analytics.render();
     },
-    onRender(img: HTMLImageElement): void {
+    onRender(img: HTMLImageElement, name: string): void {
       this.baseImage = img;
+      this.name = name;
     },
   },
 });
@@ -138,6 +140,7 @@ export default defineComponent({
           <Result
               v-else
               :images="resultImages"
+              :name="name"
               :show-target="ui.showTargetPanel"
               @toggle-show-target="onToggleShowTarget" />
         </GridItem>
