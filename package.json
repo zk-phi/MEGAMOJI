@@ -21,6 +21,7 @@
     "@types/gtag.js": "^0.0.12",
     "color-convert": "^2.0.1",
     "file-saver": "^2.0.5",
+    "filenamify": "^6.0.0",
     "gifenc": "mattdesl/gifenc#64842fca317b112a8590f8fef2bf3825da8f6fe3",
     "jszip": "^3.7.1",
     "rollbar": "^2.24.0",

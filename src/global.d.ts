@@ -27,3 +27,7 @@ declare module "*.glsl" {
     consts: GlslVariableMap,
   };
 }
+
+declare module "filenamify/browser" {
+  export default (input: string, options?: { replacement: string }) => string;
+}
