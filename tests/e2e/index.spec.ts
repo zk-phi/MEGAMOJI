@@ -16,7 +16,7 @@ test("ファーストビューに textarea が存在し、フォーカスが当�
 test("シンプルなテキスト絵文字を作成して、ダウンロードできる", async ({ page }) => {
   await page.goto("/");
 
-  const filenameReservedChars = '/?<>';
+  const filenameReservedChars = "/?<>";
   await page.locator("textarea").fill(`hoge\n${filenameReservedChars}`);
 
   // プレビュー画像が更新される
