@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { saveAs } from "file-saver";
+import filenamify from "filenamify/browser";
 import { extension, prepareDownloadFile } from "../../utils/file";
 import Analytics from "../../utils/analytics";
 import RawResult from "../emoji/RawResult.vue";
@@ -38,7 +39,8 @@ export default defineComponent({
   methods: {
     onDownload(): void {
       const download = prepareDownloadFile(this.images);
-      download.then((res) => saveAs(res, `${this.name || "megamoji"}.${extension(res)}`));
+      const filename = filenamify(this.name ?? "", { replacement: "" }) || "megamoji";
+      download.then((res) => saveAs(res, `${filename}.${extension(res)}`));
       Analytics.download();
     },
   },
