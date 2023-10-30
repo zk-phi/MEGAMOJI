@@ -29,5 +29,5 @@ declare module "*.glsl" {
 }
 
 declare module "filenamify/browser" {
-  export default (input: string, options?: { replacement: string }) => string;
+  export default function (input: string, options?: { replacement: string }): string;
 }
