@@ -39,7 +39,7 @@ export default defineComponent({
   methods: {
     onDownload(): void {
       const download = prepareDownloadFile(this.images);
-      const filename = filenamify(this.name ?? "", { replacement: "" }) || "megamoji";
+      const filename = filenamify(this.name ?? "", { replacement: "" }).normalize() || "megamoji";
       download.then((res) => saveAs(res, `${filename}.${extension(res)}`));
       Analytics.download();
     },
