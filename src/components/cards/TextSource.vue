@@ -62,7 +62,7 @@ export default defineComponent({
         font: fonts[0].fonts[0].value,
         /* advanced */
         lineSpacing: 0.05,
-        padding: 0.05,
+        padding: 0.02,
       },
       showDetails: false,
       /* internals */
