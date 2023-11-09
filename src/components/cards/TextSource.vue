@@ -62,6 +62,7 @@ export default defineComponent({
         font: fonts[0].fonts[0].value,
         /* advanced */
         lineSpacing: 0.05,
+        padding: 0,
       },
       showDetails: false,
       /* internals */
@@ -114,9 +115,10 @@ export default defineComponent({
           this.conf.font,
           this.emojiSize || EMOJI_SIZE,
           this.conf.align,
-          Number(this.conf.lineSpacing) * (this.emojiSize || EMOJI_SIZE),
+          Number(this.conf.lineSpacing),
           this.absoluteOutlines,
           this.absoluteGradient,
+          Number(this.conf.padding),
         );
         const name = this.conf.content.replace(/\n/g, "");
         this.$emit("render", canvas, name);
@@ -183,6 +185,14 @@ export default defineComponent({
           <Fieldset v-if="showDetails" label="行間 (文字分)">
             <Slider
                 v-model="conf.lineSpacing"
+                block
+                :min="0"
+                :max="1"
+                :step="0.01" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="パディング (文字分)">
+            <Slider
+                v-model="conf.padding"
                 block
                 :min="0"
                 :max="1"

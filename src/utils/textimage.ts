@@ -56,26 +56,30 @@ export const makeTextImage = (
   lineSpacing: number,
   outlineColors: string[],
   gradient: GradientColorStop[],
+  padding: number,
 ): HTMLCanvasElement => {
+  const lineSpacingPixels = Math.round(lineSpacing * fontHeight);
+  const paddingPixels = Math.round(padding * fontHeight);
+
   const images = text.split("\n").map((line) => (
     makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)
   ));
   const lineWidths = images.map((canvas) => canvas.width);
   const maxWidth = Math.max.apply(null, lineWidths);
-  const totalHeight = lineSpacing * (images.length - 1) + images.reduce((l, r) => (
+  const totalHeight = lineSpacingPixels * (images.length - 1) + images.reduce((l, r) => (
     l + r.height
   ), 0);
 
   const canvas = document.createElement("canvas");
-  canvas.width = maxWidth;
-  canvas.height = totalHeight;
+  canvas.width = maxWidth + (paddingPixels * 2);
+  canvas.height = totalHeight + (paddingPixels * 2);
 
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     throw new Error("Failed to get rendering context.");
   }
 
-  let currentHeight = 0;
+  let currentHeight = paddingPixels;
   images.forEach((image, ix) => {
     ctx.save();
 
@@ -87,8 +91,8 @@ export const makeTextImage = (
       ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
     }
 
-    ctx.drawImage(image, 0, currentHeight);
-    currentHeight += image.height + lineSpacing;
+    ctx.drawImage(image, paddingPixels, currentHeight);
+    currentHeight += image.height + lineSpacingPixels;
 
     ctx.restore();
   });
