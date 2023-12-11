@@ -26,8 +26,8 @@ export default defineComponent({
     openLicense() {
       window.open("https://github.com/zk-phi/MEGAMOJI/blob/master/LICENSE.markdown");
     },
-    openArticle() {
-      window.open("https://note.com/zk_phi/n/n5aaff539db5a");
+    openFAQ() {
+      window.open("https://scrapbox.io/MEGAMOJI/%F0%9F%93%8C_%E3%82%88%E3%81%8F%E3%81%82%E3%82%8B%E8%B3%AA%E5%95%8F%F0%9F%99%8B");
     },
   },
 });
@@ -54,8 +54,8 @@ export default defineComponent({
         </template>
         既存の絵文字を合成してスタンプを作ります。
       </Media>
-      <Button type="text" @click="openArticle">
-        ５周年振り返り記事を書きました 🎉
+      <Button type="text" @click="openFAQ">
+        よくある質問
       </Button>
       <Button type="text" @click="openLicense">
         <template #icon>
