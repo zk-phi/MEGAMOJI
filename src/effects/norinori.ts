@@ -13,9 +13,12 @@ const effectNorinori: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
   ) / 6;
 
   ctx.transform(
-    1, 0,
-    sign * ratio, 1 - ratio,
-    -sign * ratio * cellWidth * 3 / 4, ratio * cellHeight * 3 / 4
+    1,
+    0,
+    sign * ratio,
+    1 - ratio,
+    -sign * ratio * cellWidth * 3 / 4,
+    ratio * cellHeight * 3 / 4,
   );
 };
 
