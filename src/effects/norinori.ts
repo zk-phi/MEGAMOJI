@@ -17,7 +17,7 @@ const effectNorinori: Effect = (keyframe, ctx, cellWidth, cellHeight) => {
     0,
     sign * ratio,
     1 - ratio,
-    -sign * ratio * cellWidth * 3 / 4,
+    -sign * ratio * cellHeight * 3 / 4,
     ratio * cellHeight * 3 / 4,
   );
 };
