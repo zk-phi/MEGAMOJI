@@ -50,8 +50,8 @@ GitHub Actions を使って自動でビルドしたり、 lint をかけたり�
 - lint-pr ... プルリクを作ったときに reviewdog 経由で eslint, stylelint を回す
 - build ... master を push したときに npm run lint して gh-pages に push
 
-ビルド時、 GitHub Secrets に ~ROLLBAR_TOKEN~ をセットしておくと、エラーを
-rollbar から確認できます。
+ビルド時、 GitHub Secrets に ~ROLLBAR_TOKEN~ や ~GA4_TOKEN~ をセットしておくと、
+エラー収集やユーザー分析ができます。
 
 *** ディレクトリ構成
 
