@@ -4,7 +4,7 @@
       MEGAMOJI
     </h1>
     <p class="description">
-      カスタム絵文字をサクッと作れる<span class="nya">🎍</span>
+      カスタム絵文字をサクッと作れる<span class="nya">🐱</span>
     </p>
   </header>
 </template>
@@ -43,7 +43,7 @@
 
 .nya:hover::after {
   color: var(--border);
-  content: " < Happy New-nya! 🐱";
+  content: " < nya!";
 }
 
 @keyframes nya {
