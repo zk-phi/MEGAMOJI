@@ -59,6 +59,9 @@ export default defineComponent({
         color: "#ffda00",
         gradient: [] as ColorStop[],
         outlines: [] as string[],
+        outlineThickness: 8,
+        outlineX: 0,
+        outlineY: 0,
         font: fonts[0].fonts[0].value,
         /* advanced */
         lineSpacing: 0.05,
@@ -117,6 +120,9 @@ export default defineComponent({
           this.conf.align,
           Number(this.conf.lineSpacing),
           this.absoluteOutlines,
+          this.conf.outlineThickness,
+          this.conf.outlineX,
+          this.conf.outlineY,
           this.absoluteGradient,
           Number(this.conf.padding),
         );
@@ -204,6 +210,9 @@ export default defineComponent({
               :show-details="showDetails" />
           <OutlineBlock
               v-model="conf.outlines"
+              v-model:thickness="conf.outlineThickness"
+              v-model:posX="conf.outlineX"
+              v-model:posY="conf.outlineY"
               :base-color="conf.color"
               :show-details="showDetails" />
         </Space>

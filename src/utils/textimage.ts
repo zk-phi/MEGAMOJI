@@ -9,6 +9,9 @@ const makeTextImageSingleLine = (
   font: string,
   fontHeight: number,
   outlineColors: string[],
+  outlineThickness: number,
+  outlineX: number,
+  outlineY: number,
   gradient: GradientColorStop[],
 ): HTMLCanvasElement => {
   const canvas = document.createElement("canvas");
@@ -24,12 +27,17 @@ const makeTextImageSingleLine = (
   ctx.textBaseline = "top";
   ctx.lineJoin = "round";
 
-  const margin = fontHeight * 0.025;
+  const margin = fontHeight * 0.1;
 
+  const outlineTotalThickness = outlineThickness * (outlineColors.length - 1);
   for (let i = outlineColors.length - 1; i >= 0; i -= 1) {
     ctx.strokeStyle = outlineColors[i];
-    ctx.lineWidth = (i + 1) * 8;
-    ctx.strokeText(line, margin, margin);
+    ctx.lineWidth = (i + 1) * outlineThickness;
+    ctx.strokeText(
+      line,
+      margin + outlineX * (outlineTotalThickness - ctx.lineWidth) * 0.5,
+      margin + outlineY * (outlineTotalThickness - ctx.lineWidth) * 0.5,
+    );
   }
 
   if (gradient.length) {
@@ -41,7 +49,11 @@ const makeTextImageSingleLine = (
   } else {
     ctx.fillStyle = color;
   }
-  ctx.fillText(line, margin, margin);
+  ctx.fillText(
+    line,
+    margin + outlineX * outlineTotalThickness * 0.5,
+    margin + outlineY * outlineTotalThickness * 0.5,
+  );
 
   return shrinkCanvas(canvas);
 };
@@ -55,6 +67,9 @@ export const makeTextImage = (
   align: string,
   lineSpacing: number,
   outlineColors: string[],
+  outlineThickness: number,
+  outlineX: number,
+  outlineY: number,
   gradient: GradientColorStop[],
   padding: number,
 ): HTMLCanvasElement => {
@@ -62,7 +77,17 @@ export const makeTextImage = (
   const paddingPixels = Math.round(padding * fontHeight);
 
   const images = text.split("\n").map((line) => (
-    makeTextImageSingleLine(line, color, font, fontHeight, outlineColors, gradient)
+    makeTextImageSingleLine(
+      line,
+      color,
+      font,
+      fontHeight,
+      outlineColors,
+      outlineThickness,
+      outlineX,
+      outlineY,
+      gradient,
+    )
   ));
   const lineWidths = images.map((canvas) => canvas.width);
   const maxWidth = Math.max.apply(null, lineWidths);
