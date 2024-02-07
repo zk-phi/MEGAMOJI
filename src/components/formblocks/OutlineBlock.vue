@@ -61,7 +61,7 @@ export default defineComponent({
         this.$emit("update:posX", 0);
         this.$emit("update:posY", 0);
       }
-    }
+    },
   },
 });
 </script>
