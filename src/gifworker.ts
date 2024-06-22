@@ -8,8 +8,9 @@ const encoder = GIFEncoder();
 ctx.addEventListener("message", (msg) => {
   if (msg.data.addFrame) {
     const { data, transparent, width, height, delay } = msg.data.addFrame;
-    const palette = quantize(data, 256, { oneBitAlpha: transparent });
-    const index = applyPalette(data, palette);
+    const format = transparent ? "rgba4444" : "rgb565";
+    const palette = quantize(data, 256, { format, oneBitAlpha: transparent });
+    const index = applyPalette(data, palette, format);
     encoder.writeFrame(index, width, height, { palette, delay, transparent });
   } else if (msg.data.finish) {
     encoder.finish();
