@@ -86,6 +86,19 @@ function renderFrameUncut(
   }
 }
 
+function initializeEncoder(
+  height: number,
+  width: number,
+  delay: number,
+  transparent: boolean,
+) {
+  const encoder = new Worker("./gifworker.js");
+  encoder.postMessage({
+    initialize: { height, width, delay, transparent },
+  });
+  return encoder;
+}
+
 /**
  * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
@@ -144,15 +157,15 @@ function renderAllCellsFixedSize(
     )));
   } else {
     /* instantiate GIF encoders for each cells */
+    const delayPerFrame = 1000 / framerate;
     const encoders = [];
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
-        row.push(new Worker("./gifworker.js"));
+        row.push(initializeEncoder(croppedHeight, croppedWidth, delayPerFrame, transparent));
       }
       encoders.push(row);
     }
-    const delayPerFrame = 1000 / framerate;
     for (let i = 0; i < framecount; i += 1) {
       const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
       const frame = renderFrameUncut(
@@ -197,13 +210,7 @@ function renderAllCellsFixedSize(
           );
 
           encoders[y][x].postMessage({
-            addFrame: {
-              data,
-              height: croppedHeight,
-              width: croppedWidth,
-              delay: delayPerFrame,
-              transparent,
-            },
+            addFrame: data,
           });
         }
       }
