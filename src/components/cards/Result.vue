@@ -13,6 +13,7 @@ import Card from "../global/Card.vue";
 import Effect from "../icons/Effect.vue";
 import Back from "../icons/Back.vue";
 import Save from "../icons/Save.vue";
+import { NODE_ENV } from "../../utils/env";
 
 export default defineComponent({
   components: {
@@ -29,11 +30,17 @@ export default defineComponent({
   data() {
     return {
       previewMode: false,
+      isDev: NODE_ENV === "development",
     };
   },
   computed: {
     resultImageUrls(): string[][] {
       return this.images.map((row) => row.map((cell) => URL.createObjectURL(cell)));
+    },
+    totalSize(): number {
+      return this.images.reduce((l, r) => (
+        l + r.reduce((ll, rr) => ll + rr.size, 0)
+      ), 0);
     },
   },
   methods: {
@@ -54,6 +61,9 @@ export default defineComponent({
         <RawResult v-if="!previewMode" :images="resultImageUrls" />
         <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="false" />
         <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="true" />
+        <span v-if="isDev && images[0].length === 1">
+          {{ totalSize / 1024 }} KiB
+        </span>
         <Checkbox v-model="previewMode" name="サンプル表示">
           {{ "サンプル表示" }}
         </Checkbox>
