@@ -370,7 +370,7 @@ export default defineComponent({
                   block
                   @update:model-value="conf.transparent = false" />
               <Checkbox v-model="conf.transparent" name="背景色(透過)">
-                {{ "透過 (アニメ gif は非推奨)" }}
+                {{ "透過" }}
               </Checkbox>
             </Space>
           </Fieldset>

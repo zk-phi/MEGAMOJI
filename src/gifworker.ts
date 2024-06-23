@@ -1,4 +1,5 @@
 import { GIFEncoder, quantize, applyPalette } from "gifenc";
+import { binarizeTransparency } from "./utils/binarize";
 
 type Options = {
   format: "rgb565" | "rgba4444",
@@ -26,6 +27,9 @@ ctx.addEventListener("message", (msg) => {
   } else if (msg.data.finish) {
     const { format, delay, transparent, width, height } = options;
     frames.forEach((frame) => {
+      if (transparent) {
+        binarizeTransparency(frame, width, height);
+      }
       const palette = quantize(frame, 256, { format, oneBitAlpha: transparent });
       const index = applyPalette(frame, palette, format);
       encoder.writeFrame(index, width, height, { palette, delay, transparent });
