@@ -49,7 +49,7 @@ ctx.addEventListener("message", (msg) => {
       palette.pop();
     }
     const colorFinder = genColorFinder(palette);
-    const transparentIndex = palette.length; // entry will be added later
+    const transparentIndex = palette.length;
     frames.forEach((frame, frameIx) => {
       // dither and binarize transparency first
       if (transparent) {
@@ -65,7 +65,7 @@ ctx.addEventListener("message", (msg) => {
         }
       }
       encoder.writeFrame(indexed, width, height, {
-        palette: frameIx === 0 ? [...palette, [0, 0, 0]] : undefined,
+        palette: frameIx === 0 ? palette : undefined,
         delay,
         transparent,
         transparentIndex,
