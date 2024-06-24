@@ -1,4 +1,4 @@
-import { GIFEncoder, quantize, applyPalette, nearestColorIndex } from "gifenc";
+import { GIFEncoder, quantize, nearestColorIndex } from "gifenc";
 import { binarizeTransparency } from "./utils/binarize";
 
 type Options = {
@@ -16,11 +16,8 @@ const frames: Uint8ClampedArray[] = [];
 let options: Options;
 
 // Make an rgba565 global palette.
-const quantizeGlobal = (
-  frames: Uint8ClampedArray[],
-  width: number,
-  height: number,
-) => {
+const quantizeGlobal = () => {
+  const { width, height } = options;
   const mergedFrames = new Uint8Array(frames.length * width * height * 4);
   frames.forEach((frame, ix) => {
     mergedFrames.set(frame, ix * width * height);
@@ -47,7 +44,7 @@ ctx.addEventListener("message", (msg) => {
     frames.push(msg.data.addFrame);
   } else if (msg.data.finish) {
     const { delay, transparent, width, height } = options;
-    const palette = quantizeGlobal(frames, width, height);
+    const palette = quantizeGlobal();
     if (transparent && palette.length === 256) { // preserve 1 room for the transparent color
       palette.pop();
     }
@@ -60,7 +57,7 @@ ctx.addEventListener("message", (msg) => {
       }
       // apply palette
       const indexed = new Uint8Array(width * height);
-      for (let i = 0; i < indexed.length; i++) {
+      for (let i = 0; i < indexed.length; i += 1) {
         if (transparent && frame[i * 4 + 3] < 128) {
           indexed[i] = transparentIndex;
         } else {
