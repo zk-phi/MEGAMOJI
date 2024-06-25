@@ -4,10 +4,11 @@ import shaderFoil from "../shaders/foil.glsl";
 
 const shader = webglEffectShader(shaderFoil.sourceCode);
 
-const webglFoil: WebGLEffect = (keyframe) => {
+const webglFoil: WebGLEffect = (keyframe, width, height) => {
   const program = webglLoadEffectShader(shader);
   webglSetFloat(program, "width", 0.2);
   webglSetFloat(program, "brightness", 0.4);
+  webglSetFloat(program, "ratio", width / height);
   webglSetFloat(program, "keyframe", keyframe);
   return program;
 };
