@@ -20,7 +20,7 @@ const quantizeGlobal = () => {
   const { width, height } = options;
   const mergedFrames = new Uint8Array(frames.length * width * height * 4);
   frames.forEach((frame, ix) => {
-    mergedFrames.set(frame, ix * width * height);
+    mergedFrames.set(frame, ix * width * height * 4);
   });
   const palette = quantize(mergedFrames, 256, { format: "rgb565" });
   return palette;
