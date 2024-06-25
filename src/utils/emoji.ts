@@ -126,8 +126,10 @@ function renderAllCellsFixedSize(
   backgroundColor: string,
   transparent: boolean,
 ) {
-  const croppedWidth = targetWidth * (noCrop ? 2 : 1);
-  const croppedHeight = targetHeight * (noCrop ? 2 : 1);
+  const roundedTargetWidth = Math.round(targetWidth);
+  const roundedTargetHeight = Math.round(targetHeight);
+  const croppedWidth = roundedTargetWidth * (noCrop ? 2 : 1);
+  const croppedHeight = roundedTargetHeight * (noCrop ? 2 : 1);
   if (!animated) {
     const img = renderFrameUncut(
       0,
@@ -136,8 +138,8 @@ function renderAllCellsFixedSize(
       offsetV,
       srcWidth,
       srcHeight,
-      targetWidth * hCells,
-      targetHeight * vCells,
+      roundedTargetWidth * hCells,
+      roundedTargetHeight * vCells,
       noCrop,
       animation,
       animationInvert,
@@ -175,8 +177,8 @@ function renderAllCellsFixedSize(
         offsetV,
         srcWidth,
         srcHeight,
-        targetWidth * hCells,
-        targetHeight * vCells,
+        roundedTargetWidth * hCells,
+        roundedTargetHeight * vCells,
         noCrop,
         animation,
         animationInvert,
