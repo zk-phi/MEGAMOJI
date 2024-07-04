@@ -86,19 +86,6 @@ function renderFrameUncut(
   }
 }
 
-function initializeEncoder(
-  height: number,
-  width: number,
-  delay: number,
-  transparent: boolean,
-) {
-  const encoder = new Worker("./gifworker.js");
-  encoder.postMessage({
-    initialize: { height, width, delay, transparent },
-  });
-  return encoder;
-}
-
 /**
  * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
@@ -161,10 +148,22 @@ function renderAllCellsFixedSize(
     /* instantiate GIF encoders for each cells */
     const delayPerFrame = 1000 / framerate;
     const encoders = [];
+    const initializeEncoder = () => {
+      const encoder = new Worker("./gifworker.js");
+      encoder.postMessage({
+        initialize: {
+          height: croppedHeight,
+          width: croppedWidth,
+          delay: delayPerFrame,
+          transparent,
+        },
+      });
+      return encoder;
+    };
     for (let y = 0; y < vCells; y += 1) {
       const row = [];
       for (let x = 0; x < hCells; x += 1) {
-        row.push(initializeEncoder(croppedHeight, croppedWidth, delayPerFrame, transparent));
+        row.push(initializeEncoder());
       }
       encoders.push(row);
     }
