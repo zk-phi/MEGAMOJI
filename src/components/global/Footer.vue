@@ -39,6 +39,9 @@ export default defineComponent({
       </Button>
       /
       <Button type="text" @click="share">
+        <template #icon>
+          🤝
+        </template>
         Xでシェア
       </Button>
     </p>
