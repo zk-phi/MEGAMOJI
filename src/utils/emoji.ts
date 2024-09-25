@@ -74,10 +74,10 @@ function renderFrameUncut(
   if (noCrop) {
     // copy webgl canvas to a 2d canvas, with background
     const result = cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
-    const ctx = result.getContext("2d")!;
-    ctx.rect(targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
-    ctx.strokeStyle = "#8888";
-    ctx.stroke();
+    const resultCtx = result.getContext("2d")!;
+    resultCtx.rect(targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
+    resultCtx.strokeStyle = "#8888";
+    resultCtx.stroke();
     return result;
   } else {
     return cropCanvas(
