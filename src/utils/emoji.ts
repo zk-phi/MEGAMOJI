@@ -72,8 +72,13 @@ function renderFrameUncut(
   }
 
   if (noCrop) {
-    // copy webgl canvas with background to a 2d canvas
-    return cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
+    // copy webgl canvas to a 2d canvas, with background
+    const result = cropCanvas(canvas, 0, 0, targetWidth * 2, targetHeight * 2, fillStyle);
+    const ctx = result.getContext("2d")!;
+    ctx.rect(targetWidth / 2, targetHeight / 2, targetWidth, targetHeight);
+    ctx.strokeStyle = "#8888";
+    ctx.stroke();
+    return result;
   } else {
     return cropCanvas(
       canvas,
