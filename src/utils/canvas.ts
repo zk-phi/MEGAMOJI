@@ -1,3 +1,49 @@
+/* Workaround Safari drawImage bug (does not work when sWidth > img.naturalWidth) */
+export const fixDrawImage = (
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement | HTMLCanvasElement,
+  sLeft: number,
+  sTop: number,
+  sWidth: number,
+  sHeight: number,
+  tLeft: number,
+  tTop: number,
+  tWidth: number,
+  tHeight: number,
+): void => {
+  const maxWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
+  const maxHeight = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
+  const xScale = tWidth / sWidth;
+  const yScale = tHeight / sHeight;
+  if (sLeft < 0) {
+    tLeft = tLeft + (- sLeft) * xScale;
+    sLeft = 0;
+  }
+  if (sTop < 0) {
+    tTop = tTop + (- sTop) * yScale;
+    tTop = 0;
+  }
+  if (sLeft + sWidth > maxWidth) {
+    tWidth = tWidth - (sLeft + sWidth - maxWidth) * xScale;
+    sWidth = maxWidth - sLeft;
+  }
+  if (sTop + sHeight > maxHeight) {
+    tHeight = tHeight - (sTop + sHeight - maxHeight) * yScale;
+    sHeight = maxHeight - sTop;
+  }
+  ctx.drawImage(
+    image,
+    sLeft,
+    sTop,
+    sWidth,
+    sHeight,
+    tLeft,
+    tTop,
+    tWidth,
+    tHeight,
+  );
+};
+
 export const scaleCentered = (
   ctx: CanvasRenderingContext2D,
   cellWidth: number,

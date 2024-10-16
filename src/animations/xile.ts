@@ -1,3 +1,4 @@
+import { fixDrawImage } from "../utils/canvas";
 import { Animation } from "../types";
 
 const animationXile: Animation = (
@@ -18,7 +19,8 @@ const animationXile: Animation = (
     const y = (
       Math.sin(Math.PI * 2 * (keyframe - i * 0.2)) * 0.3 * cellHeight / 2 + cellHeight / 4
     );
-    ctx.drawImage(
+    fixDrawImage(
+      ctx,
       image,
       offsetH,
       offsetV,

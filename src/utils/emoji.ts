@@ -1,6 +1,6 @@
 import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
-import { cropCanvas, cutoutCanvasIntoCells } from "./canvas";
+import { cropCanvas, cutoutCanvasIntoCells, fixDrawImage } from "./canvas";
 
 const webglEnabled = webglInitialize();
 
@@ -53,7 +53,8 @@ function renderFrameUncut(
     const top = offsetV - height / 2;
     const targetLeft = left >= 0 ? 0 : -left * targetWidth / width;
     const targetTop = top >= 0 ? 0 : -top * targetHeight / height;
-    ctx.drawImage(
+    fixDrawImage(
+      ctx,
       image,
       Math.max(0, left),
       Math.max(0, top),

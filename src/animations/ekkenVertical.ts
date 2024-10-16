@@ -1,3 +1,4 @@
+import { fixDrawImage } from "../utils/canvas";
 import { Animation } from "../types";
 
 const animationEkkenVertical: Animation = (
@@ -11,7 +12,8 @@ const animationEkkenVertical: Animation = (
   cellWidth,
   cellHeight,
 ) => {
-  ctx.drawImage(
+  fixDrawImage(
+    ctx,
     image,
     offsetH,
     offsetV,
@@ -22,7 +24,8 @@ const animationEkkenVertical: Animation = (
     cellWidth * keyframe / 2,
     cellHeight * keyframe / 2,
   );
-  ctx.drawImage(
+  fixDrawImage(
+    ctx,
     image,
     offsetH,
     offsetV,
@@ -33,7 +36,8 @@ const animationEkkenVertical: Animation = (
     cellWidth / 2,
     cellHeight / 4,
   );
-  ctx.drawImage(
+  fixDrawImage(
+    ctx,
     image,
     offsetH,
     offsetV + height / 2,
