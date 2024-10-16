@@ -26,20 +26,20 @@ export const fixDrawImage = (
   if (params.sLeft < 0) {
     params = {
       ...params,
-      sLeft: params.sLeft + (- params.sLeft), // = 0
-      tLeft: params.tLeft + (- params.sLeft) * xScale,
-      sWidth: params.sWidth - (- params.sLeft),
-      tWidth: params.tWidth - (- params.sLeft) * xScale,
+      sLeft: params.sLeft + (-params.sLeft), // = 0
+      tLeft: params.tLeft + (-params.sLeft) * xScale,
+      sWidth: params.sWidth - (-params.sLeft),
+      tWidth: params.tWidth - (-params.sLeft) * xScale,
     };
   }
 
   if (params.sTop < 0) {
     params = {
       ...params,
-      sTop: params.sTop + (- params.sTop), // = 0
-      tTop: params.tTop + (- params.sTop) * yScale,
-      sHeight: params.sHeight - (- params.sTop),
-      tHeight: params.tHeight - (- params.sTop) * yScale,
+      sTop: params.sTop + (-params.sTop), // = 0
+      tTop: params.tTop + (-params.sTop) * yScale,
+      sHeight: params.sHeight - (-params.sTop),
+      tHeight: params.tHeight - (-params.sTop) * yScale,
     };
   }
 
