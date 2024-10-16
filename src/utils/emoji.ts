@@ -51,17 +51,15 @@ function renderFrameUncut(
   } else {
     const left = offsetH - width / 2;
     const top = offsetV - height / 2;
-    const targetLeft = left >= 0 ? 0 : -left * targetWidth / width;
-    const targetTop = top >= 0 ? 0 : -top * targetHeight / height;
     fixDrawImage(
       ctx,
       image,
-      Math.max(0, left),
-      Math.max(0, top),
+      left,
+      top,
       width * 2,
       height * 2,
-      targetLeft,
-      targetTop,
+      0,
+      0,
       targetWidth * 2,
       targetHeight * 2,
     );

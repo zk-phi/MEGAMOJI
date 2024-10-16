@@ -1,4 +1,9 @@
-/* Workaround Safari drawImage bug (does not work when sWidth > img.naturalWidth) */
+/**
+ * Like ctx.drawImage, but accepts arguments like:
+ *
+ * 1. sLeft < 0
+ * 2. sLeft + sWidth > image.width
+ */
 export const fixDrawImage = (
   ctx: CanvasRenderingContext2D,
   image: HTMLImageElement | HTMLCanvasElement,
@@ -15,32 +20,55 @@ export const fixDrawImage = (
   const maxHeight = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
   const xScale = tWidth / sWidth;
   const yScale = tHeight / sHeight;
-  if (sLeft < 0) {
-    tLeft = tLeft + (- sLeft) * xScale;
-    sLeft = 0;
+
+  let params = { sLeft, sTop, sWidth, sHeight, tLeft, tTop, tWidth, tHeight };
+
+  if (params.sLeft < 0) {
+    params = {
+      ...params,
+      sLeft: params.sLeft + (- params.sLeft), // = 0
+      tLeft: params.tLeft + (- params.sLeft) * xScale,
+      sWidth: params.sWidth - (- params.sLeft),
+      tWidth: params.tWidth - (- params.sLeft) * xScale,
+    };
   }
-  if (sTop < 0) {
-    tTop = tTop + (- sTop) * yScale;
-    tTop = 0;
+
+  if (params.sTop < 0) {
+    params = {
+      ...params,
+      sTop: params.sTop + (- params.sTop), // = 0
+      tTop: params.tTop + (- params.sTop) * yScale,
+      sHeight: params.sHeight - (- params.sTop),
+      tHeight: params.tHeight - (- params.sTop) * yScale,
+    };
   }
-  if (sLeft + sWidth > maxWidth) {
-    tWidth = tWidth - (sLeft + sWidth - maxWidth) * xScale;
-    sWidth = maxWidth - sLeft;
+
+  if (params.sLeft + params.sWidth > maxWidth) {
+    params = {
+      ...params,
+      sWidth: params.sWidth - (params.sLeft + params.sWidth - maxWidth), // = maxWidth - sLeft
+      tWidth: params.tWidth - (params.sLeft + params.sWidth - maxWidth) * xScale,
+    };
   }
-  if (sTop + sHeight > maxHeight) {
-    tHeight = tHeight - (sTop + sHeight - maxHeight) * yScale;
-    sHeight = maxHeight - sTop;
+
+  if (params.sTop + params.sHeight > maxHeight) {
+    params = {
+      ...params,
+      sHeight: params.sHeight - (params.sTop + params.sHeight - maxHeight), // = maxHeight - sTop
+      tHeight: params.tHeight - (params.sTop + params.sHeight - maxHeight) * yScale,
+    };
   }
+
   ctx.drawImage(
     image,
-    sLeft,
-    sTop,
-    sWidth,
-    sHeight,
-    tLeft,
-    tTop,
-    tWidth,
-    tHeight,
+    params.sLeft,
+    params.sTop,
+    params.sWidth,
+    params.sHeight,
+    params.tLeft,
+    params.tTop,
+    params.tWidth,
+    params.tHeight,
   );
 };
 
