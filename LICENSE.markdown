@@ -13,11 +13,11 @@
 
 # 各収録フォントのライセンス
 
-- Mplus 1
+- Mplus 1 (「ゴシック」)
   - (c) The M+ FONTS Project Authors / SIL OFL (without RFN)
-- Rounded M+ 1c
+- Rounded M+ 1c (「丸ゴ」)
   - (c) 自家製フォント工房 / M+ Fonts License
-- Noto Serif
+- Noto Serif (「明朝」)
   - (c) Google / SIL OFL (without RFN)
 - デラゴシック
   - (c) The Dela Gothic Project Authors / SIL OFL (without RFN)
