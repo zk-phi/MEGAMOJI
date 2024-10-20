@@ -68,7 +68,7 @@ export default defineComponent({
   <Button type="dashed" :name="name" @click="onClick">
     <slot />
   </Button>
-  {{" "}}
+  {{ " " }}
   <span v-if="file" class="file">
     <File /> {{ file.name }}
   </span>
