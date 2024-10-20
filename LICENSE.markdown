@@ -60,6 +60,8 @@
   - (c) Matt DesLauriers / MIT License
 - jszip
   - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso / MIT License
+- Mitt
+  - (c) Jason Miller / MIT License
 - Rollbar
   - (c) Rollbar / MIT License
 - Vue.js
