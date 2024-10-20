@@ -50,16 +50,24 @@ export default defineComponent({
       this.rerenderKey += 1;
     });
   },
+  methods: {
+    onLoadFont(font: FontFace) {
+      font.load().then(() => {
+        document.fonts.add(font);
+        this.$emit("update:modelValue", `bold 1em ${font.family}`);
+      });
+    },
+  },
 });
 </script>
 
 <template>
-  <Space vertical xlarge full>
+  <Space :key="rerenderKey" vertical xlarge full>
     <Fieldset v-for="category in fonts" :key="category.label" :label="category.label">
       <Space vertical>
         <Checkbox
             v-for="font in category.fonts"
-            :key="`${font.label}${rerenderKey}`"
+            :key="font.label"
             :name="font.label"
             :model-value="modelValue"
             :value="font.value"
