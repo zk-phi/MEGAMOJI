@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import FileSelect from "../inputs/FileSelect.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Input from "../inputs/Input.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
+import Text from "../icons/Text.vue";
 import fonts, { fontStatusWatcher } from "../../constants/fonts";
 
 const validateFont = (font: string): boolean => {
@@ -14,7 +16,7 @@ const validateFont = (font: string): boolean => {
 
 export default defineComponent({
   components: {
-    Checkbox, Input, Space, Fieldset,
+    Checkbox, Input, Space, Fieldset, FileSelect, Text,
   },
   props: {
     modelValue: { type: String, required: true },
@@ -78,8 +80,17 @@ export default defineComponent({
         </Checkbox>
       </Space>
     </Fieldset>
-    <Fieldset v-if="showDetails" label="その他のフォント">
-      <Input v-model="stringValue" name="その他のフォント" block :error="!stringIsValid" />
+    <Fieldset label="その他のフォント">
+      <Space vertical>
+        <FileSelect type="font" name="ファイルを選ぶ" @load="onLoadFont">
+          <Text /> ファイルを選ぶ
+        </FileSelect>
+        <Input
+            v-if="showDetails"
+            v-model="stringValue"
+            name="font-spec"
+            block :error="!stringIsValid" />
+      </Space>
     </Fieldset>
   </Space>
 </template>
