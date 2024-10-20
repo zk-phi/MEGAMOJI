@@ -28,3 +28,18 @@ export const loadFileAsBlobURL = (file: File): Promise<string> => (
     reader.readAsDataURL(file);
   })
 );
+
+/* Load a local file via specified path and call-back with the ArrayBuffer. */
+export const loadFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => (
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target && e.target.result) {
+        resolve(e.target.result as ArrayBuffer);
+      } else {
+        reject(new Error("Failed to load file"));
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  })
+);

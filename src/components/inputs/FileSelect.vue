@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { urlToImg } from "../../utils/canvas";
-import { loadFileAsBlobURL } from "../../utils/file";
+import { loadFileAsBlobURL, loadFileAsArrayBuffer } from "../../utils/file";
 import Button from "./Button.vue";
 import File from "../icons/File.vue";
+
+let customFontId = 0;
 
 export default defineComponent({
   components: {
@@ -37,7 +39,7 @@ export default defineComponent({
     onClick(): void {
       (this.$refs.input as HTMLInputElement).click();
     },
-    onChange(e: { target: { files: FileList } }): void {
+    onChange(e: { target: { files: FileList, value: string } }): void {
       if (e.target.files[0]) {
         this.file = e.target.files[0];
         if (this.type === "img") {
@@ -48,8 +50,14 @@ export default defineComponent({
               }
             });
           });
+        } else if (this.type === "font") {
+          loadFileAsArrayBuffer(this.file).then((buffer) => {
+            this.$emit("load", new FontFace(`custom-font-${customFontId}`, buffer));
+            customFontId += 1;
+          });
         }
       }
+      e.target.value = "";
     },
   },
 });
