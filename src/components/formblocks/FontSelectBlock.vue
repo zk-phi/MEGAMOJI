@@ -4,7 +4,7 @@ import Checkbox from "../inputs/Checkbox.vue";
 import Input from "../inputs/Input.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Space from "../global/Space.vue";
-import fonts from "../../constants/fonts";
+import fonts, { fontStatusWatcher } from "../../constants/fonts";
 
 const validateFont = (font: string): boolean => {
   const s = new Option().style;
@@ -27,6 +27,7 @@ export default defineComponent({
     fonts,
     stringValue: props.modelValue,
     stringIsValid: true,
+    rerenderKey: 0,
   }),
   watch: {
     modelValue: {
@@ -44,6 +45,11 @@ export default defineComponent({
       },
     },
   },
+  mounted() {
+    fontStatusWatcher.on("load", () => {
+      this.rerenderKey += 1;
+    });
+  },
 });
 </script>
 
@@ -53,12 +59,14 @@ export default defineComponent({
       <Space vertical>
         <Checkbox
             v-for="font in category.fonts"
-            :key="font.label"
+            :key="`${font.label}${rerenderKey}`"
             :name="font.label"
             :model-value="modelValue"
             :value="font.value"
             @update:model-value="$emit('update:modelValue', $event)">
-          <span :style="{ font: font.value, lineHeight: 1 }">{{ font.label }}</span>
+          <span :style="{ font: font.value, lineHeight: 1 }">
+            {{ font.loaded ? font.label : 'loading ...' }}
+          </span>
         </Checkbox>
       </Space>
     </Fieldset>
