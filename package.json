@@ -51,7 +51,7 @@
     "eslint-import-resolver-webpack": "^0.13.1",
     "eslint-plugin-compat": "^3.11.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-vue": "^7.16.0",
+    "eslint-plugin-vue": "^9.14.1",
     "postcss": "8.x",
     "postcss-html": "1.x",
     "ssim.js": "^3.5.0",
