@@ -11,7 +11,7 @@ export default defineComponent({
 
 <template>
   <div class="reaction">
-    <img :class="`reaction_icon ${ rounded ? 'rounded' : ''}`" :src="src"> 5
+    <img :class="`reaction_icon ${ rounded ? 'mi2' : ''}`" :src="src"> 5
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default defineComponent({
   background-size: contain;
 }
 
-.reaction_icon.rounded {
+.reaction_icon.mi2 {
   border-radius: 30%;
 }
 </style>

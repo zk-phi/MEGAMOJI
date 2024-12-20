@@ -14,7 +14,7 @@ export default defineComponent({
     <img
         v-for="(col, j) in row"
         :key="j"
-        :class="`result-cell ${ rounded ? 'rounded' : ''}`"
+        :class="`result-cell ${ rounded ? 'mi2' : ''}`"
         :src="col">
   </div>
 </template>
@@ -28,7 +28,7 @@ export default defineComponent({
   border: 1px solid #aaa;
 }
 
-.result-cell.rounded {
+.result-cell.mi2 {
   border-radius: 30%;
 }
 </style>

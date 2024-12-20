@@ -23,7 +23,7 @@ export default defineComponent({
       <img
           v-for="(col, j) in row"
           :key="j"
-          :class="`img large ${ rounded ? 'rounded' : ''}`"
+          :class="`img large ${ rounded ? 'mi2' : ''}`"
           :src="col">
     </div>
     <div>
@@ -35,7 +35,7 @@ export default defineComponent({
         <img
             v-for="(col, j) in row"
             :key="j"
-            :class="`img in_text ${ rounded ? 'rounded' : ''}`"
+            :class="`img in_text ${ rounded ? 'mi2' : ''}`"
             :src="col">
       </span>
       感じ。
@@ -81,7 +81,7 @@ export default defineComponent({
   background-size: contain;
 }
 
-.img.rounded {
+.img.mi2 {
   border-radius: 30%;
 }
 
