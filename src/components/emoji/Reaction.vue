@@ -4,13 +4,14 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     src: { type: String, required: true },
+    rounded: { type: Boolean, required: true },
   },
 });
 </script>
 
 <template>
   <div class="reaction">
-    <img class="reaction_icon" :src="src"> 5
+    <img :class="`reaction_icon ${ rounded ? 'rounded' : ''}`" :src="src"> 5
   </div>
 </template>
 
@@ -39,5 +40,9 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.reaction_icon.rounded {
+  border-radius: 30%;
 }
 </style>

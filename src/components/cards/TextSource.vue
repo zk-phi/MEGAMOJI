@@ -9,6 +9,7 @@ import Textarea from "../inputs/Textarea.vue";
 import ToggleButton from "../inputs/ToggleButton.vue";
 import Fieldset from "../inputs/Fieldset.vue";
 import Slider from "../inputs/Slider.vue";
+import Select from "../inputs/Select.vue";
 import Space from "../global/Space.vue";
 import Card from "../global/Card.vue";
 import Grid from "../global/Grid.vue";
@@ -24,6 +25,14 @@ import { makeTextImage } from "../../utils/textimage";
 import { EMOJI_SIZE } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
 
+type PaddingOption = { label: string, value: number };
+
+const PADDING_OPTIONS = [
+  { label: "極小 (推奨)", value: 0.02 },
+  { label: "大きめ (角丸対応)", value: 0.07 },
+  { label: "なし", value: 0 },
+];
+
 export default defineComponent({
   components: {
     FontSelectBlock,
@@ -31,6 +40,7 @@ export default defineComponent({
     OutlineBlock,
     Fieldset,
     Slider,
+    Select,
     Checkbox,
     Textarea,
     Grid,
@@ -52,6 +62,7 @@ export default defineComponent({
   ],
   data() {
     return {
+      PADDING_OPTIONS,
       conf: {
         /* basic */
         content: "",
@@ -62,10 +73,11 @@ export default defineComponent({
         outlineThickness: 8,
         outlineX: 0,
         outlineY: 0,
+        padding: PADDING_OPTIONS[0],
         font: fonts[0].fonts[0].value,
         /* advanced */
         lineSpacing: 0.05,
-        padding: 0.02,
+        paddingValue: 0.02,
       },
       showDetails: false,
       /* internals */
@@ -124,7 +136,7 @@ export default defineComponent({
           this.conf.outlineX,
           this.conf.outlineY,
           this.absoluteGradient,
-          Number(this.conf.padding),
+          Number(this.conf.paddingValue),
         );
         const name = this.conf.content.replace(/\n/g, "");
         this.$emit("render", canvas, name);
@@ -133,6 +145,9 @@ export default defineComponent({
         this.running = false;
         this.render();
       }, 50);
+    },
+    selectPadding(padding: PaddingOption): void {
+      this.conf.paddingValue = padding.value;
     },
   },
 });
@@ -188,22 +203,6 @@ export default defineComponent({
               </Space>
             </Space>
           </Fieldset>
-          <Fieldset v-if="showDetails" label="行間 (文字分)">
-            <Slider
-                v-model="conf.lineSpacing"
-                block
-                :min="0"
-                :max="1"
-                :step="0.01" />
-          </Fieldset>
-          <Fieldset v-if="showDetails" label="パディング (文字分)">
-            <Slider
-                v-model="conf.padding"
-                block
-                :min="0"
-                :max="1"
-                :step="0.01" />
-          </Fieldset>
           <FontColorSelectBlock
               v-model="conf.color"
               v-model:gradient="conf.gradient"
@@ -215,6 +214,29 @@ export default defineComponent({
               v-model:posY="conf.outlineY"
               :base-color="conf.color"
               :show-details="showDetails" />
+          <Fieldset v-if="showDetails" label="行間 (文字分)">
+            <Slider
+                v-model="conf.lineSpacing"
+                block
+                :min="0"
+                :max="1"
+                :step="0.01" />
+          </Fieldset>
+          <Fieldset v-if="showDetails" label="余白 (%)">
+            <Slider
+                v-model="conf.paddingValue"
+                block
+                :min="0"
+                :max="0.5"
+                :step="0.01" />
+          </Fieldset>
+          <Fieldset v-else label="余白">
+            <Select
+                v-model="conf.padding"
+                name="余白"
+                :options="PADDING_OPTIONS"
+                @update:model-value="selectPadding($event)" />
+          </Fieldset>
         </Space>
       </GridItem>
     </Grid>

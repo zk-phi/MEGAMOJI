@@ -9,6 +9,7 @@ export default defineComponent({
   props: {
     images: { type: Array, required: true },
     darkMode: { type: Boolean, required: true },
+    rounded: { type: Boolean, required: true },
   },
 });
 </script>
@@ -22,7 +23,7 @@ export default defineComponent({
       <img
           v-for="(col, j) in row"
           :key="j"
-          class="img large"
+          :class="`img large ${ rounded ? 'rounded' : ''}`"
           :src="col">
     </div>
     <div>
@@ -34,14 +35,18 @@ export default defineComponent({
         <img
             v-for="(col, j) in row"
             :key="j"
-            class="img in_text"
+            :class="`img in_text ${ rounded ? 'rounded' : ''}`"
             :src="col">
       </span>
       感じ。
     </div>
     <div>
       <span v-for="(row, i) in images" :key="i">
-        <Reaction v-for="(col, j) in row" :key="j" :src="col" />
+        <Reaction
+            v-for="(col, j) in row"
+            :key="j"
+            :src="col"
+            :rounded="rounded" />
       </span>
     </div>
   </div>
@@ -74,6 +79,10 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.img.rounded {
+  border-radius: 30%;
 }
 
 .large {

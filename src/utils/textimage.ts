@@ -74,7 +74,6 @@ export const makeTextImage = (
   padding: number,
 ): HTMLCanvasElement => {
   const lineSpacingPixels = Math.round(lineSpacing * fontHeight);
-  const paddingPixels = Math.round(padding * fontHeight);
 
   const images = text.split("\n").map((line) => (
     makeTextImageSingleLine(
@@ -96,15 +95,17 @@ export const makeTextImage = (
   ), 0);
 
   const canvas = document.createElement("canvas");
-  canvas.width = maxWidth + (paddingPixels * 2);
-  canvas.height = totalHeight + (paddingPixels * 2);
+  const paddingWidth = maxWidth * padding;
+  const paddingHeight = totalHeight * padding;
+  canvas.width = maxWidth + (paddingWidth * 2);
+  canvas.height = totalHeight + (paddingHeight * 2);
 
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     throw new Error("Failed to get rendering context.");
   }
 
-  let currentHeight = paddingPixels;
+  let currentHeight = paddingHeight;
   images.forEach((image, ix) => {
     ctx.save();
 
@@ -116,7 +117,7 @@ export const makeTextImage = (
       ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
     }
 
-    ctx.drawImage(image, paddingPixels, currentHeight);
+    ctx.drawImage(image, paddingWidth, currentHeight);
     currentHeight += image.height + lineSpacingPixels;
 
     ctx.restore();

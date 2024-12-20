@@ -30,6 +30,7 @@ export default defineComponent({
   data() {
     return {
       previewMode: false,
+      rounded: false,
       isDev: NODE_ENV === "development",
     };
   },
@@ -58,14 +59,28 @@ export default defineComponent({
   <Space vertical large>
     <Card class="result" title="プレビュー">
       <Space vertical large>
-        <RawResult v-if="!previewMode" :images="resultImageUrls" />
-        <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="false" />
-        <Preview v-if="previewMode" :images="resultImageUrls" :dark-mode="true" />
+        <RawResult
+            v-if="!previewMode"
+            :images="resultImageUrls"
+            :rounded="rounded" />
+        <Preview
+            v-if="previewMode"
+            :images="resultImageUrls"
+            :dark-mode="false"
+            :rounded="rounded" />
+        <Preview
+            v-if="previewMode"
+            :images="resultImageUrls"
+            :dark-mode="true"
+            :rounded="rounded" />
         <span v-if="isDev && images[0].length === 1">
-          {{ totalSize / 1024 }} KiB
+          ファイルサイズ: {{ totalSize / 1024 }} KiB
         </span>
         <Checkbox v-model="previewMode" name="サンプル表示">
           {{ "サンプル表示" }}
+        </Checkbox>
+        <Checkbox v-model="rounded" name="角丸">
+          {{ "角丸プレビュー" }}
         </Checkbox>
       </Space>
     </Card>
