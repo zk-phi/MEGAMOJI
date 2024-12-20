@@ -29,7 +29,7 @@ type PaddingOption = { label: string, value: number };
 
 const PADDING_OPTIONS = [
   { label: "極小 (推奨)", value: 0.02 },
-  { label: "大きめ (角丸対応)", value: 0.07 },
+  { label: "大きめ (角丸対応)", value: 0.1 },
   { label: "なし", value: 0 },
 ];
 
