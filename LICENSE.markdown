@@ -1,6 +1,6 @@
-このツールで作った絵文字について、ツール作者がなにか権利を主張することはありません。商用利用（「課金メンバー限定絵文字」など）も OK です。
+このツールで作った絵文字について、ツール作者がなにか権利を主張することはありません。商用利用（「課金メンバー限定絵文字」など）もご自由にどうぞ。
 
-フォントも「絵文字として自由に利用できるもの」だけを選んで収録しています。
+フォントも「作成した画像の用途に縛りがつかないもの」だけを厳選して収録しています。
 
 ただし、以下の点には特に注意してください：
 
@@ -14,31 +14,31 @@
 # 各収録フォントのライセンス
 
 - Mplus 1 (「ゴシック」)
-  - (c) The M+ FONTS Project Authors / SIL OFL (without RFN)
+  - (c) The M+ FONTS Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - Rounded M+ 1c (「丸ゴ」)
-  - (c) 自家製フォント工房 / M+ Fonts License
+  - (c) 自家製フォント工房 / [M+ Fonts License](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/mplus.txt)
 - Noto Serif (「明朝」)
-  - (c) Google / SIL OFL (without RFN)
+  - (c) The Noto Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - デラゴシック
-  - (c) The Dela Gothic Project Authors / SIL OFL (without RFN)
+  - (c) The Dela Gothic Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - あかずきんポップ
-  - (c) Kato Masashi / M+ Fonts License
+  - (c) Kato Masashi / [M+ Fonts License](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/mplus.txt)
 - 零ゴシック
-  - (c) フロップデザイン / SIL OFL (without RFN)
+  - (c) フロップデザイン / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - 黒薔薇シンデレラ
-  - (c) MODI工場 / M+ Fonts License
+  - (c) MODI工場 / [M+ Fonts License](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/mplus.txt)
 - はちまるポップ
-  - (c) The Hachi Maru Pop Project Authors / SIL OFL (without RFN)
+  - (c) The Hachi Maru Pop Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - 851チカラヨワク
-  - (c) 8:51:22 pm / [ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/chikarayowaku.txt)
+  - (c) 8:51:22 pm / [独自ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/chikarayowaku.txt)
 - 玉ねぎ楷書「激」
-  - (c) 玉ねぎ / [ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/TamanegiKaishoGeki.txt)
+  - (c) 玉ねぎ / [独自ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/TamanegiKaishoGeki.txt)
 - PixelMplus
-  - (c) Itou Hiroki / M+ Fonts License
+  - (c) Itou Hiroki / [M+ Fonts License](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/mplus.txt)
 - レゲエ
-  - (c) The Reggae Project Authors / SIL OFL (without RFN)
+  - (c) The Reggae Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - ランパート
-  - (c) The Rampart Project Authors / SIL OFL (without RFN)
+  - (c) The Rampart Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 
 # 画像素材のライセンス
 
@@ -69,7 +69,7 @@
 - destyle.css
   - (c) Nicolas Cusan / MIT License
 
-いくつかのエフェクトは glfx.js ((c) Evan Wallace / MIT License) から引用しています。
+いくつかのエフェクトの実装は glfx.js ((c) Evan Wallace / MIT License) を参考しています。
 
 # このツール自体のライセンス
 
@@ -81,4 +81,4 @@
 
 ただし、一般的ではないライセンスで提供されているフォント等も含まれるため、扱いには十分注意・配慮をお願いします。
 
-MEGAMOJI の派生サービスをガッツリ継続して運用したい場合は、一度相談いただけると安心です。
+MEGAMOJI の派生サービスをガッツリ継続して運用したい場合は、一度ご相談ください。
