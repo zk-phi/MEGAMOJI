@@ -222,7 +222,7 @@ export default defineComponent({
                 :max="1"
                 :step="0.01" />
           </Fieldset>
-          <Fieldset v-if="showDetails" label="余白 (%)">
+          <Fieldset v-if="showDetails" label="余白">
             <Slider
                 v-model="conf.paddingValue"
                 block
