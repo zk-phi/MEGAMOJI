@@ -29,48 +29,40 @@ export default defineComponent({
     openFAQ() {
       window.open("https://scrapbox.io/MEGAMOJI/%F0%9F%93%8C_%E3%82%88%E3%81%8F%E3%81%82%E3%82%8B%E8%B3%AA%E5%95%8F%F0%9F%99%8B");
     },
-    openQ() {
-      window.open("https://zk-phi.github.io/Q/2025");
-    },
   },
 });
 </script>
 
 <template>
-  <Space vertical large>
-    <Card title="遊び方">
-      <Space vertical xlarge>
-        <Media :icon="textSample">
-          <template #title>
-            <Text /> テキスト
-          </template>
-          文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
-        </Media>
-        <Media :icon="imageSample">
-          <template #title>
-            <Image /> 画像ファイル
-          </template>
-          好きな画像を正方形にトリミングしてスタンプにします。
-        </Media>
-        <Media :icon="fukumojiSample">
-          <template #title>
-            <Emoji /> パーツ
-          </template>
-          既存の絵文字を合成してスタンプを作ります。
-        </Media>
-        <Button type="text" @click="openFAQ">
-          よくある質問
-        </Button>
-        <Button type="text" @click="openLicense">
-          <template #icon>
-            ⚖️
-          </template>
-          ライセンス表示
-        </Button>
-      </Space>
-    </Card>
-    <Button type="text" @click="openQ">
-      ？
-    </Button>
-  </Space>
+  <Card title="遊び方">
+    <Space vertical xlarge>
+      <Media :icon="textSample">
+        <template #title>
+          <Text /> テキスト
+        </template>
+        文字からスタンプを作ります。「テキスト」欄になにか入力してみてください。
+      </Media>
+      <Media :icon="imageSample">
+        <template #title>
+          <Image /> 画像ファイル
+        </template>
+        好きな画像を正方形にトリミングしてスタンプにします。
+      </Media>
+      <Media :icon="fukumojiSample">
+        <template #title>
+          <Emoji /> パーツ
+        </template>
+        既存の絵文字を合成してスタンプを作ります。
+      </Media>
+      <Button type="text" @click="openFAQ">
+        よくある質問
+      </Button>
+      <Button type="text" @click="openLicense">
+        <template #icon>
+          ⚖️
+        </template>
+        ライセンス表示
+      </Button>
+    </Space>
+  </Card>
 </template>
