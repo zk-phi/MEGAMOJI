@@ -1,3 +1,9 @@
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
 /*!
 
 JSZip v3.10.1 - A JavaScript class for generating and reading zip files
@@ -8,6 +14,13 @@ Dual licenced under the MIT license or GPLv3. See https://raw.github.com/Stuk/js
 
 JSZip uses the library pako released under the MIT license :
 https://github.com/nodeca/pako/blob/main/LICENSE
+*/
+
+/*!
+
+pica
+https://github.com/nodeca/pica
+
 */
 
 /*!
