@@ -67,7 +67,7 @@ export default defineComponent({
         /* basic */
         content: "",
         align: "stretch",
-        color: "#ffda00",
+        color: "#ffb700",
         gradient: [] as ColorStop[],
         outlines: [] as string[],
         outlineThickness: 8,
