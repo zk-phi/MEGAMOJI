@@ -64,7 +64,7 @@ jobs:
       - run: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build-storybook
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: storybook
           path: dist/storybook
@@ -85,7 +85,7 @@ jobs:
         env:
           ROLLBAR_TOKEN: ${{ secrets.ROLLBAR_TOKEN }}
           GA4_TOKEN: ${{ secrets.GA4_TOKEN }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: app
           path: dist
@@ -99,11 +99,11 @@ jobs:
       - build-app
       - build-storybook
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: app
           path: dist
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: storybook
           path: dist/storybook
