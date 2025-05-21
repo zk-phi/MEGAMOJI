@@ -9,11 +9,11 @@ import AkazukinPOP from "../fonts/AkazukiPOP.woff";
 import ZeroGothic from "../fonts/ZeroGothic.woff";
 import KurobaraCinderella from "../fonts/kurobara-cinderella.woff";
 import PixelMplus from "../fonts/PixelMplus12-Bold.woff";
-import Reggae from "../fonts/ReggaeOne-Regular.woff";
 import Rampart from "../fonts/RampartOne-Regular.woff";
 import HachiMaruPop from "../fonts/HachiMaruPop-Regular.woff";
 import ChikaraYowaku from "../fonts/ChikaraYowaku.woff";
 import TamanegiKaishoGeki from "../fonts/TamanegiKaishoGekiV6.woff";
+import GokubutoTogeToge from "../fonts/GokubutoTogeToge.woff";
 
 export const fontStatusWatcher = mitt();
 
@@ -51,7 +51,7 @@ export default [
       loadFont("851チカラヨワク", { ChikaraYowaku }),
       loadFont("玉ねぎ楷書「激」", { TamanegiKaishoGeki }),
       loadFont("PixelMplus", { PixelMplus }),
-      loadFont("レゲエ", { Reggae }),
+      loadFont("極太トゲトゲ", { GokubutoTogeToge }),
       loadFont("ランパート", { Rampart }),
     ],
   },

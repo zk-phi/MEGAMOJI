@@ -35,8 +35,8 @@
   - (c) 玉ねぎ / [独自ライセンス](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/TamanegiKaishoGeki.txt)
 - PixelMplus
   - (c) Itou Hiroki / [M+ Fonts License](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/mplus.txt)
-- レゲエ
-  - (c) The Reggae Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
+- 極太トゲトゲ
+  - (c) やっちゃん / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 - ランパート
   - (c) The Rampart Project Authors / [SIL OFL (without RFN)](https://github.com/zk-phi/MEGAMOJI/blob/master/resources/licenses/ofl1-1-no-rfn.txt)
 
