@@ -1,7 +1,7 @@
 import { Animation } from "../types";
 import { flipContext, fixDrawImage } from "../utils/canvas";
 
-const animationKanpai: Animation = (
+const animationKanpai: Animation = async (
   keyframe,
   ctx,
   image,
@@ -14,7 +14,7 @@ const animationKanpai: Animation = (
 ) => {
   const size = 0.6 - 0.6 * Math.sin(Math.PI * keyframe); /* 0.6 -> 0 -> 0.6 */
   flipContext(ctx, cellWidth);
-  fixDrawImage(
+  await fixDrawImage(
     ctx,
     image,
     offsetH,
@@ -27,7 +27,7 @@ const animationKanpai: Animation = (
     cellHeight / 2,
   );
   flipContext(ctx, cellWidth);
-  fixDrawImage(
+  await fixDrawImage(
     ctx,
     image,
     offsetH,

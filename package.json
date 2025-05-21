@@ -24,6 +24,7 @@
     "gifenc": "mattdesl/gifenc#64842fca317b112a8590f8fef2bf3825da8f6fe3",
     "jszip": "^3.7.1",
     "mitt": "^3.0.1",
+    "pica": "^9.0.1",
     "rollbar": "^2.24.0",
     "vue": "^3.1.5"
   },
@@ -40,6 +41,7 @@
     "@types/file-saver": "^2.0.3",
     "@types/google.analytics": "^0.0.42",
     "@types/gtag.js": "^0.0.12",
+    "@types/pica": "^9.0.5",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.33.0",
     "@vue/compiler-sfc": "^3.1.4",

@@ -1,7 +1,7 @@
 import { fixDrawImage } from "../utils/canvas";
 import { Animation } from "../types";
 
-const animationScrollFull: Animation = (
+const animationScrollFull: Animation = async (
   keyframe,
   ctx,
   image,
@@ -18,7 +18,7 @@ const animationScrollFull: Animation = (
   const srcWidth = naturalWidth + width; // add margin at the end
   let x = -kf * srcWidth;
   while (x < width * 2) {
-    fixDrawImage(
+    await fixDrawImage(
       ctx,
       image,
       0,

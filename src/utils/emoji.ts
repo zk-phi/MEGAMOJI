@@ -4,7 +4,7 @@ import { cropCanvas, cutoutCanvasIntoCells, fixDrawImage } from "./canvas";
 
 const webglEnabled = webglInitialize();
 
-function renderFrameUncut(
+const renderFrameUncut = async (
   keyframe: number,
   image: HTMLImageElement | HTMLCanvasElement,
   offsetH: number,
@@ -21,7 +21,7 @@ function renderFrameUncut(
   framerate: number,
   framecount: number,
   fillStyle: string,
-) {
+): Promise<HTMLCanvasElement> => {
   /* use larger canvas, because some effects may translate the canvas */
   let canvas = document.createElement("canvas");
   canvas.width = targetWidth * 2;
@@ -31,13 +31,14 @@ function renderFrameUncut(
   if (!ctx) {
     throw new Error("Failed to get rendering context.");
   }
+  ctx.imageSmoothingQuality = "high";
 
   effects.forEach((effect) => {
     effect(keyframe, ctx, targetWidth * 2, targetHeight * 2);
   });
 
   if (animation) {
-    animation(
+    await animation(
       keyframe,
       ctx,
       image,
@@ -51,7 +52,7 @@ function renderFrameUncut(
   } else {
     const left = offsetH - width / 2;
     const top = offsetV - height / 2;
-    fixDrawImage(
+    await fixDrawImage(
       ctx,
       image,
       left,
@@ -88,14 +89,13 @@ function renderFrameUncut(
       fillStyle,
     );
   }
-}
+};
 
 /**
- * ASYNC:
  * returns a 2d-array of (possibly animated) images of specified size (tragetSize).
  * each images may exceed binarySizeLimit.
  */
-function renderAllCellsFixedSize(
+const renderAllCellsFixedSize = async (
   image: HTMLImageElement | HTMLCanvasElement,
   offsetH: number,
   offsetV: number,
@@ -116,13 +116,13 @@ function renderAllCellsFixedSize(
   framecount: number,
   backgroundColor: string,
   transparent: boolean,
-) {
+): Promise<Blob[][]> => {
   const roundedTargetWidth = Math.round(targetWidth);
   const roundedTargetHeight = Math.round(targetHeight);
   const croppedWidth = roundedTargetWidth * (noCrop ? 2 : 1);
   const croppedHeight = roundedTargetHeight * (noCrop ? 2 : 1);
   if (!animated) {
-    const img = renderFrameUncut(
+    const img = await renderFrameUncut(
       0,
       image,
       offsetH,
@@ -173,7 +173,7 @@ function renderAllCellsFixedSize(
     }
     for (let i = 0; i < framecount; i += 1) {
       const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
-      const frame = renderFrameUncut(
+      const frame = await renderFrameUncut(
         keyframe,
         image,
         offsetH,
@@ -220,19 +220,23 @@ function renderAllCellsFixedSize(
         }
       }
     }
-    return Promise.all<Blob[]>(encoders.map((row) => Promise.all<Blob>(row.map((cell) => (
-      new Promise((resolve) => {
-        cell.addEventListener("message", (res) => {
-          cell.terminate();
-          resolve(res.data);
-        });
-        cell.postMessage({
-          finish: true,
-        });
-      })
-    )))));
+    return Promise.all<Blob[]>(
+      encoders.map((row) => Promise.all<Blob>(
+        row.map((cell) => (
+          new Promise((resolve) => {
+            cell.addEventListener("message", (res) => {
+              cell.terminate();
+              resolve(res.data);
+            });
+            cell.postMessage({
+              finish: true,
+            });
+          })
+        ))
+      ))
+    );
   }
-}
+};
 
 /* ASYNC: returns a 2d-array of (possibly animated) images. */
 export function renderAllCells(

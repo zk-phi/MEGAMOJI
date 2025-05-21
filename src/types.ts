@@ -16,7 +16,7 @@ export type Animation = (
   offsetH: number, offsetV: number, width: number, height: number,
 // size of the image to be rendered
   cellWidth: number, cellHeight: number,
-) => void;
+) => Promise<void> | void;
 
 // Effects are called with CanvasRenderingContext2D before rendering, and
 // expected to configure the canvas. Note that users may enable multiple

@@ -1,7 +1,7 @@
 import { fixDrawImage } from "../utils/canvas";
 import { Animation } from "../types";
 
-const animationScroll: Animation = (
+const animationScroll: Animation = async (
   keyframe,
   ctx,
   image,
@@ -13,7 +13,7 @@ const animationScroll: Animation = (
   cellHeight,
 ) => {
   const kf = (keyframe + 0.5) % 1;
-  fixDrawImage(
+  await fixDrawImage(
     ctx,
     image,
     offsetH,
@@ -25,7 +25,7 @@ const animationScroll: Animation = (
     cellWidth / 2,
     cellHeight / 2,
   );
-  fixDrawImage(
+  await fixDrawImage(
     ctx,
     image,
     offsetH,
@@ -37,7 +37,7 @@ const animationScroll: Animation = (
     cellWidth / 2,
     cellHeight / 2,
   );
-  fixDrawImage(
+  await fixDrawImage(
     ctx,
     image,
     offsetH,

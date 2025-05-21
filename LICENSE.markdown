@@ -62,6 +62,8 @@
   - (c) Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso / MIT License
 - Mitt
   - (c) Jason Miller / MIT License
+- pica
+  - (c) Vitaly Puzrin / MIT License
 - Rollbar
   - (c) Rollbar / MIT License
 - Vue.js

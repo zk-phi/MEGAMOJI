@@ -1,10 +1,11 @@
+import * as Pica from "pica";
+
+const pica = new Pica;
+
 /**
- * Like ctx.drawImage, but accepts arguments like:
- *
- * 1. sLeft < 0
- * 2. sLeft + sWidth > image.width
+ * Like ctx.drawImage, but with quality resizing, powered by the pica library
  */
-export const fixDrawImage = (
+export const drawImageWithQuality = async (
   ctx: CanvasRenderingContext2D,
   image: HTMLImageElement | HTMLCanvasElement,
   sLeft: number,
@@ -15,7 +16,50 @@ export const fixDrawImage = (
   tTop: number,
   tWidth: number,
   tHeight: number,
-): void => {
+): Promise<void> => {
+  if (tWidth === 0 || tHeight === 0) return;
+
+  const maxWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
+  const maxHeight = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
+  const xScale = tWidth / sWidth;
+  const yScale = tHeight / sHeight;
+
+  const resized = document.createElement("canvas");
+  resized.width = maxWidth * xScale;
+  resized.height = maxHeight * yScale;
+  await pica.resize(image, resized);
+
+  ctx.drawImage(
+    resized,
+    sLeft * xScale,
+    sTop * yScale,
+    tWidth,
+    tHeight,
+    tLeft,
+    tTop,
+    tWidth,
+    tHeight
+  );
+}
+
+/**
+ * Like ctx.drawImage, but accepts arguments like:
+ *
+ * 1. sLeft < 0
+ * 2. sLeft + sWidth > image.width
+ */
+export const fixDrawImage = async (
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement | HTMLCanvasElement,
+  sLeft: number,
+  sTop: number,
+  sWidth: number,
+  sHeight: number,
+  tLeft: number,
+  tTop: number,
+  tWidth: number,
+  tHeight: number,
+): Promise<void> => {
   const maxWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
   const maxHeight = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
   const xScale = tWidth / sWidth;
@@ -59,7 +103,8 @@ export const fixDrawImage = (
     };
   }
 
-  ctx.drawImage(
+  return drawImageWithQuality(
+    ctx,
     image,
     params.sLeft,
     params.sTop,
