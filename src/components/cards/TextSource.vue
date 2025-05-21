@@ -128,7 +128,7 @@ export default defineComponent({
           this.conf.content,
           this.conf.color,
           this.conf.font,
-          this.emojiSize || EMOJI_SIZE,
+          (this.emojiSize || EMOJI_SIZE) * 1.5,
           this.conf.align,
           Number(this.conf.lineSpacing),
           this.absoluteOutlines,
