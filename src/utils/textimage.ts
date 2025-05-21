@@ -89,7 +89,7 @@ export const makeTextImage = (
     )
   ));
   const lineWidths = images.map((canvas) => canvas.width);
-  const nonZeroWidths = lineWidths.filter(w => w > 1);
+  const nonZeroWidths = lineWidths.filter((w) => w > 1);
   const width = nonZeroWidths.length === 0 ? (
     1
     // besides the name "stretch", we actually downscale lines

@@ -1,6 +1,6 @@
 import * as Pica from "pica";
 
-const pica = new Pica;
+const pica = new Pica();
 
 /**
  * Like ctx.drawImage, but with quality resizing, powered by the pica library
@@ -38,9 +38,9 @@ export const drawImageWithQuality = async (
     tLeft,
     tTop,
     tWidth,
-    tHeight
+    tHeight,
   );
-}
+};
 
 /**
  * Like ctx.drawImage, but accepts arguments like:

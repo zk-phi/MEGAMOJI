@@ -31,6 +31,10 @@ module.exports = {
     // allow named export
     "import/prefer-default-export": "off",
 
+    // Allow await in loop
+    // (because render order is sometimes important)
+    "no-await-in-loop": "off",
+
     // allow importing devDependencies from inside "tests" dir
     "import/no-extraneous-dependencies": ["error", {
       devDependencies: [

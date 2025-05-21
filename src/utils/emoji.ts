@@ -232,8 +232,8 @@ const renderAllCellsFixedSize = async (
               finish: true,
             });
           })
-        ))
-      ))
+        )),
+      )),
     );
   }
 };
