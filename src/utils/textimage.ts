@@ -89,32 +89,42 @@ export const makeTextImage = (
     )
   ));
   const lineWidths = images.map((canvas) => canvas.width);
-  const maxWidth = Math.max.apply(null, lineWidths);
+  const nonZeroWidths = lineWidths.filter(w => w > 1);
+  const width = nonZeroWidths.length === 0 ? (
+    1
+    // besides the name "stretch", we actually downscale lines
+    // to match the narrowest line (for better quality)
+  ) : align === "stretch" ? (
+    Math.min.apply(null, nonZeroWidths)
+  ) : (
+    Math.max.apply(null, nonZeroWidths)
+  );
   const totalHeight = lineSpacingPixels * (images.length - 1) + images.reduce((l, r) => (
     l + r.height
   ), 0);
 
   const canvas = document.createElement("canvas");
-  const paddingWidth = maxWidth * padding;
+  const paddingWidth = width * padding;
   const paddingHeight = totalHeight * padding;
-  canvas.width = maxWidth + (paddingWidth * 2);
+  canvas.width = width + (paddingWidth * 2);
   canvas.height = totalHeight + (paddingHeight * 2);
 
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     throw new Error("Failed to get rendering context.");
   }
+  ctx.imageSmoothingQuality = "high";
 
   let currentHeight = paddingHeight;
   images.forEach((image, ix) => {
     ctx.save();
 
     if (align === "right") {
-      ctx.translate(maxWidth - lineWidths[ix], 0);
+      ctx.translate(width - lineWidths[ix], 0);
     } else if (align === "center") {
-      ctx.translate((maxWidth - lineWidths[ix]) / 2, 0);
+      ctx.translate((width - lineWidths[ix]) / 2, 0);
     } else if (align === "stretch") {
-      ctx.transform(maxWidth / lineWidths[ix], 0, 0, 1, 0, 0);
+      ctx.transform(width / lineWidths[ix], 0, 0, 1, 0, 0);
     }
 
     ctx.drawImage(image, paddingWidth, currentHeight);
