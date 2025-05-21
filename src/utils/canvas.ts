@@ -27,7 +27,26 @@ export const drawImageWithQuality = async (
   const resized = document.createElement("canvas");
   resized.width = maxWidth * xScale;
   resized.height = maxHeight * yScale;
-  await pica.resize(image, resized);
+  try {
+    await pica.resize(image, resized);
+  } catch (_) {
+    // Fallback to the normal drawImage fn
+    const resizeCtx = resized.getContext("2d");
+    if (!resizeCtx) {
+      throw new Error("Failed to get rendering context.");
+    }
+    resizeCtx.drawImage(
+      image,
+      0,
+      0,
+      maxWidth,
+      maxHeight,
+      0,
+      0,
+      resized.width,
+      resized.height,
+    );
+  }
 
   ctx.drawImage(
     resized,
