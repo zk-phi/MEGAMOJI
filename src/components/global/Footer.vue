@@ -14,7 +14,7 @@ export default defineComponent({
       window.open("https://note.com/zk_phi/n/n3a199c99d6d6");
     },
     share() {
-      window.open("http://twitter.com/share?url=https://zk-phi.github.io/MEGAMOJI&text=カスタム絵文字メーカー%20MEGAMOJI&hashtags=メガ文字");
+      window.open("https://twitter.com/share?url=https://zk-phi.github.io/MEGAMOJI&text=カスタム絵文字メーカー%20MEGAMOJI&hashtags=メガ文字");
     },
   },
 });
