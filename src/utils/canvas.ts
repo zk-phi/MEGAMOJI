@@ -17,16 +17,21 @@ export const drawImageWithQuality = async (
   tWidth: number,
   tHeight: number,
 ): Promise<void> => {
-  if (tWidth === 0 || tHeight === 0) return;
+  if (tWidth < 1 || tHeight < 1) return;
 
   const maxWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
   const maxHeight = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
   const xScale = tWidth / sWidth;
   const yScale = tHeight / sHeight;
+  const resizedWidth = maxWidth * xScale;
+  const resizedHeight = maxHeight * yScale;
+
+  if (resizedWidth < 1 || resizedHeight < 1) return;
 
   const resized = document.createElement("canvas");
-  resized.width = maxWidth * xScale;
-  resized.height = maxHeight * yScale;
+  resized.width = resizedWidth;
+  resized.height = resizedHeight;
+
   try {
     await pica.resize(image, resized);
   } catch (_) {
@@ -43,8 +48,8 @@ export const drawImageWithQuality = async (
       maxHeight,
       0,
       0,
-      resized.width,
-      resized.height,
+      resizedWidth,
+      resizedHeight,
     );
   }
 
