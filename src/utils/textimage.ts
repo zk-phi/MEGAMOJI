@@ -1,4 +1,4 @@
-import { shrinkCanvas } from "./canvas";
+import { shrinkCanvas, drawImageWithQuality} from "./canvas";
 
 type GradientColorStop = { color: string, pos: number };
 
@@ -59,7 +59,7 @@ const makeTextImageSingleLine = (
 };
 
 /* Create an image from a (possibly) multi-line text and return as a BlobURL. */
-export const makeTextImage = (
+export const makeTextImage = async (
   text: string,
   color: string,
   font: string,
@@ -72,7 +72,7 @@ export const makeTextImage = (
   outlineY: number,
   gradient: GradientColorStop[],
   padding: number,
-): HTMLCanvasElement => {
+): Promise<HTMLCanvasElement> => {
   const lineSpacingPixels = Math.round(lineSpacing * fontHeight);
 
   const images = text.split("\n").map((line) => (
@@ -115,24 +115,26 @@ export const makeTextImage = (
   }
   ctx.imageSmoothingQuality = "high";
 
-  let currentHeight = 0;
   ctx.translate(paddingWidth, paddingHeight);
-  images.forEach((image, ix) => {
-    ctx.save();
-
-    if (align === "right") {
-      ctx.translate(width - lineWidths[ix], 0);
-    } else if (align === "center") {
-      ctx.translate((width - lineWidths[ix]) / 2, 0);
-    } else if (align === "stretch") {
-      ctx.transform(width / lineWidths[ix], 0, 0, 1, 0, 0);
-    }
-
-    ctx.drawImage(image, 0, currentHeight);
-    currentHeight += image.height + lineSpacingPixels;
-
-    ctx.restore();
-  });
+  await Promise.all(
+    images.map(async (image, ix) => {
+      const top = (image.height + lineSpacingPixels) * ix;
+      if (align === "left") {
+        ctx.drawImage(image, 0, top);
+      } else if (align === "right") {
+        ctx.drawImage(image, width - lineWidths[ix], top);
+      } else if (align === "center") {
+        ctx.drawImage(image, (width - lineWidths[ix]) / 2, top);
+      } else if (align === "stretch") {
+        await drawImageWithQuality(
+          ctx,
+          image,
+          0, 0, image.width, image.height,
+          0, top, width, image.height,
+        );
+      }
+    })
+  );
 
   return canvas;
 };

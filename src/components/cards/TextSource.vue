@@ -114,7 +114,7 @@ export default defineComponent({
     Analytics.changeFont(this.conf.font);
   },
   methods: {
-    render(dirty?: boolean): void {
+    async render(dirty?: boolean): Promise<void> {
       if (dirty) {
         this.dirty = true;
       }
@@ -124,7 +124,7 @@ export default defineComponent({
       this.running = true;
       this.dirty = false;
       if (this.conf.content) {
-        const canvas = makeTextImage(
+        const canvas = await makeTextImage(
           this.conf.content,
           this.conf.color,
           this.conf.font,
