@@ -115,7 +115,6 @@ export const makeTextImage = (
   }
   ctx.imageSmoothingQuality = "high";
 
-  let currentHeight = 0;
   ctx.translate(paddingWidth, paddingHeight);
   images.forEach((image, ix) => {
     ctx.save();
@@ -127,11 +126,10 @@ export const makeTextImage = (
     } else if (align === "stretch") {
       ctx.transform(width / lineWidths[ix], 0, 0, 1, 0, 0);
     }
-
-    ctx.drawImage(image, 0, currentHeight);
-    currentHeight += image.height + lineSpacingPixels;
+    ctx.drawImage(image, 0, 0);
 
     ctx.restore();
+    ctx.translate(0, image.height + lineSpacingPixels);
   });
 
   return canvas;
