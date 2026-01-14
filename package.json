@@ -25,7 +25,7 @@
     "jszip": "^3.7.1",
     "mitt": "^3.0.1",
     "pica": "^9.0.1",
-    "rollbar": "^2.24.0",
+    "rollbar": "^2.26.5",
     "vue": "^3.1.5"
   },
   "devDependencies": {
