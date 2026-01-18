@@ -4,6 +4,8 @@ import { nearestIndex } from "../../utils/array";
 
 type Pos = { left: string, width?: string };
 
+const clamp = (val: number) => Math.max(0, Math.min(1, val));
+
 export default defineComponent({
   props: {
     modelValue: { type: [Number, Array] as PropType<number | [number, number]>, required: true },
@@ -23,27 +25,29 @@ export default defineComponent({
     targetId: null as number | null,
   }),
   computed: {
-    knobPos(): Pos[] {
+    normalizedValues(): number[] {
       const values = Array.isArray(this.modelValue) ? this.modelValue : [this.modelValue];
-      return values.map((value) => {
-        const pos = (value - this.min) / (this.max - this.min);
-        return { left: `${pos * 100}%` };
-      });
+      return values.map((value) => clamp((value - this.min) / (this.max - this.min)));
+    },
+    knobPos(): Pos[] {
+      return this.normalizedValues.map((value) => ({ left: `${value * 100}%` }));
     },
     markPos(): Pos[] {
-      return this.marks.map((mark) => {
+      return this.marks.filter((mark) => (
+        mark >= this.min && mark <= this.max
+      )).map((mark) => {
         const pos = (mark - this.min) / (this.max - this.min);
         return { left: `${pos * 100}%` };
       });
     },
     range(): Pos {
-      if (Array.isArray(this.modelValue)) {
-        const left = (this.modelValue[0] - this.min) / (this.max - this.min);
-        const right = (this.modelValue[1] - this.min) / (this.max - this.min);
-        return { left: `${left * 100}%`, width: `${(right - left) * 100}%` };
+      if (this.normalizedValues.length === 1) {
+        return { left: "0", width: `${this.normalizedValues[0] * 100}%` };
       } else {
-        const width = (this.modelValue - this.min) / (this.max - this.min);
-        return { left: "0", width: `${width * 100}%` };
+        return {
+          left: `${this.normalizedValues[0] * 100}%`,
+          width: `${(this.normalizedValues[1] - this.normalizedValues[0]) * 100}%`,
+        };
       }
     },
   },
@@ -67,11 +71,10 @@ export default defineComponent({
       if (this.moveHandler) return;
       const rect = (this.$refs.container as HTMLDivElement).getBoundingClientRect();
       const startPos = (evt.clientX - rect.left) / rect.width;
-      const startValue = startPos * (this.max - this.min) + this.min;
-      if (!Array.isArray(this.modelValue)) {
+      if (this.normalizedValues.length === 1) {
         this.targetId = 0;
       } else {
-        this.targetId = nearestIndex(this.modelValue, startValue);
+        this.targetId = nearestIndex(this.normalizedValues, startPos);
       }
       this.moveHandler = (e: PointerEvent) => {
         const pos = (e.clientX - rect.left) / rect.width;
