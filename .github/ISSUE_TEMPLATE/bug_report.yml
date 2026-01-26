@@ -1,9 +1,10 @@
 name: 不具合報告
 description: 不具合を発見された方はコチラ
-title: "[Bug] "
+title: "[Bug] タイトルをここに入力"
 body:
   - type: markdown
     attributes:
+      label: 確認
       value: |
         既知の不具合は[こちら](https://scrapbox.io/MEGAMOJI/%F0%9F%93%8C_%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%E3%83%BB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E5%B8%B3)で管理されています。報告前に一度、ご確認ください。
   - type: checkboxes
@@ -31,7 +32,7 @@ body:
     id: what-happened
     attributes:
       label: 不具合の内容
-      description: 発生した事象を教えてください。詳しく書いていただくと解決の可能性が上がります（スクリーンショットなども歓迎です）。
+      description: 発生した事象を教えてください。詳しく書いていただくと解決の可能性が上がります。
       render: markdown
     validations:
       required: true
@@ -41,3 +42,8 @@ body:
       label: 再現手順
       description: 事象が発生するまでの手順がわかれば教えてください。
       render: markdown
+  - type: markdown
+    attributes:
+      label: スクリーンショットについて
+      value: |
+        不具合の状況がわかるスクリーンショットがあれば、この issue を投稿後に、コメントとして添付していただけると助かります🙏
