@@ -4,7 +4,6 @@ title: "[Feature] タイトルをここに入力"
 body:
   - type: markdown
     attributes:
-      label: 確認
       value: |
         既出のアイデアは[こちら](https://scrapbox.io/MEGAMOJI/%F0%9F%93%8C_%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%E3%83%BB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E5%B8%B3)で管理されています。報告前に一度、ご確認ください。
   - type: textarea
