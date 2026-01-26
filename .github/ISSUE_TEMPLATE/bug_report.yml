@@ -1,0 +1,43 @@
+name: 不具合報告
+description: 不具合を発見された方はコチラ
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        既知の不具合は[こちら](https://scrapbox.io/MEGAMOJI/%F0%9F%93%8C_%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%E3%83%BB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E5%B8%B3)で管理されています。報告前に一度、ご確認ください。
+  - type: checkboxes
+    id: devices
+    attributes:
+      label: 端末の種類
+      description: 不具合が発生した端末を選んでください。
+      options:
+        - label: PC
+        - label: スマホ
+        - label: タブレット
+        - label: 他
+  - type: checkboxes
+    id: browser
+    attributes:
+      label: ブラウザの種類
+      description: 不具合が発生したブラウザを選んでください。
+      options:
+        - label: Chrome
+        - label: Safari
+        - label: Firefox
+        - label: Edge
+        - label: 他
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 不具合の内容
+      description: 発生した事象を教えてください。詳しく書いていただくと解決の可能性が上がります（スクリーンショットなども歓迎です）。
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: 再現手順
+      description: 事象が発生するまでの手順がわかれば教えてください。
+      render: markdown
