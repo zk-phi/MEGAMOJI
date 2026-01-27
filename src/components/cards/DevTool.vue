@@ -15,23 +15,45 @@ import TabGroup from "../inputs/TabGroup.vue";
 import TabButton from "../inputs/TabButton.vue";
 import Space from "../global/Space.vue";
 
-const sampleAnimation = `ctx.drawImage(
-  image, offsetH, offsetV, width, height,
-  cellWidth / 4, cellHeight / 4, cellWidth / 2, cellHeight / 2,
-);`;
+const sampleAnimation = `// kf ... アニメーションの進度 (0-1)
+// ctx ... CanvasRenderingContext2D
+// src ... 入力画像
+// sx, sy, sw, sh ... ユーザーが指定した描画範囲
+// dw, dh ... 出力用 canvas のサイズ (外周はカットされます)
 
-const sampleEffect = "ctx.translate(0, 0);";
+const dx = dw/4 * kf;
+const dy = dh/4 * kf;
+
+ctx.drawImage(src, sx, sy, sw, sh, dw/4 + dx, dh/4, dw/4, dh/4);
+ctx.drawImage(src, sx, sy, sw, sh, dw/2, dh/4 + dy, dw/4, dh/4);
+ctx.drawImage(src, sx, sy, sw, sh, dw/4, dh/2 - dy, dw/4, dh/4);
+ctx.drawImage(src, sx, sy, sw, sh, dw/2 - dx, dh/2, dw/4, dh/4);
+`;
+
+const sampleEffect = `// kf ... アニメーションの進度 (0-1)
+// ctx ... CanvasRenderingContext2D
+// dw, dh ... 出力用 canvas のサイズ (外周はカットされます)
+
+const dx = dw/8 * Math.sin(2 * Math.PI * kf);
+ctx.translate(dx, 0);
+`;
 
 const sampleShader = `precision highp float;
-uniform sampler2D texture;
-varying vec2 vUv;
 
-uniform vec2 resolution;
-uniform float keyframe;
+uniform sampler2D texture; // 入力画像
+varying vec2 vUv; // 二次元座標 (0-1)
+
+uniform vec2 resolution; // 画像サイズ [w, h]
+uniform float keyframe; // アニメーションの進度 (0-1)
+
+#define PI 3.14159265359
 
 void main(void) {
-  gl_FragColor = texture2D(texture, vUv);
-}`;
+  vec4 color = texture2D(texture, vUv);
+  float shineFactor = 0.1 * sin(2.0 * PI * keyframe) + 0.1;
+  gl_FragColor =  vec4(color.rgb + shineFactor, color.a);
+}
+`;
 
 export default defineComponent({
   components: {
@@ -66,15 +88,15 @@ export default defineComponent({
     buildAnimation(): void {
       try {
         const animationImpl = new Function(
-          "keyframe",
+          "kf",
           "ctx",
-          "image",
-          "offsetH",
-          "offsetV",
-          "width",
-          "height",
-          "cellWidth",
-          "cellHeight",
+          "src",
+          "sx",
+          "sy",
+          "sw",
+          "sh",
+          "dw",
+          "dh",
           this.source.animation,
         );
         const animation: Animation = (...args) => {
@@ -92,10 +114,10 @@ export default defineComponent({
     buildEffect(): void {
       try {
         const effectImpl = new Function(
-          "keyframe",
+          "kf",
           "ctx",
-          "cellWidth",
-          "cellHeight",
+          "dw",
+          "dh",
           this.source.effect,
         );
         const effect: Effect = (...args) => {
@@ -146,11 +168,8 @@ export default defineComponent({
         <p class="description">
           コンパイルエラーはコンソールを見てください。
         </p>
-        <p v-if="tab === 'animation'" class="description">
-          args: keyframe, ctx, image, offsetH, offsetV, width, height, cellWidth, cellHeight
-        </p>
-        <p v-if="tab === 'effect'" class="description">
-          args: keyframe, ctx, cellWidth, cellHeight
+        <p class="description">
+          ※ 信頼できないコードを貼り付けないで下さい。セキュリティリスクになります。
         </p>
         <Textarea v-model="source[tab]" block :rows="20" />
         <Button @click="build">
@@ -170,7 +189,7 @@ export default defineComponent({
       <template #icon>
         ↩︎
       </template>
-      開発者モードを終わる
+      エフェクトエディタを抜ける
     </Button>
   </Space>
 </template>

@@ -90,7 +90,6 @@ export default defineComponent({
       easings,
       TRIMMING_OPTIONS,
       SPEED_OPTIONS,
-      isDev: NODE_ENV === "development",
       conf: {
         /* basic */
         trimming: TRIMMING_OPTIONS[0],
@@ -292,12 +291,12 @@ export default defineComponent({
                   @update:model-value="changeEmojiSize" />
             </Space>
           </Fieldset>
-          <Fieldset v-if="showDetails && isDev" label="開発者向け">
-            <Button danger type="text" name="開発者モード" @click="devMode = true">
+          <Fieldset v-if="showDetails" label="開発者向け">
+            <Button danger type="text" name="エフェクトエディタ" @click="devMode = true">
               <template #icon>
                 🔨
               </template>
-              開発者モード
+              エフェクトエディタ
             </Button>
           </Fieldset>
         </Space>
