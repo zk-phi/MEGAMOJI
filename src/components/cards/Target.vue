@@ -33,8 +33,6 @@ import {
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
-import { NODE_ENV } from "../../utils/env";
-
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
