@@ -239,7 +239,7 @@ const renderAllCellsFixedSize = async (
 };
 
 /* ASYNC: returns a 2d-array of (possibly animated) images. */
-export function renderAllCells(
+export async function renderAllCells(
   image: HTMLImageElement | HTMLCanvasElement,
   offsetH: number,
   offsetV: number,
@@ -262,8 +262,39 @@ export function renderAllCells(
   transparent: boolean,
   binarySizeLimit: number,
 ): Promise<Blob[][]> {
-  return new Promise((resolve) => {
-    renderAllCellsFixedSize(
+  const render = await renderAllCellsFixedSize(
+    image,
+    offsetH,
+    offsetV,
+    hCells,
+    vCells,
+    srcWidth,
+    srcHeight,
+    maxWidth,
+    maxHeight,
+    noCrop,
+    animated,
+    animation,
+    animationInvert,
+    effects,
+    webglEffects,
+    easing,
+    framerate,
+    framecount,
+    backgroundColor,
+    transparent,
+  );
+
+  /**
+   * If a cell exceeds the limitation, retry with smaller cell size.
+   * This does not happen in most cases.
+   */
+  const shouldRetry = render.some((row) => row.some((cell: Blob) => (
+    cell.size >= binarySizeLimit
+  )));
+
+  if (shouldRetry) {
+    return renderAllCells(
       image,
       offsetH,
       offsetV,
@@ -271,8 +302,8 @@ export function renderAllCells(
       vCells,
       srcWidth,
       srcHeight,
-      maxWidth,
-      maxHeight,
+      maxWidth * 0.9,
+      maxHeight * 0.9,
       noCrop,
       animated,
       animation,
@@ -284,41 +315,9 @@ export function renderAllCells(
       framecount,
       backgroundColor,
       transparent,
-    ).then((ret) => {
-      /**
-       * If a cell exceeds the limitation, retry with smaller cell size.
-       * This does not happen in most cases.
-       */
-      const shouldRetry = ret.some((row) => row.some((cell: Blob) => (
-        cell.size >= binarySizeLimit
-      )));
-      if (shouldRetry) {
-        renderAllCells(
-          image,
-          offsetH,
-          offsetV,
-          hCells,
-          vCells,
-          srcWidth,
-          srcHeight,
-          maxWidth * 0.9,
-          maxHeight * 0.9,
-          noCrop,
-          animated,
-          animation,
-          animationInvert,
-          effects,
-          webglEffects,
-          easing,
-          framerate,
-          framecount,
-          backgroundColor,
-          transparent,
-          binarySizeLimit,
-        ).then(resolve);
-      } else {
-        resolve(ret);
-      }
-    });
-  });
+      binarySizeLimit,
+    );
+  } else {
+    return render;
+  }
 }
