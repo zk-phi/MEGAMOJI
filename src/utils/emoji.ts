@@ -117,10 +117,9 @@ const renderAllCellsFixedSize = async (
   backgroundColor: string,
   transparent: boolean,
 ): Promise<Blob[][]> => {
-  const roundedTargetWidth = Math.round(targetWidth);
-  const roundedTargetHeight = Math.round(targetHeight);
-  const croppedWidth = roundedTargetWidth * (noCrop ? 2 : 1);
-  const croppedHeight = roundedTargetHeight * (noCrop ? 2 : 1);
+  const croppedWidth = targetWidth * (noCrop ? 2 : 1);
+  const croppedHeight = targetHeight * (noCrop ? 2 : 1);
+
   if (!animated) {
     const img = await renderFrameUncut(
       0,
@@ -129,8 +128,8 @@ const renderAllCellsFixedSize = async (
       offsetV,
       srcWidth,
       srcHeight,
-      roundedTargetWidth * hCells,
-      roundedTargetHeight * vCells,
+      targetWidth * hCells,
+      targetHeight * vCells,
       noCrop,
       animation,
       animationInvert,
@@ -180,8 +179,8 @@ const renderAllCellsFixedSize = async (
         offsetV,
         srcWidth,
         srcHeight,
-        roundedTargetWidth * hCells,
-        roundedTargetHeight * vCells,
+        targetWidth * hCells,
+        targetHeight * vCells,
         noCrop,
         animation,
         animationInvert,
@@ -262,6 +261,9 @@ export async function renderAllCells(
   transparent: boolean,
   binarySizeLimit: number,
 ): Promise<Blob[][]> {
+  const targetWidth = Math.round(maxWidth);
+  const targetHeight = Math.round(maxHeight);
+
   const render = await renderAllCellsFixedSize(
     image,
     offsetH,
@@ -270,8 +272,8 @@ export async function renderAllCells(
     vCells,
     srcWidth,
     srcHeight,
-    maxWidth,
-    maxHeight,
+    targetWidth,
+    targetHeight,
     noCrop,
     animated,
     animation,
