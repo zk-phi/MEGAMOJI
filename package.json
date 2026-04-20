@@ -29,7 +29,7 @@
     "vue": "^3.1.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.50.0",
+    "@playwright/test": "^1.57.0",
     "@primer/css": "20.x",
     "@primer/stylelint-config": "12.x",
     "@storybook/addon-essentials": "^6.3.4",
