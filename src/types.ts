@@ -11,7 +11,7 @@ export type Animation = (
   // a (possively) effected 2d rendering context
   ctx: CanvasRenderingContext2D,
   // the source image to be rendered
-  image: HTMLImageElement | HTMLCanvasElement,
+  image: HTMLCanvasElement,
   // range of the source image to be rendered
   offsetH: number, offsetV: number, width: number, height: number,
 // size of the image to be rendered

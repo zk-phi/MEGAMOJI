@@ -14,8 +14,7 @@ const animationScrollFull: Animation = async (
 ) => {
   const kf = (keyframe + 0.75) % 1;
   const ratio = (cellWidth / 2) / width;
-  const naturalWidth = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
-  const srcWidth = naturalWidth + width; // add margin at the end
+  const srcWidth = image.width + width; // add margin at the end
   let x = -kf * srcWidth;
   while (x < width * 2) {
     await fixDrawImage(

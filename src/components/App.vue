@@ -40,7 +40,7 @@ export default defineComponent({
   },
   data() {
     return {
-      baseImage: null as (HTMLImageElement | HTMLCanvasElement | null),
+      baseImage: null as (HTMLCanvasElement | null),
       name: null as (string | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
@@ -70,7 +70,7 @@ export default defineComponent({
       this.resultImages = imgs;
       Analytics.render();
     },
-    onRender(img: HTMLImageElement, name: string): void {
+    onRender(img: HTMLCanvasElement, name: string): void {
       this.baseImage = img;
       this.name = name;
     },

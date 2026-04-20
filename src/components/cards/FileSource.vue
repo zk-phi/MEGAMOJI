@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { imgToCanvas } from "../../utils/canvas";
 import Card from "../global/Card.vue";
 import FileSelect from "../inputs/FileSelect.vue";
 import Select from "../inputs/Select.vue";
@@ -44,7 +45,7 @@ export default defineComponent({
         if (this.conf.filter) {
           this.$emit("render", this.conf.filter.value(this.conf.img), null);
         } else {
-          this.$emit("render", this.conf.img, null);
+          this.$emit("render", imgToCanvas(this.conf.img), null);
         }
       }
     },

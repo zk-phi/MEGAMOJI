@@ -70,7 +70,7 @@ export default defineComponent({
     DevTool,
   },
   props: {
-    baseImage: { type: Object as PropType<HTMLImageElement | HTMLCanvasElement>, default: null },
+    baseImage: { type: Object as PropType<HTMLCanvasElement>, default: null },
     show: { type: Boolean, required: true },
     emojiSize: { type: Number, default: null },
   },
@@ -164,8 +164,8 @@ export default defineComponent({
     refreshDefaultSettings(): void {
       if (this.baseImage) {
         const image = this.baseImage;
-        const height = image instanceof HTMLImageElement ? image.naturalHeight : image.height;
-        const width = image instanceof HTMLImageElement ? image.naturalWidth : image.width;
+        const height = image.height;
+        const width = image.width;
         const hCells = this.conf.cells[0];
         const vCells = this.conf.cells[1];
         let widthPerCell = width / hCells;

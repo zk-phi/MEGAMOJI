@@ -6,7 +6,7 @@ const webglEnabled = webglInitialize();
 
 const renderFrameUncut = async (
   keyframe: number,
-  image: HTMLImageElement | HTMLCanvasElement,
+  image: HTMLCanvasElement,
   offsetH: number,
   offsetV: number,
   width: number,
@@ -96,7 +96,7 @@ const renderFrameUncut = async (
  * each images may exceed binarySizeLimit.
  */
 const renderAllCellsFixedSize = async (
-  image: HTMLImageElement | HTMLCanvasElement,
+  image: HTMLCanvasElement,
   offsetH: number,
   offsetV: number,
   hCells: number,
@@ -239,7 +239,7 @@ const renderAllCellsFixedSize = async (
 
 /* ASYNC: returns a 2d-array of (possibly animated) images. */
 export async function renderAllCells(
-  image: HTMLImageElement | HTMLCanvasElement,
+  image: HTMLCanvasElement,
   offsetH: number,
   offsetV: number,
   hCells: number,

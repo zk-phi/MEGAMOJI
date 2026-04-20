@@ -305,3 +305,18 @@ export const mergeImages = (
   };
   img.src = srcs[0];
 });
+
+export const imgToCanvas = (img: HTMLImageElement): HTMLCanvasElement => {
+  const canvas = document.createElement("canvas");
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("Failed to get rendering context.");
+  }
+
+  ctx.drawImage(img, 0, 0);
+
+  return canvas;
+}
