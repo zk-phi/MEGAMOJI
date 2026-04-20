@@ -18,11 +18,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <Space vertical large>
-    <Card class="result" title="元画像">
-      <img class="base-image" :src="imageUrl">
-    </Card>
-  </Space>
+  <Card class="result" title="元画像">
+    <img class="base-image" :src="imageUrl">
+  </Card>
 </template>
 
 <style scoped>
