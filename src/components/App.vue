@@ -8,6 +8,7 @@ import FileSource from "./cards/FileSource.vue";
 import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
+import BaseImage from "./cards/BaseImage.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import TabButton from "./inputs/TabButton.vue";
 import TabGroup from "./inputs/TabGroup.vue";
@@ -17,6 +18,7 @@ import GridItem from "./global/GridItem.vue";
 import Image from "./icons/Image.vue";
 import Text from "./icons/Text.vue";
 import Emoji from "./icons/Emoji.vue";
+import { NODE_ENV } from "../utils/env";
 import "../css/destyle.css";
 
 export default defineComponent({
@@ -26,6 +28,7 @@ export default defineComponent({
     FukumojiSource,
     Target,
     Result,
+    BaseImage,
     Tutorial,
     TabButton,
     TabGroup,
@@ -45,6 +48,7 @@ export default defineComponent({
       resultImages: [[]] as Blob[][],
       previewMode: false,
       emojiSize: null as (number | null),
+      isDev: NODE_ENV === "development",
       /* ui */
       ui: {
         mode: "text",
@@ -137,12 +141,14 @@ export default defineComponent({
         </GridItem>
         <GridItem>
           <Tutorial v-if="!baseImage" />
-          <Result
-              v-else
-              :images="resultImages"
-              :name="name"
-              :show-target="ui.showTargetPanel"
-              @toggle-show-target="onToggleShowTarget" />
+          <Space v-else vertical large>
+            <BaseImage v-if="isDev" :image="baseImage" />
+            <Result
+                :images="resultImages"
+                :name="name"
+                :show-target="ui.showTargetPanel"
+                @toggle-show-target="onToggleShowTarget" />
+          </Space>
         </GridItem>
       </Grid>
 
