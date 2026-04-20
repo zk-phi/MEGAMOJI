@@ -164,8 +164,7 @@ export default defineComponent({
     refreshDefaultSettings(): void {
       if (this.baseImage) {
         const image = this.baseImage;
-        const height = image.height;
-        const width = image.width;
+        const { height, width } = image;
         const hCells = this.conf.cells[0];
         const vCells = this.conf.cells[1];
         let widthPerCell = width / hCells;

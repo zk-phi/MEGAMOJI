@@ -1,16 +1,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { saveAs } from "file-saver";
-import filenamify from "filenamify/browser";
-import { extension, prepareDownloadFile } from "../../utils/file";
-import Analytics from "../../utils/analytics";
-import RawResult from "../emoji/RawResult.vue";
 import Card from "../global/Card.vue";
-import { NODE_ENV } from "../../utils/env";
 
 export default defineComponent({
   components: {
-    RawResult, Card,
+    Card,
   },
   props: {
     image: { type: Object as PropType<HTMLCanvasElement>, required: true },
@@ -26,7 +20,7 @@ export default defineComponent({
 <template>
   <Space vertical large>
     <Card class="result" title="元画像">
-      <img class="base-image" :src="imageUrl" />
+      <img class="base-image" :src="imageUrl">
     </Card>
   </Space>
 </template>

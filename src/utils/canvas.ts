@@ -319,4 +319,4 @@ export const imgToCanvas = (img: HTMLImageElement): HTMLCanvasElement => {
   ctx.drawImage(img, 0, 0);
 
   return canvas;
-}
+};
