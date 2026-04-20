@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig = {
     // { name: "Mobile Safari", use: { ...devices["iPhone 12"] } },
   ],
   webServer: {
-    command: "NODE_ENV=production npm run start",
+    command: "npm run start",
     port: 8080,
     timeout: 2 * 60 * 1000,
   },
