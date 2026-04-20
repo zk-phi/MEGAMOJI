@@ -270,11 +270,13 @@ export const cutoutCanvasIntoCells = (
 };
 
 /* Create an img object, set src attr to the specified url, and return it. */
-export const urlToImg = (url: string, cb: (img: HTMLImageElement) => void): void => {
-  const img = document.createElement("img");
-  img.src = url;
-  img.onload = () => cb(img);
-};
+export const urlToImg = async (url: string): Promise<HTMLImageElement> => (
+  new Promise((resolve) => {
+    const img = document.createElement("img");
+    img.src = url;
+    img.onload = () => resolve(img);
+  })
+);
 
 export const mergeImages = (
   w: number,

@@ -44,7 +44,7 @@ export default defineComponent({
         this.file = e.target.files[0];
         if (this.type === "img") {
           loadFileAsBlobURL(this.file).then((blobUrl) => {
-            urlToImg(blobUrl, (img) => {
+            urlToImg(blobUrl).then((img) => {
               if (img.naturalWidth !== 0 && img.naturalHeight !== 0) {
                 this.$emit("load", img);
               }
