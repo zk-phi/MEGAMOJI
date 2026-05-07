@@ -70,6 +70,9 @@ export default defineComponent({
         padding: 0,
         letterSpacing: 0,
         margin: 0.025,
+        monospaceLayoutEnabled: false,
+        cellAlign: "center",
+        cellWidthBasis: "line",
         filename: "",
         fontReady: false,
       },
@@ -169,6 +172,9 @@ export default defineComponent({
           this.conf.gradientMarker,
           Number(this.conf.letterSpacing) || undefined,
           Number(this.conf.margin) || undefined,
+          this.conf.monospaceLayoutEnabled,
+          this.conf.cellAlign,
+          this.conf.cellWidthBasis,
         );
         const name = this.conf.filename?.replace(/\n/g, "") || jaToRoomaji(this.conf.content).replace(/\n/g, "");
         this.$emit("render", canvas, name);
@@ -232,6 +238,58 @@ export default defineComponent({
                   <AlignRight />
                 </ToggleButton>
               </Space>
+              <Space small>
+                <ToggleButton
+                    v-model="conf.monospaceLayoutEnabled"
+                    name="均等幅文字モード"
+                    :value="true">
+                  {{ "均等幅文字モード" }}
+                </ToggleButton>
+              </Space>
+              <Fieldset v-if="conf.monospaceLayoutEnabled" label="セル内配置">
+                <Space small>
+                  <ToggleButton
+                      v-model="conf.cellAlign"
+                      name="セル内左揃え"
+                      value="left">
+                    {{ "左" }}
+                  </ToggleButton>
+                  <ToggleButton
+                      v-model="conf.cellAlign"
+                      name="セル内中央揃え"
+                      value="center">
+                    {{ "中央" }}
+                  </ToggleButton>
+                  <ToggleButton
+                      v-model="conf.cellAlign"
+                      name="セル内右揃え"
+                      value="right">
+                    {{ "右" }}
+                  </ToggleButton>
+                  <ToggleButton
+                      v-model="conf.cellAlign"
+                      name="セル内均等配置"
+                      value="justify">
+                    {{ "均等" }}
+                  </ToggleButton>
+                </Space>
+              </Fieldset>
+              <Fieldset v-if="conf.monospaceLayoutEnabled" label="セル幅基準">
+                <Space small>
+                  <ToggleButton
+                      v-model="conf.cellWidthBasis"
+                      name="行ごとの最大幅"
+                      value="line">
+                    {{ "行ごと" }}
+                  </ToggleButton>
+                  <ToggleButton
+                      v-model="conf.cellWidthBasis"
+                      name="全体の最大幅"
+                      value="global">
+                    {{ "全体共通" }}
+                  </ToggleButton>
+                </Space>
+              </Fieldset>
             </Space>
           </Fieldset>
           <Fieldset
