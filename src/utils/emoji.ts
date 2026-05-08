@@ -152,13 +152,13 @@ const renderAllCellsFixedSize = async (
     const delayPerFrame = 1000 / framerate;
     const encoders = [];
     const initializeEncoder = () => {
-      const encoder = new Worker("./gifworker.js");
+      const encoder = new Worker("./apngworker.js");
       encoder.postMessage({
         initialize: {
           height: croppedHeight,
           width: croppedWidth,
           delay: delayPerFrame,
-          transparent,
+          loops: 1,
         },
       });
       return encoder;
