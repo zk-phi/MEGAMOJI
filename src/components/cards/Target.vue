@@ -33,6 +33,8 @@ import {
   FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
+import { NODE_ENV } from "../../utils/env";
+
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
@@ -88,6 +90,7 @@ export default defineComponent({
       easings,
       TRIMMING_OPTIONS,
       SPEED_OPTIONS,
+      isDev: NODE_ENV === "development",
       conf: {
         /* basic */
         trimming: TRIMMING_OPTIONS[0],
@@ -288,7 +291,7 @@ export default defineComponent({
                   @update:model-value="changeEmojiSize" />
             </Space>
           </Fieldset>
-          <Fieldset v-if="showDetails" label="開発者向け">
+          <Fieldset v-if="showDetails && isDev" label="開発者向け">
             <Button danger type="text" name="エフェクトエディタ" @click="devMode = true">
               <template #icon>
                 🔨
