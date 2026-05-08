@@ -1,6 +1,7 @@
 import { Animation, Effect, WebGLEffect, Easing } from "../types";
 import { webglApplyEffects, webglInitialize } from "./webgl";
 import { cropCanvas, cutoutCanvasIntoCells, fixDrawImage } from "./canvas";
+import { FRAMECOUNT } from "../constants/emoji";
 
 const webglEnabled = webglInitialize();
 
@@ -18,8 +19,6 @@ const renderFrameUncut = async (
   animationInvert: boolean,
   effects: Effect[],
   webglEffects: WebGLEffect[],
-  framerate: number,
-  framecount: number,
   fillStyle: string,
 ): Promise<HTMLCanvasElement> => {
   /* use larger canvas, because some effects may translate the canvas */
@@ -112,8 +111,8 @@ const renderAllCellsFixedSize = async (
   effects: Effect[],
   webglEffects: WebGLEffect[],
   easing: Easing,
-  framerate: number,
-  framecount: number,
+  repeats: number,
+  duration: number,
   backgroundColor: string,
   transparent: boolean,
 ): Promise<Blob[][]> => {
@@ -135,8 +134,6 @@ const renderAllCellsFixedSize = async (
       animationInvert,
       effects,
       webglEffects,
-      framerate,
-      framecount,
       transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
     );
     const cells = cutoutCanvasIntoCells(img, 0, 0, hCells, vCells, croppedWidth, croppedHeight);
@@ -149,7 +146,26 @@ const renderAllCellsFixedSize = async (
     )));
   } else {
     /* instantiate GIF encoders for each cells */
+    const [loops, repsPerLoop] = repeats >= 4 && repeats % 4 === 0 ? (
+      [4, repeats / 4]
+    ) : repeats >= 3 && repeats % 3 === 0 ? (
+      [3, repeats / 3]
+    ) : repeats >= 2 && repeats % 2 === 0 ? (
+      [2, repeats / 2]
+    ) : (
+      [1, repeats]
+    );
+    const durationPerRep = duration / repeats;
+    const framesPerRep = Math.min(FRAMECOUNT / repsPerLoop);
+    const framerate = framesPerRep / durationPerRep;
     const delayPerFrame = 1000 / framerate;
+    console.log({
+      fps: framerate,
+      loopDuration: durationPerRep * repsPerLoop,
+      loopFrames: framesPerRep * repsPerLoop,
+      loops,
+      totalDuration: delayPerFrame * framesPerRep * repsPerLoop * loops / 1000,
+    });
     const encoders = [];
     const initializeEncoder = () => {
       const encoder = new Worker("./apngworker.js");
@@ -158,7 +174,7 @@ const renderAllCellsFixedSize = async (
           height: croppedHeight,
           width: croppedWidth,
           delay: delayPerFrame,
-          loops: 1,
+          loops,
         },
       });
       return encoder;
@@ -170,52 +186,52 @@ const renderAllCellsFixedSize = async (
       }
       encoders.push(row);
     }
-    for (let i = 0; i < framecount; i += 1) {
-      const keyframe = animationInvert ? 1 - easing(i / framecount) : easing(i / framecount);
-      const frame = await renderFrameUncut(
-        keyframe,
-        image,
-        offsetH,
-        offsetV,
-        srcWidth,
-        srcHeight,
-        targetWidth * hCells,
-        targetHeight * vCells,
-        noCrop,
-        animation,
-        animationInvert,
-        effects,
-        webglEffects,
-        framerate,
-        framecount,
-        transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
-      );
-      const imgCells = cutoutCanvasIntoCells(
-        frame,
-        0,
-        0,
-        hCells,
-        vCells,
-        croppedWidth,
-        croppedHeight,
-      );
-      for (let y = 0; y < vCells; y += 1) {
-        for (let x = 0; x < hCells; x += 1) {
-          const ctx = imgCells[y][x].getContext("2d");
-          if (!ctx) {
-            throw new Error("Failed to get rendering context.");
+    for (let rep = 0; rep < repsPerLoop; rep += 1) {
+      for (let i = 0; i < framesPerRep; i += 1) {
+        const keyframe = animationInvert ? 1 - easing(i / framesPerRep) : easing(i / framesPerRep);
+        const frame = await renderFrameUncut(
+          keyframe,
+          image,
+          offsetH,
+          offsetV,
+          srcWidth,
+          srcHeight,
+          targetWidth * hCells,
+          targetHeight * vCells,
+          noCrop,
+          animation,
+          animationInvert,
+          effects,
+          webglEffects,
+          transparent ? "rgba(0, 0, 0, 0)" : backgroundColor,
+        );
+        const imgCells = cutoutCanvasIntoCells(
+          frame,
+          0,
+          0,
+          hCells,
+          vCells,
+          croppedWidth,
+          croppedHeight,
+        );
+        for (let y = 0; y < vCells; y += 1) {
+          for (let x = 0; x < hCells; x += 1) {
+            const ctx = imgCells[y][x].getContext("2d");
+            if (!ctx) {
+              throw new Error("Failed to get rendering context.");
+            }
+
+            const { data } = ctx.getImageData(
+              0,
+              0,
+              croppedWidth,
+              croppedHeight,
+            );
+
+            encoders[y][x].postMessage({
+              addFrame: data,
+            });
           }
-
-          const { data } = ctx.getImageData(
-            0,
-            0,
-            croppedWidth,
-            croppedHeight,
-          );
-
-          encoders[y][x].postMessage({
-            addFrame: data,
-          });
         }
       }
     }
@@ -255,8 +271,8 @@ export async function renderAllCells(
   effects: Effect[],
   webglEffects: WebGLEffect[],
   easing: Easing,
-  framerate: number,
-  framecount: number,
+  repeats: number,
+  duration: number,
   backgroundColor: string,
   transparent: boolean,
   binarySizeLimit: number,
@@ -281,8 +297,8 @@ export async function renderAllCells(
     effects,
     webglEffects,
     easing,
-    framerate,
-    framecount,
+    repeats,
+    duration,
     backgroundColor,
     transparent,
   );
@@ -313,8 +329,8 @@ export async function renderAllCells(
       effects,
       webglEffects,
       easing,
-      framerate,
-      framecount,
+      repeats,
+      duration,
       backgroundColor,
       transparent,
       binarySizeLimit,
