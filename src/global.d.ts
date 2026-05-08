@@ -31,3 +31,14 @@ declare module "*.glsl" {
 declare module "filenamify/browser" {
   export default function (input: string, options?: { replacement: string }): string;
 }
+
+declare module "upng-js" {
+  export function encode(
+    imgs: ArrayBuffer[],
+    w: number,
+    h: number,
+    cnum: number,
+    dels: number[],
+    opts: { loop?: number },
+  ): ArrayBuffer;
+}
