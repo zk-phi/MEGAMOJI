@@ -8,7 +8,6 @@ import FileSource from "./cards/FileSource.vue";
 import FukumojiSource from "./cards/FukumojiSource.vue";
 import Target from "./cards/Target.vue";
 import Result from "./cards/Result.vue";
-import BaseImage from "./cards/BaseImage.vue";
 import Tutorial from "./cards/Tutorial.vue";
 import TabButton from "./inputs/TabButton.vue";
 import TabGroup from "./inputs/TabGroup.vue";
@@ -28,7 +27,6 @@ export default defineComponent({
     FukumojiSource,
     Target,
     Result,
-    BaseImage,
     Tutorial,
     TabButton,
     TabGroup,
@@ -142,7 +140,6 @@ export default defineComponent({
         <GridItem>
           <Tutorial v-if="!baseImage" />
           <Space v-else vertical large>
-            <BaseImage v-if="isDev" :image="baseImage" />
             <Result
                 :images="resultImages"
                 :name="name"
