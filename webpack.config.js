@@ -11,6 +11,7 @@ module.exports = (env, argv) => ({
   entry: {
     bundle: "./src/megamoji",
     gifworker: "./src/gifworker",
+    apngworker: "./src/apngworker",
   },
   devServer: {
     static: {
