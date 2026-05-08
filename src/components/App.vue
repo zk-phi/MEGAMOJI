@@ -47,7 +47,7 @@ export default defineComponent({
       name: null as (string | null),
       resultImages: [[]] as Blob[][],
       previewMode: false,
-      emojiSize: null as (number | null),
+      emojiSize: 270,
       isDev: NODE_ENV === "development",
       /* ui */
       ui: {
