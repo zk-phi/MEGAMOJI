@@ -22,7 +22,7 @@ import AlignRight from "../icons/AlignRight.vue";
 import { ColorStop } from "../../types";
 import { absColor } from "../../utils/color";
 import { makeTextImage } from "../../utils/textimage";
-import { EMOJI_SIZE } from "../../constants/emoji";
+import { EMOJI_SIZE, OUTLINE_THICKNESS } from "../../constants/emoji";
 import fonts from "../../constants/fonts";
 
 type PaddingOption = { label: string, value: number };
@@ -70,7 +70,7 @@ export default defineComponent({
         color: "#ffb700",
         gradient: [] as ColorStop[],
         outlines: [] as string[],
-        outlineThickness: 8,
+        outlineThickness: 1.0,
         outlineX: 0,
         outlineY: 0,
         padding: PADDING_OPTIONS[0],
@@ -132,7 +132,7 @@ export default defineComponent({
           this.conf.align,
           Number(this.conf.lineSpacing),
           this.absoluteOutlines,
-          this.conf.outlineThickness,
+          this.conf.outlineThickness * OUTLINE_THICKNESS * (this.emojiSize || EMOJI_SIZE),
           this.conf.outlineX,
           this.conf.outlineY,
           this.absoluteGradient,

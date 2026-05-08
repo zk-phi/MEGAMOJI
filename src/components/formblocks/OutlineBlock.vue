@@ -53,11 +53,11 @@ export default defineComponent({
     },
     toggle3D(): void {
       if (this.posX === 0 && this.posY === 0) {
-        this.$emit("update:thickness", 4);
+        this.$emit("update:thickness", 0.5);
         this.$emit("update:posX", -0.9);
         this.$emit("update:posY", -0.9);
       } else {
-        this.$emit("update:thickness", 8);
+        this.$emit("update:thickness", 1.0);
         this.$emit("update:posX", 0);
         this.$emit("update:posY", 0);
       }
@@ -107,9 +107,9 @@ export default defineComponent({
       <Slider
           :model-value="thickness"
           block
-          :min="2"
-          :max="12"
-          :step="1"
+          :min="0"
+          :max="2"
+          :step="0.1"
           @update:model-value="$emit('update:thickness', $event)" />
     </Fieldset>
     <Fieldset label="アウトライン位置 (横)">
