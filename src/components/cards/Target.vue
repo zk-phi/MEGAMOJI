@@ -109,7 +109,7 @@ export default defineComponent({
         easing: easings[0],
         duration: SPEED_OPTIONS[2].value,
         backgroundColor: "#ffffff",
-        transparent: false,
+        transparent: true,
       },
       showDetails: false,
       devMode: false,
