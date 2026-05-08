@@ -26,6 +26,7 @@
     "mitt": "^3.0.1",
     "pica": "^9.0.1",
     "rollbar": "^2.24.0",
+    "upng-js": "zk-phi/UPNG.js",
     "vue": "^3.1.5"
   },
   "devDependencies": {
