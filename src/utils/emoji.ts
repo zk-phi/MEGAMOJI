@@ -174,6 +174,7 @@ const renderAllCellsFixedSize = async (
           height: croppedHeight,
           width: croppedWidth,
           delay: delayPerFrame,
+          cnum: 512,
           loops,
         },
       });
