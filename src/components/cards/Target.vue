@@ -29,8 +29,6 @@ import {
   EMOJI_SIZE,
   ANIMATED_EMOJI_SIZE,
   BINARY_SIZE_LIMIT,
-  FRAMERATE_MAX,
-  FRAMECOUNT_MAX,
 } from "../../constants/emoji";
 
 import { NODE_ENV } from "../../utils/env";
@@ -38,7 +36,7 @@ import { NODE_ENV } from "../../utils/env";
 type AnimationOption = { label: string, value: Animation };
 type EffectOption = { label: string, value: Effect };
 type WebGLEffectOption = { label: string, value: WebGLEffect };
-type SpeedOption = { label: string, value: number };
+type SpeedOption = { label: string, value: { duration: number, repeats: number } };
 
 const TRIMMING_OPTIONS = [
   { label: "ぴっちり", value: "" },
@@ -48,10 +46,10 @@ const TRIMMING_OPTIONS = [
 ];
 
 const SPEED_OPTIONS = [
-  { label: "コマ送り", value: 2.0 },
-  { label: "ゆっくり", value: 1.3 },
-  { label: "ふつう", value: 0.8 },
-  { label: "はやい", value: 0.3 },
+  { label: "超ゆっくり", value: { duration: 4.0, repeats: 2 } },
+  { label: "ゆっくり", value: { duration: 3.9, repeats: 3 } },
+  { label: "ふつう", value: { duration: 3.2, repeats: 4 } },
+  { label: "はやい", value: { duration: 3.6, repeats: 12 } },
 ];
 
 export default defineComponent({
@@ -107,7 +105,8 @@ export default defineComponent({
         trimV: [0, 0],
         noCrop: false,
         easing: easings[0],
-        duration: SPEED_OPTIONS[2].value,
+        repeats: SPEED_OPTIONS[2].value.repeats,
+        duration: SPEED_OPTIONS[2].value.duration,
         backgroundColor: "#ffffff",
         transparent: true,
       },
@@ -194,7 +193,8 @@ export default defineComponent({
       }
     },
     selectSpeed(speed: SpeedOption): void {
-      this.conf.duration = speed.value;
+      this.conf.repeats = speed.value.repeats;
+      this.conf.duration = speed.value.duration;
     },
     toggleAutoSize(value: boolean): void {
       this.$emit("update:emojiSize", value ? null : EMOJI_SIZE);
@@ -218,9 +218,6 @@ export default defineComponent({
           || this.conf.webglEffects.length
         );
 
-        const framerate = Math.min(FRAMERATE_MAX, Math.ceil(FRAMECOUNT_MAX / this.conf.duration));
-        const framecount = Math.floor(this.conf.duration * framerate);
-
         const maxSize = this.emojiSize || (animated ? ANIMATED_EMOJI_SIZE : EMOJI_SIZE);
         const aspectCoef = Math.sqrt(this.conf.targetAspect);
         const binarySizeLimit = this.emojiSize ? Infinity : BINARY_SIZE_LIMIT;
@@ -241,8 +238,8 @@ export default defineComponent({
           this.conf.effects.concat(this.conf.staticEffects).map((eff) => eff.value),
           this.conf.webglEffects.map((eff) => eff.value),
           this.conf.easing.value,
-          framerate,
-          framecount,
+          this.conf.repeats,
+          this.conf.duration,
           this.conf.backgroundColor,
           this.conf.transparent,
           binarySizeLimit,
@@ -343,20 +340,12 @@ export default defineComponent({
                 :max="Math.max(5, naturalAspect)" />
           </Fieldset>
           <EffectBlock v-model="conf.staticEffects" :effects="staticeffects" />
-          <Fieldset v-if="!showDetails" label="速度 (アニメ)">
+          <Fieldset label="速度 (アニメ)">
             <Select
                 v-model="conf.speed"
                 name="速度(アニメ)"
                 :options="SPEED_OPTIONS"
                 @update:model-value="selectSpeed($event)" />
-          </Fieldset>
-          <Fieldset v-if="showDetails" label="長さ (アニメ)">
-            <Slider
-                v-model="conf.duration"
-                block
-                :min="0.1"
-                :step="0.1"
-                :max="2.0" />
           </Fieldset>
           <Fieldset label="イージング (アニメ)">
             <Select v-model="conf.easing" name="イージング" :options="easings" />
