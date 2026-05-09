@@ -22,7 +22,7 @@ ctx.addEventListener("message", (msg) => {
   } else if (msg.data.addFrame) {
     const array = msg.data.addFrame;
     frames.push(array.buffer);
-    delays.push(options.delay);
+    delays.push(msg.data.halfDelay ? options.delay / 2 : options.delay);
   } else if (msg.data.finish) {
     const png = encode(
       frames,

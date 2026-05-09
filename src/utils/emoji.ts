@@ -156,7 +156,7 @@ const renderAllCellsFixedSize = async (
       [1, repeats]
     );
     const durationPerRep = duration / repeats;
-    const framesPerRep = Math.min(FRAMECOUNT / repsPerLoop);
+    const framesPerRep = Math.min((FRAMECOUNT - 1) / repsPerLoop);
     const framerate = framesPerRep / durationPerRep;
     const delayPerFrame = 1000 / framerate;
     console.log({
@@ -187,8 +187,8 @@ const renderAllCellsFixedSize = async (
       }
       encoders.push(row);
     }
-    for (let rep = 0; rep < repsPerLoop; rep += 1) {
-      for (let i = 0; i < framesPerRep; i += 1) {
+    for (let rep = 0; rep <= repsPerLoop; rep += 1) {
+      for (let i = 0; i < (rep === repsPerLoop ? 1 : framesPerRep); i += 1) {
         const keyframe = animationInvert ? 1 - easing(i / framesPerRep) : easing(i / framesPerRep);
         const frame = await renderFrameUncut(
           keyframe,
@@ -231,6 +231,7 @@ const renderAllCellsFixedSize = async (
 
             encoders[y][x].postMessage({
               addFrame: data,
+              halfDelay: (rep === 0 && i === 0) || rep === repsPerLoop,
             });
           }
         }
