@@ -358,7 +358,7 @@ export default defineComponent({
                 :step="0.1"
                 :max="2.0" />
           </Fieldset>
-          <Fieldset v-if="showDetails" label="イージング (アニメ)">
+          <Fieldset label="イージング (アニメ)">
             <Select v-model="conf.easing" name="イージング" :options="easings" />
           </Fieldset>
           <Fieldset label="背景色">
