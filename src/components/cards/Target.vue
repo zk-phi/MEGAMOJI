@@ -47,9 +47,9 @@ const TRIMMING_OPTIONS = [
 
 const SPEED_OPTIONS = [
   { label: "超ゆっくり", value: { duration: 4.0, repeats: 2 } },
-  { label: "ゆっくり", value: { duration: 3.9, repeats: 3 } },
-  { label: "ふつう", value: { duration: 3.2, repeats: 4 } },
-  { label: "はやい", value: { duration: 3.6, repeats: 12 } },
+  { label: "ゆっくり", value: { duration: 3.0, repeats: 2 } },
+  { label: "ふつう", value: { duration: 4.0, repeats: 4 } },
+  { label: "はやい", value: { duration: 4.0, repeats: 12 } },
 ];
 
 export default defineComponent({

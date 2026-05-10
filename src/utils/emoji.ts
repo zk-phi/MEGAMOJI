@@ -155,14 +155,19 @@ const renderAllCellsFixedSize = async (
     ) : (
       [1, repeats]
     );
-    const durationPerRep = duration / repeats;
+    const durationPerLoop = duration * 1000 / loops;
+    const durationPerRep = durationPerLoop / repsPerLoop;
     const framesPerRep = Math.floor((FRAMECOUNT - 1) / repsPerLoop);
-    const framerate = framesPerRep / durationPerRep;
-    const delayPerFrame = Math.round(1000 / framerate);
+    const framesPerLoop = framesPerRep * repsPerLoop;
+    const delayPerFrame = Math.floor(durationPerLoop / framesPerLoop);
+    const firstFrameDelay = Math.floor(delayPerFrame / 2);
+    const totalDelay = delayPerFrame * (framesPerLoop - 1) + firstFrameDelay;
+    const extraFrameDelay = Math.round(durationPerLoop - totalDelay);
     console.log({
-      fps: framerate,
-      loopDuration: delayPerFrame * (FRAMECOUNT - 1),
-      loopFrames: framesPerRep * repsPerLoop + 1,
+      fps: durationPerLoop / framesPerLoop,
+      delay: [firstFrameDelay, delayPerFrame, extraFrameDelay],
+      loopDuration: totalDelay + extraFrameDelay,
+      loopFrames: framesPerLoop + 1,
       loops,
     });
     const encoders = [];
@@ -172,7 +177,6 @@ const renderAllCellsFixedSize = async (
         initialize: {
           height: croppedHeight,
           width: croppedWidth,
-          delay: delayPerFrame,
           cnum: 512,
           loops,
         },
@@ -228,10 +232,14 @@ const renderAllCellsFixedSize = async (
               croppedHeight,
             );
 
-            encoders[y][x].postMessage({
-              addFrame: data,
-              halfDelay: (rep === 0 && i === 0) || rep === repsPerLoop,
-            });
+            const delay = rep === 0 && i === 0 ? (
+              firstFrameDelay
+            ) : rep === repsPerLoop ? (
+              extraFrameDelay
+            ) : (
+              delayPerFrame
+            );
+            encoders[y][x].postMessage({ addFrame: data, delay });
           }
         }
       }

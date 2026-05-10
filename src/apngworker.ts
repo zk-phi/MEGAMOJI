@@ -1,7 +1,6 @@
 import { encode } from "upng-js";
 
 type Options = {
-  delay: number,
   width: number,
   height: number,
   cnum: number,
@@ -17,12 +16,12 @@ let options: Options;
 
 ctx.addEventListener("message", (msg) => {
   if (msg.data.initialize) {
-    const { delay, width, height, cnum, loops } = msg.data.initialize;
-    options = { delay, width, height, cnum: cnum ?? Infinity, loops: loops ?? Infinity };
+    const { width, height, cnum, loops } = msg.data.initialize;
+    options = { width, height, cnum: cnum ?? Infinity, loops: loops ?? Infinity };
   } else if (msg.data.addFrame) {
     const array = msg.data.addFrame;
     frames.push(array.buffer);
-    delays.push(msg.data.halfDelay ? options.delay / 2 : options.delay);
+    delays.push(msg.data.delay);
   } else if (msg.data.finish) {
     const png = encode(
       frames,
