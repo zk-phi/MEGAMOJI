@@ -158,13 +158,12 @@ const renderAllCellsFixedSize = async (
     const durationPerRep = duration / repeats;
     const framesPerRep = Math.floor((FRAMECOUNT - 1) / repsPerLoop);
     const framerate = framesPerRep / durationPerRep;
-    const delayPerFrame = 1000 / framerate;
+    const delayPerFrame = Math.round(1000 / framerate);
     console.log({
       fps: framerate,
-      loopDuration: durationPerRep * repsPerLoop,
-      loopFrames: framesPerRep * repsPerLoop,
+      loopDuration: delayPerFrame * (FRAMECOUNT - 1),
+      loopFrames: framesPerRep * repsPerLoop + 1,
       loops,
-      totalDuration: delayPerFrame * framesPerRep * repsPerLoop * loops / 1000,
     });
     const encoders = [];
     const initializeEncoder = () => {
