@@ -156,7 +156,7 @@ const renderAllCellsFixedSize = async (
       [1, repeats]
     );
     const durationPerRep = duration / repeats;
-    const framesPerRep = Math.min((FRAMECOUNT - 1) / repsPerLoop);
+    const framesPerRep = Math.floor((FRAMECOUNT - 1) / repsPerLoop);
     const framerate = framesPerRep / durationPerRep;
     const delayPerFrame = 1000 / framerate;
     console.log({
