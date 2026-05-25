@@ -13,7 +13,7 @@ const animationPassingVertical: Animation = async (
   cellHeight,
 ) => {
   const kf = (keyframe + 0.5) % 1;
-  for (const i of [0, 1, 2]) {
+  for (let i = 0; i < 3; i += 1) {
     await fixDrawImage(
       ctx,
       image,
@@ -34,7 +34,7 @@ const animationPassingVertical: Animation = async (
       width / 2,
       height,
       cellWidth / 2,
-      - cellHeight / 2 + cellHeight / 2 * i + cellHeight / 2 * kf,
+      -cellHeight / 2 + cellHeight / 2 * i + cellHeight / 2 * kf,
       cellWidth / 4,
       cellHeight / 2,
     );

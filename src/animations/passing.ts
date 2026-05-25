@@ -13,7 +13,7 @@ const animationScroll: Animation = async (
   cellHeight,
 ) => {
   const kf = (keyframe + 0.5) % 1;
-  for (const i of [0, 1, 2]) {
+  for (let i = 0; i < 3; i += 1) {
     await fixDrawImage(
       ctx,
       image,
@@ -30,10 +30,10 @@ const animationScroll: Animation = async (
       ctx,
       image,
       offsetH,
-      offsetV+ height / 2,
+      offsetV + height / 2,
       width,
       height / 2,
-      - cellWidth / 2 + cellWidth / 2 * i + cellWidth / 2 * kf,
+      -cellWidth / 2 + cellWidth / 2 * i + cellWidth / 2 * kf,
       cellHeight / 2,
       cellWidth / 2,
       cellHeight / 4,
