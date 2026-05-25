@@ -14,6 +14,15 @@ const animationScrollVertical: Animation = async (
 ) => {
   const kf = 1 - (keyframe + 0.5) % 1;
   for (const i of [0, 1, 2]) {
+    // -1/2                   +----+
+    // -1/4           +----+  |    |
+    //    0   +----+  |    |  +----+
+    //  1/4 --|----|--+----+--|----|--
+    //  1/2   +----+  |    |  +----+
+    //  4/3 --|----|--+----+--|----|--
+    //    1   +----+  |    |  +----+
+    //        |    |  +----+
+    //        +----+
     await fixDrawImage(
       ctx,
       image,
