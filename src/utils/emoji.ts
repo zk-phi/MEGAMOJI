@@ -169,7 +169,7 @@ const renderAllCellsFixedSize = async (
         initialize: {
           height: croppedHeight,
           width: croppedWidth,
-          cnum: 512,
+          cnum: 256,
           loops,
         },
       });
