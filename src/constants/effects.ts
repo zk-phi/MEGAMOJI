@@ -5,6 +5,8 @@ import effectShadowRotate from "../effects/shadowRotate";
 import effectPatapata from "../effects/patapata";
 import effectRoulette from "../effects/roulette";
 import effectNeruneru from "../effects/neruneru";
+import effectYokoyure from "../effects/yokoyure";
+import effectTateyure from "../effects/tateyure";
 import effectGatagata from "../effects/gatagata";
 import effectYatta from "../effects/yatta";
 import effectPoyon from "../effects/poyon";
@@ -22,6 +24,8 @@ export default [
       { label: "びょいんびょいん", value: effectZoom },
       { label: "ルーレット", value: effectRoulette },
       { label: "ねるねる", value: effectNeruneru },
+      { label: "横ゆれ", value: effectYokoyure },
+      { label: "縦ゆれ", value: effectTateyure },
       { label: "ゆらゆら", value: effectYurayura },
       { label: "ぱたぱた", value: effectPatapata },
       { label: "ヤッタ", value: effectYatta },
