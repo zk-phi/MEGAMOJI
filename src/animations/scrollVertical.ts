@@ -13,42 +13,20 @@ const animationScrollVertical: Animation = async (
   cellHeight,
 ) => {
   const kf = 1 - (keyframe + 0.5) % 1;
-  await fixDrawImage(
-    ctx,
-    image,
-    offsetH,
-    offsetV,
-    width,
-    height,
-    cellWidth / 4,
-    -cellHeight / 2 * kf,
-    cellWidth / 2,
-    cellHeight / 2,
-  );
-  await fixDrawImage(
-    ctx,
-    image,
-    offsetH,
-    offsetV,
-    width,
-    height,
-    cellWidth / 4,
-    cellHeight / 2 - cellHeight / 2 * kf,
-    cellWidth / 2,
-    cellHeight / 2,
-  );
-  await fixDrawImage(
-    ctx,
-    image,
-    offsetH,
-    offsetV,
-    width,
-    height,
-    cellWidth / 4,
-    cellHeight - cellHeight / 2 * kf,
-    cellWidth / 2,
-    cellHeight / 2,
-  );
+  for (const i of [0, 1, 2]) {
+    await fixDrawImage(
+      ctx,
+      image,
+      offsetH,
+      offsetV,
+      width,
+      height,
+      cellWidth / 4,
+      cellHeight / 2 * i - cellHeight / 2 * kf,
+      cellWidth / 2,
+      cellHeight / 2,
+    );
+  }
 };
 
 export default animationScrollVertical;
