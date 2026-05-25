@@ -10,29 +10,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="reaction">
-    <img :class="`reaction_icon ${ rounded ? 'mi2' : ''}`" :src="src"> 5
-  </div>
+  <img :class="`reaction_icon ${ rounded ? 'mi2' : ''}`" :src="src">
 </template>
 
 <style scoped>
-.reaction {
-  display: inline-block;
-  padding: 3px 6px;
-  margin: 2px;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-  background-color: rgba(128, 128, 128, 0.3);
-  border: 1px solid transparent;
-  border-radius: 12px;
-}
-
-.reaction:hover {
-  background-color: rgba(128, 128, 128, 0.2);
-  border-color: currentColor;
-}
-
 .reaction_icon {
   display: inline-block;
   height: 19px;

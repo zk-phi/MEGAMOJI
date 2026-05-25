@@ -6,6 +6,7 @@ import { extension, prepareDownloadFile } from "../../utils/file";
 import Analytics from "../../utils/analytics";
 import RawResult from "../emoji/RawResult.vue";
 import Preview from "../emoji/Preview.vue";
+import Reaction from "../emoji/Reaction.vue";
 import Button from "../inputs/Button.vue";
 import Checkbox from "../inputs/Checkbox.vue";
 import Space from "../global/Space.vue";
@@ -17,7 +18,7 @@ import { NODE_ENV } from "../../utils/env";
 
 export default defineComponent({
   components: {
-    RawResult, Preview, Checkbox, Card, Space, Button, Effect, Back, Save,
+    RawResult, Preview, Reaction, Checkbox, Card, Space, Button, Effect, Back, Save,
   },
   props: {
     images: { type: Array as PropType<Blob[][]>, required: true },
@@ -73,6 +74,10 @@ export default defineComponent({
             :images="resultImageUrls"
             :dark-mode="true"
             :rounded="rounded" />
+        <Reaction
+            v-if="previewMode"
+            :src="resultImageUrls[0][0]"
+            :rounded="rounded" />
         <span v-if="isDev && images[0].length === 1">
           ファイルサイズ: {{ totalSize / 1024 }} KiB
         </span>
@@ -115,24 +120,6 @@ export default defineComponent({
 
 <style scoped>
 .result {
-  background-image:
-    linear-gradient(
-      45deg,
-      var(--bg) 25%,
-      transparent 25%,
-      transparent 75%,
-      var(--bg) 75%,
-      var(--bg)
-    ),
-    linear-gradient(
-      45deg,
-      var(--bg) 25%,
-      transparent 25%,
-      transparent 75%,
-      var(--bg) 75%,
-      var(--bg)
-    );
-  background-position: 0 0, 10px 10px;
-  background-size: 20px 20px;
+  background-color: #8CABD8;
 }
 </style>
