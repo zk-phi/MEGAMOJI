@@ -1,5 +1,7 @@
 import animationEkken from "../animations/ekken";
 import animationEkkenVertical from "../animations/ekkenVertical";
+import animationPassing from "../animations/passing";
+import animationPassingVertical from "../animations/passingVertical";
 import animationKanpai from "../animations/kanpai";
 import animationKanpaiLefty from "../animations/kanpaiLefty";
 import animationScroll from "../animations/scroll";
@@ -10,6 +12,8 @@ import animationScrollFull from "../animations/scrollFull";
 export default [
   { label: "スクロール", value: animationScroll },
   { label: "スクロール (縦)", value: animationScrollVertical },
+  { label: "すれ違い", value: animationPassing },
+  { label: "すれ違い（縦）", value: animationPassingVertical },
   { label: "謁見", value: animationEkken },
   { label: "謁見バーティカル", value: animationEkkenVertical },
   { label: "通過 ('はみだす'向け)", value: animationScrollFull },
