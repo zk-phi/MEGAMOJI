@@ -156,20 +156,12 @@ const renderAllCellsFixedSize = async (
       [1, repeats]
     );
     const durationPerLoop = duration * 1000 / loops;
-    const durationPerRep = durationPerLoop / repsPerLoop;
     const framesPerRep = Math.floor((FRAMECOUNT - 1) / repsPerLoop);
     const framesPerLoop = framesPerRep * repsPerLoop;
     const delayPerFrame = Math.floor(durationPerLoop / framesPerLoop);
     const firstFrameDelay = Math.floor(delayPerFrame / 2);
     const totalDelay = delayPerFrame * (framesPerLoop - 1) + firstFrameDelay;
     const extraFrameDelay = Math.round(durationPerLoop - totalDelay);
-    console.log({
-      fps: durationPerLoop / framesPerLoop,
-      delay: [firstFrameDelay, delayPerFrame, extraFrameDelay],
-      loopDuration: totalDelay + extraFrameDelay,
-      loopFrames: framesPerLoop + 1,
-      loops,
-    });
     const encoders = [];
     const initializeEncoder = () => {
       const encoder = new Worker("./apngworker.js");
