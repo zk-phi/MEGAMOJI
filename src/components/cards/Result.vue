@@ -120,6 +120,6 @@ export default defineComponent({
 
 <style scoped>
 .result {
-  background-color: #8CABD8;
+  background-color: #8cabd8;
 }
 </style>
