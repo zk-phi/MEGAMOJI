@@ -15,6 +15,7 @@ import effectNorinori from "../effects/norinori";
 import effectYurayura from "../effects/yurayura";
 import effectZoom from "../effects/zoom";
 import effectStraight from "../effects/straight";
+import effectStamp from "../effects/stamp";
 
 export default [
   {
@@ -34,6 +35,7 @@ export default [
       { label: "ノリノリ", value: effectNorinori },
       { label: "BLINK", value: effectBlink },
       { label: "直球", value: effectStraight },
+      { label: "スタンプ", value: effectStamp },
     ],
   }, {
     label: "シャドウ",
